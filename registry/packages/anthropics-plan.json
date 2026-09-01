@@ -1,0 +1,29 @@
+{
+  "name": "anthropics/plan",
+  "type": "skill",
+  "description": "Plan mode skill — structured planning before coding",
+  "homepage": "https://github.com/anthropics/skills",
+  "repository": "https://github.com/anthropics/skills",
+  "author": "Anthropic",
+  "keywords": ["planning", "workflow", "claude-code"],
+  "source": "skills/plan",
+  "versions": {
+    "1.2.0": {
+      "version": "1.2.0",
+      "tarball": "https://github.com/anthropics/skills/releases/download/plan-1.2.0/plan-1.2.0.tar.gz",
+      "sha256": "placeholder-sha256-1-2-0",
+      "engines": { "claude-code": ">=1.0.0", "opencode": ">=0.5.0" },
+      "dependencies": {},
+      "publishedAt": "2026-08-30T12:00:00Z"
+    },
+    "1.1.0": {
+      "version": "1.1.0",
+      "tarball": "https://github.com/anthropics/skills/releases/download/plan-1.1.0/plan-1.1.0.tar.gz",
+      "sha256": "placeholder-sha256-1-1-0",
+      "engines": { "claude-code": ">=1.0.0" },
+      "dependencies": {},
+      "publishedAt": "2026-08-15T12:00:00Z"
+    }
+  },
+  "latest": "1.2.0"
+}

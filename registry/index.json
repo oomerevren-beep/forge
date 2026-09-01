@@ -1,0 +1,33 @@
+{
+  "generatedAt": "2026-09-01T00:00:00Z",
+  "count": 3,
+  "packages": {
+    "anthropics/plan": {
+      "name": "anthropics/plan",
+      "type": "skill",
+      "description": "Plan mode skill — structured planning before coding",
+      "latest": "1.2.0",
+      "versions": ["1.2.0", "1.1.0"],
+      "keywords": ["planning", "workflow"],
+      "updatedAt": "2026-08-30T12:00:00Z"
+    },
+    "mcp/filesystem": {
+      "name": "mcp/filesystem",
+      "type": "mcp",
+      "description": "Filesystem MCP server — read/write files securely",
+      "latest": "1.0.2",
+      "versions": ["1.0.2"],
+      "keywords": ["mcp", "filesystem"],
+      "updatedAt": "2026-08-28T12:00:00Z"
+    },
+    "obra/superpowers": {
+      "name": "obra/superpowers",
+      "type": "skill",
+      "description": "An agentic skills framework & development methodology",
+      "latest": "3.0.0",
+      "versions": ["3.0.0"],
+      "keywords": ["skills", "workflow", "brainstorming"],
+      "updatedAt": "2026-08-29T12:00:00Z"
+    }
+  }
+}

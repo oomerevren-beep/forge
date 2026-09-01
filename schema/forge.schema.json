@@ -1,0 +1,38 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "title": "forge.toml schema",
+  "type": "object",
+  "properties": {
+    "package": {
+      "type": "object",
+      "required": ["name", "version", "type", "description"],
+      "properties": {
+        "name": { "type": "string", "pattern": "^[a-z0-9-]+\\/[a-z0-9-]+$" },
+        "version": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+" },
+        "type": { "enum": ["skill", "mcp", "plugin", "agent", "command", "hook"] },
+        "description": { "type": "string", "minLength": 10, "maxLength": 200 },
+        "license": { "type": "string" },
+        "homepage": { "type": "string" },
+        "repository": { "type": "string" },
+        "source": { "type": "string" }
+      }
+    },
+    "engines": { "type": "object", "additionalProperties": { "type": "string" } },
+    "dependencies": { "type": "object", "additionalProperties": { "type": "string" } },
+    "files": {
+      "type": "object",
+      "properties": {
+        "include": { "type": "array", "items": { "type": "string" } },
+        "exclude": { "type": "array", "items": { "type": "string" } }
+      }
+    },
+    "mcp": {
+      "type": "object",
+      "properties": {
+        "command": { "type": "string" },
+        "args": { "type": "array", "items": { "type": "string" } },
+        "env": { "type": "object" }
+      }
+    }
+  }
+}
