@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "NodeNext",
+    "moduleResolution": "nodenext",
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "strict": true,
+    "types": ["node", "bun-types"],
+    "outDir": "dist",
+    "rootDir": "."
+  },
+  "include": ["cli/**/*", "scripts/**/*"],
+  "exclude": ["node_modules", "dist"]
+}

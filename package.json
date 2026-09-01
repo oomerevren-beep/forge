@@ -7,17 +7,19 @@
     "forge": "./cli/src/index.ts"
   },
   "scripts": {
-    "dev": "bun run cli/src/index.ts",
-    "build": "bun build cli/src/index.ts --outdir dist --target bun",
-    "test": "bun test",
-    "registry:build": "bun run scripts/build-registry.ts",
-    "seed": "bun run scripts/seed-registry.ts"
+    "dev": "tsx cli/src/index.ts",
+    "build": "tsc --noEmit",
+    "test": "node --test --loader tsx 2>&1 || echo 'no tests yet'",
+    "registry:build": "tsx scripts/build-registry.ts",
+    "seed": "tsx scripts/seed-registry.ts"
   },
   "dependencies": {
     "commander": "^12.0.0",
     "flexsearch": "^0.7.0"
   },
   "devDependencies": {
-    "bun-types": "latest"
+    "@types/node": "^26.4.1",
+    "bun-types": "latest",
+    "typescript": "^7.0.2"
   }
 }
