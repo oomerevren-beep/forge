@@ -7,11 +7,13 @@
 
 > One CLI to install skills, MCPs, plugins, agents on any harness.
 
+> **v0.1.0 — 100 packages, 5 harnesses, team sync ready** — `forge install` now live.
+
 ![demo](docs/assets/demo.gif)
 
 ```bash
-curl -fsSL https://forge.sh/install.sh | sh
-# Windows: irm https://forge.sh/install.ps1 | iex
+curl -fsSL https://raw.githubusercontent.com/oomerevren-beep/forge/main/install.sh | sh
+# Windows: irm https://raw.githubusercontent.com/oomerevren-beep/forge/main/install.ps1 | iex
 # or
 npm i -g forge
 ```
@@ -55,12 +57,10 @@ No more `git clone + cp SKILL.md`. One command, every harness.
 
 ```bash
 # via curl (recommended)
-curl -fsSL https://forge.sh/install.sh | sh
+curl -fsSL https://raw.githubusercontent.com/oomerevren-beep/forge/main/install.sh | sh
 
-# via npm/bun
+# via npm
 npm i -g forge
-# or
-bun add -g forge
 
 # via cargo (v0.2)
 cargo install forge
@@ -175,8 +175,10 @@ Star this repo to get notified at launch. First 100 packages drop at v0.1.
 ```bash
 git clone https://github.com/oomerevren-beep/forge
 cd forge
-bun install
-bun run dev -- help
+npm install
+npm run build
+npm test
+npm run dev -- help  # or: npx tsx cli/src/index.ts --help
 ```
 
 See [CONTRIBUTING.md](CONTRIBUTING.md).

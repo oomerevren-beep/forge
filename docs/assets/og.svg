@@ -1,0 +1,18 @@
+<svg width="1280" height="640" viewBox="0 0 1280 640" xmlns="http://www.w3.org/2000/svg">
+  <rect width="1280" height="640" fill="#0a0a0a"/>
+  <rect x="40" y="40" width="1200" height="560" rx="32" fill="none" stroke="#222" stroke-width="2"/>
+  <text x="80" y="120" font-family="Inter, Arial" font-size="54" font-weight="800" fill="#fff">forge</text>
+  <text x="80" y="165" font-family="Inter, Arial" font-size="18" fill="#888">The Homebrew for AI Agents</text>
+  <text x="80" y="260" font-family="monospace" font-size="22" fill="#fff">forge add anthropics/plan</text>
+  <text x="80" y="290" font-family="monospace" font-size="14" fill="#666">→ 5 harnesses · 100 packages · one CLI</text>
+  <rect x="80" y="340" width="420" height="48" rx="12" fill="#fff"/>
+  <text x="300" y="370" font-family="Inter, Arial" font-size="16" font-weight="700" fill="#000" text-anchor="middle">curl -fsSL .../install.sh | sh</text>
+  <text x="80" y="440" font-family="Inter, Arial" font-size="15" fill="#aaa">Claude Code · Codex · OpenCode · Cursor · Generic</text>
+  <text x="80" y="560" font-family="Inter, Arial" font-size="13" fill="#555">github.com/oomerevren-beep/forge · v0.1.0 · 100 packages</text>
+  <g transform="translate(900,140)">
+    <rect width="280" height="280" rx="24" fill="none" stroke="#fff" stroke-width="8"/>
+    <path d="M 70 100 L 140 60 L 210 100 L 210 190 L 140 230 L 70 190 Z" fill="none" stroke="#fff" stroke-width="8"/>
+    <path d="M 140 60 L 140 230 M 70 100 L 210 190 M 210 100 L 70 190" stroke="#ff3b30" stroke-width="6" stroke-linecap="round"/>
+    <circle cx="140" cy="140" r="14" fill="#fff"/>
+  </g>
+</svg>

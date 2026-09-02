@@ -12,12 +12,12 @@ jobs:
       - uses: actions/setup-node@v4
         with:
           node-version: '20'
+          cache: 'npm'
       - run: npm ci
       - run: npm run registry:build -- --check
       - run: npm run build
       - run: npm test
-  registry:
-    if: github.ref == 'refs/heads/main'
+  pack:
     needs: validate
     runs-on: ubuntu-latest
     steps:
@@ -26,5 +26,5 @@ jobs:
         with:
           node-version: '20'
       - run: npm ci
-      - run: npm run registry:build
-      - run: echo "Registry built — deploy to R2 / GitHub Pages here"
+      - run: npm run build
+      - run: npm pack --dry-run

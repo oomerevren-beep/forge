@@ -1,5 +1,4 @@
-# Forge installer (Windows PowerShell)
-# irm https://forge.sh/install.ps1 | iex
+# Forge installer (Windows) — irm https://raw.githubusercontent.com/oomerevren-beep/forge/main/install.ps1 | iex
 $Repo = "oomerevren-beep/forge"
 $Version = if ($env:FORGE_VERSION) { $env:FORGE_VERSION } else { "0.1.0" }
 Write-Host "[forge] installer — $Repo@$Version"
@@ -11,7 +10,6 @@ if (Get-Command npm -ErrorAction SilentlyContinue) {
   exit 0
 }
 
-# Fallback: try GitHub Releases (binary Faz 21'de, simdi hata)
 $Url = "https://github.com/$Repo/releases/download/v$Version/forge-v$Version-windows-x64.zip"
 Write-Host "[forge] npm not found, trying $Url ..."
 try {
