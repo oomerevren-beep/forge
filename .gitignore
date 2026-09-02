@@ -7,3 +7,9 @@ dist
 # project generic cache (Faz 3 .forge is local)
 forge.lock.bak
 /tmp/forge-*
+# private strategy docs — never push to public GitHub
+docs/private/
+docs/FAZ*-PLAN.md
+docs/*100K*
+docs/LAUNCH.md
+docs/REVIZE-*.md

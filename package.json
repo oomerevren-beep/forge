@@ -3,7 +3,7 @@
   "version": "0.1.1",
   "description": "The Homebrew for AI Agents — one CLI for skills, MCPs, plugins, agents",
   "license": "MIT",
-  "author": "Ömer Evren <omermahmut44@gmail.com>",
+  "author": "Ömer Evren",
   "homepage": "https://github.com/oomerevren-beep/forge#quick-start",
   "repository": {
     "type": "git",
