@@ -4,13 +4,21 @@
   "description": "An agentic skills framework & development methodology",
   "homepage": "https://github.com/obra/superpowers",
   "repository": "https://github.com/obra/superpowers",
-  "keywords": ["skills", "workflow", "brainstorming"],
+  "keywords": [
+    "skills",
+    "workflow",
+    "brainstorming"
+  ],
   "versions": {
     "3.0.0": {
       "version": "3.0.0",
       "tarball": "https://github.com/obra/superpowers/releases/download/v3.0.0/superpowers-3.0.0.tar.gz",
-      "sha256": "placeholder-sha256-superpowers",
-      "engines": { "claude-code": "*", "opencode": "*", "codex": "*" },
+      "sha256": "5210808df6d985147657954bd20626cd7c34deccd2391d0957c4099882fb53d2",
+      "engines": {
+        "claude-code": "*",
+        "opencode": "*",
+        "codex": "*"
+      },
       "dependencies": {},
       "publishedAt": "2026-08-29T12:00:00Z"
     }

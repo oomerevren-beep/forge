@@ -1,8 +1,8 @@
 # Forge — The Homebrew for AI Agents
 
 [![CI](https://github.com/oomerevren-beep/forge/actions/workflows/ci.yml/badge.svg)](https://github.com/oomerevren-beep/forge/actions)
-[![npm version](https://img.shields.io/npm/v/forge?label=npm&color=CB3837)](https://www.npmjs.com/package/forge)
-[![npm downloads](https://img.shields.io/npm/dw/forge?label=downloads)](https://www.npmjs.com/package/forge)
+[![npm version](https://img.shields.io/npm/v/tryforge?label=npm&color=CB3837)](https://www.npmjs.com/package/tryforge)
+[![npm downloads](https://img.shields.io/npm/dw/tryforge?label=downloads)](https://www.npmjs.com/package/tryforge)
 [![license MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![registry](https://img.shields.io/badge/registry-100%20packages-green.svg)](registry/index.json)
 [![GitHub stars](https://img.shields.io/github/stars/oomerevren-beep/forge?style=social)](https://github.com/oomerevren-beep/forge)
@@ -14,7 +14,7 @@
 ```bash
 curl -fsSL https://raw.githubusercontent.com/oomerevren-beep/forge/main/install.sh | sh
 # or
-npm i -g forge
+npm i -g tryforge
 
 forge add anthropics/plan          # skill → Claude Code + Codex + OpenCode + Cursor
 forge add mcp/filesystem           # MCP server → auto mcp.json
@@ -97,10 +97,10 @@ curl -fsSL https://raw.githubusercontent.com/oomerevren-beep/forge/main/install.
 irm https://raw.githubusercontent.com/oomerevren-beep/forge/main/install.ps1 | iex
 
 # via npm
-npm i -g forge
+npm i -g tryforge
 
 # via cargo (v0.2 — Rust rewrite)
-cargo install forge
+cargo install tryforge
 ```
 
 Requires Node 18+ for v0.1 (TypeScript). Rust binary in v0.2 — single binary, no runtime.

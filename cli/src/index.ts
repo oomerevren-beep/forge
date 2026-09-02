@@ -21,7 +21,7 @@ const program = new Command();
 program
   .name("forge")
   .description("The Homebrew for AI Agents — one CLI for skills, MCPs, plugins, agents")
-  .version("0.1.0")
+  .version("0.1.1")
   .helpOption("-h, --help", "display help for command");
 
 // --- add ---

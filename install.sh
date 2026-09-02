@@ -3,15 +3,15 @@
 # or: FORGE_VERSION=0.1.0 sh install.sh
 set -e
 REPO="oomerevren-beep/forge"
-VERSION="${FORGE_VERSION:-0.1.0}"
+VERSION="${FORGE_VERSION:-0.1.1}"
 
 echo "[forge] installer — $REPO@$VERSION"
 
 if command -v npm >/dev/null 2>&1; then
   echo "[forge] installing via npm..."
-  npm i -g forge
-  echo "[forge] ✓ installed via npm — run 'forge doctor' to verify"
-  if ! command -v forge >/dev/null 2>&1; then
+  npm i -g tryforge
+  echo "[forge] ✓ installed via npm — run 'forge doctor' to verify (also available as 'tryforge')"
+  if ! command -v forge >/dev/null 2>&1 && ! command -v tryforge >/dev/null 2>&1; then
     echo "[forge] note: add npm global bin to PATH: $(npm bin -g 2>/dev/null || echo '~/.npm-global/bin')"
   fi
   exit 0
@@ -29,5 +29,5 @@ if command -v curl >/dev/null 2>&1; then
 fi
 
 echo "[forge] npm not found — please install Node.js 18+ from https://nodejs.org"
-echo "[forge] then rerun: npm i -g forge"
+echo "[forge] then rerun: npm i -g tryforge"
 exit 1

@@ -12,7 +12,7 @@
     "1.0.0": {
       "version": "1.0.0",
       "tarball": "https://github.com/cmd/plan/releases/download/v1.0.0/plan-1.0.0.tar.gz",
-      "sha256": "placeholder-sha256-cmd-plan",
+      "sha256": "bbaf44f52e01d3cae981884884dc3a121419cb43eb7efacd8ac39c86c66372fc",
       "engines": {
         "*": "*"
       },

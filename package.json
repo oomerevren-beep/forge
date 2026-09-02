@@ -1,6 +1,6 @@
 {
-  "name": "forge",
-  "version": "0.1.0",
+  "name": "tryforge",
+  "version": "0.1.1",
   "description": "The Homebrew for AI Agents — one CLI for skills, MCPs, plugins, agents",
   "license": "MIT",
   "author": "Ömer Evren <omermahmut44@gmail.com>",
@@ -27,7 +27,8 @@
   ],
   "type": "module",
   "bin": {
-    "forge": "./dist/cli/src/index.js"
+    "forge": "./dist/cli/src/index.js",
+    "tryforge": "./dist/cli/src/index.js"
   },
   "files": [
     "dist/",
