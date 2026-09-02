@@ -1,0 +1,25 @@
+{
+  "name": "anthropics/frontend",
+  "type": "skill",
+  "description": "Frontend design skill — React, Tailwind, components",
+  "homepage": "https://github.com/anthropics/frontend",
+  "repository": "https://github.com/anthropics/frontend",
+  "keywords": [
+    "frontend",
+    "design"
+  ],
+  "source": "skills/frontend-design",
+  "versions": {
+    "1.0.0": {
+      "version": "1.0.0",
+      "tarball": "https://github.com/anthropics/skills/releases/download/frontend-1.0.0/frontend-1.0.0.tar.gz",
+      "sha256": "placeholder-sha256-anthropics-frontend",
+      "engines": {
+        "claude-code": ">=1.0.0"
+      },
+      "dependencies": {},
+      "publishedAt": "2026-09-02T09:44:15.187Z"
+    }
+  },
+  "latest": "1.0.0"
+}

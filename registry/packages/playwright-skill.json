@@ -1,0 +1,24 @@
+{
+  "name": "playwright/skill",
+  "type": "skill",
+  "description": "Playwright skill — browser testing",
+  "homepage": "https://github.com/playwright/skill",
+  "repository": "https://github.com/playwright/skill",
+  "keywords": [
+    "playwright",
+    "testing"
+  ],
+  "versions": {
+    "1.0.0": {
+      "version": "1.0.0",
+      "tarball": "https://github.com/playwright/skill/releases/download/v1.0.0/skill-1.0.0.tar.gz",
+      "sha256": "placeholder-sha256-playwright-skill",
+      "engines": {
+        "*": "*"
+      },
+      "dependencies": {},
+      "publishedAt": "2026-09-02T09:44:15.216Z"
+    }
+  },
+  "latest": "1.0.0"
+}

@@ -1,0 +1,24 @@
+{
+  "name": "skill/pdf",
+  "type": "skill",
+  "description": "PDF skill — parse, generate, manipulate PDFs",
+  "homepage": "https://github.com/skill/pdf",
+  "repository": "https://github.com/skill/pdf",
+  "keywords": [
+    "pdf",
+    "document"
+  ],
+  "versions": {
+    "1.0.0": {
+      "version": "1.0.0",
+      "tarball": "https://github.com/skill/pdf/releases/download/v1.0.0/pdf-1.0.0.tar.gz",
+      "sha256": "placeholder-sha256-skill-pdf",
+      "engines": {
+        "*": "*"
+      },
+      "dependencies": {},
+      "publishedAt": "2026-09-02T09:44:15.248Z"
+    }
+  },
+  "latest": "1.0.0"
+}

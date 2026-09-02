@@ -1,0 +1,32 @@
+{
+  "name": "mcp/memory",
+  "type": "mcp",
+  "description": "Memory MCP server — knowledge graph memory",
+  "homepage": "https://github.com/mcp/memory",
+  "repository": "https://github.com/mcp/memory",
+  "keywords": [
+    "mcp",
+    "memory"
+  ],
+  "source": "src/memory",
+  "versions": {
+    "1.0.0": {
+      "version": "1.0.0",
+      "tarball": "https://github.com/modelcontextprotocol/servers/releases/download/memory-1.0.0/memory-1.0.0.tar.gz",
+      "sha256": "placeholder-sha256-mcp-memory",
+      "engines": {
+        "*": "*"
+      },
+      "dependencies": {},
+      "mcp": {
+        "command": "npx",
+        "args": [
+          "-y",
+          "@modelcontextprotocol/server-memory"
+        ]
+      },
+      "publishedAt": "2026-09-02T09:44:15.192Z"
+    }
+  },
+  "latest": "1.0.0"
+}

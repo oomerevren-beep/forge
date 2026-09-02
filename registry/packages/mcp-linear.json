@@ -1,0 +1,32 @@
+{
+  "name": "mcp/linear",
+  "type": "mcp",
+  "description": "Linear MCP server — issues and projects",
+  "homepage": "https://github.com/mcp/linear",
+  "repository": "https://github.com/mcp/linear",
+  "keywords": [
+    "mcp",
+    "linear"
+  ],
+  "source": "src/linear",
+  "versions": {
+    "1.0.0": {
+      "version": "1.0.0",
+      "tarball": "https://github.com/modelcontextprotocol/servers/releases/download/linear-1.0.0/linear-1.0.0.tar.gz",
+      "sha256": "placeholder-sha256-mcp-linear",
+      "engines": {
+        "*": "*"
+      },
+      "dependencies": {},
+      "mcp": {
+        "command": "npx",
+        "args": [
+          "-y",
+          "@modelcontextprotocol/server-linear"
+        ]
+      },
+      "publishedAt": "2026-09-02T09:44:15.202Z"
+    }
+  },
+  "latest": "1.0.0"
+}

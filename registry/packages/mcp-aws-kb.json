@@ -1,0 +1,32 @@
+{
+  "name": "mcp/aws-kb",
+  "type": "mcp",
+  "description": "AWS KB MCP server — knowledge base",
+  "homepage": "https://github.com/mcp/aws-kb",
+  "repository": "https://github.com/mcp/aws-kb",
+  "keywords": [
+    "mcp",
+    "aws"
+  ],
+  "source": "src/aws-kb",
+  "versions": {
+    "1.0.0": {
+      "version": "1.0.0",
+      "tarball": "https://github.com/modelcontextprotocol/servers/releases/download/aws-kb-1.0.0/aws-kb-1.0.0.tar.gz",
+      "sha256": "placeholder-sha256-mcp-aws-kb",
+      "engines": {
+        "*": "*"
+      },
+      "dependencies": {},
+      "mcp": {
+        "command": "npx",
+        "args": [
+          "-y",
+          "@modelcontextprotocol/server-aws-kb"
+        ]
+      },
+      "publishedAt": "2026-09-02T09:44:15.205Z"
+    }
+  },
+  "latest": "1.0.0"
+}

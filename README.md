@@ -1,6 +1,20 @@
 # Forge — The Homebrew for AI Agents
 
+[![CI](https://github.com/oomerevren-beep/forge/actions/workflows/ci.yml/badge.svg)](https://github.com/oomerevren-beep/forge/actions)
+[![npm version](https://img.shields.io/npm/v/forge?label=npm)](https://www.npmjs.com/package/forge)
+[![license MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![registry 100](https://img.shields.io/badge/registry-100%20packages-green.svg)](registry/index.json)
+
 > One CLI to install skills, MCPs, plugins, agents on any harness.
+
+![demo](docs/assets/demo.gif)
+
+```bash
+curl -fsSL https://forge.sh/install.sh | sh
+# Windows: irm https://forge.sh/install.ps1 | iex
+# or
+npm i -g forge
+```
 
 `brew` is for system packages. `forge` is for AI agent packages.
 
@@ -57,12 +71,45 @@ cargo install forge
 ```bash
 forge doctor              # detect your harnesses
 forge search plan         # find packages
-forge add anthropics/plan # install
+forge add anthropics/plan # install one package
 forge list                # see installed
 forge update              # update all
 ```
 
-Project-level (team sync):
+### Takim senkronu — `forge install`
+
+`forge.toml` dosyasini projene ekle, herkes ayni seti tek komutla kurar (npm'deki `package.json` gibi):
+
+```toml
+# my-project/forge.toml
+[project]
+name = "my-app"
+version = "0.1.0"
+
+[dependencies]
+"anthropics/plan" = "^1.2.0"
+"mcp/filesystem" = "^1.0.0"
+"obra/superpowers" = "^3.0.0"
+"skill/pdf" = "^1.0.0"
+```
+
+```bash
+forge install          # hepsini kurar, forge.lock olusturur
+forge install --frozen # lock'taki surumleri birebir kurar (CI icin)
+forge outdated         # eskileri gosterir
+forge update           # hepsini gunceller
+forge update mcp/github # tek paketi gunceller
+```
+
+### Yeni paket olusturma
+
+```bash
+forge init my-skill --type skill --yes   # skill sablonu + SKILL.md
+forge init my-mcp --type mcp --yes       # mcp sablonu + [mcp] config
+forge init my-agent --type agent --yes   # agent sablonu
+```
+
+Project-level (team sync) kisaca:
 
 ```toml
 # forge.toml in your project
@@ -72,7 +119,7 @@ Project-level (team sync):
 ```
 
 ```bash
-forge install  # installs all from forge.toml
+forge install  # installs all from forge.toml (yukaridaki ornek detayli)
 ```
 
 ---
@@ -113,7 +160,11 @@ See [docs/SPEC.md](docs/SPEC.md) and [docs/REGISTRY.md](docs/REGISTRY.md).
 
 ## Status
 
-**v0.1 in progress** — CLI + 4 adapters + 100 packages seed. Follow progress in [ROADMAP](docs/ROADMAP.md).
+**v0.1 — 100 packages, 5 harnesses, `forge install` ready — Trending prep**
+- Faz 1: `forge add` 5 harness'te çalışıyor
+- Faz 2: 100 paket seed (57 skill, 24 mcp, 8 agent, 5 command, 3 hook, 3 plugin)
+- Faz 3: `forge install` / `init` / `update` / `lock` / `config` hazır, test 5/5 PASS
+- Faz 4: 7s demo + `install.sh` + README polish (bu faz) — HN/Product Hunt öncesi son cilâ
 
 Star this repo to get notified at launch. First 100 packages drop at v0.1.
 

@@ -1,0 +1,24 @@
+{
+  "name": "skill/csv",
+  "type": "skill",
+  "description": "CSV skill — parse and transform CSV data",
+  "homepage": "https://github.com/skill/csv",
+  "repository": "https://github.com/skill/csv",
+  "keywords": [
+    "csv",
+    "data"
+  ],
+  "versions": {
+    "1.0.0": {
+      "version": "1.0.0",
+      "tarball": "https://github.com/skill/csv/releases/download/v1.0.0/csv-1.0.0.tar.gz",
+      "sha256": "placeholder-sha256-skill-csv",
+      "engines": {
+        "*": "*"
+      },
+      "dependencies": {},
+      "publishedAt": "2026-09-02T09:44:15.248Z"
+    }
+  },
+  "latest": "1.0.0"
+}

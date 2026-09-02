@@ -1,0 +1,13 @@
+{
+  "generatedAt": "2026-09-02T09:45:09.036Z",
+  "totalPackages": 100,
+  "byType": {
+    "skill": 57,
+    "agent": 8,
+    "command": 5,
+    "hook": 3,
+    "mcp": 24,
+    "plugin": 3
+  },
+  "placeholderSha": 101
+}

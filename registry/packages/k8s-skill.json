@@ -1,0 +1,24 @@
+{
+  "name": "k8s/skill",
+  "type": "skill",
+  "description": "Kubernetes skill — k8s manifests and ops",
+  "homepage": "https://github.com/k8s/skill",
+  "repository": "https://github.com/k8s/skill",
+  "keywords": [
+    "k8s",
+    "kubernetes"
+  ],
+  "versions": {
+    "1.0.0": {
+      "version": "1.0.0",
+      "tarball": "https://github.com/k8s/skill/releases/download/v1.0.0/skill-1.0.0.tar.gz",
+      "sha256": "placeholder-sha256-k8s-skill",
+      "engines": {
+        "*": "*"
+      },
+      "dependencies": {},
+      "publishedAt": "2026-09-02T09:44:15.228Z"
+    }
+  },
+  "latest": "1.0.0"
+}

@@ -1,0 +1,24 @@
+{
+  "name": "agent/docs-writer",
+  "type": "agent",
+  "description": "Docs writer agent — generate docs",
+  "homepage": "https://github.com/agent/docs-writer",
+  "repository": "https://github.com/agent/docs-writer",
+  "keywords": [
+    "agent",
+    "docs"
+  ],
+  "versions": {
+    "1.0.0": {
+      "version": "1.0.0",
+      "tarball": "https://github.com/agent/docs-writer/releases/download/v1.0.0/docs-writer-1.0.0.tar.gz",
+      "sha256": "placeholder-sha256-agent-docs-writer",
+      "engines": {
+        "*": "*"
+      },
+      "dependencies": {},
+      "publishedAt": "2026-09-02T09:44:15.245Z"
+    }
+  },
+  "latest": "1.0.0"
+}

@@ -1,0 +1,24 @@
+{
+  "name": "agency/backend-wizard",
+  "type": "agent",
+  "description": "Backend wizard — Node, Postgres, APIs",
+  "homepage": "https://github.com/agency/backend-wizard",
+  "repository": "https://github.com/agency/backend-wizard",
+  "keywords": [
+    "agent",
+    "backend"
+  ],
+  "versions": {
+    "1.0.0": {
+      "version": "1.0.0",
+      "tarball": "https://github.com/agency/backend-wizard/releases/download/v1.0.0/backend-wizard-1.0.0.tar.gz",
+      "sha256": "placeholder-sha256-agency-backend-wizard",
+      "engines": {
+        "*": "*"
+      },
+      "dependencies": {},
+      "publishedAt": "2026-09-02T09:44:15.207Z"
+    }
+  },
+  "latest": "1.0.0"
+}

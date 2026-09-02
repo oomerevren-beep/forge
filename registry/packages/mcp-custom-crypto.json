@@ -1,0 +1,31 @@
+{
+  "name": "mcp/custom-crypto",
+  "type": "mcp",
+  "description": "Crypto MCP server — price data",
+  "homepage": "https://github.com/mcp/custom-crypto",
+  "repository": "https://github.com/mcp/custom-crypto",
+  "keywords": [
+    "mcp",
+    "crypto"
+  ],
+  "versions": {
+    "1.0.0": {
+      "version": "1.0.0",
+      "tarball": "https://github.com/mcp/custom-crypto/releases/download/v1.0.0/custom-crypto-1.0.0.tar.gz",
+      "sha256": "placeholder-sha256-mcp-custom-crypto",
+      "engines": {
+        "*": "*"
+      },
+      "dependencies": {},
+      "mcp": {
+        "command": "npx",
+        "args": [
+          "-y",
+          "mcp-crypto"
+        ]
+      },
+      "publishedAt": "2026-09-02T09:44:15.247Z"
+    }
+  },
+  "latest": "1.0.0"
+}

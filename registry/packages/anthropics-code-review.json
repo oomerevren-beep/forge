@@ -1,0 +1,25 @@
+{
+  "name": "anthropics/code-review",
+  "type": "skill",
+  "description": "Code review skill — checklist and automated review",
+  "homepage": "https://github.com/anthropics/code-review",
+  "repository": "https://github.com/anthropics/code-review",
+  "keywords": [
+    "review",
+    "quality"
+  ],
+  "source": "skills/code-review",
+  "versions": {
+    "1.0.0": {
+      "version": "1.0.0",
+      "tarball": "https://github.com/anthropics/skills/releases/download/code-review-1.0.0/code-review-1.0.0.tar.gz",
+      "sha256": "placeholder-sha256-anthropics-code-review",
+      "engines": {
+        "claude-code": ">=1.0.0"
+      },
+      "dependencies": {},
+      "publishedAt": "2026-09-02T09:44:15.184Z"
+    }
+  },
+  "latest": "1.0.0"
+}

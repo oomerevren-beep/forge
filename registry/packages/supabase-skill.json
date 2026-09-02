@@ -1,0 +1,24 @@
+{
+  "name": "supabase/skill",
+  "type": "skill",
+  "description": "Supabase skill — Postgres, auth, storage",
+  "homepage": "https://github.com/supabase/skill",
+  "repository": "https://github.com/supabase/skill",
+  "keywords": [
+    "supabase",
+    "database"
+  ],
+  "versions": {
+    "1.0.0": {
+      "version": "1.0.0",
+      "tarball": "https://github.com/supabase/skill/releases/download/v1.0.0/skill-1.0.0.tar.gz",
+      "sha256": "placeholder-sha256-supabase-skill",
+      "engines": {
+        "*": "*"
+      },
+      "dependencies": {},
+      "publishedAt": "2026-09-02T09:44:15.219Z"
+    }
+  },
+  "latest": "1.0.0"
+}

@@ -1,0 +1,25 @@
+{
+  "name": "anthropics/api",
+  "type": "skill",
+  "description": "API design skill — REST, GraphQL, best practices",
+  "homepage": "https://github.com/anthropics/api",
+  "repository": "https://github.com/anthropics/api",
+  "keywords": [
+    "api",
+    "design"
+  ],
+  "source": "skills/api-design",
+  "versions": {
+    "1.0.0": {
+      "version": "1.0.0",
+      "tarball": "https://github.com/anthropics/skills/releases/download/api-1.0.0/api-1.0.0.tar.gz",
+      "sha256": "placeholder-sha256-anthropics-api",
+      "engines": {
+        "claude-code": ">=1.0.0"
+      },
+      "dependencies": {},
+      "publishedAt": "2026-09-02T09:44:15.187Z"
+    }
+  },
+  "latest": "1.0.0"
+}

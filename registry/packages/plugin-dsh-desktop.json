@@ -1,0 +1,24 @@
+{
+  "name": "plugin/dsh-desktop",
+  "type": "plugin",
+  "description": "DSH desktop plugin — UI extension",
+  "homepage": "https://github.com/plugin/dsh-desktop",
+  "repository": "https://github.com/plugin/dsh-desktop",
+  "keywords": [
+    "plugin",
+    "dsh"
+  ],
+  "versions": {
+    "1.0.0": {
+      "version": "1.0.0",
+      "tarball": "https://github.com/plugin/dsh-desktop/releases/download/v1.0.0/dsh-desktop-1.0.0.tar.gz",
+      "sha256": "placeholder-sha256-plugin-dsh-desktop",
+      "engines": {
+        "*": "*"
+      },
+      "dependencies": {},
+      "publishedAt": "2026-09-02T09:44:15.240Z"
+    }
+  },
+  "latest": "1.0.0"
+}

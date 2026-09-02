@@ -1,0 +1,24 @@
+{
+  "name": "agency/data-wizard",
+  "type": "agent",
+  "description": "Data wizard — ML, analysis, pipelines",
+  "homepage": "https://github.com/agency/data-wizard",
+  "repository": "https://github.com/agency/data-wizard",
+  "keywords": [
+    "agent",
+    "data"
+  ],
+  "versions": {
+    "1.0.0": {
+      "version": "1.0.0",
+      "tarball": "https://github.com/agency/data-wizard/releases/download/v1.0.0/data-wizard-1.0.0.tar.gz",
+      "sha256": "placeholder-sha256-agency-data-wizard",
+      "engines": {
+        "*": "*"
+      },
+      "dependencies": {},
+      "publishedAt": "2026-09-02T09:44:15.209Z"
+    }
+  },
+  "latest": "1.0.0"
+}

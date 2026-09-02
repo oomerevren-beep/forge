@@ -1,0 +1,24 @@
+{
+  "name": "openai/skill",
+  "type": "skill",
+  "description": "OpenAI skill — GPT integration patterns",
+  "homepage": "https://github.com/openai/skill",
+  "repository": "https://github.com/openai/skill",
+  "keywords": [
+    "openai",
+    "gpt"
+  ],
+  "versions": {
+    "1.0.0": {
+      "version": "1.0.0",
+      "tarball": "https://github.com/openai/skill/releases/download/v1.0.0/skill-1.0.0.tar.gz",
+      "sha256": "placeholder-sha256-openai-skill",
+      "engines": {
+        "*": "*"
+      },
+      "dependencies": {},
+      "publishedAt": "2026-09-02T09:44:15.221Z"
+    }
+  },
+  "latest": "1.0.0"
+}

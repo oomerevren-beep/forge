@@ -1,0 +1,33 @@
+{
+  "name": "mcp/sqlite",
+  "type": "mcp",
+  "description": "SQLite MCP server — local database",
+  "homepage": "https://github.com/mcp/sqlite",
+  "repository": "https://github.com/mcp/sqlite",
+  "keywords": [
+    "mcp",
+    "sqlite"
+  ],
+  "source": "src/sqlite",
+  "versions": {
+    "1.0.0": {
+      "version": "1.0.0",
+      "tarball": "https://github.com/modelcontextprotocol/servers/releases/download/sqlite-1.0.0/sqlite-1.0.0.tar.gz",
+      "sha256": "placeholder-sha256-mcp-sqlite",
+      "engines": {
+        "*": "*"
+      },
+      "dependencies": {},
+      "mcp": {
+        "command": "npx",
+        "args": [
+          "-y",
+          "@modelcontextprotocol/server-sqlite",
+          "/tmp/db.sqlite"
+        ]
+      },
+      "publishedAt": "2026-09-02T09:44:15.196Z"
+    }
+  },
+  "latest": "1.0.0"
+}

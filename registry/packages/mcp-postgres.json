@@ -1,0 +1,33 @@
+{
+  "name": "mcp/postgres",
+  "type": "mcp",
+  "description": "Postgres MCP server — SQL database access",
+  "homepage": "https://github.com/mcp/postgres",
+  "repository": "https://github.com/mcp/postgres",
+  "keywords": [
+    "mcp",
+    "postgres",
+    "sql"
+  ],
+  "source": "src/postgres",
+  "versions": {
+    "1.0.0": {
+      "version": "1.0.0",
+      "tarball": "https://github.com/modelcontextprotocol/servers/releases/download/postgres-1.0.0/postgres-1.0.0.tar.gz",
+      "sha256": "placeholder-sha256-mcp-postgres",
+      "engines": {
+        "*": "*"
+      },
+      "dependencies": {},
+      "mcp": {
+        "command": "npx",
+        "args": [
+          "-y",
+          "@modelcontextprotocol/server-postgres"
+        ]
+      },
+      "publishedAt": "2026-09-02T09:44:15.195Z"
+    }
+  },
+  "latest": "1.0.0"
+}

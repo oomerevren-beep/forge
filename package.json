@@ -9,17 +9,19 @@
   "scripts": {
     "dev": "tsx cli/src/index.ts",
     "build": "tsc --noEmit",
-    "test": "node --test --loader tsx 2>&1 || echo 'no tests yet'",
+    "test": "node --import tsx --test tests/**/*.test.ts cli/src/**/*.test.ts",
     "registry:build": "tsx scripts/build-registry.ts",
     "seed": "tsx scripts/seed-registry.ts"
   },
   "dependencies": {
     "commander": "^12.0.0",
-    "flexsearch": "^0.7.0"
+    "flexsearch": "^0.7.0",
+    "smol-toml": "^1.8.0"
   },
   "devDependencies": {
     "@types/node": "^26.4.1",
     "bun-types": "latest",
+    "tsx": "^4.23.13",
     "typescript": "^7.0.2"
   }
 }

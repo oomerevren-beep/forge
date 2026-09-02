@@ -1,0 +1,24 @@
+{
+  "name": "vercel/ship",
+  "type": "skill",
+  "description": "Ship skill — ship fast with Vercel",
+  "homepage": "https://github.com/vercel/ship",
+  "repository": "https://github.com/vercel/ship",
+  "keywords": [
+    "vercel",
+    "ship"
+  ],
+  "versions": {
+    "1.0.0": {
+      "version": "1.0.0",
+      "tarball": "https://github.com/vercel/ship/releases/download/v1.0.0/ship-1.0.0.tar.gz",
+      "sha256": "placeholder-sha256-vercel-ship",
+      "engines": {
+        "*": "*"
+      },
+      "dependencies": {},
+      "publishedAt": "2026-09-02T09:44:15.223Z"
+    }
+  },
+  "latest": "1.0.0"
+}

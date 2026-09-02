@@ -1,0 +1,32 @@
+{
+  "name": "mcp/gdrive",
+  "type": "mcp",
+  "description": "Google Drive MCP server — files and folders",
+  "homepage": "https://github.com/mcp/gdrive",
+  "repository": "https://github.com/mcp/gdrive",
+  "keywords": [
+    "mcp",
+    "gdrive"
+  ],
+  "source": "src/gdrive",
+  "versions": {
+    "1.0.0": {
+      "version": "1.0.0",
+      "tarball": "https://github.com/modelcontextprotocol/servers/releases/download/gdrive-1.0.0/gdrive-1.0.0.tar.gz",
+      "sha256": "placeholder-sha256-mcp-gdrive",
+      "engines": {
+        "*": "*"
+      },
+      "dependencies": {},
+      "mcp": {
+        "command": "npx",
+        "args": [
+          "-y",
+          "@modelcontextprotocol/server-gdrive"
+        ]
+      },
+      "publishedAt": "2026-09-02T09:44:15.203Z"
+    }
+  },
+  "latest": "1.0.0"
+}

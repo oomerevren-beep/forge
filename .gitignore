@@ -3,4 +3,7 @@ dist
 .cache
 .DS_Store
 *.log
-~/.forge
+.forge/
+# project generic cache (Faz 3 .forge is local)
+forge.lock.bak
+/tmp/forge-*

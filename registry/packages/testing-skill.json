@@ -1,0 +1,24 @@
+{
+  "name": "testing/skill",
+  "type": "skill",
+  "description": "Testing skill — unit, e2e, coverage",
+  "homepage": "https://github.com/testing/skill",
+  "repository": "https://github.com/testing/skill",
+  "keywords": [
+    "testing",
+    "quality"
+  ],
+  "versions": {
+    "1.0.0": {
+      "version": "1.0.0",
+      "tarball": "https://github.com/testing/skill/releases/download/v1.0.0/skill-1.0.0.tar.gz",
+      "sha256": "placeholder-sha256-testing-skill",
+      "engines": {
+        "*": "*"
+      },
+      "dependencies": {},
+      "publishedAt": "2026-09-02T09:44:15.229Z"
+    }
+  },
+  "latest": "1.0.0"
+}

@@ -1,0 +1,32 @@
+{
+  "name": "mcp/redis",
+  "type": "mcp",
+  "description": "Redis MCP server — cache and pubsub",
+  "homepage": "https://github.com/mcp/redis",
+  "repository": "https://github.com/mcp/redis",
+  "keywords": [
+    "mcp",
+    "redis"
+  ],
+  "source": "src/redis",
+  "versions": {
+    "1.0.0": {
+      "version": "1.0.0",
+      "tarball": "https://github.com/modelcontextprotocol/servers/releases/download/redis-1.0.0/redis-1.0.0.tar.gz",
+      "sha256": "placeholder-sha256-mcp-redis",
+      "engines": {
+        "*": "*"
+      },
+      "dependencies": {},
+      "mcp": {
+        "command": "npx",
+        "args": [
+          "-y",
+          "@modelcontextprotocol/server-redis"
+        ]
+      },
+      "publishedAt": "2026-09-02T09:44:15.204Z"
+    }
+  },
+  "latest": "1.0.0"
+}

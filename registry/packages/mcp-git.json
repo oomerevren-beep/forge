@@ -1,0 +1,32 @@
+{
+  "name": "mcp/git",
+  "type": "mcp",
+  "description": "Git MCP server — repository operations",
+  "homepage": "https://github.com/mcp/git",
+  "repository": "https://github.com/mcp/git",
+  "keywords": [
+    "mcp",
+    "git"
+  ],
+  "source": "src/git",
+  "versions": {
+    "1.0.0": {
+      "version": "1.0.0",
+      "tarball": "https://github.com/modelcontextprotocol/servers/releases/download/git-1.0.0/git-1.0.0.tar.gz",
+      "sha256": "placeholder-sha256-mcp-git",
+      "engines": {
+        "*": "*"
+      },
+      "dependencies": {},
+      "mcp": {
+        "command": "npx",
+        "args": [
+          "-y",
+          "@modelcontextprotocol/server-git"
+        ]
+      },
+      "publishedAt": "2026-09-02T09:44:15.199Z"
+    }
+  },
+  "latest": "1.0.0"
+}

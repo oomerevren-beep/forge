@@ -1,33 +1,1412 @@
 {
-  "generatedAt": "2026-09-01T00:00:00Z",
-  "count": 3,
+  "generatedAt": "2026-09-02T09:45:09.036Z",
+  "count": 100,
   "packages": {
+    "a11y/skill": {
+      "name": "a11y/skill",
+      "type": "skill",
+      "description": "A11y skill — accessibility best practices",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "a11y",
+        "accessibility"
+      ],
+      "updatedAt": "2026-09-02T09:44:15.232Z"
+    },
+    "agency/backend-wizard": {
+      "name": "agency/backend-wizard",
+      "type": "agent",
+      "description": "Backend wizard — Node, Postgres, APIs",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "agent",
+        "backend"
+      ],
+      "updatedAt": "2026-09-02T09:44:15.207Z"
+    },
+    "agency/data-wizard": {
+      "name": "agency/data-wizard",
+      "type": "agent",
+      "description": "Data wizard — ML, analysis, pipelines",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "agent",
+        "data"
+      ],
+      "updatedAt": "2026-09-02T09:44:15.209Z"
+    },
+    "agency/devops-wizard": {
+      "name": "agency/devops-wizard",
+      "type": "agent",
+      "description": "DevOps wizard — Docker, CI, deploy",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "agent",
+        "devops"
+      ],
+      "updatedAt": "2026-09-02T09:44:15.208Z"
+    },
+    "agency/frontend-wizard": {
+      "name": "agency/frontend-wizard",
+      "type": "agent",
+      "description": "Frontend wizard — React, Tailwind, shadcn",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "agent",
+        "frontend"
+      ],
+      "updatedAt": "2026-09-02T09:44:15.206Z"
+    },
+    "agent/code-reviewer": {
+      "name": "agent/code-reviewer",
+      "type": "agent",
+      "description": "Code reviewer agent — automated reviews",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "agent",
+        "review"
+      ],
+      "updatedAt": "2026-09-02T09:44:15.243Z"
+    },
+    "agent/docs-writer": {
+      "name": "agent/docs-writer",
+      "type": "agent",
+      "description": "Docs writer agent — generate docs",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "agent",
+        "docs"
+      ],
+      "updatedAt": "2026-09-02T09:44:15.245Z"
+    },
+    "agent/refactor-bot": {
+      "name": "agent/refactor-bot",
+      "type": "agent",
+      "description": "Refactor bot — automated refactoring",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "agent",
+        "refactor"
+      ],
+      "updatedAt": "2026-09-02T09:44:15.246Z"
+    },
+    "agent/test-writer": {
+      "name": "agent/test-writer",
+      "type": "agent",
+      "description": "Test writer agent — generate tests",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "agent",
+        "testing"
+      ],
+      "updatedAt": "2026-09-02T09:44:15.244Z"
+    },
+    "anthropic/skill": {
+      "name": "anthropic/skill",
+      "type": "skill",
+      "description": "Anthropic skill — Claude integration patterns",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "anthropic",
+        "claude"
+      ],
+      "updatedAt": "2026-09-02T09:44:15.222Z"
+    },
+    "anthropics/api": {
+      "name": "anthropics/api",
+      "type": "skill",
+      "description": "API design skill — REST, GraphQL, best practices",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "api",
+        "design"
+      ],
+      "updatedAt": "2026-09-02T09:44:15.187Z"
+    },
+    "anthropics/brainstorm": {
+      "name": "anthropics/brainstorm",
+      "type": "skill",
+      "description": "Brainstorm skill — structured ideation before coding",
+      "latest": "1.1.0",
+      "versions": [
+        "1.1.0"
+      ],
+      "keywords": [
+        "brainstorm",
+        "planning"
+      ],
+      "updatedAt": "2026-09-02T09:44:15.180Z"
+    },
+    "anthropics/code-review": {
+      "name": "anthropics/code-review",
+      "type": "skill",
+      "description": "Code review skill — checklist and automated review",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "review",
+        "quality"
+      ],
+      "updatedAt": "2026-09-02T09:44:15.184Z"
+    },
+    "anthropics/debug": {
+      "name": "anthropics/debug",
+      "type": "skill",
+      "description": "Systematic debugging skill — root cause analysis",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "debug",
+        "troubleshooting"
+      ],
+      "updatedAt": "2026-09-02T09:44:15.185Z"
+    },
+    "anthropics/frontend": {
+      "name": "anthropics/frontend",
+      "type": "skill",
+      "description": "Frontend design skill — React, Tailwind, components",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "frontend",
+        "design"
+      ],
+      "updatedAt": "2026-09-02T09:44:15.187Z"
+    },
+    "anthropics/git": {
+      "name": "anthropics/git",
+      "type": "skill",
+      "description": "Git workflow skill — commits, branches, PRs",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "git",
+        "workflow"
+      ],
+      "updatedAt": "2026-09-02T09:44:15.186Z"
+    },
+    "anthropics/mcp-builder": {
+      "name": "anthropics/mcp-builder",
+      "type": "skill",
+      "description": "MCP builder skill — create MCP servers fast",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "mcp",
+        "builder"
+      ],
+      "updatedAt": "2026-09-02T09:44:15.188Z"
+    },
+    "anthropics/notion": {
+      "name": "anthropics/notion",
+      "type": "skill",
+      "description": "Notion skill — docs and database automation",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "notion",
+        "docs"
+      ],
+      "updatedAt": "2026-09-02T09:44:15.191Z"
+    },
     "anthropics/plan": {
       "name": "anthropics/plan",
       "type": "skill",
       "description": "Plan mode skill — structured planning before coding",
       "latest": "1.2.0",
-      "versions": ["1.2.0", "1.1.0"],
-      "keywords": ["planning", "workflow"],
+      "versions": [
+        "1.2.0",
+        "1.1.0"
+      ],
+      "keywords": [
+        "planning",
+        "workflow",
+        "claude-code"
+      ],
       "updatedAt": "2026-08-30T12:00:00Z"
+    },
+    "anthropics/skill-creator": {
+      "name": "anthropics/skill-creator",
+      "type": "skill",
+      "description": "Skill creator — scaffold new SKILL.md from scratch",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "skill",
+        "creator"
+      ],
+      "updatedAt": "2026-09-02T09:44:15.189Z"
+    },
+    "anthropics/tdd": {
+      "name": "anthropics/tdd",
+      "type": "skill",
+      "description": "TDD skill — test-driven development workflow",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "tdd",
+        "testing"
+      ],
+      "updatedAt": "2026-09-02T09:44:15.183Z"
+    },
+    "anthropics/utils": {
+      "name": "anthropics/utils",
+      "type": "skill",
+      "description": "Utils skill — helpers and utilities",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "utils",
+        "helpers"
+      ],
+      "updatedAt": "2026-09-02T09:44:55.961055Z"
+    },
+    "anthropics/vercel-deploy": {
+      "name": "anthropics/vercel-deploy",
+      "type": "skill",
+      "description": "Vercel deploy skill — ship to production",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "vercel",
+        "deploy"
+      ],
+      "updatedAt": "2026-09-02T09:44:15.190Z"
+    },
+    "cmd/brainstorm": {
+      "name": "cmd/brainstorm",
+      "type": "command",
+      "description": "Slash command /brainstorm — ideation",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "command",
+        "brainstorm"
+      ],
+      "updatedAt": "2026-09-02T09:44:15.238Z"
+    },
+    "cmd/deploy": {
+      "name": "cmd/deploy",
+      "type": "command",
+      "description": "Slash command /deploy — deploy app",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "command",
+        "deploy"
+      ],
+      "updatedAt": "2026-09-02T09:44:15.237Z"
+    },
+    "cmd/plan": {
+      "name": "cmd/plan",
+      "type": "command",
+      "description": "Slash command /plan — structured planning",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "command",
+        "plan"
+      ],
+      "updatedAt": "2026-09-02T09:44:15.234Z"
+    },
+    "cmd/review": {
+      "name": "cmd/review",
+      "type": "command",
+      "description": "Slash command /review — code review",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "command",
+        "review"
+      ],
+      "updatedAt": "2026-09-02T09:44:15.235Z"
+    },
+    "cmd/test": {
+      "name": "cmd/test",
+      "type": "command",
+      "description": "Slash command /test — run tests",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "command",
+        "test"
+      ],
+      "updatedAt": "2026-09-02T09:44:15.236Z"
+    },
+    "docker/skill": {
+      "name": "docker/skill",
+      "type": "skill",
+      "description": "Docker skill — containers and compose",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "docker",
+        "containers"
+      ],
+      "updatedAt": "2026-09-02T09:44:15.227Z"
+    },
+    "docs/skill": {
+      "name": "docs/skill",
+      "type": "skill",
+      "description": "Docs skill — documentation generation",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "docs",
+        "documentation"
+      ],
+      "updatedAt": "2026-09-02T09:44:15.230Z"
+    },
+    "dotprompt/python-best": {
+      "name": "dotprompt/python-best",
+      "type": "skill",
+      "description": "Python best practices — prompts and patterns",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "python",
+        "prompt"
+      ],
+      "updatedAt": "2026-09-02T09:44:15.215Z"
+    },
+    "dotprompt/react-best": {
+      "name": "dotprompt/react-best",
+      "type": "skill",
+      "description": "React best practices — prompts and patterns",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "react",
+        "prompt"
+      ],
+      "updatedAt": "2026-09-02T09:44:15.214Z"
+    },
+    "figma/skill": {
+      "name": "figma/skill",
+      "type": "skill",
+      "description": "Figma skill — design to code",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "figma",
+        "design"
+      ],
+      "updatedAt": "2026-09-02T09:44:15.226Z"
+    },
+    "github/skill": {
+      "name": "github/skill",
+      "type": "skill",
+      "description": "GitHub skill — CLI and API workflows",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "github",
+        "git"
+      ],
+      "updatedAt": "2026-09-02T09:44:15.227Z"
+    },
+    "hook/post-tool": {
+      "name": "hook/post-tool",
+      "type": "hook",
+      "description": "Post-tool hook — after tool execution",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "hook",
+        "tool"
+      ],
+      "updatedAt": "2026-09-02T09:44:15.239Z"
+    },
+    "hook/pre-commit": {
+      "name": "hook/pre-commit",
+      "type": "hook",
+      "description": "Pre-commit hook — lint and test",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "hook",
+        "git"
+      ],
+      "updatedAt": "2026-09-02T09:44:15.238Z"
+    },
+    "hook/pre-push": {
+      "name": "hook/pre-push",
+      "type": "hook",
+      "description": "Pre-push hook — verify before push",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "hook",
+        "git"
+      ],
+      "updatedAt": "2026-09-02T09:44:15.240Z"
+    },
+    "humans/skill": {
+      "name": "humans/skill",
+      "type": "skill",
+      "description": "Humans skill — human-centered design",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "humans",
+        "ux"
+      ],
+      "updatedAt": "2026-09-02T09:44:15.213Z"
+    },
+    "i18n/skill": {
+      "name": "i18n/skill",
+      "type": "skill",
+      "description": "i18n skill — internationalization workflow",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "i18n",
+        "translation"
+      ],
+      "updatedAt": "2026-09-02T09:44:15.233Z"
+    },
+    "k8s/skill": {
+      "name": "k8s/skill",
+      "type": "skill",
+      "description": "Kubernetes skill — k8s manifests and ops",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "k8s",
+        "kubernetes"
+      ],
+      "updatedAt": "2026-09-02T09:44:15.228Z"
+    },
+    "langchain/skill": {
+      "name": "langchain/skill",
+      "type": "skill",
+      "description": "LangChain skill — chains and agents",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "langchain",
+        "chains"
+      ],
+      "updatedAt": "2026-09-02T09:44:15.223Z"
+    },
+    "last30days/skill": {
+      "name": "last30days/skill",
+      "type": "skill",
+      "description": "Last 30 days skill — recent context",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "context",
+        "memory"
+      ],
+      "updatedAt": "2026-09-02T09:44:15.212Z"
+    },
+    "linear/skill": {
+      "name": "linear/skill",
+      "type": "skill",
+      "description": "Linear skill — issue tracking workflow",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "linear",
+        "issues"
+      ],
+      "updatedAt": "2026-09-02T09:44:15.224Z"
+    },
+    "mcp/airtable": {
+      "name": "mcp/airtable",
+      "type": "mcp",
+      "description": "Airtable MCP server — bases and records",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "mcp",
+        "airtable"
+      ],
+      "updatedAt": "2026-09-02T09:44:15.201Z"
+    },
+    "mcp/aws-kb": {
+      "name": "mcp/aws-kb",
+      "type": "mcp",
+      "description": "AWS KB MCP server — knowledge base",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "mcp",
+        "aws"
+      ],
+      "updatedAt": "2026-09-02T09:44:15.205Z"
+    },
+    "mcp/brave-search": {
+      "name": "mcp/brave-search",
+      "type": "mcp",
+      "description": "Brave Search MCP server — web search",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "mcp",
+        "search"
+      ],
+      "updatedAt": "2026-09-02T09:44:15.195Z"
+    },
+    "mcp/custom-crypto": {
+      "name": "mcp/custom-crypto",
+      "type": "mcp",
+      "description": "Crypto MCP server — price data",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "mcp",
+        "crypto"
+      ],
+      "updatedAt": "2026-09-02T09:44:15.247Z"
+    },
+    "mcp/custom-weather": {
+      "name": "mcp/custom-weather",
+      "type": "mcp",
+      "description": "Weather MCP server — forecast data",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "mcp",
+        "weather"
+      ],
+      "updatedAt": "2026-09-02T09:44:15.247Z"
+    },
+    "mcp/everart": {
+      "name": "mcp/everart",
+      "type": "mcp",
+      "description": "EverArt MCP server — image generation",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "mcp",
+        "everart"
+      ],
+      "updatedAt": "2026-09-02T09:44:55.962045Z"
+    },
+    "mcp/fetch": {
+      "name": "mcp/fetch",
+      "type": "mcp",
+      "description": "Fetch MCP server — web fetching and scraping",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "mcp",
+        "fetch"
+      ],
+      "updatedAt": "2026-09-02T09:44:15.193Z"
     },
     "mcp/filesystem": {
       "name": "mcp/filesystem",
       "type": "mcp",
       "description": "Filesystem MCP server — read/write files securely",
       "latest": "1.0.2",
-      "versions": ["1.0.2"],
-      "keywords": ["mcp", "filesystem"],
+      "versions": [
+        "1.0.2"
+      ],
+      "keywords": [
+        "mcp",
+        "filesystem"
+      ],
       "updatedAt": "2026-08-28T12:00:00Z"
+    },
+    "mcp/gdrive": {
+      "name": "mcp/gdrive",
+      "type": "mcp",
+      "description": "Google Drive MCP server — files and folders",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "mcp",
+        "gdrive"
+      ],
+      "updatedAt": "2026-09-02T09:44:15.203Z"
+    },
+    "mcp/git": {
+      "name": "mcp/git",
+      "type": "mcp",
+      "description": "Git MCP server — repository operations",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "mcp",
+        "git"
+      ],
+      "updatedAt": "2026-09-02T09:44:15.199Z"
+    },
+    "mcp/github": {
+      "name": "mcp/github",
+      "type": "mcp",
+      "description": "GitHub MCP server — issues, PRs, repos",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "mcp",
+        "github"
+      ],
+      "updatedAt": "2026-09-02T09:44:15.192Z"
+    },
+    "mcp/google-maps": {
+      "name": "mcp/google-maps",
+      "type": "mcp",
+      "description": "Google Maps MCP server — geocoding and places",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "mcp",
+        "maps"
+      ],
+      "updatedAt": "2026-09-02T09:44:15.197Z"
+    },
+    "mcp/kubernetes": {
+      "name": "mcp/kubernetes",
+      "type": "mcp",
+      "description": "Kubernetes MCP server — cluster management",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "mcp",
+        "kubernetes",
+        "k8s"
+      ],
+      "updatedAt": "2026-09-02T09:44:15.206Z"
+    },
+    "mcp/linear": {
+      "name": "mcp/linear",
+      "type": "mcp",
+      "description": "Linear MCP server — issues and projects",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "mcp",
+        "linear"
+      ],
+      "updatedAt": "2026-09-02T09:44:15.202Z"
+    },
+    "mcp/memory": {
+      "name": "mcp/memory",
+      "type": "mcp",
+      "description": "Memory MCP server — knowledge graph memory",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "mcp",
+        "memory"
+      ],
+      "updatedAt": "2026-09-02T09:44:15.192Z"
+    },
+    "mcp/notion": {
+      "name": "mcp/notion",
+      "type": "mcp",
+      "description": "Notion MCP server — pages and databases",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "mcp",
+        "notion"
+      ],
+      "updatedAt": "2026-09-02T09:44:15.200Z"
+    },
+    "mcp/postgres": {
+      "name": "mcp/postgres",
+      "type": "mcp",
+      "description": "Postgres MCP server — SQL database access",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "mcp",
+        "postgres",
+        "sql"
+      ],
+      "updatedAt": "2026-09-02T09:44:15.195Z"
+    },
+    "mcp/puppeteer": {
+      "name": "mcp/puppeteer",
+      "type": "mcp",
+      "description": "Puppeteer MCP server — browser automation",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "mcp",
+        "puppeteer",
+        "browser"
+      ],
+      "updatedAt": "2026-09-02T09:44:15.197Z"
+    },
+    "mcp/redis": {
+      "name": "mcp/redis",
+      "type": "mcp",
+      "description": "Redis MCP server — cache and pubsub",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "mcp",
+        "redis"
+      ],
+      "updatedAt": "2026-09-02T09:44:15.204Z"
+    },
+    "mcp/sentry": {
+      "name": "mcp/sentry",
+      "type": "mcp",
+      "description": "Sentry MCP server — error tracking",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "mcp",
+        "sentry"
+      ],
+      "updatedAt": "2026-09-02T09:44:15.202Z"
+    },
+    "mcp/sequential-thinking": {
+      "name": "mcp/sequential-thinking",
+      "type": "mcp",
+      "description": "Sequential thinking MCP — structured reasoning",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "mcp",
+        "reasoning"
+      ],
+      "updatedAt": "2026-09-02T09:44:15.198Z"
+    },
+    "mcp/slack": {
+      "name": "mcp/slack",
+      "type": "mcp",
+      "description": "Slack MCP server — messages and channels",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "mcp",
+        "slack"
+      ],
+      "updatedAt": "2026-09-02T09:44:15.196Z"
+    },
+    "mcp/sqlite": {
+      "name": "mcp/sqlite",
+      "type": "mcp",
+      "description": "SQLite MCP server — local database",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "mcp",
+        "sqlite"
+      ],
+      "updatedAt": "2026-09-02T09:44:15.196Z"
+    },
+    "mcp/time": {
+      "name": "mcp/time",
+      "type": "mcp",
+      "description": "Time MCP server — timezone and time utilities",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "mcp",
+        "time"
+      ],
+      "updatedAt": "2026-09-02T09:44:15.199Z"
+    },
+    "notion/skill": {
+      "name": "notion/skill",
+      "type": "skill",
+      "description": "Notion skill — workspace automation",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "notion",
+        "docs"
+      ],
+      "updatedAt": "2026-09-02T09:44:15.225Z"
     },
     "obra/superpowers": {
       "name": "obra/superpowers",
       "type": "skill",
       "description": "An agentic skills framework & development methodology",
       "latest": "3.0.0",
-      "versions": ["3.0.0"],
-      "keywords": ["skills", "workflow", "brainstorming"],
+      "versions": [
+        "3.0.0"
+      ],
+      "keywords": [
+        "skills",
+        "workflow",
+        "brainstorming"
+      ],
       "updatedAt": "2026-08-29T12:00:00Z"
+    },
+    "openai/skill": {
+      "name": "openai/skill",
+      "type": "skill",
+      "description": "OpenAI skill — GPT integration patterns",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "openai",
+        "gpt"
+      ],
+      "updatedAt": "2026-09-02T09:44:15.221Z"
+    },
+    "performance/skill": {
+      "name": "performance/skill",
+      "type": "skill",
+      "description": "Performance skill — profiling and optimization",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "performance",
+        "perf"
+      ],
+      "updatedAt": "2026-09-02T09:44:15.234Z"
+    },
+    "playwright/skill": {
+      "name": "playwright/skill",
+      "type": "skill",
+      "description": "Playwright skill — browser testing",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "playwright",
+        "testing"
+      ],
+      "updatedAt": "2026-09-02T09:44:15.216Z"
+    },
+    "plugin/cursor-rules": {
+      "name": "plugin/cursor-rules",
+      "type": "plugin",
+      "description": "Cursor rules plugin — project rules",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "plugin",
+        "cursor"
+      ],
+      "updatedAt": "2026-09-02T09:44:15.242Z"
+    },
+    "plugin/dsh-desktop": {
+      "name": "plugin/dsh-desktop",
+      "type": "plugin",
+      "description": "DSH desktop plugin — UI extension",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "plugin",
+        "dsh"
+      ],
+      "updatedAt": "2026-09-02T09:44:15.240Z"
+    },
+    "plugin/opencode-lsp": {
+      "name": "plugin/opencode-lsp",
+      "type": "plugin",
+      "description": "OpenCode LSP plugin — language server",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "plugin",
+        "opencode"
+      ],
+      "updatedAt": "2026-09-02T09:44:15.241Z"
+    },
+    "refactoring/skill": {
+      "name": "refactoring/skill",
+      "type": "skill",
+      "description": "Refactoring skill — clean code patterns",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "refactoring",
+        "clean"
+      ],
+      "updatedAt": "2026-09-02T09:44:15.229Z"
+    },
+    "security/skill": {
+      "name": "security/skill",
+      "type": "skill",
+      "description": "Security skill — audit and hardening",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "security",
+        "audit"
+      ],
+      "updatedAt": "2026-09-02T09:44:15.233Z"
+    },
+    "seo/skill": {
+      "name": "seo/skill",
+      "type": "skill",
+      "description": "SEO skill — optimization and auditing",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "seo",
+        "optimization"
+      ],
+      "updatedAt": "2026-09-02T09:44:15.231Z"
+    },
+    "shadcn/skill": {
+      "name": "shadcn/skill",
+      "type": "skill",
+      "description": "shadcn skill — UI components and theming",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "shadcn",
+        "ui"
+      ],
+      "updatedAt": "2026-09-02T09:44:15.217Z"
+    },
+    "skill/3d": {
+      "name": "skill/3d",
+      "type": "skill",
+      "description": "3D skill — models and rendering",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "3d",
+        "rendering"
+      ],
+      "updatedAt": "2026-09-02T09:44:15.251Z"
+    },
+    "skill/audio": {
+      "name": "skill/audio",
+      "type": "skill",
+      "description": "Audio skill — transcribe and synthesize",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "audio",
+        "speech"
+      ],
+      "updatedAt": "2026-09-02T09:44:15.250Z"
+    },
+    "skill/calendar": {
+      "name": "skill/calendar",
+      "type": "skill",
+      "description": "Calendar skill — scheduling and events",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "calendar",
+        "scheduling"
+      ],
+      "updatedAt": "2026-09-02T09:44:15.252Z"
+    },
+    "skill/csv": {
+      "name": "skill/csv",
+      "type": "skill",
+      "description": "CSV skill — parse and transform CSV data",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "csv",
+        "data"
+      ],
+      "updatedAt": "2026-09-02T09:44:15.248Z"
+    },
+    "skill/email": {
+      "name": "skill/email",
+      "type": "skill",
+      "description": "Email skill — compose and send emails",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "email",
+        "communication"
+      ],
+      "updatedAt": "2026-09-02T09:44:15.252Z"
+    },
+    "skill/image": {
+      "name": "skill/image",
+      "type": "skill",
+      "description": "Image skill — generate and edit images",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "image",
+        "vision"
+      ],
+      "updatedAt": "2026-09-02T09:44:15.249Z"
+    },
+    "skill/pdf": {
+      "name": "skill/pdf",
+      "type": "skill",
+      "description": "PDF skill — parse, generate, manipulate PDFs",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "pdf",
+        "document"
+      ],
+      "updatedAt": "2026-09-02T09:44:15.248Z"
+    },
+    "skill/research": {
+      "name": "skill/research",
+      "type": "skill",
+      "description": "Research skill — deep research workflow",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "research",
+        "analysis"
+      ],
+      "updatedAt": "2026-09-02T09:44:15.253Z"
+    },
+    "skill/search": {
+      "name": "skill/search",
+      "type": "skill",
+      "description": "Search skill — web and local search",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "search",
+        "retrieval"
+      ],
+      "updatedAt": "2026-09-02T09:44:15.253Z"
+    },
+    "skill/summarize": {
+      "name": "skill/summarize",
+      "type": "skill",
+      "description": "Summarize skill — text summarization",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "summarize",
+        "nlp"
+      ],
+      "updatedAt": "2026-09-02T09:44:15.255Z"
+    },
+    "skill/translate": {
+      "name": "skill/translate",
+      "type": "skill",
+      "description": "Translate skill — multilingual translation",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "translate",
+        "i18n"
+      ],
+      "updatedAt": "2026-09-02T09:44:15.254Z"
+    },
+    "skill/video": {
+      "name": "skill/video",
+      "type": "skill",
+      "description": "Video skill — generate and edit videos",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "video",
+        "media"
+      ],
+      "updatedAt": "2026-09-02T09:44:15.250Z"
+    },
+    "skill/writing": {
+      "name": "skill/writing",
+      "type": "skill",
+      "description": "Writing skill — content generation",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "writing",
+        "content"
+      ],
+      "updatedAt": "2026-09-02T09:44:15.254Z"
+    },
+    "stripe/skill": {
+      "name": "stripe/skill",
+      "type": "skill",
+      "description": "Stripe skill — payments and billing",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "stripe",
+        "payments"
+      ],
+      "updatedAt": "2026-09-02T09:44:15.220Z"
+    },
+    "supabase/skill": {
+      "name": "supabase/skill",
+      "type": "skill",
+      "description": "Supabase skill — Postgres, auth, storage",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "supabase",
+        "database"
+      ],
+      "updatedAt": "2026-09-02T09:44:15.219Z"
+    },
+    "tailwind/skill": {
+      "name": "tailwind/skill",
+      "type": "skill",
+      "description": "Tailwind skill — utility CSS mastery",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "tailwind",
+        "css"
+      ],
+      "updatedAt": "2026-09-02T09:44:15.218Z"
+    },
+    "taste/skill": {
+      "name": "taste/skill",
+      "type": "skill",
+      "description": "Taste skill — give your AI good taste",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "taste",
+        "design"
+      ],
+      "updatedAt": "2026-09-02T09:44:15.212Z"
+    },
+    "testing/skill": {
+      "name": "testing/skill",
+      "type": "skill",
+      "description": "Testing skill — unit, e2e, coverage",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "testing",
+        "quality"
+      ],
+      "updatedAt": "2026-09-02T09:44:15.229Z"
+    },
+    "vercel/ai-sdk-skill": {
+      "name": "vercel/ai-sdk-skill",
+      "type": "skill",
+      "description": "Vercel AI SDK skill — streaming, tools",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "vercel",
+        "ai"
+      ],
+      "updatedAt": "2026-09-02T09:44:15.211Z"
+    },
+    "vercel/nextjs-skill": {
+      "name": "vercel/nextjs-skill",
+      "type": "skill",
+      "description": "Next.js skill — App Router, best practices",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "nextjs",
+        "vercel"
+      ],
+      "updatedAt": "2026-09-02T09:44:15.210Z"
+    },
+    "vercel/ship": {
+      "name": "vercel/ship",
+      "type": "skill",
+      "description": "Ship skill — ship fast with Vercel",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "vercel",
+        "ship"
+      ],
+      "updatedAt": "2026-09-02T09:44:15.223Z"
     }
   }
 }

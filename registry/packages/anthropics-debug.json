@@ -1,0 +1,25 @@
+{
+  "name": "anthropics/debug",
+  "type": "skill",
+  "description": "Systematic debugging skill — root cause analysis",
+  "homepage": "https://github.com/anthropics/debug",
+  "repository": "https://github.com/anthropics/debug",
+  "keywords": [
+    "debug",
+    "troubleshooting"
+  ],
+  "source": "skills/debugging",
+  "versions": {
+    "1.0.0": {
+      "version": "1.0.0",
+      "tarball": "https://github.com/anthropics/skills/releases/download/debug-1.0.0/debug-1.0.0.tar.gz",
+      "sha256": "placeholder-sha256-anthropics-debug",
+      "engines": {
+        "claude-code": ">=1.0.0"
+      },
+      "dependencies": {},
+      "publishedAt": "2026-09-02T09:44:15.185Z"
+    }
+  },
+  "latest": "1.0.0"
+}

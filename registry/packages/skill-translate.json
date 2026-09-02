@@ -1,0 +1,24 @@
+{
+  "name": "skill/translate",
+  "type": "skill",
+  "description": "Translate skill — multilingual translation",
+  "homepage": "https://github.com/skill/translate",
+  "repository": "https://github.com/skill/translate",
+  "keywords": [
+    "translate",
+    "i18n"
+  ],
+  "versions": {
+    "1.0.0": {
+      "version": "1.0.0",
+      "tarball": "https://github.com/skill/translate/releases/download/v1.0.0/translate-1.0.0.tar.gz",
+      "sha256": "placeholder-sha256-skill-translate",
+      "engines": {
+        "*": "*"
+      },
+      "dependencies": {},
+      "publishedAt": "2026-09-02T09:44:15.254Z"
+    }
+  },
+  "latest": "1.0.0"
+}
