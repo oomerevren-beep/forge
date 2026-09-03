@@ -50,7 +50,7 @@ export async function runOutdated(opts: { cwd?: string } = {}): Promise<void> {
   else console.log(`\n[forge] ${outdated} package(s) outdated — run 'forge update' (${dt}s)`);
 }
 
-export async function runUpdate(pkgArg?: string, opts: { cwd?: string } = {}): Promise<void> {
+export async function runUpdate(pkgArg?: string, opts: { cwd?: string; mock?: boolean } = {}): Promise<void> {
   const cwd = resolvePath(opts.cwd ?? process.cwd());
   const links = readLinks();
   const lock = readLock(cwd);
@@ -85,7 +85,7 @@ export async function runUpdate(pkgArg?: string, opts: { cwd?: string } = {}): P
         continue;
       }
       const { version, versionMeta } = resolveVersion(name, latest);
-      const src = await ensurePackageContent(name, version, detail, versionMeta);
+      const src = await ensurePackageContent(name, version, detail, versionMeta, { allowMock: opts.mock });
       for (const adapter of adapters) {
         await adapter.install(toSlug(name), src, detail.type);
         if (detail.type === "mcp" && versionMeta.mcp) {

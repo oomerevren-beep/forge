@@ -1,5 +1,5 @@
 // cli/src/adapters/types.ts — Faz 12: paylaşılan Adapter tipi + helpers
-import { existsSync, mkdirSync, readFileSync, writeFileSync, rmSync, cpSync, symlinkSync, lstatSync, unlinkSync } from "fs";
+import { existsSync, mkdirSync, readFileSync, writeFileSync, rmSync, cpSync, copyFileSync, symlinkSync, lstatSync, unlinkSync } from "fs";
 import { join, dirname } from "path";
 
 export { forgeHome, packagesDir, packageDir, toSlug } from "../core/store.js";
@@ -63,7 +63,23 @@ export function readMcpConfig(configPath: string): Record<string, unknown> {
 
 export function writeMcpConfig(configPath: string, data: Record<string, unknown>): void {
   ensureDir(dirname(configPath));
+  backupFileIfExists(configPath);
   writeFileSync(configPath, JSON.stringify(data, null, 2) + "\n");
+}
+
+/** Snapshot a user-owned config before we overwrite it (single `.bak`, like `sed -i.bak`).
+ *  Returns the backup path, or null when there was nothing to back up. */
+export function backupFileIfExists(configPath: string): string | null {
+  if (!existsSync(configPath)) return null;
+  const bak = configPath + ".bak";
+  try {
+    copyFileSync(configPath, bak);
+    console.log(`[forge] backup: ${configPath} → ${bak}`);
+    return bak;
+  } catch (e) {
+    console.warn(`[forge] warning: could not back up ${configPath}: ${(e as Error).message}`);
+    return null;
+  }
 }
 
 export function addMcpServerToConfig(configPath: string, name: string, mcp: { command: string; args?: string[]; env?: Record<string, string> }): void {

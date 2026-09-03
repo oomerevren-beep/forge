@@ -32,6 +32,7 @@ program
   .argument("<pkg>", "package name, e.g. anthropics/plan or anthropics/plan@1.2.0")
   .option("--global", "install globally (default)")
   .option("--dry-run", "show what would be installed without writing")
+  .option("--mock", "allow mock content for packages with no verified tarball yet")
   .action(async (pkgArg, opts) => {
     const { name, version: requested } = parsePackageArg(pkgArg);
     console.log(`[forge] resolving ${name}${requested ? "@" + requested : ""}...`);
@@ -58,9 +59,15 @@ program
       return;
     }
 
-    // Ensure content in store
+    // Ensure content in store (fail-closed: throws on unverified/failed downloads)
     console.log(`[forge] installing ${name}@${version}...`);
-    const srcDir = await ensurePackageContent(name, version, detail, versionMeta);
+    let srcDir: string;
+    try {
+      srcDir = await ensurePackageContent(name, version, detail, versionMeta, { allowMock: opts.mock });
+    } catch (e) {
+      console.error(`[forge] ${(e as Error).message}`);
+      process.exit(1);
+    }
     console.log(`[forge] package content ready: ${srcDir}`);
 
     // Detect adapters
@@ -94,7 +101,7 @@ program
       for (const [depName, depRange] of Object.entries(deps)) {
         try {
           const depResolved = resolveVersion(depName, depRange);
-          const depSrc = await ensurePackageContent(depName, depResolved.version, depResolved.detail, depResolved.versionMeta);
+          const depSrc = await ensurePackageContent(depName, depResolved.version, depResolved.detail, depResolved.versionMeta, { allowMock: opts.mock });
           for (const adapter of adapters) {
             await adapter.install(toSlug(depName), depSrc, depResolved.detail.type);
           }
@@ -259,7 +266,7 @@ program
           try {
             const detail = loadPackageDetail(name);
             const resolved = resolveVersion(name, rec.version);
-            const srcDir = await ensurePackageContent(name, resolved.version, detail, resolved.versionMeta);
+            const srcDir = await ensurePackageContent(name, resolved.version, detail, resolved.versionMeta, { allowMock: true });
             console.log(`    → store restored: ${srcDir}`);
             fixed++;
           } catch (e) {
@@ -374,8 +381,9 @@ program
   .alias("i")
   .description("Install all dependencies from forge.toml (team sync, e.g. forge install)")
   .option("--frozen", "install exactly from forge.lock", false)
+  .option("--mock", "allow mock content for packages with no verified tarball yet", false)
   .action(async (opts) => {
-    await runInstall({ frozen: opts.frozen });
+    await runInstall({ frozen: opts.frozen, mock: opts.mock });
   });
 
 // --- outdated ---
@@ -391,8 +399,9 @@ program
   .command("update")
   .description("Update packages to latest")
   .argument("[pkg]", "package to update (all if omitted)")
-  .action(async (pkg, _opts) => {
-    await runUpdate(pkg);
+  .option("--mock", "allow mock content for packages with no verified tarball yet", false)
+  .action(async (pkg, opts) => {
+    await runUpdate(pkg, { mock: opts.mock });
   });
 
 // --- audit (Faz 10 iskelet, Faz 22'de tam) ---

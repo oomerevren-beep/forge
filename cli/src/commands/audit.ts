@@ -1,7 +1,9 @@
 // cli/src/commands/audit.ts — Faz 10 iskelet (Faz 22'de tam güvenlik denetimi)
 // Şimdilik: placeholder SHA, eksik alan, bozuk link taraması. Exit 0 her zaman (placeholder Faz 2'den kalma, fail değil).
 
-import { readLinks } from "../core/store.js";
+import { existsSync } from "fs";
+import { join } from "path";
+import { readLinks, packageDir } from "../core/store.js";
 import { loadPackageDetail } from "../core/registry.js";
 import { isPlaceholderSha } from "../core/installer.js";
 
@@ -30,6 +32,12 @@ export async function runAudit(opts: { json?: boolean } = {}): Promise<void> {
       if (!meta.tarball || meta.tarball.includes("placeholder")) {
         findings.push({ pkg: rec.pkg, level: "warn", message: `tarball URL placeholder` });
       }
+      // On-disk truth: .forge-mock marker means this install is mock content (--mock).
+      try {
+        if (existsSync(join(packageDir(rec.slug, rec.version), ".forge-mock"))) {
+          findings.push({ pkg: rec.pkg, level: "info", message: `installed from MOCK content (--mock was used)` });
+        }
+      } catch {}
     } catch (e) {
       findings.push({ pkg: rec.pkg, level: "warn", message: `registry read failed: ${(e as Error).message}` });
     }

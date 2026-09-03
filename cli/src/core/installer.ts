@@ -1,45 +1,75 @@
-import { existsSync, mkdirSync, writeFileSync, createWriteStream } from "fs";
-import { join } from "path";
+import { existsSync, mkdirSync, writeFileSync, createWriteStream, rmSync } from "fs";
+import { join, resolve, sep } from "path";
 import { createHash } from "crypto";
 import { tmpdir } from "os";
-import { packageDir, isPackageInstalled, toSlug, ensureForgeDirs, tarballsDir } from "./store.js";
+import { execFileSync } from "child_process";
+import { packageDir, packagesDir, isPackageInstalled, toSlug, ensureForgeDirs, tarballsDir } from "./store.js";
 import type { PackageDetail, PackageVersion } from "./registry.js";
+
+export interface EnsureContentOpts {
+  /** Mock content generation is ONLY allowed with explicit opt-in (`--mock` flag).
+   *  Without it, placeholder SHAs and download/verify failures are hard errors (fail-closed). */
+  allowMock?: boolean;
+}
 
 /**
  * Ensure ~/.forge/packages/<slug>@<version>/ exists with package content.
- * For v0.1: if tarball is reachable, download and extract; otherwise mock-generate from registry metadata.
+ * Fail-closed: download/hash errors throw (exit-1 path in callers), partial
+ * dirs are cleaned up. Mock generation requires opts.allowMock (`--mock`).
  * Returns the source dir path.
  */
 export async function ensurePackageContent(
   pkgName: string,
   version: string,
   detail: PackageDetail,
-  versionMeta: PackageVersion
+  versionMeta: PackageVersion,
+  opts: EnsureContentOpts = {}
 ): Promise<string> {
   const slug = toSlug(pkgName);
   const dest = packageDir(slug, version);
   if (isPackageInstalled(slug, version)) return dest;
 
   ensureForgeDirs();
-  if (!existsSync(dest)) mkdirSync(dest, { recursive: true });
 
   const tarballUrl = versionMeta.tarball;
   const sha256 = versionMeta.sha256;
   const isPlaceholder = sha256.startsWith("placeholder") || tarballUrl.includes("placeholder");
 
-  if (!isPlaceholder) {
-    try {
-      await downloadAndExtract(tarballUrl, sha256, dest);
-      return dest;
-    } catch (err) {
-      console.warn(`[forge] download failed for ${pkgName}@${version}: ${(err as Error).message}`);
-      console.warn(`[forge] falling back to mock generation`);
+  // No verified tarball in registry: mock ONLY with explicit opt-in, else hard error.
+  if (isPlaceholder) {
+    if (!opts.allowMock) {
+      throw new Error(
+        `[forge] ${pkgName}@${version} has no verified tarball yet (placeholder SHA).\n` +
+        `[forge] Re-run with --mock to install mock content, or run 'forge audit' to see verification status.`
+      );
     }
+    console.warn(`[forge] warning: installing MOCK content for ${pkgName}@${version} (--mock)`);
+    if (!existsSync(dest)) mkdirSync(dest, { recursive: true });
+    generateMockPackage(pkgName, version, detail, versionMeta, dest);
+    return dest;
   }
 
-  // Mock generation — create minimal package content from registry
-  generateMockPackage(pkgName, version, detail, versionMeta, dest);
-  return dest;
+  // Real tarball: fail-closed. Any download/hash/extract error throws and
+  // cleans up the partial dir so a half-install never reads as "installed".
+  let createdDir = false;
+  if (!existsSync(dest)) {
+    mkdirSync(dest, { recursive: true });
+    createdDir = true;
+  }
+  try {
+    await downloadAndExtract(tarballUrl, sha256, dest, slug);
+    return dest;
+  } catch (err) {
+    if (createdDir) {
+      try {
+        rmSync(dest, { recursive: true, force: true });
+      } catch {}
+    }
+    throw new Error(
+      `[forge] download/verify failed for ${pkgName}@${version}: ${(err as Error).message}\n` +
+      `[forge] Nothing was installed. Re-run with --mock to install mock content instead.`
+    );
+  }
 }
 
 function generateMockPackage(
@@ -124,10 +154,22 @@ description = "${detail.description.replace(/"/g, '\\"')}"
     join(dest, ".forge-meta.json"),
     JSON.stringify({ name: pkgName, version, type, installedAt: new Date().toISOString(), tarball: versionMeta.tarball }, null, 2)
   );
+
+  // Fail-closed marker: lets `forge audit` / `forge doctor` distinguish mock
+  // content from verified installs. Never write this for real tarballs.
+  writeFileSync(
+    join(dest, ".forge-mock"),
+    JSON.stringify({ mock: true, name: pkgName, version, installedAt: new Date().toISOString() }, null, 2) + "\n"
+  );
 }
 
-async function downloadAndExtract(url: string, expectedSha256: string, dest: string): Promise<void> {
-  const tmpFile = join(tmpdir(), `forge-${Date.now()}-${Math.random().toString(36).slice(2)}.tgz`);
+async function downloadAndExtract(url: string, expectedSha256: string, dest: string, slug: string): Promise<void> {
+  // Path-escape guard: dest must stay inside the packages store.
+  const storeRoot = resolve(packagesDir()) + sep;
+  if (!resolve(dest).startsWith(storeRoot)) {
+    throw new Error(`refusing to extract outside packages dir: ${dest}`);
+  }
+  const tmpFile = join(tmpdir(), `forge-${process.pid}-${Date.now()}-${Math.random().toString(36).slice(2)}.tgz`);
   // Download
   const res = await fetch(url);
   if (!res.ok) throw new Error(`HTTP ${res.status} for ${url}`);
@@ -141,8 +183,10 @@ async function downloadAndExtract(url: string, expectedSha256: string, dest: str
     }
   }
 
-  // Save to cache
-  const cached = join(tarballsDir(), `${url.split("/").pop()}`);
+  // Save to cache (filename namespaced by slug to avoid collisions across scopes)
+  const rawName = url.split("/").pop() || "package.tgz";
+  const safeName = rawName.replace(/[^a-zA-Z0-9._-]/g, "_");
+  const cached = join(tarballsDir(), `${slug}--${safeName}`);
   try {
     const { writeFileSync } = await import("fs");
     writeFileSync(cached, buf);
@@ -150,18 +194,16 @@ async function downloadAndExtract(url: string, expectedSha256: string, dest: str
     // ignore cache write fail
   }
 
-  // Extract — try tar if available
+  // Extract via arg-array (no shell) — tar path/name can never become a command.
   // We use Node's child_process to call tar (available on Windows 10+ and all Unix)
-  const { execSync } = await import("child_process");
-  // Write tmp file
   const { writeFileSync: wfs } = await import("fs");
   wfs(tmpFile, buf);
   try {
-    execSync(`tar -xzf "${tmpFile}" -C "${dest}" --strip-components=1`, { stdio: "pipe" });
+    execFileSync("tar", ["-xzf", tmpFile, "-C", dest, "--strip-components=1"], { stdio: "pipe" });
   } catch {
     // Try without strip
     try {
-      execSync(`tar -xzf "${tmpFile}" -C "${dest}"`, { stdio: "pipe" });
+      execFileSync("tar", ["-xzf", tmpFile, "-C", dest], { stdio: "pipe" });
     } catch (e) {
       throw new Error(`tar extract failed: ${(e as Error).message}`);
     }

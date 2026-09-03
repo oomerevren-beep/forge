@@ -26,7 +26,7 @@ function pickAdapters(projectHarnesses?: string[]) {
   return detectAdapters();
 }
 
-export async function runInstall(opts: { cwd?: string; frozen?: boolean } = {}): Promise<void> {
+export async function runInstall(opts: { cwd?: string; frozen?: boolean; mock?: boolean } = {}): Promise<void> {
   const cwd = resolve(opts.cwd ?? process.cwd());
   const tomlPath = findProjectToml(cwd);
   if (!tomlPath) {
@@ -78,7 +78,7 @@ export async function runInstall(opts: { cwd?: string; frozen?: boolean } = {}):
     for (const entry of lock.packages) {
       try {
         const { detail, version, versionMeta } = resolveVersion(entry.name, entry.version);
-        const src = await ensurePackageContent(entry.name, version, detail, versionMeta);
+        const src = await ensurePackageContent(entry.name, version, detail, versionMeta, { allowMock: opts.mock });
         for (const adapter of adapters) {
           await adapter.install(toSlug(entry.name), src, detail.type);
           if (detail.type === "mcp" && versionMeta.mcp) {
@@ -147,7 +147,7 @@ export async function runInstall(opts: { cwd?: string; frozen?: boolean } = {}):
           continue;
         }
       }
-      const src = await ensurePackageContent(depName, version, detail, versionMeta);
+      const src = await ensurePackageContent(depName, version, detail, versionMeta, { allowMock: opts.mock });
       for (const adapter of adapters) {
         await adapter.install(toSlug(depName), src, detail.type);
         if (detail.type === "mcp" && versionMeta.mcp) {
@@ -160,7 +160,7 @@ export async function runInstall(opts: { cwd?: string; frozen?: boolean } = {}):
       for (const [subName, subRange] of Object.entries(subDeps)) {
         try {
           const sub = resolveVersion(subName, subRange);
-          const subSrc = await ensurePackageContent(subName, sub.version, sub.detail, sub.versionMeta);
+          const subSrc = await ensurePackageContent(subName, sub.version, sub.detail, sub.versionMeta, { allowMock: opts.mock });
           for (const adapter of adapters) await adapter.install(toSlug(subName), subSrc, sub.detail.type);
           console.log(`    dep ${subName}@${sub.version}`);
         } catch (e) {
