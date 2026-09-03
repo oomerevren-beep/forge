@@ -17,12 +17,18 @@ export interface RegistryPackageSummary {
   versions: string[];
   keywords?: string[];
   updatedAt?: string;
+  /** Trust tier: true = latest tarball fetched + sha256 pinned (Faz 6-oncesi verified core). */
+  verified?: boolean;
 }
 
 export interface PackageVersion {
   version: string;
   tarball: string;
   sha256: string;
+  /** True only when tarball URL returned HTTP 200 and sha256 matches content. */
+  verified?: boolean;
+  /** Upstream pin for archive tarballs (e.g. git commit sha). */
+  sourceRef?: string;
   engines?: Record<string, string>;
   dependencies?: Record<string, string>;
   mcp?: { command: string; args?: string[]; env?: Record<string, string> };
@@ -43,19 +49,22 @@ export interface PackageDetail {
 }
 
 function registryRoot(): string {
-  // cli/src/core/ -> ../../.. = repo root
-  // When running via tsx, __dirname is cli/src/core
-  // Use process.cwd() if registry/ exists there, else resolve relative to this file
-  if (existsSync("registry/index.json")) return "registry";
-  // fallback: resolve from file location
+  // Resolve from file location: dist/cli/src/core -> dist/cli/src/core/../../.. = package root
+  // Then /registry = package's bundled registry dir.
+  // When running via tsx in repo, import.meta.dirname = cli/src/core
+  // → ../../../registry works (repo root has registry/)
+  // When running from global npm install, import.meta.dirname = node_modules/tryforge/dist/cli/src/core
+  // → ../../../../registry works (package root has registry/)
   const candidates = [
+    join(import.meta.dirname ?? "./", "../../../registry"),
+    join(import.meta.dirname ?? "./", "../../../../registry"),
     join(process.cwd(), "registry"),
-    join(import.meta.dirname ?? ".", "../../../registry"),
   ];
   for (const c of candidates) {
     if (existsSync(join(c, "index.json"))) return c;
   }
-  return "registry";
+  // Last fallback — may still fail with clear error
+  return join(import.meta.dirname ?? "./", "../../../registry");
 }
 
 export function loadIndex(): RegistryIndex {
@@ -127,7 +136,11 @@ export function searchPackages(query: string, opts: { type?: string; limit?: num
       if (type === t) score += 6;
       if (desc.includes(t)) score += 2;
     }
-    if (score > 0) scored.push({ p, score });
+    if (score > 0) {
+      // Verified tarballs rank first on ties — first touch should install cleanly.
+      if (p.verified) score += 4;
+      scored.push({ p, score });
+    }
   }
   scored.sort((a, b) => b.score - a.score || a.p.name.localeCompare(b.p.name));
   const out = scored.map((s) => s.p);

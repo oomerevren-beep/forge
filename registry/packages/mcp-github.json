@@ -3,17 +3,18 @@
   "type": "mcp",
   "description": "GitHub MCP server — issues, PRs, repos",
   "homepage": "https://github.com/mcp/github",
-  "repository": "https://github.com/mcp/github",
+  "repository": "https://www.npmjs.com/package/@modelcontextprotocol/server-github",
   "keywords": [
     "mcp",
     "github"
   ],
   "source": "src/github",
   "versions": {
-    "1.0.0": {
-      "version": "1.0.0",
-      "tarball": "https://github.com/modelcontextprotocol/servers/releases/download/github-1.0.0/github-1.0.0.tar.gz",
-      "sha256": "placeholder-sha256-mcp-github",
+    "2025.4.8": {
+      "version": "2025.4.8",
+      "tarball": "https://registry.npmjs.org/@modelcontextprotocol/server-github/-/server-github-2025.4.8.tgz",
+      "sha256": "1d5b1bca9305adf0c8055131f2286514c9bea6eb31100460899a1ed9ffece5c1",
+      "verified": true,
       "engines": {
         "*": "*"
       },
@@ -25,8 +26,8 @@
           "@modelcontextprotocol/server-github"
         ]
       },
-      "publishedAt": "2026-09-02T09:44:15.192Z"
+      "publishedAt": "2025-04-08T10:08:59.978Z"
     }
   },
-  "latest": "1.0.0"
+  "latest": "2025.4.8"
 }

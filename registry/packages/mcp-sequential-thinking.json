@@ -3,17 +3,18 @@
   "type": "mcp",
   "description": "Sequential thinking MCP — structured reasoning",
   "homepage": "https://github.com/mcp/sequential-thinking",
-  "repository": "https://github.com/mcp/sequential-thinking",
+  "repository": "https://www.npmjs.com/package/@modelcontextprotocol/server-sequential-thinking",
   "keywords": [
     "mcp",
     "reasoning"
   ],
   "source": "src/sequential-thinking",
   "versions": {
-    "1.0.0": {
-      "version": "1.0.0",
-      "tarball": "https://github.com/modelcontextprotocol/servers/releases/download/sequential-thinking-1.0.0/sequential-thinking-1.0.0.tar.gz",
-      "sha256": "placeholder-sha256-mcp-sequential-thinking",
+    "2026.8.31": {
+      "version": "2026.8.31",
+      "tarball": "https://registry.npmjs.org/@modelcontextprotocol/server-sequential-thinking/-/server-sequential-thinking-2026.8.31.tgz",
+      "sha256": "b47c367af4bc1ef96cec096e67151899a29317c42009f0ac53a0d51b85c2c71d",
+      "verified": true,
       "engines": {
         "*": "*"
       },
@@ -25,8 +26,8 @@
           "@modelcontextprotocol/server-sequential-thinking"
         ]
       },
-      "publishedAt": "2026-09-02T09:44:15.198Z"
+      "publishedAt": "2026-08-31T20:23:44.857Z"
     }
   },
-  "latest": "1.0.0"
+  "latest": "2026.8.31"
 }

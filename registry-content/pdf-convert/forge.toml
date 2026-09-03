@@ -1,0 +1,7 @@
+[package]
+name = "pdf/convert"
+version = "1.0.0"
+type = "skill"
+description = "PDF convert skill — PDF to Word, HTML, Markdown and back"
+license = "MIT"
+repository = "https://github.com/oomerevren-beep/forge"

@@ -12,15 +12,17 @@
   "versions": {
     "3.0.0": {
       "version": "3.0.0",
-      "tarball": "https://github.com/obra/superpowers/releases/download/v3.0.0/superpowers-3.0.0.tar.gz",
-      "sha256": "5210808df6d985147657954bd20626cd7c34deccd2391d0957c4099882fb53d2",
+      "tarball": "https://github.com/obra/superpowers/archive/b36e0829c6d0140e93cfef2ca599b1b07d4a7797.tar.gz",
+      "sha256": "7c3ae7db406f8d92cf55329aa9e9a41e53f6cef00bdb68e1325713be97ef5d7c",
       "engines": {
         "claude-code": "*",
         "opencode": "*",
         "codex": "*"
       },
       "dependencies": {},
-      "publishedAt": "2026-08-29T12:00:00Z"
+      "publishedAt": "2026-08-29T12:00:00Z",
+      "verified": true,
+      "sourceRef": "b36e0829c6d0140e93cfef2ca599b1b07d4a7797"
     }
   },
   "latest": "3.0.0"

@@ -3,7 +3,7 @@
   "type": "skill",
   "description": "PDF merge skill — combine multiple PDFs into one document fast",
   "homepage": "https://github.com/pdf/merge",
-  "repository": "https://github.com/pdf/merge",
+  "repository": "https://github.com/oomerevren-beep/forge",
   "keywords": [
     "pdf",
     "merge",
@@ -12,13 +12,14 @@
   "versions": {
     "1.0.0": {
       "version": "1.0.0",
-      "tarball": "https://github.com/pdf/merge/releases/download/v1.0.0/pdf-merge-1.0.0.tar.gz",
-      "sha256": "placeholder-sha256-pdf-merge",
+      "tarball": "https://github.com/oomerevren-beep/forge/releases/download/registry-v1/pdf-merge-1.0.0.tar.gz",
+      "sha256": "5e84a081c5c343973af044b4076da2492ee109973a3fb7793a4673dcf094caeb",
       "engines": {
         "*": "*"
       },
       "dependencies": {},
-      "publishedAt": "2026-09-03T11:17:11.945Z"
+      "publishedAt": "2026-09-03T11:17:11.945Z",
+      "verified": true
     }
   },
   "latest": "1.0.0"

@@ -14,7 +14,7 @@ type PackageDetail = {
   description: string;
   keywords?: string[];
   latest: string;
-  versions: Record<string, { publishedAt?: string }>;
+  versions: Record<string, { publishedAt?: string; sha256?: string; verified?: boolean }>;
 };
 
 function isCheckMode(): boolean {
@@ -62,9 +62,10 @@ function build(): void {
 
   const now = new Date().toISOString();
   let placeholderCount = 0;
+  let verifiedCount = 0;
 
   // index.json
-  const packages: Record<string, { name: string; type: string; description: string; latest: string; versions: string[]; keywords?: string[]; updatedAt: string }> = {};
+  const packages: Record<string, { name: string; type: string; description: string; latest: string; versions: string[]; keywords?: string[]; updatedAt: string; verified: boolean }> = {};
   for (const { detail } of all) {
     const versions = Object.keys(detail.versions).sort((a, b) => {
       // semver desc
@@ -79,7 +80,9 @@ function build(): void {
     for (const v of Object.values(detail.versions) as Array<{ sha256?: string }>) {
       if (v.sha256?.startsWith("placeholder")) placeholderCount++;
     }
-    const latestMeta = detail.versions[detail.latest] as { publishedAt?: string };
+    const latestMeta = detail.versions[detail.latest] as { publishedAt?: string; verified?: boolean };
+    const latestVerified = latestMeta?.verified === true;
+    if (latestVerified) verifiedCount++;
     packages[detail.name] = {
       name: detail.name,
       type: detail.type,
@@ -88,6 +91,7 @@ function build(): void {
       versions,
       ...(detail.keywords ? { keywords: detail.keywords } : {}),
       updatedAt: latestMeta?.publishedAt ?? now,
+      verified: latestVerified,
     };
   }
 
@@ -104,6 +108,7 @@ function build(): void {
     description: detail.description,
     keywords: detail.keywords ?? [],
     latest: detail.latest,
+    verified: detail.versions[detail.latest]?.verified === true,
   }));
 
   // stats.json
@@ -116,6 +121,8 @@ function build(): void {
     totalPackages: all.length,
     byType,
     placeholderSha: placeholderCount,
+    verifiedCount,
+    communityCount: all.length - verifiedCount,
   };
 
   if (isCheckMode()) {

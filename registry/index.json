@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-03T11:17:12.936Z",
+  "generatedAt": "2026-09-03T17:59:19.742Z",
   "count": 250,
   "packages": {
     "a11y/skill": {
@@ -14,7 +14,8 @@
         "a11y",
         "accessibility"
       ],
-      "updatedAt": "2026-09-02T09:44:15.232Z"
+      "updatedAt": "2026-09-02T09:44:15.232Z",
+      "verified": false
     },
     "agency/backend-wizard": {
       "name": "agency/backend-wizard",
@@ -28,7 +29,8 @@
         "agent",
         "backend"
       ],
-      "updatedAt": "2026-09-02T09:44:15.207Z"
+      "updatedAt": "2026-09-02T09:44:15.207Z",
+      "verified": false
     },
     "agency/data-wizard": {
       "name": "agency/data-wizard",
@@ -42,7 +44,8 @@
         "agent",
         "data"
       ],
-      "updatedAt": "2026-09-02T09:44:15.209Z"
+      "updatedAt": "2026-09-02T09:44:15.209Z",
+      "verified": false
     },
     "agency/devops-wizard": {
       "name": "agency/devops-wizard",
@@ -56,7 +59,8 @@
         "agent",
         "devops"
       ],
-      "updatedAt": "2026-09-02T09:44:15.208Z"
+      "updatedAt": "2026-09-02T09:44:15.208Z",
+      "verified": false
     },
     "agency/frontend-wizard": {
       "name": "agency/frontend-wizard",
@@ -70,7 +74,8 @@
         "agent",
         "frontend"
       ],
-      "updatedAt": "2026-09-02T09:44:15.206Z"
+      "updatedAt": "2026-09-02T09:44:15.206Z",
+      "verified": false
     },
     "agent/accessibility-bot": {
       "name": "agent/accessibility-bot",
@@ -85,7 +90,8 @@
         "a11y",
         "accessibility"
       ],
-      "updatedAt": "2026-09-03T11:17:11.960Z"
+      "updatedAt": "2026-09-03T11:17:11.960Z",
+      "verified": false
     },
     "agent/api-designer": {
       "name": "agent/api-designer",
@@ -100,7 +106,8 @@
         "api",
         "design"
       ],
-      "updatedAt": "2026-09-03T11:17:11.955Z"
+      "updatedAt": "2026-09-03T11:17:11.955Z",
+      "verified": false
     },
     "agent/changelog-writer": {
       "name": "agent/changelog-writer",
@@ -115,7 +122,8 @@
         "changelog",
         "release"
       ],
-      "updatedAt": "2026-09-03T11:17:11.953Z"
+      "updatedAt": "2026-09-03T11:17:11.953Z",
+      "verified": true
     },
     "agent/code-reviewer": {
       "name": "agent/code-reviewer",
@@ -129,7 +137,8 @@
         "agent",
         "review"
       ],
-      "updatedAt": "2026-09-02T09:44:15.243Z"
+      "updatedAt": "2026-09-02T09:44:15.243Z",
+      "verified": false
     },
     "agent/data-analyst": {
       "name": "agent/data-analyst",
@@ -144,7 +153,8 @@
         "data",
         "analysis"
       ],
-      "updatedAt": "2026-09-03T11:17:11.961Z"
+      "updatedAt": "2026-09-03T11:17:11.961Z",
+      "verified": false
     },
     "agent/db-architect": {
       "name": "agent/db-architect",
@@ -159,7 +169,8 @@
         "database",
         "sql"
       ],
-      "updatedAt": "2026-09-03T11:17:11.955Z"
+      "updatedAt": "2026-09-03T11:17:11.955Z",
+      "verified": false
     },
     "agent/debugger": {
       "name": "agent/debugger",
@@ -174,7 +185,8 @@
         "debug",
         "triage"
       ],
-      "updatedAt": "2026-09-03T11:17:11.954Z"
+      "updatedAt": "2026-09-03T11:17:11.954Z",
+      "verified": true
     },
     "agent/devops-bot": {
       "name": "agent/devops-bot",
@@ -189,7 +201,8 @@
         "devops",
         "ci"
       ],
-      "updatedAt": "2026-09-03T11:17:11.956Z"
+      "updatedAt": "2026-09-03T11:17:11.956Z",
+      "verified": false
     },
     "agent/docs-writer": {
       "name": "agent/docs-writer",
@@ -203,7 +216,8 @@
         "agent",
         "docs"
       ],
-      "updatedAt": "2026-09-02T09:44:15.245Z"
+      "updatedAt": "2026-09-02T09:44:15.245Z",
+      "verified": false
     },
     "agent/e2e-writer": {
       "name": "agent/e2e-writer",
@@ -218,7 +232,8 @@
         "e2e",
         "playwright"
       ],
-      "updatedAt": "2026-09-03T11:17:11.959Z"
+      "updatedAt": "2026-09-03T11:17:11.959Z",
+      "verified": false
     },
     "agent/meeting-notes": {
       "name": "agent/meeting-notes",
@@ -233,7 +248,8 @@
         "meeting",
         "notes"
       ],
-      "updatedAt": "2026-09-03T11:17:11.962Z"
+      "updatedAt": "2026-09-03T11:17:11.962Z",
+      "verified": false
     },
     "agent/migrator": {
       "name": "agent/migrator",
@@ -248,7 +264,8 @@
         "migrate",
         "refactor"
       ],
-      "updatedAt": "2026-09-03T11:17:11.953Z"
+      "updatedAt": "2026-09-03T11:17:11.953Z",
+      "verified": false
     },
     "agent/ml-trainer": {
       "name": "agent/ml-trainer",
@@ -263,7 +280,8 @@
         "ml",
         "training"
       ],
-      "updatedAt": "2026-09-03T11:17:11.961Z"
+      "updatedAt": "2026-09-03T11:17:11.961Z",
+      "verified": false
     },
     "agent/onboard-bot": {
       "name": "agent/onboard-bot",
@@ -278,7 +296,8 @@
         "onboarding",
         "docs"
       ],
-      "updatedAt": "2026-09-03T11:17:11.957Z"
+      "updatedAt": "2026-09-03T11:17:11.957Z",
+      "verified": false
     },
     "agent/perf-tuner": {
       "name": "agent/perf-tuner",
@@ -293,7 +312,8 @@
         "performance",
         "profile"
       ],
-      "updatedAt": "2026-09-03T11:17:11.954Z"
+      "updatedAt": "2026-09-03T11:17:11.954Z",
+      "verified": false
     },
     "agent/pr-reviewer": {
       "name": "agent/pr-reviewer",
@@ -308,7 +328,8 @@
         "review",
         "pr"
       ],
-      "updatedAt": "2026-09-03T11:17:11.952Z"
+      "updatedAt": "2026-09-03T11:17:11.952Z",
+      "verified": true
     },
     "agent/prompt-optimizer": {
       "name": "agent/prompt-optimizer",
@@ -323,7 +344,8 @@
         "prompt",
         "optimize"
       ],
-      "updatedAt": "2026-09-03T11:17:11.961Z"
+      "updatedAt": "2026-09-03T11:17:11.961Z",
+      "verified": false
     },
     "agent/qa-bot": {
       "name": "agent/qa-bot",
@@ -338,7 +360,8 @@
         "qa",
         "testing"
       ],
-      "updatedAt": "2026-09-03T11:17:11.959Z"
+      "updatedAt": "2026-09-03T11:17:11.959Z",
+      "verified": false
     },
     "agent/refactor-bot": {
       "name": "agent/refactor-bot",
@@ -352,7 +375,8 @@
         "agent",
         "refactor"
       ],
-      "updatedAt": "2026-09-02T09:44:15.246Z"
+      "updatedAt": "2026-09-02T09:44:15.246Z",
+      "verified": false
     },
     "agent/release-bot": {
       "name": "agent/release-bot",
@@ -367,7 +391,8 @@
         "release",
         "publish"
       ],
-      "updatedAt": "2026-09-03T11:17:11.956Z"
+      "updatedAt": "2026-09-03T11:17:11.956Z",
+      "verified": false
     },
     "agent/researcher": {
       "name": "agent/researcher",
@@ -382,7 +407,8 @@
         "research",
         "web"
       ],
-      "updatedAt": "2026-09-03T11:17:11.958Z"
+      "updatedAt": "2026-09-03T11:17:11.958Z",
+      "verified": true
     },
     "agent/security-auditor": {
       "name": "agent/security-auditor",
@@ -397,7 +423,8 @@
         "security",
         "audit"
       ],
-      "updatedAt": "2026-09-03T11:17:11.955Z"
+      "updatedAt": "2026-09-03T11:17:11.955Z",
+      "verified": true
     },
     "agent/seo-bot": {
       "name": "agent/seo-bot",
@@ -412,7 +439,8 @@
         "seo",
         "content"
       ],
-      "updatedAt": "2026-09-03T11:17:11.960Z"
+      "updatedAt": "2026-09-03T11:17:11.960Z",
+      "verified": false
     },
     "agent/storybook-writer": {
       "name": "agent/storybook-writer",
@@ -427,7 +455,8 @@
         "storybook",
         "ui"
       ],
-      "updatedAt": "2026-09-03T11:17:11.960Z"
+      "updatedAt": "2026-09-03T11:17:11.960Z",
+      "verified": false
     },
     "agent/summarizer": {
       "name": "agent/summarizer",
@@ -442,7 +471,8 @@
         "summarize",
         "nlp"
       ],
-      "updatedAt": "2026-09-03T11:17:11.958Z"
+      "updatedAt": "2026-09-03T11:17:11.958Z",
+      "verified": false
     },
     "agent/support-bot": {
       "name": "agent/support-bot",
@@ -457,7 +487,8 @@
         "support",
         "chat"
       ],
-      "updatedAt": "2026-09-03T11:17:11.959Z"
+      "updatedAt": "2026-09-03T11:17:11.959Z",
+      "verified": false
     },
     "agent/test-writer": {
       "name": "agent/test-writer",
@@ -471,7 +502,8 @@
         "agent",
         "testing"
       ],
-      "updatedAt": "2026-09-02T09:44:15.244Z"
+      "updatedAt": "2026-09-02T09:44:15.244Z",
+      "verified": false
     },
     "agent/translator": {
       "name": "agent/translator",
@@ -486,7 +518,8 @@
         "translate",
         "i18n"
       ],
-      "updatedAt": "2026-09-03T11:17:11.958Z"
+      "updatedAt": "2026-09-03T11:17:11.958Z",
+      "verified": false
     },
     "agent/triage-bot": {
       "name": "agent/triage-bot",
@@ -501,7 +534,8 @@
         "triage",
         "issues"
       ],
-      "updatedAt": "2026-09-03T11:17:11.957Z"
+      "updatedAt": "2026-09-03T11:17:11.957Z",
+      "verified": false
     },
     "anthropic/skill": {
       "name": "anthropic/skill",
@@ -515,7 +549,8 @@
         "anthropic",
         "claude"
       ],
-      "updatedAt": "2026-09-02T09:44:15.222Z"
+      "updatedAt": "2026-09-02T09:44:15.222Z",
+      "verified": false
     },
     "anthropics/api": {
       "name": "anthropics/api",
@@ -529,7 +564,8 @@
         "api",
         "design"
       ],
-      "updatedAt": "2026-09-02T09:44:15.187Z"
+      "updatedAt": "2026-09-02T09:44:15.187Z",
+      "verified": false
     },
     "anthropics/brainstorm": {
       "name": "anthropics/brainstorm",
@@ -543,7 +579,8 @@
         "brainstorm",
         "planning"
       ],
-      "updatedAt": "2026-09-02T09:44:15.180Z"
+      "updatedAt": "2026-09-02T09:44:15.180Z",
+      "verified": false
     },
     "anthropics/code-review": {
       "name": "anthropics/code-review",
@@ -557,7 +594,8 @@
         "review",
         "quality"
       ],
-      "updatedAt": "2026-09-02T09:44:15.184Z"
+      "updatedAt": "2026-09-02T09:44:15.184Z",
+      "verified": false
     },
     "anthropics/debug": {
       "name": "anthropics/debug",
@@ -571,7 +609,8 @@
         "debug",
         "troubleshooting"
       ],
-      "updatedAt": "2026-09-02T09:44:15.185Z"
+      "updatedAt": "2026-09-02T09:44:15.185Z",
+      "verified": false
     },
     "anthropics/frontend": {
       "name": "anthropics/frontend",
@@ -585,7 +624,8 @@
         "frontend",
         "design"
       ],
-      "updatedAt": "2026-09-02T09:44:15.187Z"
+      "updatedAt": "2026-09-02T09:44:15.187Z",
+      "verified": false
     },
     "anthropics/git": {
       "name": "anthropics/git",
@@ -599,7 +639,8 @@
         "git",
         "workflow"
       ],
-      "updatedAt": "2026-09-02T09:44:15.186Z"
+      "updatedAt": "2026-09-02T09:44:15.186Z",
+      "verified": false
     },
     "anthropics/mcp-builder": {
       "name": "anthropics/mcp-builder",
@@ -613,7 +654,8 @@
         "mcp",
         "builder"
       ],
-      "updatedAt": "2026-09-02T09:44:15.188Z"
+      "updatedAt": "2026-09-02T09:44:15.188Z",
+      "verified": false
     },
     "anthropics/notion": {
       "name": "anthropics/notion",
@@ -627,7 +669,8 @@
         "notion",
         "docs"
       ],
-      "updatedAt": "2026-09-02T09:44:15.191Z"
+      "updatedAt": "2026-09-02T09:44:15.191Z",
+      "verified": false
     },
     "anthropics/plan": {
       "name": "anthropics/plan",
@@ -643,7 +686,8 @@
         "workflow",
         "claude-code"
       ],
-      "updatedAt": "2026-08-30T12:00:00Z"
+      "updatedAt": "2026-08-30T12:00:00Z",
+      "verified": false
     },
     "anthropics/skill-creator": {
       "name": "anthropics/skill-creator",
@@ -657,7 +701,8 @@
         "skill",
         "creator"
       ],
-      "updatedAt": "2026-09-02T09:44:15.189Z"
+      "updatedAt": "2026-09-02T09:44:15.189Z",
+      "verified": false
     },
     "anthropics/tdd": {
       "name": "anthropics/tdd",
@@ -671,7 +716,8 @@
         "tdd",
         "testing"
       ],
-      "updatedAt": "2026-09-02T09:44:15.183Z"
+      "updatedAt": "2026-09-02T09:44:15.183Z",
+      "verified": false
     },
     "anthropics/utils": {
       "name": "anthropics/utils",
@@ -685,7 +731,8 @@
         "utils",
         "helpers"
       ],
-      "updatedAt": "2026-09-02T09:44:55.961055Z"
+      "updatedAt": "2026-09-02T09:44:55.961055Z",
+      "verified": false
     },
     "anthropics/vercel-deploy": {
       "name": "anthropics/vercel-deploy",
@@ -699,7 +746,8 @@
         "vercel",
         "deploy"
       ],
-      "updatedAt": "2026-09-02T09:44:15.190Z"
+      "updatedAt": "2026-09-02T09:44:15.190Z",
+      "verified": false
     },
     "cmd/backup": {
       "name": "cmd/backup",
@@ -713,7 +761,8 @@
         "command",
         "backup"
       ],
-      "updatedAt": "2026-09-03T11:17:11.998Z"
+      "updatedAt": "2026-09-03T11:17:11.998Z",
+      "verified": false
     },
     "cmd/benchmark": {
       "name": "cmd/benchmark",
@@ -727,7 +776,8 @@
         "command",
         "benchmark"
       ],
-      "updatedAt": "2026-09-03T11:17:11.997Z"
+      "updatedAt": "2026-09-03T11:17:11.997Z",
+      "verified": false
     },
     "cmd/brainstorm": {
       "name": "cmd/brainstorm",
@@ -741,7 +791,8 @@
         "command",
         "brainstorm"
       ],
-      "updatedAt": "2026-09-02T09:44:15.238Z"
+      "updatedAt": "2026-09-02T09:44:15.238Z",
+      "verified": false
     },
     "cmd/changelog": {
       "name": "cmd/changelog",
@@ -755,7 +806,8 @@
         "command",
         "changelog"
       ],
-      "updatedAt": "2026-09-03T11:17:11.999Z"
+      "updatedAt": "2026-09-03T11:17:11.999Z",
+      "verified": false
     },
     "cmd/deploy": {
       "name": "cmd/deploy",
@@ -769,7 +821,8 @@
         "command",
         "deploy"
       ],
-      "updatedAt": "2026-09-02T09:44:15.237Z"
+      "updatedAt": "2026-09-02T09:44:15.237Z",
+      "verified": false
     },
     "cmd/format": {
       "name": "cmd/format",
@@ -783,7 +836,8 @@
         "command",
         "format"
       ],
-      "updatedAt": "2026-09-03T11:17:11.997Z"
+      "updatedAt": "2026-09-03T11:17:11.997Z",
+      "verified": false
     },
     "cmd/lint": {
       "name": "cmd/lint",
@@ -797,7 +851,8 @@
         "command",
         "lint"
       ],
-      "updatedAt": "2026-09-03T11:17:11.997Z"
+      "updatedAt": "2026-09-03T11:17:11.997Z",
+      "verified": false
     },
     "cmd/migrate": {
       "name": "cmd/migrate",
@@ -811,7 +866,8 @@
         "command",
         "migrate"
       ],
-      "updatedAt": "2026-09-03T11:17:11.998Z"
+      "updatedAt": "2026-09-03T11:17:11.998Z",
+      "verified": false
     },
     "cmd/plan": {
       "name": "cmd/plan",
@@ -825,7 +881,8 @@
         "command",
         "plan"
       ],
-      "updatedAt": "2026-09-02T09:44:15.234Z"
+      "updatedAt": "2026-09-02T09:44:15.234Z",
+      "verified": true
     },
     "cmd/preview": {
       "name": "cmd/preview",
@@ -839,7 +896,8 @@
         "command",
         "preview"
       ],
-      "updatedAt": "2026-09-03T11:17:12.000Z"
+      "updatedAt": "2026-09-03T11:17:12.000Z",
+      "verified": false
     },
     "cmd/release": {
       "name": "cmd/release",
@@ -853,7 +911,8 @@
         "command",
         "release"
       ],
-      "updatedAt": "2026-09-03T11:17:11.999Z"
+      "updatedAt": "2026-09-03T11:17:11.999Z",
+      "verified": false
     },
     "cmd/restore": {
       "name": "cmd/restore",
@@ -867,7 +926,8 @@
         "command",
         "restore"
       ],
-      "updatedAt": "2026-09-03T11:17:11.999Z"
+      "updatedAt": "2026-09-03T11:17:11.999Z",
+      "verified": false
     },
     "cmd/review": {
       "name": "cmd/review",
@@ -881,7 +941,8 @@
         "command",
         "review"
       ],
-      "updatedAt": "2026-09-02T09:44:15.235Z"
+      "updatedAt": "2026-09-02T09:44:15.235Z",
+      "verified": true
     },
     "cmd/seed": {
       "name": "cmd/seed",
@@ -895,7 +956,8 @@
         "command",
         "seed"
       ],
-      "updatedAt": "2026-09-03T11:17:11.998Z"
+      "updatedAt": "2026-09-03T11:17:11.998Z",
+      "verified": false
     },
     "cmd/test": {
       "name": "cmd/test",
@@ -909,7 +971,8 @@
         "command",
         "test"
       ],
-      "updatedAt": "2026-09-02T09:44:15.236Z"
+      "updatedAt": "2026-09-02T09:44:15.236Z",
+      "verified": false
     },
     "docker/skill": {
       "name": "docker/skill",
@@ -923,7 +986,8 @@
         "docker",
         "containers"
       ],
-      "updatedAt": "2026-09-02T09:44:15.227Z"
+      "updatedAt": "2026-09-02T09:44:15.227Z",
+      "verified": false
     },
     "docs/skill": {
       "name": "docs/skill",
@@ -937,7 +1001,8 @@
         "docs",
         "documentation"
       ],
-      "updatedAt": "2026-09-02T09:44:15.230Z"
+      "updatedAt": "2026-09-02T09:44:15.230Z",
+      "verified": false
     },
     "dotprompt/python-best": {
       "name": "dotprompt/python-best",
@@ -951,7 +1016,8 @@
         "python",
         "prompt"
       ],
-      "updatedAt": "2026-09-02T09:44:15.215Z"
+      "updatedAt": "2026-09-02T09:44:15.215Z",
+      "verified": false
     },
     "dotprompt/react-best": {
       "name": "dotprompt/react-best",
@@ -965,7 +1031,8 @@
         "react",
         "prompt"
       ],
-      "updatedAt": "2026-09-02T09:44:15.214Z"
+      "updatedAt": "2026-09-02T09:44:15.214Z",
+      "verified": false
     },
     "figma/skill": {
       "name": "figma/skill",
@@ -979,7 +1046,8 @@
         "figma",
         "design"
       ],
-      "updatedAt": "2026-09-02T09:44:15.226Z"
+      "updatedAt": "2026-09-02T09:44:15.226Z",
+      "verified": false
     },
     "github/skill": {
       "name": "github/skill",
@@ -993,7 +1061,8 @@
         "github",
         "git"
       ],
-      "updatedAt": "2026-09-02T09:44:15.227Z"
+      "updatedAt": "2026-09-02T09:44:15.227Z",
+      "verified": false
     },
     "hook/post-commit": {
       "name": "hook/post-commit",
@@ -1007,7 +1076,8 @@
         "hook",
         "git"
       ],
-      "updatedAt": "2026-09-03T11:17:12.000Z"
+      "updatedAt": "2026-09-03T11:17:12.000Z",
+      "verified": false
     },
     "hook/post-deploy": {
       "name": "hook/post-deploy",
@@ -1021,7 +1091,8 @@
         "hook",
         "deploy"
       ],
-      "updatedAt": "2026-09-03T11:17:12.001Z"
+      "updatedAt": "2026-09-03T11:17:12.001Z",
+      "verified": false
     },
     "hook/post-merge": {
       "name": "hook/post-merge",
@@ -1035,7 +1106,8 @@
         "hook",
         "git"
       ],
-      "updatedAt": "2026-09-03T11:17:12.001Z"
+      "updatedAt": "2026-09-03T11:17:12.001Z",
+      "verified": false
     },
     "hook/post-publish": {
       "name": "hook/post-publish",
@@ -1049,7 +1121,8 @@
         "hook",
         "publish"
       ],
-      "updatedAt": "2026-09-03T11:17:12.002Z"
+      "updatedAt": "2026-09-03T11:17:12.002Z",
+      "verified": false
     },
     "hook/post-tool": {
       "name": "hook/post-tool",
@@ -1063,7 +1136,8 @@
         "hook",
         "tool"
       ],
-      "updatedAt": "2026-09-02T09:44:15.239Z"
+      "updatedAt": "2026-09-02T09:44:15.239Z",
+      "verified": false
     },
     "hook/pre-commit": {
       "name": "hook/pre-commit",
@@ -1077,7 +1151,8 @@
         "hook",
         "git"
       ],
-      "updatedAt": "2026-09-02T09:44:15.238Z"
+      "updatedAt": "2026-09-02T09:44:15.238Z",
+      "verified": false
     },
     "hook/pre-merge": {
       "name": "hook/pre-merge",
@@ -1091,7 +1166,8 @@
         "hook",
         "git"
       ],
-      "updatedAt": "2026-09-03T11:17:12.000Z"
+      "updatedAt": "2026-09-03T11:17:12.000Z",
+      "verified": false
     },
     "hook/pre-publish": {
       "name": "hook/pre-publish",
@@ -1105,7 +1181,8 @@
         "hook",
         "publish"
       ],
-      "updatedAt": "2026-09-03T11:17:12.002Z"
+      "updatedAt": "2026-09-03T11:17:12.002Z",
+      "verified": false
     },
     "hook/pre-push": {
       "name": "hook/pre-push",
@@ -1119,7 +1196,8 @@
         "hook",
         "git"
       ],
-      "updatedAt": "2026-09-02T09:44:15.240Z"
+      "updatedAt": "2026-09-02T09:44:15.240Z",
+      "verified": false
     },
     "hook/pre-tool": {
       "name": "hook/pre-tool",
@@ -1133,7 +1211,8 @@
         "hook",
         "tool"
       ],
-      "updatedAt": "2026-09-03T11:17:12.001Z"
+      "updatedAt": "2026-09-03T11:17:12.001Z",
+      "verified": false
     },
     "humans/skill": {
       "name": "humans/skill",
@@ -1147,7 +1226,8 @@
         "humans",
         "ux"
       ],
-      "updatedAt": "2026-09-02T09:44:15.213Z"
+      "updatedAt": "2026-09-02T09:44:15.213Z",
+      "verified": false
     },
     "i18n/skill": {
       "name": "i18n/skill",
@@ -1161,7 +1241,8 @@
         "i18n",
         "translation"
       ],
-      "updatedAt": "2026-09-02T09:44:15.233Z"
+      "updatedAt": "2026-09-02T09:44:15.233Z",
+      "verified": false
     },
     "k8s/skill": {
       "name": "k8s/skill",
@@ -1175,7 +1256,8 @@
         "k8s",
         "kubernetes"
       ],
-      "updatedAt": "2026-09-02T09:44:15.228Z"
+      "updatedAt": "2026-09-02T09:44:15.228Z",
+      "verified": false
     },
     "langchain/skill": {
       "name": "langchain/skill",
@@ -1189,7 +1271,8 @@
         "langchain",
         "chains"
       ],
-      "updatedAt": "2026-09-02T09:44:15.223Z"
+      "updatedAt": "2026-09-02T09:44:15.223Z",
+      "verified": false
     },
     "last30days/skill": {
       "name": "last30days/skill",
@@ -1203,7 +1286,8 @@
         "context",
         "memory"
       ],
-      "updatedAt": "2026-09-02T09:44:15.212Z"
+      "updatedAt": "2026-09-02T09:44:15.212Z",
+      "verified": false
     },
     "linear/skill": {
       "name": "linear/skill",
@@ -1217,7 +1301,8 @@
         "linear",
         "issues"
       ],
-      "updatedAt": "2026-09-02T09:44:15.224Z"
+      "updatedAt": "2026-09-02T09:44:15.224Z",
+      "verified": false
     },
     "mcp/airtable": {
       "name": "mcp/airtable",
@@ -1231,7 +1316,8 @@
         "mcp",
         "airtable"
       ],
-      "updatedAt": "2026-09-02T09:44:15.201Z"
+      "updatedAt": "2026-09-02T09:44:15.201Z",
+      "verified": false
     },
     "mcp/argocd": {
       "name": "mcp/argocd",
@@ -1246,7 +1332,8 @@
         "argocd",
         "gitops"
       ],
-      "updatedAt": "2026-09-03T11:17:11.965Z"
+      "updatedAt": "2026-09-03T11:17:11.965Z",
+      "verified": false
     },
     "mcp/aws-kb": {
       "name": "mcp/aws-kb",
@@ -1260,7 +1347,8 @@
         "mcp",
         "aws"
       ],
-      "updatedAt": "2026-09-02T09:44:15.205Z"
+      "updatedAt": "2026-09-02T09:44:15.205Z",
+      "verified": false
     },
     "mcp/brave-search": {
       "name": "mcp/brave-search",
@@ -1274,7 +1362,8 @@
         "mcp",
         "search"
       ],
-      "updatedAt": "2026-09-02T09:44:15.195Z"
+      "updatedAt": "2026-09-02T09:44:15.195Z",
+      "verified": false
     },
     "mcp/canva": {
       "name": "mcp/canva",
@@ -1289,7 +1378,8 @@
         "canva",
         "design"
       ],
-      "updatedAt": "2026-09-03T11:17:11.969Z"
+      "updatedAt": "2026-09-03T11:17:11.969Z",
+      "verified": false
     },
     "mcp/circleci": {
       "name": "mcp/circleci",
@@ -1304,7 +1394,8 @@
         "circleci",
         "ci"
       ],
-      "updatedAt": "2026-09-03T11:17:11.966Z"
+      "updatedAt": "2026-09-03T11:17:11.966Z",
+      "verified": false
     },
     "mcp/clickhouse": {
       "name": "mcp/clickhouse",
@@ -1319,7 +1410,8 @@
         "clickhouse",
         "analytics"
       ],
-      "updatedAt": "2026-09-03T11:17:11.974Z"
+      "updatedAt": "2026-09-03T11:17:11.974Z",
+      "verified": false
     },
     "mcp/cloudflare": {
       "name": "mcp/cloudflare",
@@ -1334,7 +1426,8 @@
         "cloudflare",
         "dns"
       ],
-      "updatedAt": "2026-09-03T11:17:11.964Z"
+      "updatedAt": "2026-09-03T11:17:11.964Z",
+      "verified": false
     },
     "mcp/confluence": {
       "name": "mcp/confluence",
@@ -1349,7 +1442,8 @@
         "confluence",
         "docs"
       ],
-      "updatedAt": "2026-09-03T11:17:11.969Z"
+      "updatedAt": "2026-09-03T11:17:11.969Z",
+      "verified": false
     },
     "mcp/custom-crypto": {
       "name": "mcp/custom-crypto",
@@ -1363,7 +1457,8 @@
         "mcp",
         "crypto"
       ],
-      "updatedAt": "2026-09-02T09:44:15.247Z"
+      "updatedAt": "2026-09-02T09:44:15.247Z",
+      "verified": false
     },
     "mcp/custom-weather": {
       "name": "mcp/custom-weather",
@@ -1377,7 +1472,8 @@
         "mcp",
         "weather"
       ],
-      "updatedAt": "2026-09-02T09:44:15.247Z"
+      "updatedAt": "2026-09-02T09:44:15.247Z",
+      "verified": false
     },
     "mcp/datadog": {
       "name": "mcp/datadog",
@@ -1392,7 +1488,8 @@
         "datadog",
         "metrics"
       ],
-      "updatedAt": "2026-09-03T11:17:11.967Z"
+      "updatedAt": "2026-09-03T11:17:11.967Z",
+      "verified": false
     },
     "mcp/docker": {
       "name": "mcp/docker",
@@ -1407,7 +1504,8 @@
         "docker",
         "containers"
       ],
-      "updatedAt": "2026-09-03T11:17:11.964Z"
+      "updatedAt": "2026-09-03T11:17:11.964Z",
+      "verified": false
     },
     "mcp/elasticsearch": {
       "name": "mcp/elasticsearch",
@@ -1422,7 +1520,8 @@
         "elasticsearch",
         "search"
       ],
-      "updatedAt": "2026-09-03T11:17:11.973Z"
+      "updatedAt": "2026-09-03T11:17:11.973Z",
+      "verified": false
     },
     "mcp/everart": {
       "name": "mcp/everart",
@@ -1436,7 +1535,8 @@
         "mcp",
         "everart"
       ],
-      "updatedAt": "2026-09-02T09:44:55.962045Z"
+      "updatedAt": "2026-09-02T09:44:55.962045Z",
+      "verified": false
     },
     "mcp/fetch": {
       "name": "mcp/fetch",
@@ -1450,7 +1550,8 @@
         "mcp",
         "fetch"
       ],
-      "updatedAt": "2026-09-02T09:44:15.193Z"
+      "updatedAt": "2026-09-02T09:44:15.193Z",
+      "verified": false
     },
     "mcp/figma": {
       "name": "mcp/figma",
@@ -1465,21 +1566,23 @@
         "figma",
         "design"
       ],
-      "updatedAt": "2026-09-03T11:17:11.969Z"
+      "updatedAt": "2026-09-03T11:17:11.969Z",
+      "verified": false
     },
     "mcp/filesystem": {
       "name": "mcp/filesystem",
       "type": "mcp",
       "description": "Filesystem MCP server — read/write files securely",
-      "latest": "1.0.2",
+      "latest": "2026.8.31",
       "versions": [
-        "1.0.2"
+        "2026.8.31"
       ],
       "keywords": [
         "mcp",
         "filesystem"
       ],
-      "updatedAt": "2026-08-28T12:00:00Z"
+      "updatedAt": "2026-08-31T20:25:55.419Z",
+      "verified": true
     },
     "mcp/gdrive": {
       "name": "mcp/gdrive",
@@ -1493,7 +1596,8 @@
         "mcp",
         "gdrive"
       ],
-      "updatedAt": "2026-09-02T09:44:15.203Z"
+      "updatedAt": "2026-09-02T09:44:15.203Z",
+      "verified": false
     },
     "mcp/git": {
       "name": "mcp/git",
@@ -1507,21 +1611,23 @@
         "mcp",
         "git"
       ],
-      "updatedAt": "2026-09-02T09:44:15.199Z"
+      "updatedAt": "2026-09-02T09:44:15.199Z",
+      "verified": false
     },
     "mcp/github": {
       "name": "mcp/github",
       "type": "mcp",
       "description": "GitHub MCP server — issues, PRs, repos",
-      "latest": "1.0.0",
+      "latest": "2025.4.8",
       "versions": [
-        "1.0.0"
+        "2025.4.8"
       ],
       "keywords": [
         "mcp",
         "github"
       ],
-      "updatedAt": "2026-09-02T09:44:15.192Z"
+      "updatedAt": "2025-04-08T10:08:59.978Z",
+      "verified": true
     },
     "mcp/google-maps": {
       "name": "mcp/google-maps",
@@ -1535,7 +1641,8 @@
         "mcp",
         "maps"
       ],
-      "updatedAt": "2026-09-02T09:44:15.197Z"
+      "updatedAt": "2026-09-02T09:44:15.197Z",
+      "verified": false
     },
     "mcp/helm": {
       "name": "mcp/helm",
@@ -1550,7 +1657,8 @@
         "helm",
         "k8s"
       ],
-      "updatedAt": "2026-09-03T11:17:11.965Z"
+      "updatedAt": "2026-09-03T11:17:11.965Z",
+      "verified": false
     },
     "mcp/hubspot": {
       "name": "mcp/hubspot",
@@ -1565,7 +1673,8 @@
         "hubspot",
         "crm"
       ],
-      "updatedAt": "2026-09-03T11:17:11.971Z"
+      "updatedAt": "2026-09-03T11:17:11.971Z",
+      "verified": false
     },
     "mcp/intercom": {
       "name": "mcp/intercom",
@@ -1580,7 +1689,8 @@
         "intercom",
         "chat"
       ],
-      "updatedAt": "2026-09-03T11:17:11.971Z"
+      "updatedAt": "2026-09-03T11:17:11.971Z",
+      "verified": false
     },
     "mcp/jenkins": {
       "name": "mcp/jenkins",
@@ -1595,7 +1705,8 @@
         "jenkins",
         "ci"
       ],
-      "updatedAt": "2026-09-03T11:17:11.966Z"
+      "updatedAt": "2026-09-03T11:17:11.966Z",
+      "verified": false
     },
     "mcp/jira": {
       "name": "mcp/jira",
@@ -1610,7 +1721,8 @@
         "jira",
         "issues"
       ],
-      "updatedAt": "2026-09-03T11:17:11.968Z"
+      "updatedAt": "2026-09-03T11:17:11.968Z",
+      "verified": false
     },
     "mcp/kafka": {
       "name": "mcp/kafka",
@@ -1625,7 +1737,8 @@
         "kafka",
         "streaming"
       ],
-      "updatedAt": "2026-09-03T11:17:11.974Z"
+      "updatedAt": "2026-09-03T11:17:11.974Z",
+      "verified": false
     },
     "mcp/kubernetes": {
       "name": "mcp/kubernetes",
@@ -1640,7 +1753,8 @@
         "kubernetes",
         "k8s"
       ],
-      "updatedAt": "2026-09-02T09:44:15.206Z"
+      "updatedAt": "2026-09-02T09:44:15.206Z",
+      "verified": false
     },
     "mcp/linear": {
       "name": "mcp/linear",
@@ -1654,7 +1768,8 @@
         "mcp",
         "linear"
       ],
-      "updatedAt": "2026-09-02T09:44:15.202Z"
+      "updatedAt": "2026-09-02T09:44:15.202Z",
+      "verified": false
     },
     "mcp/mailchimp": {
       "name": "mcp/mailchimp",
@@ -1669,21 +1784,23 @@
         "mailchimp",
         "email"
       ],
-      "updatedAt": "2026-09-03T11:17:11.973Z"
+      "updatedAt": "2026-09-03T11:17:11.973Z",
+      "verified": false
     },
     "mcp/memory": {
       "name": "mcp/memory",
       "type": "mcp",
       "description": "Memory MCP server — knowledge graph memory",
-      "latest": "1.0.0",
+      "latest": "2026.8.31",
       "versions": [
-        "1.0.0"
+        "2026.8.31"
       ],
       "keywords": [
         "mcp",
         "memory"
       ],
-      "updatedAt": "2026-09-02T09:44:15.192Z"
+      "updatedAt": "2026-08-31T20:23:48.078Z",
+      "verified": true
     },
     "mcp/newrelic": {
       "name": "mcp/newrelic",
@@ -1698,7 +1815,8 @@
         "newrelic",
         "apm"
       ],
-      "updatedAt": "2026-09-03T11:17:11.967Z"
+      "updatedAt": "2026-09-03T11:17:11.967Z",
+      "verified": false
     },
     "mcp/notion": {
       "name": "mcp/notion",
@@ -1712,7 +1830,8 @@
         "mcp",
         "notion"
       ],
-      "updatedAt": "2026-09-02T09:44:15.200Z"
+      "updatedAt": "2026-09-02T09:44:15.200Z",
+      "verified": false
     },
     "mcp/opsgenie": {
       "name": "mcp/opsgenie",
@@ -1727,7 +1846,8 @@
         "opsgenie",
         "alerts"
       ],
-      "updatedAt": "2026-09-03T11:17:11.968Z"
+      "updatedAt": "2026-09-03T11:17:11.968Z",
+      "verified": false
     },
     "mcp/pagerduty": {
       "name": "mcp/pagerduty",
@@ -1742,22 +1862,24 @@
         "pagerduty",
         "incidents"
       ],
-      "updatedAt": "2026-09-03T11:17:11.967Z"
+      "updatedAt": "2026-09-03T11:17:11.967Z",
+      "verified": false
     },
     "mcp/postgres": {
       "name": "mcp/postgres",
       "type": "mcp",
       "description": "Postgres MCP server — SQL database access",
-      "latest": "1.0.0",
+      "latest": "0.6.2",
       "versions": [
-        "1.0.0"
+        "0.6.2"
       ],
       "keywords": [
         "mcp",
         "postgres",
         "sql"
       ],
-      "updatedAt": "2026-09-02T09:44:15.195Z"
+      "updatedAt": "2024-12-04T16:14:51.820Z",
+      "verified": true
     },
     "mcp/puppeteer": {
       "name": "mcp/puppeteer",
@@ -1772,7 +1894,8 @@
         "puppeteer",
         "browser"
       ],
-      "updatedAt": "2026-09-02T09:44:15.197Z"
+      "updatedAt": "2026-09-02T09:44:15.197Z",
+      "verified": false
     },
     "mcp/rabbitmq": {
       "name": "mcp/rabbitmq",
@@ -1787,7 +1910,8 @@
         "rabbitmq",
         "queue"
       ],
-      "updatedAt": "2026-09-03T11:17:11.974Z"
+      "updatedAt": "2026-09-03T11:17:11.974Z",
+      "verified": false
     },
     "mcp/redis": {
       "name": "mcp/redis",
@@ -1801,7 +1925,8 @@
         "mcp",
         "redis"
       ],
-      "updatedAt": "2026-09-02T09:44:15.204Z"
+      "updatedAt": "2026-09-02T09:44:15.204Z",
+      "verified": false
     },
     "mcp/salesforce": {
       "name": "mcp/salesforce",
@@ -1816,7 +1941,8 @@
         "salesforce",
         "crm"
       ],
-      "updatedAt": "2026-09-03T11:17:11.970Z"
+      "updatedAt": "2026-09-03T11:17:11.970Z",
+      "verified": false
     },
     "mcp/sendgrid": {
       "name": "mcp/sendgrid",
@@ -1831,7 +1957,8 @@
         "sendgrid",
         "email"
       ],
-      "updatedAt": "2026-09-03T11:17:11.972Z"
+      "updatedAt": "2026-09-03T11:17:11.972Z",
+      "verified": false
     },
     "mcp/sentry": {
       "name": "mcp/sentry",
@@ -1845,21 +1972,23 @@
         "mcp",
         "sentry"
       ],
-      "updatedAt": "2026-09-02T09:44:15.202Z"
+      "updatedAt": "2026-09-02T09:44:15.202Z",
+      "verified": false
     },
     "mcp/sequential-thinking": {
       "name": "mcp/sequential-thinking",
       "type": "mcp",
       "description": "Sequential thinking MCP — structured reasoning",
-      "latest": "1.0.0",
+      "latest": "2026.8.31",
       "versions": [
-        "1.0.0"
+        "2026.8.31"
       ],
       "keywords": [
         "mcp",
         "reasoning"
       ],
-      "updatedAt": "2026-09-02T09:44:15.198Z"
+      "updatedAt": "2026-08-31T20:23:44.857Z",
+      "verified": true
     },
     "mcp/shopify": {
       "name": "mcp/shopify",
@@ -1874,7 +2003,8 @@
         "shopify",
         "ecommerce"
       ],
-      "updatedAt": "2026-09-03T11:17:11.970Z"
+      "updatedAt": "2026-09-03T11:17:11.970Z",
+      "verified": false
     },
     "mcp/slack": {
       "name": "mcp/slack",
@@ -1888,7 +2018,8 @@
         "mcp",
         "slack"
       ],
-      "updatedAt": "2026-09-02T09:44:15.196Z"
+      "updatedAt": "2026-09-02T09:44:15.196Z",
+      "verified": false
     },
     "mcp/sqlite": {
       "name": "mcp/sqlite",
@@ -1902,7 +2033,8 @@
         "mcp",
         "sqlite"
       ],
-      "updatedAt": "2026-09-02T09:44:15.196Z"
+      "updatedAt": "2026-09-02T09:44:15.196Z",
+      "verified": false
     },
     "mcp/stripe": {
       "name": "mcp/stripe",
@@ -1917,7 +2049,8 @@
         "stripe",
         "payments"
       ],
-      "updatedAt": "2026-09-03T11:17:11.962Z"
+      "updatedAt": "2026-09-03T11:17:11.962Z",
+      "verified": false
     },
     "mcp/supabase": {
       "name": "mcp/supabase",
@@ -1932,7 +2065,8 @@
         "supabase",
         "database"
       ],
-      "updatedAt": "2026-09-03T11:17:11.963Z"
+      "updatedAt": "2026-09-03T11:17:11.963Z",
+      "verified": false
     },
     "mcp/terraform": {
       "name": "mcp/terraform",
@@ -1947,7 +2081,8 @@
         "terraform",
         "iac"
       ],
-      "updatedAt": "2026-09-03T11:17:11.964Z"
+      "updatedAt": "2026-09-03T11:17:11.964Z",
+      "verified": false
     },
     "mcp/time": {
       "name": "mcp/time",
@@ -1961,7 +2096,8 @@
         "mcp",
         "time"
       ],
-      "updatedAt": "2026-09-02T09:44:15.199Z"
+      "updatedAt": "2026-09-02T09:44:15.199Z",
+      "verified": false
     },
     "mcp/twilio": {
       "name": "mcp/twilio",
@@ -1976,7 +2112,8 @@
         "twilio",
         "sms"
       ],
-      "updatedAt": "2026-09-03T11:17:11.972Z"
+      "updatedAt": "2026-09-03T11:17:11.972Z",
+      "verified": false
     },
     "mcp/vercel": {
       "name": "mcp/vercel",
@@ -1991,7 +2128,8 @@
         "vercel",
         "deploy"
       ],
-      "updatedAt": "2026-09-03T11:17:11.963Z"
+      "updatedAt": "2026-09-03T11:17:11.963Z",
+      "verified": false
     },
     "mcp/zendesk": {
       "name": "mcp/zendesk",
@@ -2006,7 +2144,8 @@
         "zendesk",
         "support"
       ],
-      "updatedAt": "2026-09-03T11:17:11.971Z"
+      "updatedAt": "2026-09-03T11:17:11.971Z",
+      "verified": false
     },
     "notion/skill": {
       "name": "notion/skill",
@@ -2020,7 +2159,8 @@
         "notion",
         "docs"
       ],
-      "updatedAt": "2026-09-02T09:44:15.225Z"
+      "updatedAt": "2026-09-02T09:44:15.225Z",
+      "verified": false
     },
     "obra/superpowers": {
       "name": "obra/superpowers",
@@ -2035,7 +2175,8 @@
         "workflow",
         "brainstorming"
       ],
-      "updatedAt": "2026-08-29T12:00:00Z"
+      "updatedAt": "2026-08-29T12:00:00Z",
+      "verified": true
     },
     "openai/skill": {
       "name": "openai/skill",
@@ -2049,7 +2190,8 @@
         "openai",
         "gpt"
       ],
-      "updatedAt": "2026-09-02T09:44:15.221Z"
+      "updatedAt": "2026-09-02T09:44:15.221Z",
+      "verified": false
     },
     "pdf/annotate": {
       "name": "pdf/annotate",
@@ -2064,7 +2206,8 @@
         "annotate",
         "review"
       ],
-      "updatedAt": "2026-09-03T11:17:11.951Z"
+      "updatedAt": "2026-09-03T11:17:11.951Z",
+      "verified": false
     },
     "pdf/compress": {
       "name": "pdf/compress",
@@ -2079,7 +2222,8 @@
         "compress",
         "optimize"
       ],
-      "updatedAt": "2026-09-03T11:17:11.948Z"
+      "updatedAt": "2026-09-03T11:17:11.948Z",
+      "verified": true
     },
     "pdf/convert": {
       "name": "pdf/convert",
@@ -2094,7 +2238,8 @@
         "convert",
         "export"
       ],
-      "updatedAt": "2026-09-03T11:17:11.951Z"
+      "updatedAt": "2026-09-03T11:17:11.951Z",
+      "verified": true
     },
     "pdf/extract": {
       "name": "pdf/extract",
@@ -2109,7 +2254,8 @@
         "extract",
         "parse"
       ],
-      "updatedAt": "2026-09-03T11:17:11.949Z"
+      "updatedAt": "2026-09-03T11:17:11.949Z",
+      "verified": true
     },
     "pdf/forms": {
       "name": "pdf/forms",
@@ -2124,7 +2270,8 @@
         "forms",
         "acroform"
       ],
-      "updatedAt": "2026-09-03T11:17:11.949Z"
+      "updatedAt": "2026-09-03T11:17:11.949Z",
+      "verified": true
     },
     "pdf/merge": {
       "name": "pdf/merge",
@@ -2139,7 +2286,8 @@
         "merge",
         "document"
       ],
-      "updatedAt": "2026-09-03T11:17:11.945Z"
+      "updatedAt": "2026-09-03T11:17:11.945Z",
+      "verified": true
     },
     "pdf/ocr": {
       "name": "pdf/ocr",
@@ -2154,7 +2302,8 @@
         "ocr",
         "scan"
       ],
-      "updatedAt": "2026-09-03T11:17:11.947Z"
+      "updatedAt": "2026-09-03T11:17:11.947Z",
+      "verified": true
     },
     "pdf/redact": {
       "name": "pdf/redact",
@@ -2169,7 +2318,8 @@
         "redact",
         "privacy"
       ],
-      "updatedAt": "2026-09-03T11:17:11.950Z"
+      "updatedAt": "2026-09-03T11:17:11.950Z",
+      "verified": false
     },
     "pdf/sign": {
       "name": "pdf/sign",
@@ -2184,7 +2334,8 @@
         "sign",
         "signature"
       ],
-      "updatedAt": "2026-09-03T11:17:11.948Z"
+      "updatedAt": "2026-09-03T11:17:11.948Z",
+      "verified": false
     },
     "pdf/split": {
       "name": "pdf/split",
@@ -2199,7 +2350,8 @@
         "split",
         "pages"
       ],
-      "updatedAt": "2026-09-03T11:17:11.946Z"
+      "updatedAt": "2026-09-03T11:17:11.946Z",
+      "verified": true
     },
     "pdf/tables": {
       "name": "pdf/tables",
@@ -2214,7 +2366,8 @@
         "tables",
         "csv"
       ],
-      "updatedAt": "2026-09-03T11:17:11.952Z"
+      "updatedAt": "2026-09-03T11:17:11.952Z",
+      "verified": true
     },
     "pdf/watermark": {
       "name": "pdf/watermark",
@@ -2229,7 +2382,8 @@
         "watermark",
         "stamp"
       ],
-      "updatedAt": "2026-09-03T11:17:11.950Z"
+      "updatedAt": "2026-09-03T11:17:11.950Z",
+      "verified": false
     },
     "performance/skill": {
       "name": "performance/skill",
@@ -2243,7 +2397,8 @@
         "performance",
         "perf"
       ],
-      "updatedAt": "2026-09-02T09:44:15.234Z"
+      "updatedAt": "2026-09-02T09:44:15.234Z",
+      "verified": false
     },
     "playwright/skill": {
       "name": "playwright/skill",
@@ -2257,7 +2412,8 @@
         "playwright",
         "testing"
       ],
-      "updatedAt": "2026-09-02T09:44:15.216Z"
+      "updatedAt": "2026-09-02T09:44:15.216Z",
+      "verified": false
     },
     "plugin/claude-marketplace": {
       "name": "plugin/claude-marketplace",
@@ -2271,7 +2427,8 @@
         "plugin",
         "claude"
       ],
-      "updatedAt": "2026-09-03T11:17:12.002Z"
+      "updatedAt": "2026-09-03T11:17:12.002Z",
+      "verified": false
     },
     "plugin/cursor-marketplace": {
       "name": "plugin/cursor-marketplace",
@@ -2285,7 +2442,8 @@
         "plugin",
         "cursor"
       ],
-      "updatedAt": "2026-09-03T11:17:12.003Z"
+      "updatedAt": "2026-09-03T11:17:12.003Z",
+      "verified": false
     },
     "plugin/cursor-rules": {
       "name": "plugin/cursor-rules",
@@ -2299,7 +2457,8 @@
         "plugin",
         "cursor"
       ],
-      "updatedAt": "2026-09-02T09:44:15.242Z"
+      "updatedAt": "2026-09-02T09:44:15.242Z",
+      "verified": false
     },
     "plugin/dsh-desktop": {
       "name": "plugin/dsh-desktop",
@@ -2313,7 +2472,8 @@
         "plugin",
         "dsh"
       ],
-      "updatedAt": "2026-09-02T09:44:15.240Z"
+      "updatedAt": "2026-09-02T09:44:15.240Z",
+      "verified": false
     },
     "plugin/dsh-prompts": {
       "name": "plugin/dsh-prompts",
@@ -2327,7 +2487,8 @@
         "plugin",
         "dsh"
       ],
-      "updatedAt": "2026-09-03T11:17:12.004Z"
+      "updatedAt": "2026-09-03T11:17:12.004Z",
+      "verified": false
     },
     "plugin/github-action": {
       "name": "plugin/github-action",
@@ -2341,7 +2502,8 @@
         "plugin",
         "github"
       ],
-      "updatedAt": "2026-09-03T11:17:12.004Z"
+      "updatedAt": "2026-09-03T11:17:12.004Z",
+      "verified": false
     },
     "plugin/jetbrains-ext": {
       "name": "plugin/jetbrains-ext",
@@ -2355,7 +2517,8 @@
         "plugin",
         "jetbrains"
       ],
-      "updatedAt": "2026-09-03T11:17:12.005Z"
+      "updatedAt": "2026-09-03T11:17:12.005Z",
+      "verified": false
     },
     "plugin/opencode-lsp": {
       "name": "plugin/opencode-lsp",
@@ -2369,7 +2532,8 @@
         "plugin",
         "opencode"
       ],
-      "updatedAt": "2026-09-02T09:44:15.241Z"
+      "updatedAt": "2026-09-02T09:44:15.241Z",
+      "verified": false
     },
     "plugin/opencode-themes": {
       "name": "plugin/opencode-themes",
@@ -2383,7 +2547,8 @@
         "plugin",
         "opencode"
       ],
-      "updatedAt": "2026-09-03T11:17:12.003Z"
+      "updatedAt": "2026-09-03T11:17:12.003Z",
+      "verified": false
     },
     "plugin/vscode-ext": {
       "name": "plugin/vscode-ext",
@@ -2397,7 +2562,8 @@
         "plugin",
         "vscode"
       ],
-      "updatedAt": "2026-09-03T11:17:12.005Z"
+      "updatedAt": "2026-09-03T11:17:12.005Z",
+      "verified": false
     },
     "plugin/windsurf-rules": {
       "name": "plugin/windsurf-rules",
@@ -2411,7 +2577,8 @@
         "plugin",
         "windsurf"
       ],
-      "updatedAt": "2026-09-03T11:17:12.003Z"
+      "updatedAt": "2026-09-03T11:17:12.003Z",
+      "verified": false
     },
     "refactoring/skill": {
       "name": "refactoring/skill",
@@ -2425,7 +2592,8 @@
         "refactoring",
         "clean"
       ],
-      "updatedAt": "2026-09-02T09:44:15.229Z"
+      "updatedAt": "2026-09-02T09:44:15.229Z",
+      "verified": false
     },
     "security/skill": {
       "name": "security/skill",
@@ -2439,7 +2607,8 @@
         "security",
         "audit"
       ],
-      "updatedAt": "2026-09-02T09:44:15.233Z"
+      "updatedAt": "2026-09-02T09:44:15.233Z",
+      "verified": false
     },
     "seo/skill": {
       "name": "seo/skill",
@@ -2453,7 +2622,8 @@
         "seo",
         "optimization"
       ],
-      "updatedAt": "2026-09-02T09:44:15.231Z"
+      "updatedAt": "2026-09-02T09:44:15.231Z",
+      "verified": false
     },
     "shadcn/skill": {
       "name": "shadcn/skill",
@@ -2467,7 +2637,8 @@
         "shadcn",
         "ui"
       ],
-      "updatedAt": "2026-09-02T09:44:15.217Z"
+      "updatedAt": "2026-09-02T09:44:15.217Z",
+      "verified": false
     },
     "skill/3d": {
       "name": "skill/3d",
@@ -2481,7 +2652,8 @@
         "3d",
         "rendering"
       ],
-      "updatedAt": "2026-09-02T09:44:15.251Z"
+      "updatedAt": "2026-09-02T09:44:15.251Z",
+      "verified": false
     },
     "skill/abtest": {
       "name": "skill/abtest",
@@ -2495,7 +2667,8 @@
         "abtest",
         "experiments"
       ],
-      "updatedAt": "2026-09-03T11:17:11.987Z"
+      "updatedAt": "2026-09-03T11:17:11.987Z",
+      "verified": false
     },
     "skill/analytics": {
       "name": "skill/analytics",
@@ -2509,7 +2682,8 @@
         "analytics",
         "events"
       ],
-      "updatedAt": "2026-09-03T11:17:11.987Z"
+      "updatedAt": "2026-09-03T11:17:11.987Z",
+      "verified": false
     },
     "skill/audio": {
       "name": "skill/audio",
@@ -2523,7 +2697,8 @@
         "audio",
         "speech"
       ],
-      "updatedAt": "2026-09-02T09:44:15.250Z"
+      "updatedAt": "2026-09-02T09:44:15.250Z",
+      "verified": false
     },
     "skill/auth": {
       "name": "skill/auth",
@@ -2537,7 +2712,8 @@
         "auth",
         "security"
       ],
-      "updatedAt": "2026-09-03T11:17:11.981Z"
+      "updatedAt": "2026-09-03T11:17:11.981Z",
+      "verified": false
     },
     "skill/backup": {
       "name": "skill/backup",
@@ -2551,7 +2727,8 @@
         "backup",
         "restore"
       ],
-      "updatedAt": "2026-09-03T11:17:11.983Z"
+      "updatedAt": "2026-09-03T11:17:11.983Z",
+      "verified": false
     },
     "skill/bash": {
       "name": "skill/bash",
@@ -2565,7 +2742,8 @@
         "bash",
         "shell"
       ],
-      "updatedAt": "2026-09-03T11:17:11.977Z"
+      "updatedAt": "2026-09-03T11:17:11.977Z",
+      "verified": false
     },
     "skill/benchmark": {
       "name": "skill/benchmark",
@@ -2579,7 +2757,8 @@
         "benchmark",
         "perf"
       ],
-      "updatedAt": "2026-09-03T11:17:11.985Z"
+      "updatedAt": "2026-09-03T11:17:11.985Z",
+      "verified": false
     },
     "skill/bugbounty": {
       "name": "skill/bugbounty",
@@ -2593,7 +2772,8 @@
         "bugbounty",
         "security"
       ],
-      "updatedAt": "2026-09-03T11:17:11.993Z"
+      "updatedAt": "2026-09-03T11:17:11.993Z",
+      "verified": false
     },
     "skill/calendar": {
       "name": "skill/calendar",
@@ -2607,7 +2787,8 @@
         "calendar",
         "scheduling"
       ],
-      "updatedAt": "2026-09-02T09:44:15.252Z"
+      "updatedAt": "2026-09-02T09:44:15.252Z",
+      "verified": false
     },
     "skill/chaos": {
       "name": "skill/chaos",
@@ -2621,7 +2802,8 @@
         "chaos",
         "resilience"
       ],
-      "updatedAt": "2026-09-03T11:17:11.986Z"
+      "updatedAt": "2026-09-03T11:17:11.986Z",
+      "verified": false
     },
     "skill/compliance": {
       "name": "skill/compliance",
@@ -2635,7 +2817,8 @@
         "compliance",
         "soc2"
       ],
-      "updatedAt": "2026-09-03T11:17:11.994Z"
+      "updatedAt": "2026-09-03T11:17:11.994Z",
+      "verified": false
     },
     "skill/csv": {
       "name": "skill/csv",
@@ -2649,7 +2832,8 @@
         "csv",
         "data"
       ],
-      "updatedAt": "2026-09-02T09:44:15.248Z"
+      "updatedAt": "2026-09-02T09:44:15.248Z",
+      "verified": false
     },
     "skill/docker-compose": {
       "name": "skill/docker-compose",
@@ -2663,7 +2847,8 @@
         "docker",
         "compose"
       ],
-      "updatedAt": "2026-09-03T11:17:11.977Z"
+      "updatedAt": "2026-09-03T11:17:11.977Z",
+      "verified": false
     },
     "skill/electron": {
       "name": "skill/electron",
@@ -2677,7 +2862,8 @@
         "electron",
         "desktop"
       ],
-      "updatedAt": "2026-09-03T11:17:11.995Z"
+      "updatedAt": "2026-09-03T11:17:11.995Z",
+      "verified": false
     },
     "skill/email": {
       "name": "skill/email",
@@ -2691,7 +2877,8 @@
         "email",
         "communication"
       ],
-      "updatedAt": "2026-09-02T09:44:15.252Z"
+      "updatedAt": "2026-09-02T09:44:15.252Z",
+      "verified": false
     },
     "skill/embeddings": {
       "name": "skill/embeddings",
@@ -2705,7 +2892,8 @@
         "embeddings",
         "vectors"
       ],
-      "updatedAt": "2026-09-03T11:17:11.991Z"
+      "updatedAt": "2026-09-03T11:17:11.991Z",
+      "verified": false
     },
     "skill/encryption": {
       "name": "skill/encryption",
@@ -2719,7 +2907,8 @@
         "encryption",
         "crypto"
       ],
-      "updatedAt": "2026-09-03T11:17:11.982Z"
+      "updatedAt": "2026-09-03T11:17:11.982Z",
+      "verified": false
     },
     "skill/eval": {
       "name": "skill/eval",
@@ -2733,7 +2922,8 @@
         "eval",
         "testing"
       ],
-      "updatedAt": "2026-09-03T11:17:11.992Z"
+      "updatedAt": "2026-09-03T11:17:11.992Z",
+      "verified": false
     },
     "skill/excel": {
       "name": "skill/excel",
@@ -2747,7 +2937,8 @@
         "excel",
         "sheets"
       ],
-      "updatedAt": "2026-09-03T11:17:11.987Z"
+      "updatedAt": "2026-09-03T11:17:11.987Z",
+      "verified": false
     },
     "skill/feature-flags": {
       "name": "skill/feature-flags",
@@ -2761,7 +2952,8 @@
         "flags",
         "rollout"
       ],
-      "updatedAt": "2026-09-03T11:17:11.986Z"
+      "updatedAt": "2026-09-03T11:17:11.986Z",
+      "verified": false
     },
     "skill/finetune": {
       "name": "skill/finetune",
@@ -2775,7 +2967,8 @@
         "finetune",
         "lora"
       ],
-      "updatedAt": "2026-09-03T11:17:11.992Z"
+      "updatedAt": "2026-09-03T11:17:11.992Z",
+      "verified": false
     },
     "skill/flutter": {
       "name": "skill/flutter",
@@ -2789,7 +2982,8 @@
         "flutter",
         "mobile"
       ],
-      "updatedAt": "2026-09-03T11:17:11.996Z"
+      "updatedAt": "2026-09-03T11:17:11.996Z",
+      "verified": false
     },
     "skill/gdpr": {
       "name": "skill/gdpr",
@@ -2803,7 +2997,8 @@
         "gdpr",
         "privacy"
       ],
-      "updatedAt": "2026-09-03T11:17:11.994Z"
+      "updatedAt": "2026-09-03T11:17:11.994Z",
+      "verified": false
     },
     "skill/git-advanced": {
       "name": "skill/git-advanced",
@@ -2817,7 +3012,8 @@
         "git",
         "advanced"
       ],
-      "updatedAt": "2026-09-03T11:17:11.976Z"
+      "updatedAt": "2026-09-03T11:17:11.976Z",
+      "verified": false
     },
     "skill/graphql": {
       "name": "skill/graphql",
@@ -2831,7 +3027,8 @@
         "graphql",
         "api"
       ],
-      "updatedAt": "2026-09-03T11:17:11.980Z"
+      "updatedAt": "2026-09-03T11:17:11.980Z",
+      "verified": false
     },
     "skill/grpc": {
       "name": "skill/grpc",
@@ -2845,7 +3042,8 @@
         "grpc",
         "rpc"
       ],
-      "updatedAt": "2026-09-03T11:17:11.981Z"
+      "updatedAt": "2026-09-03T11:17:11.981Z",
+      "verified": false
     },
     "skill/image": {
       "name": "skill/image",
@@ -2859,7 +3057,8 @@
         "image",
         "vision"
       ],
-      "updatedAt": "2026-09-02T09:44:15.249Z"
+      "updatedAt": "2026-09-02T09:44:15.249Z",
+      "verified": false
     },
     "skill/json": {
       "name": "skill/json",
@@ -2873,7 +3072,8 @@
         "json",
         "data"
       ],
-      "updatedAt": "2026-09-03T11:17:11.975Z"
+      "updatedAt": "2026-09-03T11:17:11.975Z",
+      "verified": false
     },
     "skill/jwt": {
       "name": "skill/jwt",
@@ -2887,7 +3087,8 @@
         "jwt",
         "tokens"
       ],
-      "updatedAt": "2026-09-03T11:17:11.982Z"
+      "updatedAt": "2026-09-03T11:17:11.982Z",
+      "verified": false
     },
     "skill/lighthouse": {
       "name": "skill/lighthouse",
@@ -2901,7 +3102,8 @@
         "lighthouse",
         "perf"
       ],
-      "updatedAt": "2026-09-03T11:17:11.995Z"
+      "updatedAt": "2026-09-03T11:17:11.995Z",
+      "verified": false
     },
     "skill/loadtest": {
       "name": "skill/loadtest",
@@ -2915,7 +3117,8 @@
         "loadtest",
         "k6"
       ],
-      "updatedAt": "2026-09-03T11:17:11.985Z"
+      "updatedAt": "2026-09-03T11:17:11.985Z",
+      "verified": false
     },
     "skill/logging": {
       "name": "skill/logging",
@@ -2929,7 +3132,8 @@
         "logging",
         "otel"
       ],
-      "updatedAt": "2026-09-03T11:17:11.984Z"
+      "updatedAt": "2026-09-03T11:17:11.984Z",
+      "verified": false
     },
     "skill/makefile": {
       "name": "skill/makefile",
@@ -2943,7 +3147,8 @@
         "makefile",
         "build"
       ],
-      "updatedAt": "2026-09-03T11:17:11.977Z"
+      "updatedAt": "2026-09-03T11:17:11.977Z",
+      "verified": false
     },
     "skill/markdown": {
       "name": "skill/markdown",
@@ -2957,7 +3162,8 @@
         "markdown",
         "docs"
       ],
-      "updatedAt": "2026-09-03T11:17:11.975Z"
+      "updatedAt": "2026-09-03T11:17:11.975Z",
+      "verified": false
     },
     "skill/mongo": {
       "name": "skill/mongo",
@@ -2971,7 +3177,8 @@
         "mongo",
         "nosql"
       ],
-      "updatedAt": "2026-09-03T11:17:11.979Z"
+      "updatedAt": "2026-09-03T11:17:11.979Z",
+      "verified": false
     },
     "skill/monitoring": {
       "name": "skill/monitoring",
@@ -2985,7 +3192,8 @@
         "monitoring",
         "slo"
       ],
-      "updatedAt": "2026-09-03T11:17:11.983Z"
+      "updatedAt": "2026-09-03T11:17:11.983Z",
+      "verified": false
     },
     "skill/notebook": {
       "name": "skill/notebook",
@@ -2999,7 +3207,8 @@
         "notebook",
         "jupyter"
       ],
-      "updatedAt": "2026-09-03T11:17:11.988Z"
+      "updatedAt": "2026-09-03T11:17:11.988Z",
+      "verified": false
     },
     "skill/numpy": {
       "name": "skill/numpy",
@@ -3013,7 +3222,8 @@
         "numpy",
         "python"
       ],
-      "updatedAt": "2026-09-03T11:17:11.989Z"
+      "updatedAt": "2026-09-03T11:17:11.989Z",
+      "verified": false
     },
     "skill/oauth": {
       "name": "skill/oauth",
@@ -3027,7 +3237,8 @@
         "oauth",
         "login"
       ],
-      "updatedAt": "2026-09-03T11:17:11.982Z"
+      "updatedAt": "2026-09-03T11:17:11.982Z",
+      "verified": false
     },
     "skill/onnx": {
       "name": "skill/onnx",
@@ -3041,7 +3252,8 @@
         "onnx",
         "models"
       ],
-      "updatedAt": "2026-09-03T11:17:11.990Z"
+      "updatedAt": "2026-09-03T11:17:11.990Z",
+      "verified": false
     },
     "skill/pandas": {
       "name": "skill/pandas",
@@ -3055,7 +3267,8 @@
         "pandas",
         "python"
       ],
-      "updatedAt": "2026-09-03T11:17:11.989Z"
+      "updatedAt": "2026-09-03T11:17:11.989Z",
+      "verified": false
     },
     "skill/parquet": {
       "name": "skill/parquet",
@@ -3069,7 +3282,8 @@
         "parquet",
         "data"
       ],
-      "updatedAt": "2026-09-03T11:17:11.988Z"
+      "updatedAt": "2026-09-03T11:17:11.988Z",
+      "verified": false
     },
     "skill/pdf": {
       "name": "skill/pdf",
@@ -3083,7 +3297,8 @@
         "pdf",
         "document"
       ],
-      "updatedAt": "2026-09-02T09:44:15.248Z"
+      "updatedAt": "2026-09-02T09:44:15.248Z",
+      "verified": false
     },
     "skill/pentest": {
       "name": "skill/pentest",
@@ -3097,7 +3312,8 @@
         "pentest",
         "security"
       ],
-      "updatedAt": "2026-09-03T11:17:11.993Z"
+      "updatedAt": "2026-09-03T11:17:11.993Z",
+      "verified": false
     },
     "skill/postgres-admin": {
       "name": "skill/postgres-admin",
@@ -3111,7 +3327,8 @@
         "postgres",
         "admin"
       ],
-      "updatedAt": "2026-09-03T11:17:11.979Z"
+      "updatedAt": "2026-09-03T11:17:11.979Z",
+      "verified": false
     },
     "skill/powershell": {
       "name": "skill/powershell",
@@ -3125,7 +3342,8 @@
         "powershell",
         "windows"
       ],
-      "updatedAt": "2026-09-03T11:17:11.978Z"
+      "updatedAt": "2026-09-03T11:17:11.978Z",
+      "verified": false
     },
     "skill/profiling": {
       "name": "skill/profiling",
@@ -3139,7 +3357,8 @@
         "profiling",
         "perf"
       ],
-      "updatedAt": "2026-09-03T11:17:11.985Z"
+      "updatedAt": "2026-09-03T11:17:11.985Z",
+      "verified": false
     },
     "skill/prompt-eng": {
       "name": "skill/prompt-eng",
@@ -3153,7 +3372,8 @@
         "prompt",
         "llm"
       ],
-      "updatedAt": "2026-09-03T11:17:11.991Z"
+      "updatedAt": "2026-09-03T11:17:11.991Z",
+      "verified": false
     },
     "skill/pwa": {
       "name": "skill/pwa",
@@ -3167,7 +3387,8 @@
         "pwa",
         "web"
       ],
-      "updatedAt": "2026-09-03T11:17:11.995Z"
+      "updatedAt": "2026-09-03T11:17:11.995Z",
+      "verified": false
     },
     "skill/pytorch": {
       "name": "skill/pytorch",
@@ -3181,7 +3402,8 @@
         "pytorch",
         "dl"
       ],
-      "updatedAt": "2026-09-03T11:17:11.990Z"
+      "updatedAt": "2026-09-03T11:17:11.990Z",
+      "verified": false
     },
     "skill/rag": {
       "name": "skill/rag",
@@ -3195,7 +3417,8 @@
         "rag",
         "retrieval"
       ],
-      "updatedAt": "2026-09-03T11:17:11.990Z"
+      "updatedAt": "2026-09-03T11:17:11.990Z",
+      "verified": false
     },
     "skill/react-native": {
       "name": "skill/react-native",
@@ -3209,7 +3432,8 @@
         "react-native",
         "mobile"
       ],
-      "updatedAt": "2026-09-03T11:17:11.996Z"
+      "updatedAt": "2026-09-03T11:17:11.996Z",
+      "verified": false
     },
     "skill/redteam": {
       "name": "skill/redteam",
@@ -3223,7 +3447,8 @@
         "redteam",
         "safety"
       ],
-      "updatedAt": "2026-09-03T11:17:11.993Z"
+      "updatedAt": "2026-09-03T11:17:11.993Z",
+      "verified": false
     },
     "skill/regex": {
       "name": "skill/regex",
@@ -3237,7 +3462,8 @@
         "regex",
         "patterns"
       ],
-      "updatedAt": "2026-09-03T11:17:11.976Z"
+      "updatedAt": "2026-09-03T11:17:11.976Z",
+      "verified": false
     },
     "skill/research": {
       "name": "skill/research",
@@ -3251,7 +3477,8 @@
         "research",
         "analysis"
       ],
-      "updatedAt": "2026-09-02T09:44:15.253Z"
+      "updatedAt": "2026-09-02T09:44:15.253Z",
+      "verified": false
     },
     "skill/rest": {
       "name": "skill/rest",
@@ -3265,7 +3492,8 @@
         "rest",
         "api"
       ],
-      "updatedAt": "2026-09-03T11:17:11.980Z"
+      "updatedAt": "2026-09-03T11:17:11.980Z",
+      "verified": false
     },
     "skill/scikit": {
       "name": "skill/scikit",
@@ -3279,7 +3507,8 @@
         "scikit",
         "ml"
       ],
-      "updatedAt": "2026-09-03T11:17:11.989Z"
+      "updatedAt": "2026-09-03T11:17:11.989Z",
+      "verified": false
     },
     "skill/search": {
       "name": "skill/search",
@@ -3293,7 +3522,8 @@
         "search",
         "retrieval"
       ],
-      "updatedAt": "2026-09-02T09:44:15.253Z"
+      "updatedAt": "2026-09-02T09:44:15.253Z",
+      "verified": false
     },
     "skill/sql": {
       "name": "skill/sql",
@@ -3307,7 +3537,8 @@
         "sql",
         "queries"
       ],
-      "updatedAt": "2026-09-03T11:17:11.978Z"
+      "updatedAt": "2026-09-03T11:17:11.978Z",
+      "verified": false
     },
     "skill/summarize": {
       "name": "skill/summarize",
@@ -3321,7 +3552,8 @@
         "summarize",
         "nlp"
       ],
-      "updatedAt": "2026-09-02T09:44:15.255Z"
+      "updatedAt": "2026-09-02T09:44:15.255Z",
+      "verified": false
     },
     "skill/tauri": {
       "name": "skill/tauri",
@@ -3335,7 +3567,8 @@
         "tauri",
         "rust"
       ],
-      "updatedAt": "2026-09-03T11:17:11.996Z"
+      "updatedAt": "2026-09-03T11:17:11.996Z",
+      "verified": false
     },
     "skill/tensorflow": {
       "name": "skill/tensorflow",
@@ -3349,7 +3582,8 @@
         "tensorflow",
         "dl"
       ],
-      "updatedAt": "2026-09-03T11:17:11.990Z"
+      "updatedAt": "2026-09-03T11:17:11.990Z",
+      "verified": false
     },
     "skill/tracing": {
       "name": "skill/tracing",
@@ -3363,7 +3597,8 @@
         "tracing",
         "otel"
       ],
-      "updatedAt": "2026-09-03T11:17:11.984Z"
+      "updatedAt": "2026-09-03T11:17:11.984Z",
+      "verified": false
     },
     "skill/translate": {
       "name": "skill/translate",
@@ -3377,7 +3612,8 @@
         "translate",
         "i18n"
       ],
-      "updatedAt": "2026-09-02T09:44:15.254Z"
+      "updatedAt": "2026-09-02T09:44:15.254Z",
+      "verified": false
     },
     "skill/vector-db": {
       "name": "skill/vector-db",
@@ -3391,7 +3627,8 @@
         "vectordb",
         "search"
       ],
-      "updatedAt": "2026-09-03T11:17:11.991Z"
+      "updatedAt": "2026-09-03T11:17:11.991Z",
+      "verified": false
     },
     "skill/video": {
       "name": "skill/video",
@@ -3405,7 +3642,8 @@
         "video",
         "media"
       ],
-      "updatedAt": "2026-09-02T09:44:15.250Z"
+      "updatedAt": "2026-09-02T09:44:15.250Z",
+      "verified": false
     },
     "skill/wcag": {
       "name": "skill/wcag",
@@ -3419,7 +3657,8 @@
         "wcag",
         "a11y"
       ],
-      "updatedAt": "2026-09-03T11:17:11.994Z"
+      "updatedAt": "2026-09-03T11:17:11.994Z",
+      "verified": false
     },
     "skill/websocket": {
       "name": "skill/websocket",
@@ -3433,7 +3672,8 @@
         "websocket",
         "realtime"
       ],
-      "updatedAt": "2026-09-03T11:17:11.980Z"
+      "updatedAt": "2026-09-03T11:17:11.980Z",
+      "verified": false
     },
     "skill/writing": {
       "name": "skill/writing",
@@ -3447,7 +3687,8 @@
         "writing",
         "content"
       ],
-      "updatedAt": "2026-09-02T09:44:15.254Z"
+      "updatedAt": "2026-09-02T09:44:15.254Z",
+      "verified": false
     },
     "skill/yaml": {
       "name": "skill/yaml",
@@ -3461,7 +3702,8 @@
         "yaml",
         "config"
       ],
-      "updatedAt": "2026-09-03T11:17:11.975Z"
+      "updatedAt": "2026-09-03T11:17:11.975Z",
+      "verified": false
     },
     "stripe/skill": {
       "name": "stripe/skill",
@@ -3475,7 +3717,8 @@
         "stripe",
         "payments"
       ],
-      "updatedAt": "2026-09-02T09:44:15.220Z"
+      "updatedAt": "2026-09-02T09:44:15.220Z",
+      "verified": false
     },
     "supabase/skill": {
       "name": "supabase/skill",
@@ -3489,7 +3732,8 @@
         "supabase",
         "database"
       ],
-      "updatedAt": "2026-09-02T09:44:15.219Z"
+      "updatedAt": "2026-09-02T09:44:15.219Z",
+      "verified": false
     },
     "tailwind/skill": {
       "name": "tailwind/skill",
@@ -3503,7 +3747,8 @@
         "tailwind",
         "css"
       ],
-      "updatedAt": "2026-09-02T09:44:15.218Z"
+      "updatedAt": "2026-09-02T09:44:15.218Z",
+      "verified": false
     },
     "taste/skill": {
       "name": "taste/skill",
@@ -3517,7 +3762,8 @@
         "taste",
         "design"
       ],
-      "updatedAt": "2026-09-02T09:44:15.212Z"
+      "updatedAt": "2026-09-02T09:44:15.212Z",
+      "verified": false
     },
     "testing/skill": {
       "name": "testing/skill",
@@ -3531,7 +3777,8 @@
         "testing",
         "quality"
       ],
-      "updatedAt": "2026-09-02T09:44:15.229Z"
+      "updatedAt": "2026-09-02T09:44:15.229Z",
+      "verified": false
     },
     "vercel/ai-sdk-skill": {
       "name": "vercel/ai-sdk-skill",
@@ -3545,7 +3792,8 @@
         "vercel",
         "ai"
       ],
-      "updatedAt": "2026-09-02T09:44:15.211Z"
+      "updatedAt": "2026-09-02T09:44:15.211Z",
+      "verified": false
     },
     "vercel/nextjs-skill": {
       "name": "vercel/nextjs-skill",
@@ -3559,7 +3807,8 @@
         "nextjs",
         "vercel"
       ],
-      "updatedAt": "2026-09-02T09:44:15.210Z"
+      "updatedAt": "2026-09-02T09:44:15.210Z",
+      "verified": false
     },
     "vercel/ship": {
       "name": "vercel/ship",
@@ -3573,7 +3822,8 @@
         "vercel",
         "ship"
       ],
-      "updatedAt": "2026-09-02T09:44:15.223Z"
+      "updatedAt": "2026-09-02T09:44:15.223Z",
+      "verified": false
     }
   }
 }

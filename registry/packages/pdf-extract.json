@@ -3,7 +3,7 @@
   "type": "skill",
   "description": "PDF extract skill — pull text, tables and images from PDFs",
   "homepage": "https://github.com/pdf/extract",
-  "repository": "https://github.com/pdf/extract",
+  "repository": "https://github.com/oomerevren-beep/forge",
   "keywords": [
     "pdf",
     "extract",
@@ -12,13 +12,14 @@
   "versions": {
     "1.0.0": {
       "version": "1.0.0",
-      "tarball": "https://github.com/pdf/extract/releases/download/v1.0.0/pdf-extract-1.0.0.tar.gz",
-      "sha256": "placeholder-sha256-pdf-extract",
+      "tarball": "https://github.com/oomerevren-beep/forge/releases/download/registry-v1/pdf-extract-1.0.0.tar.gz",
+      "sha256": "30326bd7f38fcda2ead1216c275ea7010d2e9ff4a5bf75c68f9c8ca4cf8153f8",
       "engines": {
         "*": "*"
       },
       "dependencies": {},
-      "publishedAt": "2026-09-03T11:17:11.949Z"
+      "publishedAt": "2026-09-03T11:17:11.949Z",
+      "verified": true
     }
   },
   "latest": "1.0.0"

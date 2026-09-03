@@ -3,7 +3,7 @@
   "type": "agent",
   "description": "PR reviewer agent — thorough pull request reviews with suggestions",
   "homepage": "https://github.com/agent/pr-reviewer",
-  "repository": "https://github.com/agent/pr-reviewer",
+  "repository": "https://github.com/oomerevren-beep/forge",
   "keywords": [
     "agent",
     "review",
@@ -12,13 +12,14 @@
   "versions": {
     "1.0.0": {
       "version": "1.0.0",
-      "tarball": "https://github.com/agent/pr-reviewer/releases/download/v1.0.0/agent-pr-reviewer-1.0.0.tar.gz",
-      "sha256": "placeholder-sha256-agent-pr-reviewer",
+      "tarball": "https://github.com/oomerevren-beep/forge/releases/download/registry-v1/agent-pr-reviewer-1.0.0.tar.gz",
+      "sha256": "ae4bcc9e1df066543171020487b3e0f57ecd8cc1ec6e8bd2df59cbbddf0dcb42",
       "engines": {
         "*": "*"
       },
       "dependencies": {},
-      "publishedAt": "2026-09-03T11:17:11.952Z"
+      "publishedAt": "2026-09-03T11:17:11.952Z",
+      "verified": true
     }
   },
   "latest": "1.0.0"

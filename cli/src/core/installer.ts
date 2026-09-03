@@ -1,4 +1,4 @@
-import { existsSync, mkdirSync, writeFileSync, createWriteStream, rmSync } from "fs";
+import { existsSync, mkdirSync, writeFileSync, createWriteStream, rmSync, readFileSync } from "fs";
 import { join, resolve, sep } from "path";
 import { createHash } from "crypto";
 import { tmpdir } from "os";
@@ -192,7 +192,36 @@ async function downloadAndExtract(url: string, expectedSha256: string, dest: str
     throw new Error(`refusing to extract outside packages dir: ${dest}`);
   }
   const tmpFile = join(tmpdir(), `forge-${process.pid}-${Date.now()}-${Math.random().toString(36).slice(2)}.tgz`);
-  // Download
+  
+  // Prefer gh CLI for GitHub release assets (handles auth/redirects).
+  if (url.includes("github.com") && url.includes("/releases/download/")) {
+    try {
+      execFileSync("gh", ["release", "download", "--repo", "oomerevren-beep/forge", "--pattern", "*.tar.gz", "-D", tmpdir(), "--clobber"], { stdio: "pipe" });
+      // Find the downloaded file
+      const { readdirSync } = await import("fs");
+      const files = readdirSync(tmpdir()).filter(f => f.endsWith(".tar.gz") && f.startsWith(slug));
+      if (files.length > 0) {
+        const downloaded = join(tmpdir(), files[0]);
+        const buf = readFileSync(downloaded);
+        const sha256 = createHash("sha256").update(buf).digest("hex");
+        if (sha256 !== expectedSha256) {
+          throw new Error(`sha256 mismatch: expected ${expectedSha256}, got ${sha256}`);
+        }
+        // Use Python tarfile for extraction (works reliably on Windows + Unix)
+        execFileSync("python", ["-c", `
+import tarfile, os, sys
+with tarfile.open(sys.argv[1], 'r:gz') as tf:
+    tf.extractall(sys.argv[2])
+`, downloaded, dest], { stdio: "pipe" });
+        rmSync(downloaded, { force: true });
+        return;
+      }
+    } catch (e) {
+      // fall through to fetch fallback
+    }
+  }
+  
+  // Fallback: fetch (works for public URLs without auth)
   const res = await fetch(url);
   if (!res.ok) throw new Error(`HTTP ${res.status} for ${url}`);
   const buf = Buffer.from(await res.arrayBuffer());
@@ -216,19 +245,19 @@ async function downloadAndExtract(url: string, expectedSha256: string, dest: str
     // ignore cache write fail
   }
 
-  // Extract via arg-array (no shell) — tar path/name can never become a command.
-  // We use Node's child_process to call tar (available on Windows 10+ and all Unix)
+  // Write to temp file for extraction
   const { writeFileSync: wfs } = await import("fs");
   wfs(tmpFile, buf);
+
+  // Extract via Python tarfile (works reliably on Windows + Unix)
   try {
-    execFileSync("tar", ["-xzf", tmpFile, "-C", dest, "--strip-components=1"], { stdio: "pipe" });
-  } catch {
-    // Try without strip
-    try {
-      execFileSync("tar", ["-xzf", tmpFile, "-C", dest], { stdio: "pipe" });
-    } catch (e) {
-      throw new Error(`tar extract failed: ${(e as Error).message}`);
-    }
+    execFileSync("python", ["-c", `
+import tarfile, os, sys
+with tarfile.open(sys.argv[1], 'r:gz') as tf:
+    tf.extractall(sys.argv[2])
+`, tmpFile, dest], { stdio: "pipe" });
+  } catch (e) {
+    throw new Error(`tar extract failed: ${(e as Error).message}`);
   } finally {
     try {
       const { unlinkSync } = await import("fs");

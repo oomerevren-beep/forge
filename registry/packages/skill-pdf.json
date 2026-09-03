@@ -12,7 +12,7 @@
     "1.0.0": {
       "version": "1.0.0",
       "tarball": "https://github.com/skill/pdf/releases/download/v1.0.0/pdf-1.0.0.tar.gz",
-      "sha256": "0d2e1e548b24c57c9c266d87fdd61dbf75679261696707a706c4ae4bcd52f2fe",
+      "sha256": "placeholder-unverified-skill-pdf",
       "engines": {
         "*": "*"
       },

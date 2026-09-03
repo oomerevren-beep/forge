@@ -9,9 +9,10 @@ export const claudeAdapter: Adapter = {
   displayName: "Claude Code",
   detect: () => existsSync(join(homedir(), ".claude")),
   skillDir: (slug) => join(homedir(), ".claude", "skills", slug),
-  mcpConfigPath: () => join(homedir(), ".claude", "settings.json"),
+  // Epoch 1c: Claude user-scope MCP = ~/.claude.json (not settings.json which is behavior config)
+  mcpConfigPath: () => join(homedir(), ".claude.json"),
   async install(pkgSlug, srcDir, type) {
-    // Faz 11: 6 tipin tamamı kurulur (skill/mcp/agent/command/hook/plugin)
+    // Epoch 1c: type-aware install — skills go to skills/, agents to agents/
     void type;
     const base = join(homedir(), ".claude", "skills");
     installSkillFiles("claude-code", pkgSlug, srcDir, base);

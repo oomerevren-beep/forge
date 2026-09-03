@@ -1,0 +1,7 @@
+[package]
+name = "pdf/split"
+version = "1.0.0"
+type = "skill"
+description = "PDF split skill — extract pages and split PDFs by range"
+license = "MIT"
+repository = "https://github.com/oomerevren-beep/forge"

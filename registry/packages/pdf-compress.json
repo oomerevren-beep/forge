@@ -3,7 +3,7 @@
   "type": "skill",
   "description": "PDF compress skill — shrink PDF size without quality loss",
   "homepage": "https://github.com/pdf/compress",
-  "repository": "https://github.com/pdf/compress",
+  "repository": "https://github.com/oomerevren-beep/forge",
   "keywords": [
     "pdf",
     "compress",
@@ -12,13 +12,14 @@
   "versions": {
     "1.0.0": {
       "version": "1.0.0",
-      "tarball": "https://github.com/pdf/compress/releases/download/v1.0.0/pdf-compress-1.0.0.tar.gz",
-      "sha256": "placeholder-sha256-pdf-compress",
+      "tarball": "https://github.com/oomerevren-beep/forge/releases/download/registry-v1/pdf-compress-1.0.0.tar.gz",
+      "sha256": "f843a4523af3cae7b170389e3680d39e37a22e68c8826844e140279c3f23ce66",
       "engines": {
         "*": "*"
       },
       "dependencies": {},
-      "publishedAt": "2026-09-03T11:17:11.948Z"
+      "publishedAt": "2026-09-03T11:17:11.948Z",
+      "verified": true
     }
   },
   "latest": "1.0.0"

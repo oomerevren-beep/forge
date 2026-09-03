@@ -1,5 +1,5 @@
-// cli/src/commands/audit.ts — Faz 10 iskelet (Faz 22'de tam güvenlik denetimi)
-// Şimdilik: placeholder SHA, eksik alan, bozuk link taraması. Exit 0 her zaman (placeholder Faz 2'den kalma, fail değil).
+// cli/src/commands/audit.ts — trust-tier audit (verified vs community vs mock).
+// Full vulnerability DB in Faz 22; tier flags are accurate as of the verified-core sprint.
 
 import { existsSync } from "fs";
 import { join } from "path";
@@ -27,7 +27,9 @@ export async function runAudit(opts: { json?: boolean } = {}): Promise<void> {
         continue;
       }
       if (meta.sha256 && isPlaceholderSha(meta.sha256)) {
-        findings.push({ pkg: rec.pkg, level: "info", message: `placeholder SHA (mock content, Faz 5'te 5 gerçek SHA — kalan Faz 22'de)` });
+        findings.push({ pkg: rec.pkg, level: 'info', message: 'community tier (unverified tarball) — install needs --mock' });
+      } else if (!meta.verified) {
+        findings.push({ pkg: rec.pkg, level: 'warn', message: 'sha256 not verified against tarball content' });
       }
       if (!meta.tarball || meta.tarball.includes("placeholder")) {
         findings.push({ pkg: rec.pkg, level: "warn", message: `tarball URL placeholder` });

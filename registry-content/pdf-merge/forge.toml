@@ -1,0 +1,7 @@
+[package]
+name = "pdf/merge"
+version = "1.0.0"
+type = "skill"
+description = "PDF merge skill — combine multiple PDFs into one document fast"
+license = "MIT"
+repository = "https://github.com/oomerevren-beep/forge"

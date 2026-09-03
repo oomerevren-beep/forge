@@ -8,7 +8,7 @@ import { homedir } from "os";
 import { loadIndex, loadPackageDetail, resolveVersion, parsePackageArg, searchPackages } from "./core/registry.js";
 import { ensurePackageContent } from "./core/installer.js";
 import { ensureForgeDirs, readLinks, writeLinks, packageDir, toSlug, listInstalledPackages } from "./core/store.js";
-import { allAdapters, detectAdapters, addMcpServerToConfig, removeMcpServerFromConfig } from "./adapters/index.js";
+import { allAdapters, detectAdapters, addMcpServerToConfig, removeMcpServerFromConfig, readMcpConfig } from "./adapters/index.js";
 import { runInit } from "./commands/init.js";
 import { runInstall } from "./commands/install.js";
 import { runOutdated, runUpdate } from "./commands/update.js";
@@ -55,6 +55,9 @@ program
 
     const slug = toSlug(name);
     console.log(`[forge] found ${name}@${version} [${detail.type}] — ${detail.description}`);
+    console.log(versionMeta.verified
+      ? `[forge] verified tarball ✓ (sha256 pinned)`
+      : `[forge] community tier (unverified) — install needs a verified tarball or --mock`);
 
     if (opts.dryRun) {
       console.log(`[forge] (dry-run) would install to ~/.forge/packages/${slug}@${version}/`);
@@ -266,7 +269,8 @@ program
       if (pkgs.length > 5) console.log(`    ... and ${pkgs.length - 5} more`);
     }
 
-    // Check for broken links (Faz 10 tam: links.json vs FS + --fix eksik symlink/junction'ı yeniden kurar)
+    // Epoch 1c: Check for broken links (links.json vs FS + --fix restores)
+    // MCP packages: check config entry existence (not skillDir)
     const links = readLinks();
     let broken = 0;
     let fixed = 0;
@@ -292,9 +296,35 @@ program
       for (const adapterName of rec.adapters) {
         const adapter = allAdapters.find((a) => a.name === adapterName);
         if (!adapter) continue;
-        // MCP packages don't require skillDir — skip check for them
-        if (rec.type === "mcp") continue;
-        // generic is project-local (CWD dependent) — skip global check to avoid false positives from different CWD
+        // Epoch 1c: MCP packages — verify config entry exists
+        if (rec.type === "mcp") {
+          const cfgPath = adapter.mcpConfigPath();
+          if (cfgPath) {
+            try {
+              const cfg = readMcpConfig(cfgPath);
+              const servers = (cfg?.["mcpServers"] as Record<string, unknown> | undefined);
+              if (!servers || !(rec.slug in servers)) {
+                console.log(`  ! missing MCP config: ${name} on ${adapterName} → ${cfgPath}`);
+                if (opts.fix && existsSync(liveDir)) {
+                  try {
+                    const detail = loadPackageDetail(name);
+                    const resolved = resolveVersion(name, rec.version);
+                    if (resolved.versionMeta.mcp) {
+                      addMcpServerToConfig(cfgPath, rec.slug, resolved.versionMeta.mcp);
+                      console.log(`    → MCP config restored`);
+                      fixed++;
+                    }
+                  } catch (e) {
+                    console.log(`    → cannot restore MCP config: ${(e as Error).message}`);
+                  }
+                }
+              }
+            } catch {
+              console.log(`  ! MCP config unreadable: ${cfgPath}`);
+            }
+          }
+          continue;
+        }
         if (adapterName === "generic") continue;
         const installed = await adapter.isInstalled(rec.slug);
         if (!installed) {
@@ -337,7 +367,8 @@ program
     }
     console.log(`Found ${filtered.length} package(s) for "${query}":\n`);
     for (const p of filtered) {
-      console.log(`  - ${p.name}@${p.latest} [${p.type}] — ${p.description}`);
+      const mark = (p as { verified?: boolean }).verified ? " [✓ verified]" : "";
+      console.log(`  - ${p.name}@${p.latest} [${p.type}]${mark} — ${p.description}`);
       if (p.keywords?.length) console.log(`    keywords: ${p.keywords.join(", ")}`);
     }
   });
@@ -363,7 +394,8 @@ program
       console.log(`versions:   ${Object.keys(detail.versions).join(", ")}\n`);
       for (const [ver, meta] of Object.entries(detail.versions)) {
         const marker = ver === detail.latest ? " (latest)" : "";
-        console.log(`  ${ver}${marker}:`);
+        const trust = (meta as { verified?: boolean }).verified ? "verified ✓" : "community (unverified)";
+        console.log(`  ${ver}${marker} [${trust}]:`);
         console.log(`    tarball: ${meta.tarball}`);
         console.log(`    sha256:  ${meta.sha256.slice(0, 16)}...`);
         if (meta.engines) console.log(`    engines: ${JSON.stringify(meta.engines)}`);

@@ -1,0 +1,7 @@
+[package]
+name = "pdf/extract"
+version = "1.0.0"
+type = "skill"
+description = "PDF extract skill — pull text, tables and images from PDFs"
+license = "MIT"
+repository = "https://github.com/oomerevren-beep/forge"

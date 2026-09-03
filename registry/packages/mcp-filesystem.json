@@ -3,17 +3,18 @@
   "type": "mcp",
   "description": "Filesystem MCP server — read/write files securely",
   "homepage": "https://github.com/modelcontextprotocol/servers",
-  "repository": "https://github.com/modelcontextprotocol/servers",
+  "repository": "https://www.npmjs.com/package/@modelcontextprotocol/server-filesystem",
   "keywords": [
     "mcp",
     "filesystem"
   ],
   "source": "src/filesystem",
   "versions": {
-    "1.0.2": {
-      "version": "1.0.2",
-      "tarball": "https://github.com/modelcontextprotocol/servers/releases/download/filesystem-1.0.2/filesystem-1.0.2.tar.gz",
-      "sha256": "826edae3cbc3ba1a5f48ff8fe2260e87128719e469d78cbd2365da752ab9ef2d",
+    "2026.8.31": {
+      "version": "2026.8.31",
+      "tarball": "https://registry.npmjs.org/@modelcontextprotocol/server-filesystem/-/server-filesystem-2026.8.31.tgz",
+      "sha256": "a239da270c403c42eb03e1ca7cca07c858085819797b74856ddbb91b50491b1a",
+      "verified": true,
       "engines": {
         "*": "*"
       },
@@ -26,8 +27,8 @@
           "/tmp"
         ]
       },
-      "publishedAt": "2026-08-28T12:00:00Z"
+      "publishedAt": "2026-08-31T20:25:55.419Z"
     }
   },
-  "latest": "1.0.2"
+  "latest": "2026.8.31"
 }

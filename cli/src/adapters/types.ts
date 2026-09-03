@@ -1,4 +1,4 @@
-// cli/src/adapters/types.ts — Faz 12: paylaşılan Adapter tipi + helpers
+// cli/src/adapters/types.ts — Epoch 1c: fail-closed MCP config, Windows junction, skill files
 import { existsSync, mkdirSync, readFileSync, writeFileSync, rmSync, cpSync, copyFileSync, symlinkSync, lstatSync, unlinkSync } from "fs";
 import { join, dirname } from "path";
 
@@ -51,13 +51,23 @@ export function removeLinkOrDir(target: string): void {
   }
 }
 
-export function readMcpConfig(configPath: string): Record<string, unknown> {
-  if (!existsSync(configPath)) return {};
+/**
+ * Read MCP config — FAIL-CLOSED.
+ * Returns null if file doesn't exist.
+ * Returns parsed JSON if file is valid JSON.
+ * THROWS on parse error (invalid JSON/JSONC) — caller must NOT silently overwrite.
+ * This protects user configs with comments (JSONC) or trailing commas from being destroyed.
+ */
+export function readMcpConfig(configPath: string): Record<string, unknown> | null {
+  if (!existsSync(configPath)) return null;
+  const raw = readFileSync(configPath, "utf-8");
   try {
-    const raw = readFileSync(configPath, "utf-8");
     return JSON.parse(raw);
-  } catch {
-    return {};
+  } catch (e) {
+    throw new Error(
+      `[forge] MCP config at ${configPath} contains invalid JSON: ${(e as Error).message}\n` +
+      `[forge] Refusing to modify. Fix the config manually or rename it, then retry.`
+    );
   }
 }
 
@@ -84,6 +94,7 @@ export function backupFileIfExists(configPath: string): string | null {
 
 export function addMcpServerToConfig(configPath: string, name: string, mcp: { command: string; args?: string[]; env?: Record<string, string> }): void {
   const cfg = readMcpConfig(configPath);
+  if (cfg === null) throw new Error(`[forge] ${configPath} does not exist or is invalid JSON`);
   if (!cfg["mcpServers"]) cfg["mcpServers"] = {};
   const servers = cfg["mcpServers"] as Record<string, unknown>;
   servers[name] = {
@@ -95,8 +106,8 @@ export function addMcpServerToConfig(configPath: string, name: string, mcp: { co
 }
 
 export function removeMcpServerFromConfig(configPath: string, name: string): void {
-  if (!existsSync(configPath)) return;
   const cfg = readMcpConfig(configPath);
+  if (cfg === null) return; // file doesn't exist or invalid — nothing to remove
   const servers = cfg["mcpServers"] as Record<string, unknown> | undefined;
   if (servers && name in servers) {
     delete servers[name];

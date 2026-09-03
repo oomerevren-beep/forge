@@ -61,8 +61,13 @@ export async function runInit(opts: { name?: string; type?: string; yes?: boolea
     console.error(`[forge] unknown type "${type}" — choose: ${Object.keys(TEMPLATES).join(", ")}`);
     process.exit(1);
   }
-  // If name implies a path (e.g. my-skill), create that dir under cwd
-  const targetDir = opts.name ? join(cwd, opts.name) : cwd;
+  // Epoch 1c: prevent path traversal — targetDir must be inside cwd
+  const targetDir = opts.name ? resolve(cwd, opts.name) : cwd;
+  const resolvedCwd = resolve(cwd);
+  if (!targetDir.startsWith(resolvedCwd + sep) && targetDir !== resolvedCwd) {
+    console.error(`[forge] invalid path "${opts.name}" — must be within the current directory`);
+    process.exit(1);
+  }
   const forgeTomlPath = join(targetDir, "forge.toml");
 
   if (existsSync(forgeTomlPath) && !opts.force) {

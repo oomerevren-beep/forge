@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-03T11:17:12.936Z",
+  "generatedAt": "2026-09-03T17:59:19.742Z",
   "totalPackages": 250,
   "byType": {
     "skill": 127,
@@ -9,5 +9,7 @@
     "mcp": 54,
     "plugin": 11
   },
-  "placeholderSha": 245
+  "placeholderSha": 230,
+  "verifiedCount": 21,
+  "communityCount": 229
 }

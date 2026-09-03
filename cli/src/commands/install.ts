@@ -199,7 +199,13 @@ export async function runInstall(opts: { cwd?: string; frozen?: boolean; mock?: 
 
   const dt = ((Date.now() - t0) / 1000).toFixed(1);
   const total = ok + skipped;
-  console.log(`\n[forge] ✓ installed ${ok} new, ${skipped} cached (${total}/${Object.keys(deps).length}) on ${adapters.length} harness(es) in ${dt}s`);
+  const failed = Object.keys(deps).length - total;
+  if (failed > 0) {
+    console.log(`\n[forge] ✗ ${failed} package(s) failed — installed ${ok} new, ${skipped} cached (${total}/${Object.keys(deps).length}) on ${adapters.length} harness(es) in ${dt}s`);
+    process.exitCode = 1;
+  } else {
+    console.log(`\n[forge] ✓ installed ${ok} new, ${skipped} cached (${total}/${Object.keys(deps).length}) on ${adapters.length} harness(es) in ${dt}s`);
+  }
   console.log(`[forge] lock written to ${cwd}/forge.lock`);
 }
 

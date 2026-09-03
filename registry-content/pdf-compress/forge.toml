@@ -1,0 +1,7 @@
+[package]
+name = "pdf/compress"
+version = "1.0.0"
+type = "skill"
+description = "PDF compress skill — shrink PDF size without quality loss"
+license = "MIT"
+repository = "https://github.com/oomerevren-beep/forge"

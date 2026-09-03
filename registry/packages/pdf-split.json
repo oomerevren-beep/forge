@@ -3,7 +3,7 @@
   "type": "skill",
   "description": "PDF split skill — extract pages and split PDFs by range",
   "homepage": "https://github.com/pdf/split",
-  "repository": "https://github.com/pdf/split",
+  "repository": "https://github.com/oomerevren-beep/forge",
   "keywords": [
     "pdf",
     "split",
@@ -12,13 +12,14 @@
   "versions": {
     "1.0.0": {
       "version": "1.0.0",
-      "tarball": "https://github.com/pdf/split/releases/download/v1.0.0/pdf-split-1.0.0.tar.gz",
-      "sha256": "placeholder-sha256-pdf-split",
+      "tarball": "https://github.com/oomerevren-beep/forge/releases/download/registry-v1/pdf-split-1.0.0.tar.gz",
+      "sha256": "dc409d49d4cb6628bad015c92887794cad4fc766edd2c0b1d0a0c16c7727f2e2",
       "engines": {
         "*": "*"
       },
       "dependencies": {},
-      "publishedAt": "2026-09-03T11:17:11.946Z"
+      "publishedAt": "2026-09-03T11:17:11.946Z",
+      "verified": true
     }
   },
   "latest": "1.0.0"

@@ -3,7 +3,7 @@
   "type": "skill",
   "description": "PDF OCR skill — scanned PDFs to searchable text with OCR",
   "homepage": "https://github.com/pdf/ocr",
-  "repository": "https://github.com/pdf/ocr",
+  "repository": "https://github.com/oomerevren-beep/forge",
   "keywords": [
     "pdf",
     "ocr",
@@ -12,13 +12,14 @@
   "versions": {
     "1.0.0": {
       "version": "1.0.0",
-      "tarball": "https://github.com/pdf/ocr/releases/download/v1.0.0/pdf-ocr-1.0.0.tar.gz",
-      "sha256": "placeholder-sha256-pdf-ocr",
+      "tarball": "https://github.com/oomerevren-beep/forge/releases/download/registry-v1/pdf-ocr-1.0.0.tar.gz",
+      "sha256": "fcef2fc223d63a6169493390014bc21b66134b3a266d3c25e71d2f1db8275532",
       "engines": {
         "*": "*"
       },
       "dependencies": {},
-      "publishedAt": "2026-09-03T11:17:11.947Z"
+      "publishedAt": "2026-09-03T11:17:11.947Z",
+      "verified": true
     }
   },
   "latest": "1.0.0"

@@ -15,7 +15,7 @@
     "1.2.0": {
       "version": "1.2.0",
       "tarball": "https://github.com/anthropics/skills/releases/download/plan-1.2.0/plan-1.2.0.tar.gz",
-      "sha256": "a681bab5e740159362da3d51cbf9ebba5b04fe494adad886ca35b68e0fa058b0",
+      "sha256": "placeholder-unverified-anthropics-plan",
       "engines": {
         "claude-code": ">=1.0.0",
         "opencode": ">=0.5.0"
@@ -26,7 +26,7 @@
     "1.1.0": {
       "version": "1.1.0",
       "tarball": "https://github.com/anthropics/skills/releases/download/plan-1.1.0/plan-1.1.0.tar.gz",
-      "sha256": "ca84d34acd183f566c5a0fb5919c9f90f732e1a365e278323ce0ce00fe984b8d",
+      "sha256": "placeholder-unverified-anthropics-plan",
       "engines": {
         "claude-code": ">=1.0.0"
       },

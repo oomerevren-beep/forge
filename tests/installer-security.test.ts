@@ -102,9 +102,9 @@ describe("forge installer — fail-closed (launch hazirligi)", () => {
     }
   });
 
-  it("tar extraction uses arg-array (no shell interpolation)", () => {
+  it("tar extraction uses Python tarfile (no shell interpolation)", () => {
     const src = readFileSync(join(process.cwd(), "cli/src/core/installer.ts"), "utf-8");
     assert.ok(!src.includes("execSync(`tar"), "shell-interpolated tar call must be gone");
-    assert.ok(src.includes('execFileSync("tar"'), "arg-array tar call must exist");
+    assert.ok(src.includes("tarfile.open"), "Python tarfile extraction must exist");
   });
 });
