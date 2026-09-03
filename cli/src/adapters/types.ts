@@ -1,5 +1,5 @@
 // cli/src/adapters/types.ts — Epoch 1c: fail-closed MCP config, Windows junction, skill files
-import { existsSync, mkdirSync, readFileSync, writeFileSync, rmSync, cpSync, copyFileSync, symlinkSync, lstatSync, unlinkSync } from "fs";
+import { existsSync, mkdirSync, readFileSync, writeFileSync, rmSync, cpSync, copyFileSync, symlinkSync, lstatSync, unlinkSync, renameSync } from "fs";
 import { join, dirname } from "path";
 
 export { forgeHome, packagesDir, packageDir, toSlug } from "../core/store.js";
@@ -71,10 +71,13 @@ export function readMcpConfig(configPath: string): Record<string, unknown> | nul
   }
 }
 
-export function writeMcpConfig(configPath: string, data: Record<string, unknown>): void {
+export function writeMcpConfig(configPath: string, data: Record<string, unknown>, opts: { expectedMtimeMs?: number } = {}): void {
   ensureDir(dirname(configPath));
   backupFileIfExists(configPath);
-  writeFileSync(configPath, JSON.stringify(data, null, 2) + "\n");
+  // Epoch 1d: Atomic write — temp dosyaya yaz, sonra rename (crash-safe)
+  const tmp = configPath + ".tmp." + Date.now();
+  writeFileSync(tmp, JSON.stringify(data, null, 2) + "\n");
+  renameSync(tmp, configPath);
 }
 
 /** Snapshot a user-owned config before we overwrite it (single `.bak`, like `sed -i.bak`).
