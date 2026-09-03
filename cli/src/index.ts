@@ -223,6 +223,7 @@ program
   .command("doctor")
   .description("Check harness health")
   .option("--fix", "try to fix broken links")
+  .option("--mock", "allow mock content when --fix restores packages with no verified tarball")
   .action(async (opts) => {
     ensureForgeDirs();
     console.log("[forge] doctor — checking harnesses...\n");
@@ -269,7 +270,7 @@ program
           try {
             const detail = loadPackageDetail(name);
             const resolved = resolveVersion(name, rec.version);
-            const srcDir = await ensurePackageContent(name, resolved.version, detail, resolved.versionMeta, { allowMock: true });
+            const srcDir = await ensurePackageContent(name, resolved.version, detail, resolved.versionMeta, { allowMock: opts.mock });
             console.log(`    → store restored: ${srcDir}`);
             fixed++;
           } catch (e) {

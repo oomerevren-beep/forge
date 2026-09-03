@@ -27,7 +27,16 @@ export async function ensurePackageContent(
 ): Promise<string> {
   const slug = toSlug(pkgName);
   const dest = packageDir(slug, version);
-  if (isPackageInstalled(slug, version)) return dest;
+  if (isPackageInstalled(slug, version)) {
+    // Empty-dir guard: a leftover/partial dir must never read as "installed".
+    try {
+      const { readdirSync } = await import("fs");
+      if (readdirSync(dest).length > 0) return dest;
+      rmSync(dest, { recursive: true, force: true });
+    } catch {
+      return dest;
+    }
+  }
 
   ensureForgeDirs();
 

@@ -57,6 +57,22 @@ describe("forge installer — fail-closed (launch hazirligi)", () => {
     }
   });
 
+  it("empty leftover dir is not treated as installed (re-populates)", async () => {
+    const uniq = `${Date.now()}-${process.pid}`;
+    const name = `test-failclosed/empty-${uniq}`;
+    const slug = `test-failclosed-empty-${uniq}`;
+    const d = fakeDetail(name, "https://example.com/x.tgz", "placeholder-sha256-test");
+    const { ensureForgeDirs } = await import("../cli/src/core/store.js");
+    ensureForgeDirs();
+    mkdirSync(packageDir(slug, "1.0.0"), { recursive: true }); // simulate partial install
+    try {
+      const dest = await ensurePackageContent(name, "1.0.0", d, d.versions["1.0.0"], { allowMock: true });
+      assert.ok(existsSync(join(dest, "SKILL.md")), "empty dir must be re-populated, not skipped");
+    } finally {
+      rmSync(packageDir(slug, "1.0.0"), { recursive: true, force: true });
+    }
+  });
+
   it("unreachable tarball throws and leaves no partial dir", async () => {
     const uniq = `${Date.now()}-${process.pid}`;
     const name = `test-failclosed/unreachable-${uniq}`;
