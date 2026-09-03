@@ -5,6 +5,7 @@ import { tmpdir } from "os";
 import { execFileSync } from "child_process";
 import { packageDir, packagesDir, isPackageInstalled, toSlug, ensureForgeDirs, tarballsDir } from "./store.js";
 import type { PackageDetail, PackageVersion } from "./registry.js";
+import { signPackage, verifyPackage } from "./sign.js";
 
 export interface EnsureContentOpts {
   /** Mock content generation is ONLY allowed with explicit opt-in (`--mock` flag).
