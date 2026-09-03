@@ -84,7 +84,7 @@ export async function runInstall(opts: { cwd?: string; frozen?: boolean; mock?: 
     let ok = 0;
     for (const entry of lock.packages) {
       try {
-        const { detail, version, versionMeta } = resolveVersion(entry.name, entry.version);
+        const { detail, version, versionMeta } = await resolveVersion(entry.name, entry.version);
         const src = await ensurePackageContent(entry.name, version, detail, versionMeta, { allowMock: opts.mock });
         for (const adapter of adapters) {
           await adapter.install(toSlug(entry.name), src, detail.type);
@@ -130,7 +130,7 @@ export async function runInstall(opts: { cwd?: string; frozen?: boolean; mock?: 
 
   for (const [depName, depRange] of Object.entries(deps)) {
     try {
-      const { detail, version, versionMeta } = resolveVersion(depName, depRange);
+      const { detail, version, versionMeta } = await resolveVersion(depName, depRange);
       const already = existingLinks[depName];
       const isSameVersionInstalled = already?.version === version && existsSyncForSlug(toSlug(depName), version);
       if (isSameVersionInstalled) {
@@ -166,7 +166,7 @@ export async function runInstall(opts: { cwd?: string; frozen?: boolean; mock?: 
       const subDeps = versionMeta.dependencies ?? {};
       for (const [subName, subRange] of Object.entries(subDeps)) {
         try {
-          const sub = resolveVersion(subName, subRange);
+          const sub = await resolveVersion(subName, subRange);
           const subSrc = await ensurePackageContent(subName, sub.version, sub.detail, sub.versionMeta, { allowMock: opts.mock });
           for (const adapter of adapters) await adapter.install(toSlug(subName), subSrc, sub.detail.type);
           console.log(`    dep ${subName}@${sub.version}`);

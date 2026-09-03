@@ -227,43 +227,41 @@ Add a harness = one file in `cli/src/adapters/`. See `docs/ADAPTERS.md`.
 
 ---
 
-## Comparison
+## Rekabet
 
-|  | **Forge** | `anthropics/skills` | `DSH` | `mcp-registry` | Manual `git clone` |
+|  | **Forge** | `npx skills` (Vercel) | `anthropics/skills` | `DSH` | `mcp-registry` |
 |---|---|---|---|---|---|
-| Types | **6** (skill/mcp/plugin/agent/command/hook) | 1 (skill) | plugin | 1 (mcp) | 1 |
-| Harnesses | **7** (Claude/Codex/OpenCode/Cursor/DSH/Windsurf/Generic) | 1 | 1 (DeepSeek) | ~1 | per-harness manual |
-| Versioning | **semver + lock** | none | none | partial | none |
-| Update | `forge update` | manual | manual | manual | manual |
-| Team sync | **`forge.toml` + `forge.lock`** | none | none | none | none |
-| Search | `<200ms` offline | GitHub search | none | web only | none |
-| Registry | **Git-native, forkable** | repo | repo | central | — |
+| Türler | **6** (skill/mcp/plugin/agent/command/hook) | 1 (skill) | 1 (skill) | plugin | 1 (mcp) |
+| Harness | **7** (Claude/Codex/OpenCode/Cursor/DSH/Windsurf/Generic) | 75+ ajan | 1 | 1 | ~1 |
+| Versiyonlama | **semver + lock** | skills-lock.json | none | none | partial |
+| Güncelleme | `forge update` | check/update | manual | manual | manual |
+| Takım senkronu | **`forge.toml` + `forge.lock`** | none | none | none | none |
+| Arama | `<200ms` offline | `skills find` | GitHub search | none | web only |
+| Paket doğrulama | **sha256 + fail-closed** | none | none | none | none |
+| Yerel CLI | **evet** (npm i -g) | npx (her seferinde indirir) | manual | manual | — |
 
-Narrow tools fragment. Universal wins — same lesson as `brew`.
+Fark: Forge, her paketi sha256 ile doğrular (fail-closed), `forge.toml` ile takım senkronu yapar, offline arama yapar ve yerel CLI olarak çalışır. Vercel skills repo-agnostik çalışır ama doğrulama ve takım senkronu yok.
 
 ---
 
-## Registry — 250 Packages
+## Registry — 21 Verified Packages
 
-Seeded at v0.1, grown in Faz 13-lite — `registry/packages/*.json` → `registry/index.json` + `search.json` + `stats.json`.
+Epoch 1d: Sadece sha256 doğrulanmış paketler listeleniyor (fail-closed).
 
 ```bash
-forge search mcp        # 54 results
-forge search pdf        # 13 results
+forge search mcp        # 5 results
+forge search pdf        # 8 results
 forge search --type skill plan  # filtered
-forge info skill/pdf    # versions, engines, sha
+forge info pdf/compress # versions, engines, sha
 ```
 
-Stats: **127 skills, 54 MCPs, 33 agents, 15 commands, 10 hooks, 11 plugins.** Generated via:
+Stats: **9 skills, 5 MCPs, 5 agents, 2 commands.** Tümü verified (sha256 pinned).
 
 ```bash
-npm run seed            # idempotent: base catalog (100) + Faz 13-lite (+150)
 npm run registry:build  # index + search + stats + --check in CI
 ```
 
-Publish flow (v0.2): `forge publish` → GitHub Release → PR to `registry/packages/` → bot merges → R2 deploy.
-
-See `docs/REGISTRY.md` and `docs/SPEC.md`.
+Düzenli güncelleme: Yeni paketler eklemek için `registry/packages/<slug>.json` oluşturun → `npm run registry:build -- --check`.
 
 ---
 
@@ -307,16 +305,15 @@ See `docs/ROADMAP.md`.
 
 ---
 
-## Contributing
+## Paket Doğrulama
 
-```bash
-git clone https://github.com/oomerevren-beep/forge
-cd forge
-npm install
-npm run build
-npm test                  # 35 tests (smoke + semver + init + adapters + installer-security)
-npm run dev -- --help     # or: npx tsx cli/src/index.ts --help
-```
+Forge, fail-closed paket doğrulama sağlar:
+
+1. **sha256 pin**: Her paket sürümü SHA-256 hash'i ile imzalanır
+2. **Verify on install**: İndirme sırasında hash kontrol edilir — uyarsa exit 1
+3. **Audit trail**: `forge audit` mock/tamamlanmamış kurulumları listeler
+
+Gelecek (v0.2): Sigstore/cosign ile imzalama, verified publisher programı.
 
 - Add a package: create `registry/packages/<slug>.json` → `npm run registry:build`
 - Add a harness: `cli/src/adapters/<name>.ts` → register in `adapters/index.ts` → `forge doctor`

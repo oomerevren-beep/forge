@@ -7,6 +7,8 @@ dist
 # project generic cache (Faz 3 .forge is local)
 forge.lock.bak
 /tmp/forge-*
+# hermes agent config — local only
+.hermes/
 # private strategy docs — never push to public GitHub
 docs/private/
 docs/FAZ*-PLAN.md

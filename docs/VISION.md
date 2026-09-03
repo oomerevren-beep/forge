@@ -45,20 +45,16 @@ Forge 6 paket tipini yonetir (hepsi `forge.toml` ile tanimli):
 
 Hepsi ayni registry'de, ayni CLI ile, ayni semantik versiyonlama ile.
 
-## Neden Simdi? Neden 100k?
+## Rekabet
 
-1. **Zamanlama mukemmel:** Skills 2025-10'da Anthropic tarafindan standardize edildi, 1 yilda 4 repo 150k+ aldi. Ama henuz `npm`i yok. Ilk yapan kazanir.
-2. **DeepSeek kaniti:** 18 gunde 207k = pazar plugin'e ac. Ama fragmentation var. Forge fragmentation'i cozer = DeepSeek'ten bile viral.
-3. **TAM:** 5M+ AI coding agent kullanicisi (Claude Code 143k, OpenCode 203k, Cursor milyonlar). Hepsi musteri.
-4. **Viral loop:** Paket yazarlari `forge add me` diye bagirir = bedava dagitim.
-5. **Precedent:** `brew` (sistem), `oh-my-zsh` 180k, `nvm` 80k — kurulum aciyi cozen her sey 100k gecer.
+| Rakip | Star | Ne yapar | Eksikleri |
+|-------|------|----------|-----------|
+| `npx skills` (Vercel) | 30k | 75+ ajan, repo-agnostik | Doğrulama yok, takım senkronu yok, yerel CLI yok |
+| `anthropics/skills` | 173k | Claude skill'leri | Tek harness, versiyonlama yok |
+| `DSH` (DeepSeek) | 208k | Plugin modeli | Tek harness, doğrulama yok |
+| `mcp-registry` | — | MCP sunucuları | Tek tür, merkezi |
 
-## Fark
-
-- `anthropics/skills` = sadece repo, package manager degil
-- `DSH` = sadece DeepSeek
-- `mcp-registry` = sadece MCP
-- **Forge = hepsi, her yerde**
+**Forge'un farkı**: fail-closed doğrulama + takım senkronu + offline arama + yerel CLI. Bu kombinasyon yok.
 
 ## Kuzey Yildizi Metrigi
 

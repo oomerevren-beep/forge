@@ -44,7 +44,7 @@ program
 
     let detail, version, versionMeta;
     try {
-      const resolved = resolveVersion(name, requested);
+      const resolved = await resolveVersion(name, requested);
       detail = resolved.detail;
       version = resolved.version;
       versionMeta = resolved.versionMeta;
@@ -111,7 +111,7 @@ program
       console.log(`[forge] installing ${Object.keys(deps).length} dependencies...`);
       for (const [depName, depRange] of Object.entries(deps)) {
         try {
-          const depResolved = resolveVersion(depName, depRange);
+          const depResolved = await resolveVersion(depName, depRange);
           const depSrc = await ensurePackageContent(depName, depResolved.version, depResolved.detail, depResolved.versionMeta, { allowMock: opts.mock });
           for (const adapter of adapters) {
             await adapter.install(toSlug(depName), depSrc, depResolved.detail.type);
@@ -293,8 +293,8 @@ program
         console.log(`  ! broken: ${name}@${rec.version} — missing ${dir}`);
         if (opts.fix) {
           try {
-            const detail = loadPackageDetail(name);
-            const resolved = resolveVersion(name, rec.version);
+            const detail = await loadPackageDetail(name);
+            const resolved = await resolveVersion(name, rec.version);
             const srcDir = await ensurePackageContent(name, resolved.version, detail, resolved.versionMeta, { allowMock: opts.mock });
             console.log(`    → store restored: ${srcDir}`);
             fixed++;
@@ -319,8 +319,8 @@ program
                 console.log(`  ! missing MCP config: ${name} on ${adapterName} → ${cfgPath}`);
                 if (opts.fix && existsSync(liveDir)) {
                   try {
-                    const detail = loadPackageDetail(name);
-                    const resolved = resolveVersion(name, rec.version);
+                    const detail = await loadPackageDetail(name);
+                    const resolved = await resolveVersion(name, rec.version);
                     if (resolved.versionMeta.mcp) {
                       addMcpServerToConfig(cfgPath, rec.slug, resolved.versionMeta.mcp);
                       console.log(`    → MCP config restored`);
@@ -366,7 +366,7 @@ program
   .option("--type <type>", "filter by type (skill/mcp/plugin/agent/command/hook)")
   .option("--json", "output JSON")
   .action(async (query, opts) => {
-    const results = searchPackages(query);
+    const results = await searchPackages(query);
     let filtered = results;
     if (opts.type) filtered = filtered.filter((p) => p.type === opts.type);
     if (opts.json) {
@@ -393,7 +393,7 @@ program
   .option("--json", "output JSON")
   .action(async (pkg, opts) => {
     try {
-      const detail = loadPackageDetail(pkg);
+      const detail = await loadPackageDetail(pkg);
       if (opts.json) {
         console.log(JSON.stringify(detail, null, 2));
         return;

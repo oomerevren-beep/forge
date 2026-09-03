@@ -2,6 +2,7 @@ import { readFileSync, existsSync } from "fs";
 import { join } from "path";
 import { toSlug } from "./store.js";
 import { compareSemver, satisfiesRange, maxSatisfying } from "./semver.js";
+import { loadConfig } from "./config.js";
 
 export interface RegistryIndex {
   generatedAt: string;
@@ -49,12 +50,14 @@ export interface PackageDetail {
 }
 
 function registryRoot(): string {
-  // Resolve from file location: dist/cli/src/core -> dist/cli/src/core/../../.. = package root
-  // Then /registry = package's bundled registry dir.
-  // When running via tsx in repo, import.meta.dirname = cli/src/core
-  // → ../../../registry works (repo root has registry/)
-  // When running from global npm install, import.meta.dirname = node_modules/tryforge/dist/cli/src/core
-  // → ../../../../registry works (package root has registry/)
+  // Epoch 1d: config.registry desteği — uzak index URL'si kullanıcı tarafından belirtilebilir
+  try {
+    const cfg = loadConfig();
+    if (cfg.registry && /^https?:\/\//.test(cfg.registry)) {
+      return cfg.registry;
+    }
+  } catch {}
+
   const candidates = [
     join(import.meta.dirname ?? "./", "../../../registry"),
     join(import.meta.dirname ?? "./", "../../../../registry"),
@@ -63,27 +66,46 @@ function registryRoot(): string {
   for (const c of candidates) {
     if (existsSync(join(c, "index.json"))) return c;
   }
-  // Last fallback — may still fail with clear error
   return join(import.meta.dirname ?? "./", "../../../registry");
 }
 
-export function loadIndex(): RegistryIndex {
+export async function loadIndex(): Promise<RegistryIndex> {
   const root = registryRoot();
+  // Epoch 1d: uzak registry URL'si desteği
+  if (/^https?:\/\//.test(root)) {
+    try {
+      const res = await fetch(root + "/index.json");
+      if (!res.ok) throw new Error(`HTTP ${res.status} for ${root}/index.json`);
+      return await res.json();
+    } catch (e) {
+      throw new Error(`Remote registry fetch failed: ${(e as Error).message}`);
+    }
+  }
   const p = join(root, "index.json");
   if (!existsSync(p)) throw new Error(`Registry index not found: ${p}`);
   return JSON.parse(readFileSync(p, "utf-8"));
 }
 
-export function loadPackageDetail(pkg: string): PackageDetail {
+export async function loadPackageDetail(pkg: string): Promise<PackageDetail> {
   const root = registryRoot();
   const slug = toSlug(pkg);
+  // Epoch 1d: uzak registry URL'si desteği
+  if (/^https?:\/\//.test(root)) {
+    try {
+      const res = await fetch(`${root}/packages/${slug}.json`);
+      if (!res.ok) throw new Error(`HTTP ${res.status} for ${root}/packages/${slug}.json`);
+      return await res.json();
+    } catch (e) {
+      throw new Error(`Package not found: ${pkg} (${(e as Error).message})`);
+    }
+  }
   const p = join(root, "packages", `${slug}.json`);
   if (!existsSync(p)) throw new Error(`Package not found: ${pkg} (${p})`);
   return JSON.parse(readFileSync(p, "utf-8"));
 }
 
-export function resolveVersion(pkg: string, requested?: string): { detail: PackageDetail; version: string; versionMeta: PackageVersion } {
-  const detail = loadPackageDetail(pkg);
+export async function resolveVersion(pkg: string, requested?: string): Promise<{ detail: PackageDetail; version: string; versionMeta: PackageVersion }> {
+  const detail = await loadPackageDetail(pkg);
   if (!requested || requested === "latest" || requested === "*") {
     const v = detail.latest;
     const meta = detail.versions[v];
@@ -115,8 +137,8 @@ export function parsePackageArg(arg: string): { name: string; version?: string }
 // Bu dosya geriye dönük uyumluluk için re-export eder.
 export { parseSemver, compareSemver, satisfiesRange, maxSatisfying, isValidRange } from "./semver.js";
 
-export function searchPackages(query: string, opts: { type?: string; limit?: number } = {}): RegistryPackageSummary[] {
-  const index = loadIndex();
+export async function searchPackages(query: string, opts: { type?: string; limit?: number } = {}): Promise<RegistryPackageSummary[]> {
+  const index = await loadIndex();
   const tokens = query.toLowerCase().split(/\s+/).filter(Boolean);
   if (tokens.length === 0) return [];
   const scored: { p: RegistryPackageSummary; score: number }[] = [];

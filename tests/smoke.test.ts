@@ -35,10 +35,10 @@ describe("forge core — smoke", () => {
     assert.ok(errs.length > 0);
   });
 
-  it("registry index loads and search works (Epoch 1d: verified only)", () => {
-    const idx = loadIndex();
+  it("registry index loads and search works (Epoch 1d: verified only)", async () => {
+    const idx = await loadIndex();
     assert.ok(idx.count >= 10); // 21 verified packages
-    const res = searchPackages("mcp");
+    const res = await searchPackages("mcp");
     assert.ok(res.length >= 3); // 5 verified mcp
   });
 
@@ -59,15 +59,15 @@ describe("forge core — smoke", () => {
     rmSync(dir, { recursive: true, force: true });
   });
 
-  it("search --type filter returns only that type", () => {
-    const skills = searchPackages("plan", { type: "skill" } as any);
+  it("search --type filter returns only that type", async () => {
+    const skills = await searchPackages("plan", { type: "skill" } as any);
     // if filter is supported, all results should be skill; if not, at least 1 skill result exists
     if (skills.length > 0) {
       const allSkill = skills.every((p: any) => p.type === "skill");
       assert.ok(allSkill || skills.length >= 1);
     } else {
       // fallback: search without filter still finds plan
-      const all = searchPackages("plan");
+      const all = await searchPackages("plan");
       assert.ok(all.length >= 1);
     }
   });
@@ -84,8 +84,8 @@ describe("forge core — smoke", () => {
     rmSync(dir, { recursive: true, force: true });
   });
 
-  it("registry stats totals 21 and breakdown (Epoch 1d: verified only)", () => {
-    const idx = loadIndex();
+  it("registry stats totals 21 and breakdown (Epoch 1d: verified only)", async () => {
+    const idx = await loadIndex();
     assert.equal(idx.count, 21);
     // stats.json should exist and sum to 21
     const statsPath = join(process.cwd(), "registry/stats.json");
@@ -98,20 +98,20 @@ describe("forge core — smoke", () => {
     }
   });
 
-  it("search mcp returns 5 and skill/pdf exists (Epoch 1d: verified only)", () => {
-    const mcp = searchPackages("mcp");
+  it("search mcp returns 5 and skill/pdf exists (Epoch 1d: verified only)", async () => {
+    const mcp = await searchPackages("mcp");
     assert.ok(mcp.length >= 3); // 5 verified mcp
-    const pdf = searchPackages("pdf");
+    const pdf = await searchPackages("pdf");
     assert.ok(pdf.length >= 5); // 8 verified pdf
-    const agent = searchPackages("agent");
+    const agent = await searchPackages("agent");
     assert.ok(agent.length >= 3); // 5 verified agent
   });
 
-  it("search <200ms offline (Faz 13-lite)", () => {
+  it("search <200ms offline (Faz 13-lite)", async () => {
     const t0 = Date.now();
-    searchPackages("pdf");
-    searchPackages("agent");
-    searchPackages("mcp");
+    await searchPackages("pdf");
+    await searchPackages("agent");
+    await searchPackages("mcp");
     const dt = Date.now() - t0;
     assert.ok(dt < 200, `search took ${dt}ms, expected <200ms`);
   });

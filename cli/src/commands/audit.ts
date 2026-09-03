@@ -20,7 +20,7 @@ export async function runAudit(opts: { json?: boolean } = {}): Promise<void> {
 
   for (const rec of entries) {
     try {
-      const detail = loadPackageDetail(rec.pkg);
+      const detail = await loadPackageDetail(rec.pkg);
       const meta = detail.versions[rec.version];
       if (!meta) {
         findings.push({ pkg: rec.pkg, level: "warn", message: `version ${rec.version} not in registry` });

@@ -33,12 +33,12 @@ export async function runOutdated(opts: { cwd?: string } = {}): Promise<void> {
     return;
   }
   // Faz 10 polish: index'i tek sefer yükle (20 pakette <10s hedefi için), semver-aware karşılaştır
-  const index = loadIndex();
+  const index = await loadIndex();
   let outdated = 0;
   for (const rec of entries) {
     try {
       const summary = (index.packages as Record<string, { latest: string }>)[rec.pkg];
-      const latest = summary?.latest ?? loadPackageDetail(rec.pkg).latest;
+      const latest = summary?.latest ?? (await loadPackageDetail(rec.pkg)).latest;
       if (compareSemver(latest, rec.version) > 0) {
         console.log(`${rec.pkg}  ${rec.version} → ${latest} (latest)`);
         outdated++;
@@ -78,13 +78,13 @@ export async function runUpdate(pkgArg?: string, opts: { cwd?: string; mock?: bo
       continue;
     }
     try {
-      const detail = loadPackageDetail(name);
+      const detail = await loadPackageDetail(name);
       const latest = detail.latest;
       if (latest === rec.version) {
         console.log(`  = ${name}@${rec.version} already latest`);
         continue;
       }
-      const { version, versionMeta } = resolveVersion(name, latest);
+      const { version, versionMeta } = await resolveVersion(name, latest);
       const src = await ensurePackageContent(name, version, detail, versionMeta, { allowMock: opts.mock });
       for (const adapter of adapters) {
         await adapter.install(toSlug(name), src, detail.type);
