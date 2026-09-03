@@ -2,7 +2,7 @@
 import { existsSync } from "fs";
 import { join } from "path";
 import { homedir } from "os";
-import { type Adapter, installSkillFiles, uninstallSkillFiles, removeLinkOrDir, listDirNames } from "./types.js";
+import { type Adapter, installSkillFiles, uninstallSkillFiles, removeLinkOrDir, listDirNames, targetDirFor } from "./types.js";
 
 export const claudeAdapter: Adapter = {
   name: "claude-code",

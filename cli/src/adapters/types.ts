@@ -118,6 +118,18 @@ export function removeMcpServerFromConfig(configPath: string, name: string): voi
   }
 }
 
+// Epoch 1d: type-aware hedef dizin
+export function targetDirFor(base: string, type: string): string {
+  const dirMap: Record<string, string> = {
+    skill: "skills",
+    agent: "agents",
+    command: "commands",
+    hook: "hooks",
+    plugin: "plugins",
+  };
+  return join(base, dirMap[type] || "skills");
+}
+
 export function installSkillFiles(_adapterName: string, pkgSlug: string, srcDir: string, destBase: string): void {
   const dest = join(destBase, pkgSlug);
   trySymlinkOrCopy(srcDir, dest);

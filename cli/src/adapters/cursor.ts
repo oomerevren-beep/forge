@@ -2,7 +2,7 @@
 import { existsSync } from "fs";
 import { join } from "path";
 import { homedir } from "os";
-import { type Adapter, installSkillFiles, uninstallSkillFiles, listDirNames } from "./types.js";
+import { type Adapter, installSkillFiles, uninstallSkillFiles, listDirNames, targetDirFor } from "./types.js";
 
 export const cursorAdapter: Adapter = {
   name: "cursor",
