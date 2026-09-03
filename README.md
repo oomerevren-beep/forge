@@ -9,25 +9,30 @@
 
 > **One CLI to install skills, MCPs, plugins, agents on any harness.**
 
-`brew` is for system packages. `forge` is for AI agent packages.
+`brew` is for system packages. `forge` is for AI agent packages. One command, every harness — no more `git clone + cp SKILL.md` four times for four tools.
 
 ```bash
+# macOS / Linux
 curl -fsSL https://raw.githubusercontent.com/oomerevren-beep/forge/main/install.sh | sh
-# or
+# Windows PowerShell
+irm https://raw.githubusercontent.com/oomerevren-beep/forge/main/install.ps1 | iex
+# or, with Node 18+
 npm i -g tryforge
-
-forge add anthropics/plan          # skill → all 7 harnesses at once
-forge add mcp/filesystem           # MCP server → auto mcp.json
-forge add obra/superpowers         # agent collection
 ```
 
-No more `git clone + cp SKILL.md`. One command, every harness. **Star to get notified at v1.0.**
+```bash
+forge doctor                # detect your harnesses
+forge add anthropics/plan   # skill → all 7 harnesses at once
+forge add mcp/filesystem    # MCP server → auto mcp.json
+```
+
+**Star to get notified at v1.0** — questions in [Discussions](https://github.com/oomerevren-beep/forge/discussions).
 
 <p align="center">
   <img src="docs/assets/og.png" alt="Forge — The Homebrew for AI Agents" width="640" />
 </p>
 <p align="center">
-  <img src="docs/assets/demo.gif" alt="forge demo — 7 seconds" width="640" />
+  <img src="docs/assets/demo.gif" alt="forge demo — doctor, search, add, list in seconds" width="640" />
   <br><em>7-second wow: <code>forge doctor → search → add → list</code></em>
 </p>
 
@@ -55,16 +60,16 @@ No more `git clone + cp SKILL.md`. One command, every harness. **Star to get not
 
 ## Why Forge?
 
-2026: everything is a skill/plugin/MCP — but install is still stone age. Every harness has its own folder, no versioning, no update.
+2026: everything is a skill, plugin, or MCP — but installing one is still stone age. Every harness has its own folder, no versioning, no update path.
 
-- `obra/superpowers` — **280k stars** — install is manual `git clone + cp`
-- `deepseek-harness` — **207k stars in 18 days** — proves "Everything is a Plugin", but DeepSeek-only
-- `anthropics/skills` — **172k stars** — Claude-only
-- `mcp-registry` — MCP-only, no skills/agents
+- `obra/superpowers` — **~280k stars** — install is still manual `git clone + cp`
+- `deepseek-harness` — **~208k stars, ~2 days to 100k** — proved "Everything is a Plugin", but DeepSeek-only
+- `anthropics/skills` — **~173k stars** — Claude-only
+- `mcp-registry` — MCP-only, no skills or agents
 
 Result: a developer using Claude Code + Codex + OpenCode + Cursor installs the **same package 4 times by hand**. No `update`, no `forge.toml`, no team sync.
 
-**Forge fixes it:** 6 package types × 5+ harnesses × one CLI. Like `brew` unified system packages, `forge` unifies agent packages. Viral loop: creators promote `forge add me` to distribute their own work.
+**Forge fixes it:** 6 package types × 7 harnesses × one CLI. Like `brew` unified system packages, `forge` unifies agent packages. Viral loop: creators promote `forge add me` to distribute their own work.
 
 | Type | Example | What it does |
 |------|---------|--------------|
@@ -80,30 +85,43 @@ Result: a developer using Claude Code + Codex + OpenCode + Cursor installs the *
 ## Features
 
 - **Universal — 6 types, one registry.** Skills + MCPs + plugins + agents + commands + hooks in one place.
-- **Multi-harness — 7 adapters today.** Claude Code, Codex, OpenCode, Cursor, DeepSeek (dsh), Windsurf, Generic. Symlink (junction on Windows) preferred, copy fallback. One file per harness → easy to add Antigravity, Droid, Copilot.
+- **Multi-harness — 7 adapters today.** One file per harness, so adding Antigravity, Droid, or Copilot is a single PR. Symlink (junction on Windows) preferred, copy fallback.
 - **Team sync — `forge.toml` + `forge.lock`.** Like `package.json` for agents. `forge install` / `forge install --frozen` for CI.
 - **Search in <200ms.** Offline scored `search.json` + typed index, no API key.
 - **Git-native registry.** Every package is a GitHub repo. Forkable, private registry ready. No central DB.
 - **Safe by default.** `sha256`-verified tarballs or hard fail (no silent fallback); mock content only with explicit `--mock`; `forge audit` flags unverified installs; `forge doctor` health check; Windows/Linux/macOS.
+
+Supported harnesses (`forge doctor` detects all of them):
+
+| Harness | Status |
+|---------|:------:|
+| Claude Code | ✅ |
+| Codex | ✅ |
+| OpenCode | ✅ |
+| Cursor | ✅ |
+| DeepSeek (dsh) | ✅ |
+| Windsurf | ✅ |
+| Generic (any other) | ✅ |
 
 ---
 
 ## Install
 
 ```bash
-# via curl (recommended)
+# macOS / Linux
 curl -fsSL https://raw.githubusercontent.com/oomerevren-beep/forge/main/install.sh | sh
+
 # Windows PowerShell
 irm https://raw.githubusercontent.com/oomerevren-beep/forge/main/install.ps1 | iex
 
-# via npm
+# via npm (Node 18+)
 npm i -g tryforge
 
 # via cargo (v0.2 — Rust rewrite)
 cargo install tryforge
 ```
 
-Requires Node 18+ for v0.1 (TypeScript). Rust binary in v0.2 — single binary, no runtime.
+Requires Node 18+ for v0.1 (TypeScript). Rust binary in v0.2 — single binary, no runtime. Details and troubleshooting: [docs/INSTALL.md](docs/INSTALL.md).
 
 ---
 
@@ -168,7 +186,7 @@ forge outdated         # shows 1.1.0 → 1.2.0 etc.
 forge update           # bumps to latest within semver
 ```
 
-Lockfile `forge.lock` is `[[packages]]` TOML — commit it. `~/.forge/config.toml` holds user defaults (registry URL, default harnesses).
+Lockfile `forge.lock` is `[[packages]]` TOML — commit it. `~/.forge/config.toml` holds user defaults (registry URL, default harnesses). Worked example: [examples/team-sync/](examples/team-sync/).
 
 ---
 
@@ -186,7 +204,7 @@ cat forge.toml
 forge publish   # (v0.2) validates → tarball → GitHub Release → registry PR
 ```
 
-Until `publish` lands, open a PR adding `registry/packages/<slug>.json` (see `schema/forge.schema.json`), then `npm run registry:build`.
+Until `publish` lands, open a PR adding `registry/packages/<slug>.json` (see `schema/forge.schema.json`), then `npm run registry:build`. Minimal working example: [examples/minimal-skill/](examples/minimal-skill/).
 
 ---
 
@@ -288,7 +306,7 @@ Full diagram and crate layout in `docs/ARCHITECTURE.md`. Tech choices: `commande
 **v0.3 — Store moment**: `forge run`, Rust binary, GUI.
 **v1.0 — Cloud**: team registry, `brew install forge`, `winget`.
 
-See `docs/ROADMAP.md` and `docs/FAZ4-PLAN.md`.
+See `docs/ROADMAP.md`.
 
 ---
 
