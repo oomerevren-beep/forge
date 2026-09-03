@@ -4,7 +4,7 @@
 [![npm version](https://img.shields.io/npm/v/tryforge?label=npm&color=CB3837)](https://www.npmjs.com/package/tryforge)
 [![npm downloads](https://img.shields.io/npm/dw/tryforge?label=downloads)](https://www.npmjs.com/package/tryforge)
 [![license MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
-[![registry](https://img.shields.io/badge/registry-100%20packages-green.svg)](registry/index.json)
+[![registry](https://img.shields.io/badge/registry-250%20packages-green.svg)](registry/index.json)
 [![GitHub stars](https://img.shields.io/github/stars/oomerevren-beep/forge?style=social)](https://github.com/oomerevren-beep/forge)
 
 > **One CLI to install skills, MCPs, plugins, agents on any harness.**
@@ -16,7 +16,7 @@ curl -fsSL https://raw.githubusercontent.com/oomerevren-beep/forge/main/install.
 # or
 npm i -g tryforge
 
-forge add anthropics/plan          # skill → Claude Code + Codex + OpenCode + Cursor
+forge add anthropics/plan          # skill → all 7 harnesses at once
 forge add mcp/filesystem           # MCP server → auto mcp.json
 forge add obra/superpowers         # agent collection
 ```
@@ -80,11 +80,11 @@ Result: a developer using Claude Code + Codex + OpenCode + Cursor installs the *
 ## Features
 
 - **Universal — 6 types, one registry.** Skills + MCPs + plugins + agents + commands + hooks in one place.
-- **Multi-harness — 5 adapters today.** Claude Code, Codex, OpenCode, Cursor, Generic. Symlink (junction on Windows) preferred, copy fallback. One file per harness → easy to add Antigravity, Droid, Copilot.
+- **Multi-harness — 7 adapters today.** Claude Code, Codex, OpenCode, Cursor, DeepSeek (dsh), Windsurf, Generic. Symlink (junction on Windows) preferred, copy fallback. One file per harness → easy to add Antigravity, Droid, Copilot.
 - **Team sync — `forge.toml` + `forge.lock`.** Like `package.json` for agents. `forge install` / `forge install --frozen` for CI.
-- **Search in <500ms.** Offline `search.json` + typed index, no API key.
+- **Search in <200ms.** Offline scored `search.json` + typed index, no API key.
 - **Git-native registry.** Every package is a GitHub repo. Forkable, private registry ready. No central DB.
-- **Safe by default.** `sha256` pinned tarballs, `forge doctor` health check, Windows/Linux/macOS.
+- **Safe by default.** `sha256`-verified tarballs or hard fail (no silent fallback); mock content only with explicit `--mock`; `forge audit` flags unverified installs; `forge doctor` health check; Windows/Linux/macOS.
 
 ---
 
@@ -110,7 +110,7 @@ Requires Node 18+ for v0.1 (TypeScript). Rust binary in v0.2 — single binary, 
 ## Quick Start
 
 ```bash
-forge doctor              # detect your harnesses (5 checked)
+forge doctor              # detect your harnesses (7 checked)
 forge search plan         # find packages (try: pdf, mcp, agent)
 forge add anthropics/plan # install latest (resolves ^1.2.0)
 forge add mcp/filesystem  # MCP → auto-writes to mcp.json
@@ -128,6 +128,11 @@ forge add anthropics/plan@^1.2.0
 
 # dry run — see what would happen
 forge add anthropics/plan --dry-run
+
+# mock content for packages with no verified tarball yet (explicit opt-in)
+forge add skill/pdf --mock
+forge install --mock       # same opt-in for project installs
+forge update mcp/github --mock
 ```
 
 ---
@@ -182,11 +187,10 @@ Until `publish` lands, open a PR adding `registry/packages/<slug>.json` (see `sc
 
 ```
 forge add anthropics/plan
-  → fetch registry/index.json (R2 CDN, 5-min cache)
-  → resolve ^1.2.0 → tarball URL + sha256
-  → download to ~/.forge/cache/tarballs/ → extract to ~/.forge/packages/anthropics-plan@1.2.0/
-  → adapter: symlink/copy to ~/.claude/skills/ + ~/.codex/skills/ + .opencode/skills/ + .cursor/skills/
-  → if MCP: inject into ~/.claude/settings.json + ~/.codex/mcp.json
+  → resolve ^1.2.0 → tarball URL + sha256 (from local/bundled registry/index.json; CDN in v0.3)
+  → download to ~/.forge/cache/tarballs/ → verify sha256 (hard fail on mismatch) → extract to ~/.forge/packages/anthropics-plan@1.2.0/
+  → adapter: symlink/copy to all 7 harnesses (Claude/Codex/OpenCode/Cursor/DSH/Windsurf/Generic)
+  → if MCP: backup mcp.json → inject server entry
 ```
 
 Add a harness = one file in `cli/src/adapters/`. See `docs/ADAPTERS.md`.
@@ -206,31 +210,32 @@ Add a harness = one file in `cli/src/adapters/`. See `docs/ADAPTERS.md`.
 |  | **Forge** | `anthropics/skills` | `DSH` | `mcp-registry` | Manual `git clone` |
 |---|---|---|---|---|---|
 | Types | **6** (skill/mcp/plugin/agent/command/hook) | 1 (skill) | plugin | 1 (mcp) | 1 |
-| Harnesses | **5+** (Claude/Codex/OpenCode/Cursor/Generic) | 1 | 1 (DeepSeek) | ~1 | per-harness manual |
+| Harnesses | **7** (Claude/Codex/OpenCode/Cursor/DSH/Windsurf/Generic) | 1 | 1 (DeepSeek) | ~1 | per-harness manual |
 | Versioning | **semver + lock** | none | none | partial | none |
 | Update | `forge update` | manual | manual | manual | manual |
 | Team sync | **`forge.toml` + `forge.lock`** | none | none | none | none |
-| Search | `<500ms` offline | GitHub search | none | web only | none |
+| Search | `<200ms` offline | GitHub search | none | web only | none |
 | Registry | **Git-native, forkable** | repo | repo | central | — |
 
 Narrow tools fragment. Universal wins — same lesson as `brew`.
 
 ---
 
-## Registry — 100 Packages
+## Registry — 250 Packages
 
-Seeded at v0.1 — `registry/packages/*.json` → `registry/index.json` + `search.json` + `stats.json`.
+Seeded at v0.1, grown in Faz 13-lite — `registry/packages/*.json` → `registry/index.json` + `search.json` + `stats.json`.
 
 ```bash
-forge search mcp        # 24 results
+forge search mcp        # 54 results
+forge search pdf        # 13 results
 forge search --type skill plan  # filtered
 forge info skill/pdf    # versions, engines, sha
 ```
 
-Stats: **57 skills, 24 MCPs, 8 agents, 5 commands, 3 hooks, 3 plugins.** Generated via:
+Stats: **127 skills, 54 MCPs, 33 agents, 15 commands, 10 hooks, 11 plugins.** Generated via:
 
 ```bash
-npm run seed            # idempotent: 100 packages from catalog
+npm run seed            # idempotent: base catalog (100) + Faz 13-lite (+150)
 npm run registry:build  # index + search + stats + --check in CI
 ```
 
@@ -263,13 +268,12 @@ Full diagram and crate layout in `docs/ARCHITECTURE.md`. Tech choices: `commande
 - [Registry](docs/REGISTRY.md) — index schema, publish, fork
 - [Adapters](docs/ADAPTERS.md) — add a harness in one file
 - [Roadmap](docs/ROADMAP.md) — v0.1 → v1.0
-- [100K Plan](docs/100K-PLAN.md) — 30 phases to 100k stars (6 epochs)
 
 ---
 
 ## Roadmap
 
-**v0.1 — Homebrew moment** (now): 5 harnesses, 100 packages, `add/search/list/doctor/install/init` — Trending prep.
+**v0.1 — Homebrew moment** (now): 7 harnesses, 250 packages, `add/search/list/doctor/install/init` — Trending prep.
 **v0.2 — NPM moment**: `forge publish`, deps, `cargo install`.
 **v0.3 — Store moment**: `forge run`, Rust binary, GUI.
 **v1.0 — Cloud**: team registry, `brew install forge`, `winget`.
@@ -285,7 +289,7 @@ git clone https://github.com/oomerevren-beep/forge
 cd forge
 npm install
 npm run build
-npm test                  # 5 smoke tests
+npm test                  # 34 tests (smoke + semver + init + adapters + installer-security)
 npm run dev -- --help     # or: npx tsx cli/src/index.ts --help
 ```
 
@@ -300,13 +304,16 @@ See `CONTRIBUTING.md` and `AGENTS.md`.
 ## FAQ
 
 **Is this just for Claude Code?**
-No. 5 harnesses today, one file per new harness. The point is *universal* — same reason `brew` beat per-OS managers.
+No. 7 harnesses today, one file per new harness. The point is *universal* — same reason `brew` beat per-OS managers.
 
 **How is this different from `mcp-registry` or `skills` repos?**
 Those are single-type and single-harness. Forge is `brew` for *all* agent package types, on *every* harness, with versioning/lock/search.
 
 **Does `install.sh` need `forge.sh` domain?**
 No. `curl -fsSL https://raw.githubusercontent.com/oomerevren-beep/forge/main/install.sh | sh` works today. `forge.sh` is a future vanity alias.
+
+**Are most packages mock content?**
+Honest answer: 245 of 250 registry entries still carry placeholder SHAs (only 5 verified so far). Forge is fail-closed — installing one without `--mock` errors out instead of silently faking it; `forge audit` flags every unverified install. Real tarballs land as maintainers verify them (tracked for Faz 13-full).
 
 **Windows symlinks?**
 Junction (`symlinkSync(..., 'junction')`) on dirs, fallback to `cpSync` on `EPERM`. `doctor` checks `links.json` (source of truth), not just dir scan.
@@ -326,6 +333,6 @@ MIT — see [LICENSE](LICENSE).
 ---
 
 <p align="center">
-  <strong>Star this repo to get notified at launch. First 100 packages are live at <a href="https://github.com/oomerevren-beep/forge/releases/tag/v0.1.0">v0.1.0</a>.</strong><br>
-  <code>forge add</code> → 5 places at once. <code>forge install</code> → team sync. Homebrew simple.
+  <strong>Star this repo to get notified at launch. 250 packages are live at <a href="https://github.com/oomerevren-beep/forge/releases/tag/v0.1.1">v0.1.1</a>.</strong><br>
+  <code>forge add</code> → 7 places at once. <code>forge install</code> → team sync. Homebrew simple.
 </p>
