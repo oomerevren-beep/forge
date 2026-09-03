@@ -12,6 +12,7 @@ import { allAdapters, detectAdapters, addMcpServerToConfig, removeMcpServerFromC
 import { runInit } from "./commands/init.js";
 import { runInstall } from "./commands/install.js";
 import { runOutdated, runUpdate } from "./commands/update.js";
+import { runAudit } from "./commands/audit.js";
 import { ensureConfig } from "./core/config.js";
 
 ensureConfig();
@@ -245,15 +246,29 @@ program
       if (pkgs.length > 5) console.log(`    ... and ${pkgs.length - 5} more`);
     }
 
-    // Check for broken links
+    // Check for broken links (Faz 10 tam: links.json vs FS + --fix eksik symlink/junction'ı yeniden kurar)
     const links = readLinks();
     let broken = 0;
+    let fixed = 0;
     for (const [name, rec] of Object.entries(links)) {
       const dir = packageDir(rec.slug, rec.version);
       if (!existsSync(dir)) {
         broken++;
         console.log(`  ! broken: ${name}@${rec.version} — missing ${dir}`);
+        if (opts.fix) {
+          try {
+            const detail = loadPackageDetail(name);
+            const resolved = resolveVersion(name, rec.version);
+            const srcDir = await ensurePackageContent(name, resolved.version, detail, resolved.versionMeta);
+            console.log(`    → store restored: ${srcDir}`);
+            fixed++;
+          } catch (e) {
+            console.log(`    → restore failed: ${(e as Error).message}`);
+            continue;
+          }
+        }
       }
+      const liveDir = existsSync(dir) ? dir : packageDir(rec.slug, rec.version);
       for (const adapterName of rec.adapters) {
         const adapter = allAdapters.find((a) => a.name === adapterName);
         if (!adapter) continue;
@@ -265,17 +280,20 @@ program
         if (!installed) {
           console.log(`  ! missing link: ${name} on ${adapterName} → ${adapter.skillDir(rec.slug)}`);
           if (opts.fix) {
-            const src = dir;
+            const src = liveDir;
             if (existsSync(src)) {
               await adapter.install(rec.slug, src, rec.type ?? "skill");
               console.log(`    → fixed`);
+              fixed++;
+            } else {
+              console.log(`    → cannot fix, store missing`);
             }
           }
         }
       }
     }
     if (broken === 0) console.log("\n[forge] ✓ no broken packages");
-    else console.log(`\n[forge] ${broken} broken package(s)${opts.fix ? " (fix attempted)" : " — run with --fix"}`);
+    else console.log(`\n[forge] ${broken} broken package(s)${opts.fix ? ` (${fixed} fixed)` : " — run with --fix"}`);
   });
 
 // --- search ---
@@ -375,6 +393,15 @@ program
   .argument("[pkg]", "package to update (all if omitted)")
   .action(async (pkg, _opts) => {
     await runUpdate(pkg);
+  });
+
+// --- audit (Faz 10 iskelet, Faz 22'de tam) ---
+program
+  .command("audit")
+  .description("Audit installed packages (skeleton — full DB in Faz 22)")
+  .option("--json", "output JSON", false)
+  .action(async (opts) => {
+    await runAudit({ json: opts.json });
   });
 
 program.parse();

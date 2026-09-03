@@ -1,0 +1,25 @@
+{
+  "name": "agent/migrator",
+  "type": "agent",
+  "description": "Migrator agent — framework and version migration assistant",
+  "homepage": "https://github.com/agent/migrator",
+  "repository": "https://github.com/agent/migrator",
+  "keywords": [
+    "agent",
+    "migrate",
+    "refactor"
+  ],
+  "versions": {
+    "1.0.0": {
+      "version": "1.0.0",
+      "tarball": "https://github.com/agent/migrator/releases/download/v1.0.0/agent-migrator-1.0.0.tar.gz",
+      "sha256": "placeholder-sha256-agent-migrator",
+      "engines": {
+        "*": "*"
+      },
+      "dependencies": {},
+      "publishedAt": "2026-09-03T11:17:11.953Z"
+    }
+  },
+  "latest": "1.0.0"
+}

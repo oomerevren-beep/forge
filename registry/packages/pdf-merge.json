@@ -1,0 +1,25 @@
+{
+  "name": "pdf/merge",
+  "type": "skill",
+  "description": "PDF merge skill — combine multiple PDFs into one document fast",
+  "homepage": "https://github.com/pdf/merge",
+  "repository": "https://github.com/pdf/merge",
+  "keywords": [
+    "pdf",
+    "merge",
+    "document"
+  ],
+  "versions": {
+    "1.0.0": {
+      "version": "1.0.0",
+      "tarball": "https://github.com/pdf/merge/releases/download/v1.0.0/pdf-merge-1.0.0.tar.gz",
+      "sha256": "placeholder-sha256-pdf-merge",
+      "engines": {
+        "*": "*"
+      },
+      "dependencies": {},
+      "publishedAt": "2026-09-03T11:17:11.945Z"
+    }
+  },
+  "latest": "1.0.0"
+}

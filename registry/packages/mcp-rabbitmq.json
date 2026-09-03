@@ -1,0 +1,32 @@
+{
+  "name": "mcp/rabbitmq",
+  "type": "mcp",
+  "description": "RabbitMQ MCP server — queues, exchanges and bindings",
+  "homepage": "https://github.com/mcp/rabbitmq",
+  "repository": "https://github.com/mcp/rabbitmq",
+  "keywords": [
+    "mcp",
+    "rabbitmq",
+    "queue"
+  ],
+  "versions": {
+    "1.0.0": {
+      "version": "1.0.0",
+      "tarball": "https://github.com/mcp/rabbitmq/releases/download/v1.0.0/mcp-rabbitmq-1.0.0.tar.gz",
+      "sha256": "placeholder-sha256-mcp-rabbitmq",
+      "engines": {
+        "*": "*"
+      },
+      "dependencies": {},
+      "mcp": {
+        "command": "npx",
+        "args": [
+          "-y",
+          "@modelcontextprotocol/server-rabbitmq"
+        ]
+      },
+      "publishedAt": "2026-09-03T11:17:11.974Z"
+    }
+  },
+  "latest": "1.0.0"
+}

@@ -1,0 +1,25 @@
+{
+  "name": "pdf/forms",
+  "type": "skill",
+  "description": "PDF forms skill — fill and extract AcroForm form data",
+  "homepage": "https://github.com/pdf/forms",
+  "repository": "https://github.com/pdf/forms",
+  "keywords": [
+    "pdf",
+    "forms",
+    "acroform"
+  ],
+  "versions": {
+    "1.0.0": {
+      "version": "1.0.0",
+      "tarball": "https://github.com/pdf/forms/releases/download/v1.0.0/pdf-forms-1.0.0.tar.gz",
+      "sha256": "placeholder-sha256-pdf-forms",
+      "engines": {
+        "*": "*"
+      },
+      "dependencies": {},
+      "publishedAt": "2026-09-03T11:17:11.949Z"
+    }
+  },
+  "latest": "1.0.0"
+}

@@ -1,0 +1,25 @@
+{
+  "name": "agent/onboard-bot",
+  "type": "agent",
+  "description": "Onboard bot agent — guide new contributors through the repo",
+  "homepage": "https://github.com/agent/onboard-bot",
+  "repository": "https://github.com/agent/onboard-bot",
+  "keywords": [
+    "agent",
+    "onboarding",
+    "docs"
+  ],
+  "versions": {
+    "1.0.0": {
+      "version": "1.0.0",
+      "tarball": "https://github.com/agent/onboard-bot/releases/download/v1.0.0/agent-onboard-bot-1.0.0.tar.gz",
+      "sha256": "placeholder-sha256-agent-onboard-bot",
+      "engines": {
+        "*": "*"
+      },
+      "dependencies": {},
+      "publishedAt": "2026-09-03T11:17:11.957Z"
+    }
+  },
+  "latest": "1.0.0"
+}

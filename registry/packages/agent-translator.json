@@ -1,0 +1,25 @@
+{
+  "name": "agent/translator",
+  "type": "agent",
+  "description": "Translator agent — accurate multilingual translation with tone",
+  "homepage": "https://github.com/agent/translator",
+  "repository": "https://github.com/agent/translator",
+  "keywords": [
+    "agent",
+    "translate",
+    "i18n"
+  ],
+  "versions": {
+    "1.0.0": {
+      "version": "1.0.0",
+      "tarball": "https://github.com/agent/translator/releases/download/v1.0.0/agent-translator-1.0.0.tar.gz",
+      "sha256": "placeholder-sha256-agent-translator",
+      "engines": {
+        "*": "*"
+      },
+      "dependencies": {},
+      "publishedAt": "2026-09-03T11:17:11.958Z"
+    }
+  },
+  "latest": "1.0.0"
+}

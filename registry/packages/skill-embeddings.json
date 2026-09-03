@@ -1,0 +1,24 @@
+{
+  "name": "skill/embeddings",
+  "type": "skill",
+  "description": "Embeddings skill — pick and tune embedding models",
+  "homepage": "https://github.com/skill/embeddings",
+  "repository": "https://github.com/skill/embeddings",
+  "keywords": [
+    "embeddings",
+    "vectors"
+  ],
+  "versions": {
+    "1.0.0": {
+      "version": "1.0.0",
+      "tarball": "https://github.com/skill/embeddings/releases/download/v1.0.0/skill-embeddings-1.0.0.tar.gz",
+      "sha256": "placeholder-sha256-skill-embeddings",
+      "engines": {
+        "*": "*"
+      },
+      "dependencies": {},
+      "publishedAt": "2026-09-03T11:17:11.991Z"
+    }
+  },
+  "latest": "1.0.0"
+}

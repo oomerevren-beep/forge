@@ -1,0 +1,32 @@
+{
+  "name": "mcp/kafka",
+  "type": "mcp",
+  "description": "Kafka MCP server — topics, consumer groups and lag",
+  "homepage": "https://github.com/mcp/kafka",
+  "repository": "https://github.com/mcp/kafka",
+  "keywords": [
+    "mcp",
+    "kafka",
+    "streaming"
+  ],
+  "versions": {
+    "1.0.0": {
+      "version": "1.0.0",
+      "tarball": "https://github.com/mcp/kafka/releases/download/v1.0.0/mcp-kafka-1.0.0.tar.gz",
+      "sha256": "placeholder-sha256-mcp-kafka",
+      "engines": {
+        "*": "*"
+      },
+      "dependencies": {},
+      "mcp": {
+        "command": "npx",
+        "args": [
+          "-y",
+          "@modelcontextprotocol/server-kafka"
+        ]
+      },
+      "publishedAt": "2026-09-03T11:17:11.974Z"
+    }
+  },
+  "latest": "1.0.0"
+}

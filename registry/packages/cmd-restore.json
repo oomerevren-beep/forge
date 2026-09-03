@@ -1,0 +1,24 @@
+{
+  "name": "cmd/restore",
+  "type": "command",
+  "description": "Slash command /restore — restore from snapshot",
+  "homepage": "https://github.com/cmd/restore",
+  "repository": "https://github.com/cmd/restore",
+  "keywords": [
+    "command",
+    "restore"
+  ],
+  "versions": {
+    "1.0.0": {
+      "version": "1.0.0",
+      "tarball": "https://github.com/cmd/restore/releases/download/v1.0.0/cmd-restore-1.0.0.tar.gz",
+      "sha256": "placeholder-sha256-cmd-restore",
+      "engines": {
+        "*": "*"
+      },
+      "dependencies": {},
+      "publishedAt": "2026-09-03T11:17:11.999Z"
+    }
+  },
+  "latest": "1.0.0"
+}

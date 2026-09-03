@@ -1,0 +1,24 @@
+{
+  "name": "hook/post-commit",
+  "type": "hook",
+  "description": "Post-commit hook — notify and update docs after commit",
+  "homepage": "https://github.com/hook/post-commit",
+  "repository": "https://github.com/hook/post-commit",
+  "keywords": [
+    "hook",
+    "git"
+  ],
+  "versions": {
+    "1.0.0": {
+      "version": "1.0.0",
+      "tarball": "https://github.com/hook/post-commit/releases/download/v1.0.0/hook-post-commit-1.0.0.tar.gz",
+      "sha256": "placeholder-sha256-hook-post-commit",
+      "engines": {
+        "*": "*"
+      },
+      "dependencies": {},
+      "publishedAt": "2026-09-03T11:17:12.000Z"
+    }
+  },
+  "latest": "1.0.0"
+}

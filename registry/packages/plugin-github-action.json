@@ -1,0 +1,24 @@
+{
+  "name": "plugin/github-action",
+  "type": "plugin",
+  "description": "GitHub Action plugin — Forge in CI pipelines",
+  "homepage": "https://github.com/plugin/github-action",
+  "repository": "https://github.com/plugin/github-action",
+  "keywords": [
+    "plugin",
+    "github"
+  ],
+  "versions": {
+    "1.0.0": {
+      "version": "1.0.0",
+      "tarball": "https://github.com/plugin/github-action/releases/download/v1.0.0/plugin-github-action-1.0.0.tar.gz",
+      "sha256": "placeholder-sha256-plugin-github-action",
+      "engines": {
+        "*": "*"
+      },
+      "dependencies": {},
+      "publishedAt": "2026-09-03T11:17:12.004Z"
+    }
+  },
+  "latest": "1.0.0"
+}

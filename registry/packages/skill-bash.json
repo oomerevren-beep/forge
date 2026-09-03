@@ -1,0 +1,24 @@
+{
+  "name": "skill/bash",
+  "type": "skill",
+  "description": "Bash skill — safe shell scripting patterns",
+  "homepage": "https://github.com/skill/bash",
+  "repository": "https://github.com/skill/bash",
+  "keywords": [
+    "bash",
+    "shell"
+  ],
+  "versions": {
+    "1.0.0": {
+      "version": "1.0.0",
+      "tarball": "https://github.com/skill/bash/releases/download/v1.0.0/skill-bash-1.0.0.tar.gz",
+      "sha256": "placeholder-sha256-skill-bash",
+      "engines": {
+        "*": "*"
+      },
+      "dependencies": {},
+      "publishedAt": "2026-09-03T11:17:11.977Z"
+    }
+  },
+  "latest": "1.0.0"
+}

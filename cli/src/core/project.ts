@@ -1,6 +1,7 @@
 import { existsSync, readFileSync } from "fs";
 import { join, resolve } from "path";
 import { parse } from "smol-toml";
+import { isValidRange } from "./semver.js";
 
 export interface ProjectToml {
   project?: { name?: string; version?: string; description?: string };
@@ -67,12 +68,4 @@ export function validateProjectToml(p: ProjectToml, pathForMsg = "forge.toml"): 
     errs.push(`[forge].harnesses must be an array`);
   }
   return errs;
-}
-
-function isValidRange(r: string): boolean {
-  const t = r.trim();
-  if (t === "*" || t === "" || t === "latest") return true;
-  if (/^(\^|~|>=|>)/.test(t)) return true;
-  if (/^\d+\.\d+\.\d+/.test(t)) return true;
-  return false;
 }

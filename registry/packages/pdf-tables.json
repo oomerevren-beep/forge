@@ -1,0 +1,25 @@
+{
+  "name": "pdf/tables",
+  "type": "skill",
+  "description": "PDF tables skill — detect and export tables from PDFs to CSV",
+  "homepage": "https://github.com/pdf/tables",
+  "repository": "https://github.com/pdf/tables",
+  "keywords": [
+    "pdf",
+    "tables",
+    "csv"
+  ],
+  "versions": {
+    "1.0.0": {
+      "version": "1.0.0",
+      "tarball": "https://github.com/pdf/tables/releases/download/v1.0.0/pdf-tables-1.0.0.tar.gz",
+      "sha256": "placeholder-sha256-pdf-tables",
+      "engines": {
+        "*": "*"
+      },
+      "dependencies": {},
+      "publishedAt": "2026-09-03T11:17:11.952Z"
+    }
+  },
+  "latest": "1.0.0"
+}

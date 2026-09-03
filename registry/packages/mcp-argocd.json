@@ -1,0 +1,32 @@
+{
+  "name": "mcp/argocd",
+  "type": "mcp",
+  "description": "ArgoCD MCP server — GitOps apps and sync status",
+  "homepage": "https://github.com/mcp/argocd",
+  "repository": "https://github.com/mcp/argocd",
+  "keywords": [
+    "mcp",
+    "argocd",
+    "gitops"
+  ],
+  "versions": {
+    "1.0.0": {
+      "version": "1.0.0",
+      "tarball": "https://github.com/mcp/argocd/releases/download/v1.0.0/mcp-argocd-1.0.0.tar.gz",
+      "sha256": "placeholder-sha256-mcp-argocd",
+      "engines": {
+        "*": "*"
+      },
+      "dependencies": {},
+      "mcp": {
+        "command": "npx",
+        "args": [
+          "-y",
+          "@modelcontextprotocol/server-argocd"
+        ]
+      },
+      "publishedAt": "2026-09-03T11:17:11.965Z"
+    }
+  },
+  "latest": "1.0.0"
+}

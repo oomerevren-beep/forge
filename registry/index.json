@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-09-02T12:26:29.615Z",
-  "count": 100,
+  "generatedAt": "2026-09-03T11:17:12.936Z",
+  "count": 250,
   "packages": {
     "a11y/skill": {
       "name": "a11y/skill",
@@ -72,6 +72,51 @@
       ],
       "updatedAt": "2026-09-02T09:44:15.206Z"
     },
+    "agent/accessibility-bot": {
+      "name": "agent/accessibility-bot",
+      "type": "agent",
+      "description": "Accessibility bot agent — WCAG checks and a11y fixes",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "agent",
+        "a11y",
+        "accessibility"
+      ],
+      "updatedAt": "2026-09-03T11:17:11.960Z"
+    },
+    "agent/api-designer": {
+      "name": "agent/api-designer",
+      "type": "agent",
+      "description": "API designer agent — design REST and GraphQL schemas cleanly",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "agent",
+        "api",
+        "design"
+      ],
+      "updatedAt": "2026-09-03T11:17:11.955Z"
+    },
+    "agent/changelog-writer": {
+      "name": "agent/changelog-writer",
+      "type": "agent",
+      "description": "Changelog writer agent — generate release notes from commits",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "agent",
+        "changelog",
+        "release"
+      ],
+      "updatedAt": "2026-09-03T11:17:11.953Z"
+    },
     "agent/code-reviewer": {
       "name": "agent/code-reviewer",
       "type": "agent",
@@ -85,6 +130,66 @@
         "review"
       ],
       "updatedAt": "2026-09-02T09:44:15.243Z"
+    },
+    "agent/data-analyst": {
+      "name": "agent/data-analyst",
+      "type": "agent",
+      "description": "Data analyst agent — CSV analysis, charts and insights",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "agent",
+        "data",
+        "analysis"
+      ],
+      "updatedAt": "2026-09-03T11:17:11.961Z"
+    },
+    "agent/db-architect": {
+      "name": "agent/db-architect",
+      "type": "agent",
+      "description": "DB architect agent — schema design, indexes and migrations",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "agent",
+        "database",
+        "sql"
+      ],
+      "updatedAt": "2026-09-03T11:17:11.955Z"
+    },
+    "agent/debugger": {
+      "name": "agent/debugger",
+      "type": "agent",
+      "description": "Debugger agent — reproduce and root-cause failures step by step",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "agent",
+        "debug",
+        "triage"
+      ],
+      "updatedAt": "2026-09-03T11:17:11.954Z"
+    },
+    "agent/devops-bot": {
+      "name": "agent/devops-bot",
+      "type": "agent",
+      "description": "DevOps bot agent — Docker, CI pipelines and deploy automation",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "agent",
+        "devops",
+        "ci"
+      ],
+      "updatedAt": "2026-09-03T11:17:11.956Z"
     },
     "agent/docs-writer": {
       "name": "agent/docs-writer",
@@ -100,6 +205,141 @@
       ],
       "updatedAt": "2026-09-02T09:44:15.245Z"
     },
+    "agent/e2e-writer": {
+      "name": "agent/e2e-writer",
+      "type": "agent",
+      "description": "E2E writer agent — generate Playwright end-to-end tests",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "agent",
+        "e2e",
+        "playwright"
+      ],
+      "updatedAt": "2026-09-03T11:17:11.959Z"
+    },
+    "agent/meeting-notes": {
+      "name": "agent/meeting-notes",
+      "type": "agent",
+      "description": "Meeting notes agent — action items and decisions from calls",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "agent",
+        "meeting",
+        "notes"
+      ],
+      "updatedAt": "2026-09-03T11:17:11.962Z"
+    },
+    "agent/migrator": {
+      "name": "agent/migrator",
+      "type": "agent",
+      "description": "Migrator agent — framework and version migration assistant",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "agent",
+        "migrate",
+        "refactor"
+      ],
+      "updatedAt": "2026-09-03T11:17:11.953Z"
+    },
+    "agent/ml-trainer": {
+      "name": "agent/ml-trainer",
+      "type": "agent",
+      "description": "ML trainer agent — training loops, evals and checkpoints",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "agent",
+        "ml",
+        "training"
+      ],
+      "updatedAt": "2026-09-03T11:17:11.961Z"
+    },
+    "agent/onboard-bot": {
+      "name": "agent/onboard-bot",
+      "type": "agent",
+      "description": "Onboard bot agent — guide new contributors through the repo",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "agent",
+        "onboarding",
+        "docs"
+      ],
+      "updatedAt": "2026-09-03T11:17:11.957Z"
+    },
+    "agent/perf-tuner": {
+      "name": "agent/perf-tuner",
+      "type": "agent",
+      "description": "Perf tuner agent — profile hotspots and propose optimizations",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "agent",
+        "performance",
+        "profile"
+      ],
+      "updatedAt": "2026-09-03T11:17:11.954Z"
+    },
+    "agent/pr-reviewer": {
+      "name": "agent/pr-reviewer",
+      "type": "agent",
+      "description": "PR reviewer agent — thorough pull request reviews with suggestions",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "agent",
+        "review",
+        "pr"
+      ],
+      "updatedAt": "2026-09-03T11:17:11.952Z"
+    },
+    "agent/prompt-optimizer": {
+      "name": "agent/prompt-optimizer",
+      "type": "agent",
+      "description": "Prompt optimizer agent — refine prompts with eval feedback",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "agent",
+        "prompt",
+        "optimize"
+      ],
+      "updatedAt": "2026-09-03T11:17:11.961Z"
+    },
+    "agent/qa-bot": {
+      "name": "agent/qa-bot",
+      "type": "agent",
+      "description": "QA bot agent — test plans, edge cases and regression checks",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "agent",
+        "qa",
+        "testing"
+      ],
+      "updatedAt": "2026-09-03T11:17:11.959Z"
+    },
     "agent/refactor-bot": {
       "name": "agent/refactor-bot",
       "type": "agent",
@@ -114,6 +354,111 @@
       ],
       "updatedAt": "2026-09-02T09:44:15.246Z"
     },
+    "agent/release-bot": {
+      "name": "agent/release-bot",
+      "type": "agent",
+      "description": "Release bot agent — version, tag and publish releases safely",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "agent",
+        "release",
+        "publish"
+      ],
+      "updatedAt": "2026-09-03T11:17:11.956Z"
+    },
+    "agent/researcher": {
+      "name": "agent/researcher",
+      "type": "agent",
+      "description": "Researcher agent — deep web research with cited summaries",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "agent",
+        "research",
+        "web"
+      ],
+      "updatedAt": "2026-09-03T11:17:11.958Z"
+    },
+    "agent/security-auditor": {
+      "name": "agent/security-auditor",
+      "type": "agent",
+      "description": "Security auditor agent — scan code for vulns and hardening tips",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "agent",
+        "security",
+        "audit"
+      ],
+      "updatedAt": "2026-09-03T11:17:11.955Z"
+    },
+    "agent/seo-bot": {
+      "name": "agent/seo-bot",
+      "type": "agent",
+      "description": "SEO bot agent — metadata, sitemaps and content scoring",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "agent",
+        "seo",
+        "content"
+      ],
+      "updatedAt": "2026-09-03T11:17:11.960Z"
+    },
+    "agent/storybook-writer": {
+      "name": "agent/storybook-writer",
+      "type": "agent",
+      "description": "Storybook writer agent — stories for UI components quickly",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "agent",
+        "storybook",
+        "ui"
+      ],
+      "updatedAt": "2026-09-03T11:17:11.960Z"
+    },
+    "agent/summarizer": {
+      "name": "agent/summarizer",
+      "type": "agent",
+      "description": "Summarizer agent — condense threads, docs and meetings",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "agent",
+        "summarize",
+        "nlp"
+      ],
+      "updatedAt": "2026-09-03T11:17:11.958Z"
+    },
+    "agent/support-bot": {
+      "name": "agent/support-bot",
+      "type": "agent",
+      "description": "Support bot agent — answer FAQs and draft helpful replies",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "agent",
+        "support",
+        "chat"
+      ],
+      "updatedAt": "2026-09-03T11:17:11.959Z"
+    },
     "agent/test-writer": {
       "name": "agent/test-writer",
       "type": "agent",
@@ -127,6 +472,36 @@
         "testing"
       ],
       "updatedAt": "2026-09-02T09:44:15.244Z"
+    },
+    "agent/translator": {
+      "name": "agent/translator",
+      "type": "agent",
+      "description": "Translator agent — accurate multilingual translation with tone",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "agent",
+        "translate",
+        "i18n"
+      ],
+      "updatedAt": "2026-09-03T11:17:11.958Z"
+    },
+    "agent/triage-bot": {
+      "name": "agent/triage-bot",
+      "type": "agent",
+      "description": "Triage bot agent — label and route issues automatically",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "agent",
+        "triage",
+        "issues"
+      ],
+      "updatedAt": "2026-09-03T11:17:11.957Z"
     },
     "anthropic/skill": {
       "name": "anthropic/skill",
@@ -326,6 +701,34 @@
       ],
       "updatedAt": "2026-09-02T09:44:15.190Z"
     },
+    "cmd/backup": {
+      "name": "cmd/backup",
+      "type": "command",
+      "description": "Slash command /backup — snapshot project state",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "command",
+        "backup"
+      ],
+      "updatedAt": "2026-09-03T11:17:11.998Z"
+    },
+    "cmd/benchmark": {
+      "name": "cmd/benchmark",
+      "type": "command",
+      "description": "Slash command /benchmark — run perf benchmarks",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "command",
+        "benchmark"
+      ],
+      "updatedAt": "2026-09-03T11:17:11.997Z"
+    },
     "cmd/brainstorm": {
       "name": "cmd/brainstorm",
       "type": "command",
@@ -339,6 +742,20 @@
         "brainstorm"
       ],
       "updatedAt": "2026-09-02T09:44:15.238Z"
+    },
+    "cmd/changelog": {
+      "name": "cmd/changelog",
+      "type": "command",
+      "description": "Slash command /changelog — draft changelog entries",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "command",
+        "changelog"
+      ],
+      "updatedAt": "2026-09-03T11:17:11.999Z"
     },
     "cmd/deploy": {
       "name": "cmd/deploy",
@@ -354,6 +771,48 @@
       ],
       "updatedAt": "2026-09-02T09:44:15.237Z"
     },
+    "cmd/format": {
+      "name": "cmd/format",
+      "type": "command",
+      "description": "Slash command /format — format the codebase",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "command",
+        "format"
+      ],
+      "updatedAt": "2026-09-03T11:17:11.997Z"
+    },
+    "cmd/lint": {
+      "name": "cmd/lint",
+      "type": "command",
+      "description": "Slash command /lint — run linters with autofix",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "command",
+        "lint"
+      ],
+      "updatedAt": "2026-09-03T11:17:11.997Z"
+    },
+    "cmd/migrate": {
+      "name": "cmd/migrate",
+      "type": "command",
+      "description": "Slash command /migrate — run DB migrations safely",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "command",
+        "migrate"
+      ],
+      "updatedAt": "2026-09-03T11:17:11.998Z"
+    },
     "cmd/plan": {
       "name": "cmd/plan",
       "type": "command",
@@ -368,6 +827,48 @@
       ],
       "updatedAt": "2026-09-02T09:44:15.234Z"
     },
+    "cmd/preview": {
+      "name": "cmd/preview",
+      "type": "command",
+      "description": "Slash command /preview — preview deploy links",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "command",
+        "preview"
+      ],
+      "updatedAt": "2026-09-03T11:17:12.000Z"
+    },
+    "cmd/release": {
+      "name": "cmd/release",
+      "type": "command",
+      "description": "Slash command /release — cut a new release",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "command",
+        "release"
+      ],
+      "updatedAt": "2026-09-03T11:17:11.999Z"
+    },
+    "cmd/restore": {
+      "name": "cmd/restore",
+      "type": "command",
+      "description": "Slash command /restore — restore from snapshot",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "command",
+        "restore"
+      ],
+      "updatedAt": "2026-09-03T11:17:11.999Z"
+    },
     "cmd/review": {
       "name": "cmd/review",
       "type": "command",
@@ -381,6 +882,20 @@
         "review"
       ],
       "updatedAt": "2026-09-02T09:44:15.235Z"
+    },
+    "cmd/seed": {
+      "name": "cmd/seed",
+      "type": "command",
+      "description": "Slash command /seed — seed dev and demo data",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "command",
+        "seed"
+      ],
+      "updatedAt": "2026-09-03T11:17:11.998Z"
     },
     "cmd/test": {
       "name": "cmd/test",
@@ -480,6 +995,62 @@
       ],
       "updatedAt": "2026-09-02T09:44:15.227Z"
     },
+    "hook/post-commit": {
+      "name": "hook/post-commit",
+      "type": "hook",
+      "description": "Post-commit hook — notify and update docs after commit",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "hook",
+        "git"
+      ],
+      "updatedAt": "2026-09-03T11:17:12.000Z"
+    },
+    "hook/post-deploy": {
+      "name": "hook/post-deploy",
+      "type": "hook",
+      "description": "Post-deploy hook — smoke checks after deploy",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "hook",
+        "deploy"
+      ],
+      "updatedAt": "2026-09-03T11:17:12.001Z"
+    },
+    "hook/post-merge": {
+      "name": "hook/post-merge",
+      "type": "hook",
+      "description": "Post-merge hook — reinstall deps after merge",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "hook",
+        "git"
+      ],
+      "updatedAt": "2026-09-03T11:17:12.001Z"
+    },
+    "hook/post-publish": {
+      "name": "hook/post-publish",
+      "type": "hook",
+      "description": "Post-publish hook — announce new versions",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "hook",
+        "publish"
+      ],
+      "updatedAt": "2026-09-03T11:17:12.002Z"
+    },
     "hook/post-tool": {
       "name": "hook/post-tool",
       "type": "hook",
@@ -508,6 +1079,34 @@
       ],
       "updatedAt": "2026-09-02T09:44:15.238Z"
     },
+    "hook/pre-merge": {
+      "name": "hook/pre-merge",
+      "type": "hook",
+      "description": "Pre-merge hook — verify branch before merging",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "hook",
+        "git"
+      ],
+      "updatedAt": "2026-09-03T11:17:12.000Z"
+    },
+    "hook/pre-publish": {
+      "name": "hook/pre-publish",
+      "type": "hook",
+      "description": "Pre-publish hook — validate package before publish",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "hook",
+        "publish"
+      ],
+      "updatedAt": "2026-09-03T11:17:12.002Z"
+    },
     "hook/pre-push": {
       "name": "hook/pre-push",
       "type": "hook",
@@ -521,6 +1120,20 @@
         "git"
       ],
       "updatedAt": "2026-09-02T09:44:15.240Z"
+    },
+    "hook/pre-tool": {
+      "name": "hook/pre-tool",
+      "type": "hook",
+      "description": "Pre-tool hook — guardrails before tool execution",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "hook",
+        "tool"
+      ],
+      "updatedAt": "2026-09-03T11:17:12.001Z"
     },
     "humans/skill": {
       "name": "humans/skill",
@@ -620,6 +1233,21 @@
       ],
       "updatedAt": "2026-09-02T09:44:15.201Z"
     },
+    "mcp/argocd": {
+      "name": "mcp/argocd",
+      "type": "mcp",
+      "description": "ArgoCD MCP server — GitOps apps and sync status",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "mcp",
+        "argocd",
+        "gitops"
+      ],
+      "updatedAt": "2026-09-03T11:17:11.965Z"
+    },
     "mcp/aws-kb": {
       "name": "mcp/aws-kb",
       "type": "mcp",
@@ -647,6 +1275,81 @@
         "search"
       ],
       "updatedAt": "2026-09-02T09:44:15.195Z"
+    },
+    "mcp/canva": {
+      "name": "mcp/canva",
+      "type": "mcp",
+      "description": "Canva MCP server — designs and brand templates",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "mcp",
+        "canva",
+        "design"
+      ],
+      "updatedAt": "2026-09-03T11:17:11.969Z"
+    },
+    "mcp/circleci": {
+      "name": "mcp/circleci",
+      "type": "mcp",
+      "description": "CircleCI MCP server — workflows and build insights",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "mcp",
+        "circleci",
+        "ci"
+      ],
+      "updatedAt": "2026-09-03T11:17:11.966Z"
+    },
+    "mcp/clickhouse": {
+      "name": "mcp/clickhouse",
+      "type": "mcp",
+      "description": "ClickHouse MCP server — analytical SQL queries fast",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "mcp",
+        "clickhouse",
+        "analytics"
+      ],
+      "updatedAt": "2026-09-03T11:17:11.974Z"
+    },
+    "mcp/cloudflare": {
+      "name": "mcp/cloudflare",
+      "type": "mcp",
+      "description": "Cloudflare MCP server — DNS, Workers and cache purge",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "mcp",
+        "cloudflare",
+        "dns"
+      ],
+      "updatedAt": "2026-09-03T11:17:11.964Z"
+    },
+    "mcp/confluence": {
+      "name": "mcp/confluence",
+      "type": "mcp",
+      "description": "Confluence MCP server — pages and spaces search",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "mcp",
+        "confluence",
+        "docs"
+      ],
+      "updatedAt": "2026-09-03T11:17:11.969Z"
     },
     "mcp/custom-crypto": {
       "name": "mcp/custom-crypto",
@@ -676,6 +1379,51 @@
       ],
       "updatedAt": "2026-09-02T09:44:15.247Z"
     },
+    "mcp/datadog": {
+      "name": "mcp/datadog",
+      "type": "mcp",
+      "description": "Datadog MCP server — metrics, monitors and dashboards",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "mcp",
+        "datadog",
+        "metrics"
+      ],
+      "updatedAt": "2026-09-03T11:17:11.967Z"
+    },
+    "mcp/docker": {
+      "name": "mcp/docker",
+      "type": "mcp",
+      "description": "Docker MCP server — containers, images and compose control",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "mcp",
+        "docker",
+        "containers"
+      ],
+      "updatedAt": "2026-09-03T11:17:11.964Z"
+    },
+    "mcp/elasticsearch": {
+      "name": "mcp/elasticsearch",
+      "type": "mcp",
+      "description": "Elasticsearch MCP server — search indexes and queries",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "mcp",
+        "elasticsearch",
+        "search"
+      ],
+      "updatedAt": "2026-09-03T11:17:11.973Z"
+    },
     "mcp/everart": {
       "name": "mcp/everart",
       "type": "mcp",
@@ -703,6 +1451,21 @@
         "fetch"
       ],
       "updatedAt": "2026-09-02T09:44:15.193Z"
+    },
+    "mcp/figma": {
+      "name": "mcp/figma",
+      "type": "mcp",
+      "description": "Figma MCP server — files, components and exports",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "mcp",
+        "figma",
+        "design"
+      ],
+      "updatedAt": "2026-09-03T11:17:11.969Z"
     },
     "mcp/filesystem": {
       "name": "mcp/filesystem",
@@ -774,6 +1537,96 @@
       ],
       "updatedAt": "2026-09-02T09:44:15.197Z"
     },
+    "mcp/helm": {
+      "name": "mcp/helm",
+      "type": "mcp",
+      "description": "Helm MCP server — charts, releases and values management",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "mcp",
+        "helm",
+        "k8s"
+      ],
+      "updatedAt": "2026-09-03T11:17:11.965Z"
+    },
+    "mcp/hubspot": {
+      "name": "mcp/hubspot",
+      "type": "mcp",
+      "description": "HubSpot MCP server — contacts, deals and pipelines",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "mcp",
+        "hubspot",
+        "crm"
+      ],
+      "updatedAt": "2026-09-03T11:17:11.971Z"
+    },
+    "mcp/intercom": {
+      "name": "mcp/intercom",
+      "type": "mcp",
+      "description": "Intercom MCP server — conversations and user events",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "mcp",
+        "intercom",
+        "chat"
+      ],
+      "updatedAt": "2026-09-03T11:17:11.971Z"
+    },
+    "mcp/jenkins": {
+      "name": "mcp/jenkins",
+      "type": "mcp",
+      "description": "Jenkins MCP server — jobs, builds and pipeline status",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "mcp",
+        "jenkins",
+        "ci"
+      ],
+      "updatedAt": "2026-09-03T11:17:11.966Z"
+    },
+    "mcp/jira": {
+      "name": "mcp/jira",
+      "type": "mcp",
+      "description": "Jira MCP server — issues, sprints and boards",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "mcp",
+        "jira",
+        "issues"
+      ],
+      "updatedAt": "2026-09-03T11:17:11.968Z"
+    },
+    "mcp/kafka": {
+      "name": "mcp/kafka",
+      "type": "mcp",
+      "description": "Kafka MCP server — topics, consumer groups and lag",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "mcp",
+        "kafka",
+        "streaming"
+      ],
+      "updatedAt": "2026-09-03T11:17:11.974Z"
+    },
     "mcp/kubernetes": {
       "name": "mcp/kubernetes",
       "type": "mcp",
@@ -803,6 +1656,21 @@
       ],
       "updatedAt": "2026-09-02T09:44:15.202Z"
     },
+    "mcp/mailchimp": {
+      "name": "mcp/mailchimp",
+      "type": "mcp",
+      "description": "Mailchimp MCP server — audiences and campaigns",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "mcp",
+        "mailchimp",
+        "email"
+      ],
+      "updatedAt": "2026-09-03T11:17:11.973Z"
+    },
     "mcp/memory": {
       "name": "mcp/memory",
       "type": "mcp",
@@ -817,6 +1685,21 @@
       ],
       "updatedAt": "2026-09-02T09:44:15.192Z"
     },
+    "mcp/newrelic": {
+      "name": "mcp/newrelic",
+      "type": "mcp",
+      "description": "New Relic MCP server — APM data and alert policies",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "mcp",
+        "newrelic",
+        "apm"
+      ],
+      "updatedAt": "2026-09-03T11:17:11.967Z"
+    },
     "mcp/notion": {
       "name": "mcp/notion",
       "type": "mcp",
@@ -830,6 +1713,36 @@
         "notion"
       ],
       "updatedAt": "2026-09-02T09:44:15.200Z"
+    },
+    "mcp/opsgenie": {
+      "name": "mcp/opsgenie",
+      "type": "mcp",
+      "description": "Opsgenie MCP server — alerts and escalation policies",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "mcp",
+        "opsgenie",
+        "alerts"
+      ],
+      "updatedAt": "2026-09-03T11:17:11.968Z"
+    },
+    "mcp/pagerduty": {
+      "name": "mcp/pagerduty",
+      "type": "mcp",
+      "description": "PagerDuty MCP server — incidents and on-call schedules",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "mcp",
+        "pagerduty",
+        "incidents"
+      ],
+      "updatedAt": "2026-09-03T11:17:11.967Z"
     },
     "mcp/postgres": {
       "name": "mcp/postgres",
@@ -861,6 +1774,21 @@
       ],
       "updatedAt": "2026-09-02T09:44:15.197Z"
     },
+    "mcp/rabbitmq": {
+      "name": "mcp/rabbitmq",
+      "type": "mcp",
+      "description": "RabbitMQ MCP server — queues, exchanges and bindings",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "mcp",
+        "rabbitmq",
+        "queue"
+      ],
+      "updatedAt": "2026-09-03T11:17:11.974Z"
+    },
     "mcp/redis": {
       "name": "mcp/redis",
       "type": "mcp",
@@ -874,6 +1802,36 @@
         "redis"
       ],
       "updatedAt": "2026-09-02T09:44:15.204Z"
+    },
+    "mcp/salesforce": {
+      "name": "mcp/salesforce",
+      "type": "mcp",
+      "description": "Salesforce MCP server — leads, accounts and SOQL",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "mcp",
+        "salesforce",
+        "crm"
+      ],
+      "updatedAt": "2026-09-03T11:17:11.970Z"
+    },
+    "mcp/sendgrid": {
+      "name": "mcp/sendgrid",
+      "type": "mcp",
+      "description": "SendGrid MCP server — email sends and templates",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "mcp",
+        "sendgrid",
+        "email"
+      ],
+      "updatedAt": "2026-09-03T11:17:11.972Z"
     },
     "mcp/sentry": {
       "name": "mcp/sentry",
@@ -903,6 +1861,21 @@
       ],
       "updatedAt": "2026-09-02T09:44:15.198Z"
     },
+    "mcp/shopify": {
+      "name": "mcp/shopify",
+      "type": "mcp",
+      "description": "Shopify MCP server — products, orders and inventory",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "mcp",
+        "shopify",
+        "ecommerce"
+      ],
+      "updatedAt": "2026-09-03T11:17:11.970Z"
+    },
     "mcp/slack": {
       "name": "mcp/slack",
       "type": "mcp",
@@ -931,6 +1904,51 @@
       ],
       "updatedAt": "2026-09-02T09:44:15.196Z"
     },
+    "mcp/stripe": {
+      "name": "mcp/stripe",
+      "type": "mcp",
+      "description": "Stripe MCP server — payments, invoices and subscriptions",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "mcp",
+        "stripe",
+        "payments"
+      ],
+      "updatedAt": "2026-09-03T11:17:11.962Z"
+    },
+    "mcp/supabase": {
+      "name": "mcp/supabase",
+      "type": "mcp",
+      "description": "Supabase MCP server — Postgres, auth and storage ops",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "mcp",
+        "supabase",
+        "database"
+      ],
+      "updatedAt": "2026-09-03T11:17:11.963Z"
+    },
+    "mcp/terraform": {
+      "name": "mcp/terraform",
+      "type": "mcp",
+      "description": "Terraform MCP server — plan and apply infrastructure code",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "mcp",
+        "terraform",
+        "iac"
+      ],
+      "updatedAt": "2026-09-03T11:17:11.964Z"
+    },
     "mcp/time": {
       "name": "mcp/time",
       "type": "mcp",
@@ -944,6 +1962,51 @@
         "time"
       ],
       "updatedAt": "2026-09-02T09:44:15.199Z"
+    },
+    "mcp/twilio": {
+      "name": "mcp/twilio",
+      "type": "mcp",
+      "description": "Twilio MCP server — SMS, voice and phone numbers",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "mcp",
+        "twilio",
+        "sms"
+      ],
+      "updatedAt": "2026-09-03T11:17:11.972Z"
+    },
+    "mcp/vercel": {
+      "name": "mcp/vercel",
+      "type": "mcp",
+      "description": "Vercel MCP server — deployments and project management",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "mcp",
+        "vercel",
+        "deploy"
+      ],
+      "updatedAt": "2026-09-03T11:17:11.963Z"
+    },
+    "mcp/zendesk": {
+      "name": "mcp/zendesk",
+      "type": "mcp",
+      "description": "Zendesk MCP server — tickets and help center",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "mcp",
+        "zendesk",
+        "support"
+      ],
+      "updatedAt": "2026-09-03T11:17:11.971Z"
     },
     "notion/skill": {
       "name": "notion/skill",
@@ -988,6 +2051,186 @@
       ],
       "updatedAt": "2026-09-02T09:44:15.221Z"
     },
+    "pdf/annotate": {
+      "name": "pdf/annotate",
+      "type": "skill",
+      "description": "PDF annotate skill — comments, highlights and review markup",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "pdf",
+        "annotate",
+        "review"
+      ],
+      "updatedAt": "2026-09-03T11:17:11.951Z"
+    },
+    "pdf/compress": {
+      "name": "pdf/compress",
+      "type": "skill",
+      "description": "PDF compress skill — shrink PDF size without quality loss",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "pdf",
+        "compress",
+        "optimize"
+      ],
+      "updatedAt": "2026-09-03T11:17:11.948Z"
+    },
+    "pdf/convert": {
+      "name": "pdf/convert",
+      "type": "skill",
+      "description": "PDF convert skill — PDF to Word, HTML, Markdown and back",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "pdf",
+        "convert",
+        "export"
+      ],
+      "updatedAt": "2026-09-03T11:17:11.951Z"
+    },
+    "pdf/extract": {
+      "name": "pdf/extract",
+      "type": "skill",
+      "description": "PDF extract skill — pull text, tables and images from PDFs",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "pdf",
+        "extract",
+        "parse"
+      ],
+      "updatedAt": "2026-09-03T11:17:11.949Z"
+    },
+    "pdf/forms": {
+      "name": "pdf/forms",
+      "type": "skill",
+      "description": "PDF forms skill — fill and extract AcroForm form data",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "pdf",
+        "forms",
+        "acroform"
+      ],
+      "updatedAt": "2026-09-03T11:17:11.949Z"
+    },
+    "pdf/merge": {
+      "name": "pdf/merge",
+      "type": "skill",
+      "description": "PDF merge skill — combine multiple PDFs into one document fast",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "pdf",
+        "merge",
+        "document"
+      ],
+      "updatedAt": "2026-09-03T11:17:11.945Z"
+    },
+    "pdf/ocr": {
+      "name": "pdf/ocr",
+      "type": "skill",
+      "description": "PDF OCR skill — scanned PDFs to searchable text with OCR",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "pdf",
+        "ocr",
+        "scan"
+      ],
+      "updatedAt": "2026-09-03T11:17:11.947Z"
+    },
+    "pdf/redact": {
+      "name": "pdf/redact",
+      "type": "skill",
+      "description": "PDF redact skill — black out sensitive content in PDFs",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "pdf",
+        "redact",
+        "privacy"
+      ],
+      "updatedAt": "2026-09-03T11:17:11.950Z"
+    },
+    "pdf/sign": {
+      "name": "pdf/sign",
+      "type": "skill",
+      "description": "PDF sign skill — e-sign PDFs and manage signatures",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "pdf",
+        "sign",
+        "signature"
+      ],
+      "updatedAt": "2026-09-03T11:17:11.948Z"
+    },
+    "pdf/split": {
+      "name": "pdf/split",
+      "type": "skill",
+      "description": "PDF split skill — extract pages and split PDFs by range",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "pdf",
+        "split",
+        "pages"
+      ],
+      "updatedAt": "2026-09-03T11:17:11.946Z"
+    },
+    "pdf/tables": {
+      "name": "pdf/tables",
+      "type": "skill",
+      "description": "PDF tables skill — detect and export tables from PDFs to CSV",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "pdf",
+        "tables",
+        "csv"
+      ],
+      "updatedAt": "2026-09-03T11:17:11.952Z"
+    },
+    "pdf/watermark": {
+      "name": "pdf/watermark",
+      "type": "skill",
+      "description": "PDF watermark skill — stamp watermarks and headers on PDFs",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "pdf",
+        "watermark",
+        "stamp"
+      ],
+      "updatedAt": "2026-09-03T11:17:11.950Z"
+    },
     "performance/skill": {
       "name": "performance/skill",
       "type": "skill",
@@ -1015,6 +2258,34 @@
         "testing"
       ],
       "updatedAt": "2026-09-02T09:44:15.216Z"
+    },
+    "plugin/claude-marketplace": {
+      "name": "plugin/claude-marketplace",
+      "type": "plugin",
+      "description": "Claude marketplace plugin — distribute skills easily",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "plugin",
+        "claude"
+      ],
+      "updatedAt": "2026-09-03T11:17:12.002Z"
+    },
+    "plugin/cursor-marketplace": {
+      "name": "plugin/cursor-marketplace",
+      "type": "plugin",
+      "description": "Cursor marketplace plugin — share rules and skills",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "plugin",
+        "cursor"
+      ],
+      "updatedAt": "2026-09-03T11:17:12.003Z"
     },
     "plugin/cursor-rules": {
       "name": "plugin/cursor-rules",
@@ -1044,6 +2315,48 @@
       ],
       "updatedAt": "2026-09-02T09:44:15.240Z"
     },
+    "plugin/dsh-prompts": {
+      "name": "plugin/dsh-prompts",
+      "type": "plugin",
+      "description": "DSH prompts plugin — DeepSeek prompt presets",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "plugin",
+        "dsh"
+      ],
+      "updatedAt": "2026-09-03T11:17:12.004Z"
+    },
+    "plugin/github-action": {
+      "name": "plugin/github-action",
+      "type": "plugin",
+      "description": "GitHub Action plugin — Forge in CI pipelines",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "plugin",
+        "github"
+      ],
+      "updatedAt": "2026-09-03T11:17:12.004Z"
+    },
+    "plugin/jetbrains-ext": {
+      "name": "plugin/jetbrains-ext",
+      "type": "plugin",
+      "description": "JetBrains extension plugin — IDE integration",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "plugin",
+        "jetbrains"
+      ],
+      "updatedAt": "2026-09-03T11:17:12.005Z"
+    },
     "plugin/opencode-lsp": {
       "name": "plugin/opencode-lsp",
       "type": "plugin",
@@ -1057,6 +2370,48 @@
         "opencode"
       ],
       "updatedAt": "2026-09-02T09:44:15.241Z"
+    },
+    "plugin/opencode-themes": {
+      "name": "plugin/opencode-themes",
+      "type": "plugin",
+      "description": "OpenCode themes plugin — themes and keymaps pack",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "plugin",
+        "opencode"
+      ],
+      "updatedAt": "2026-09-03T11:17:12.003Z"
+    },
+    "plugin/vscode-ext": {
+      "name": "plugin/vscode-ext",
+      "type": "plugin",
+      "description": "VSCode extension plugin — editor integration",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "plugin",
+        "vscode"
+      ],
+      "updatedAt": "2026-09-03T11:17:12.005Z"
+    },
+    "plugin/windsurf-rules": {
+      "name": "plugin/windsurf-rules",
+      "type": "plugin",
+      "description": "Windsurf rules plugin — project rules bundle",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "plugin",
+        "windsurf"
+      ],
+      "updatedAt": "2026-09-03T11:17:12.003Z"
     },
     "refactoring/skill": {
       "name": "refactoring/skill",
@@ -1128,6 +2483,34 @@
       ],
       "updatedAt": "2026-09-02T09:44:15.251Z"
     },
+    "skill/abtest": {
+      "name": "skill/abtest",
+      "type": "skill",
+      "description": "AB test skill — experiments and stats significance",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "abtest",
+        "experiments"
+      ],
+      "updatedAt": "2026-09-03T11:17:11.987Z"
+    },
+    "skill/analytics": {
+      "name": "skill/analytics",
+      "type": "skill",
+      "description": "Analytics skill — events, funnels and retention",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "analytics",
+        "events"
+      ],
+      "updatedAt": "2026-09-03T11:17:11.987Z"
+    },
     "skill/audio": {
       "name": "skill/audio",
       "type": "skill",
@@ -1141,6 +2524,76 @@
         "speech"
       ],
       "updatedAt": "2026-09-02T09:44:15.250Z"
+    },
+    "skill/auth": {
+      "name": "skill/auth",
+      "type": "skill",
+      "description": "Auth skill — sessions, passwords and MFA flows",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "auth",
+        "security"
+      ],
+      "updatedAt": "2026-09-03T11:17:11.981Z"
+    },
+    "skill/backup": {
+      "name": "skill/backup",
+      "type": "skill",
+      "description": "Backup skill — snapshots, restores and retention",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "backup",
+        "restore"
+      ],
+      "updatedAt": "2026-09-03T11:17:11.983Z"
+    },
+    "skill/bash": {
+      "name": "skill/bash",
+      "type": "skill",
+      "description": "Bash skill — safe shell scripting patterns",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "bash",
+        "shell"
+      ],
+      "updatedAt": "2026-09-03T11:17:11.977Z"
+    },
+    "skill/benchmark": {
+      "name": "skill/benchmark",
+      "type": "skill",
+      "description": "Benchmark skill — microbenchmarks done right",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "benchmark",
+        "perf"
+      ],
+      "updatedAt": "2026-09-03T11:17:11.985Z"
+    },
+    "skill/bugbounty": {
+      "name": "skill/bugbounty",
+      "type": "skill",
+      "description": "Bugbounty skill — scope, recon and report writing",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "bugbounty",
+        "security"
+      ],
+      "updatedAt": "2026-09-03T11:17:11.993Z"
     },
     "skill/calendar": {
       "name": "skill/calendar",
@@ -1156,6 +2609,34 @@
       ],
       "updatedAt": "2026-09-02T09:44:15.252Z"
     },
+    "skill/chaos": {
+      "name": "skill/chaos",
+      "type": "skill",
+      "description": "Chaos skill — fault injection and game days",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "chaos",
+        "resilience"
+      ],
+      "updatedAt": "2026-09-03T11:17:11.986Z"
+    },
+    "skill/compliance": {
+      "name": "skill/compliance",
+      "type": "skill",
+      "description": "Compliance skill — SOC2 and ISO checklists",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "compliance",
+        "soc2"
+      ],
+      "updatedAt": "2026-09-03T11:17:11.994Z"
+    },
     "skill/csv": {
       "name": "skill/csv",
       "type": "skill",
@@ -1169,6 +2650,34 @@
         "data"
       ],
       "updatedAt": "2026-09-02T09:44:15.248Z"
+    },
+    "skill/docker-compose": {
+      "name": "skill/docker-compose",
+      "type": "skill",
+      "description": "Docker Compose skill — multi-service local stacks",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "docker",
+        "compose"
+      ],
+      "updatedAt": "2026-09-03T11:17:11.977Z"
+    },
+    "skill/electron": {
+      "name": "skill/electron",
+      "type": "skill",
+      "description": "Electron skill — desktop shells and auto-update",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "electron",
+        "desktop"
+      ],
+      "updatedAt": "2026-09-03T11:17:11.995Z"
     },
     "skill/email": {
       "name": "skill/email",
@@ -1184,6 +2693,160 @@
       ],
       "updatedAt": "2026-09-02T09:44:15.252Z"
     },
+    "skill/embeddings": {
+      "name": "skill/embeddings",
+      "type": "skill",
+      "description": "Embeddings skill — pick and tune embedding models",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "embeddings",
+        "vectors"
+      ],
+      "updatedAt": "2026-09-03T11:17:11.991Z"
+    },
+    "skill/encryption": {
+      "name": "skill/encryption",
+      "type": "skill",
+      "description": "Encryption skill — AES, KMS and secret handling",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "encryption",
+        "crypto"
+      ],
+      "updatedAt": "2026-09-03T11:17:11.982Z"
+    },
+    "skill/eval": {
+      "name": "skill/eval",
+      "type": "skill",
+      "description": "Eval skill — LLM evals with golden datasets",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "eval",
+        "testing"
+      ],
+      "updatedAt": "2026-09-03T11:17:11.992Z"
+    },
+    "skill/excel": {
+      "name": "skill/excel",
+      "type": "skill",
+      "description": "Excel skill — formulas, pivots and automation",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "excel",
+        "sheets"
+      ],
+      "updatedAt": "2026-09-03T11:17:11.987Z"
+    },
+    "skill/feature-flags": {
+      "name": "skill/feature-flags",
+      "type": "skill",
+      "description": "Feature flags skill — gradual rollouts and kill switches",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "flags",
+        "rollout"
+      ],
+      "updatedAt": "2026-09-03T11:17:11.986Z"
+    },
+    "skill/finetune": {
+      "name": "skill/finetune",
+      "type": "skill",
+      "description": "Finetune skill — LoRA configs and data prep",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "finetune",
+        "lora"
+      ],
+      "updatedAt": "2026-09-03T11:17:11.992Z"
+    },
+    "skill/flutter": {
+      "name": "skill/flutter",
+      "type": "skill",
+      "description": "Flutter skill — Dart widgets and releases",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "flutter",
+        "mobile"
+      ],
+      "updatedAt": "2026-09-03T11:17:11.996Z"
+    },
+    "skill/gdpr": {
+      "name": "skill/gdpr",
+      "type": "skill",
+      "description": "GDPR skill — DPIAs, DSARs and retention rules",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "gdpr",
+        "privacy"
+      ],
+      "updatedAt": "2026-09-03T11:17:11.994Z"
+    },
+    "skill/git-advanced": {
+      "name": "skill/git-advanced",
+      "type": "skill",
+      "description": "Git advanced skill — rebase, bisect and reflog rescue",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "git",
+        "advanced"
+      ],
+      "updatedAt": "2026-09-03T11:17:11.976Z"
+    },
+    "skill/graphql": {
+      "name": "skill/graphql",
+      "type": "skill",
+      "description": "GraphQL skill — schemas, resolvers and caching",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "graphql",
+        "api"
+      ],
+      "updatedAt": "2026-09-03T11:17:11.980Z"
+    },
+    "skill/grpc": {
+      "name": "skill/grpc",
+      "type": "skill",
+      "description": "gRPC skill — protos, streaming and codegen",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "grpc",
+        "rpc"
+      ],
+      "updatedAt": "2026-09-03T11:17:11.981Z"
+    },
     "skill/image": {
       "name": "skill/image",
       "type": "skill",
@@ -1197,6 +2860,216 @@
         "vision"
       ],
       "updatedAt": "2026-09-02T09:44:15.249Z"
+    },
+    "skill/json": {
+      "name": "skill/json",
+      "type": "skill",
+      "description": "JSON skill — schema validation and jq-style transforms",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "json",
+        "data"
+      ],
+      "updatedAt": "2026-09-03T11:17:11.975Z"
+    },
+    "skill/jwt": {
+      "name": "skill/jwt",
+      "type": "skill",
+      "description": "JWT skill — sign, verify and rotate tokens safely",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "jwt",
+        "tokens"
+      ],
+      "updatedAt": "2026-09-03T11:17:11.982Z"
+    },
+    "skill/lighthouse": {
+      "name": "skill/lighthouse",
+      "type": "skill",
+      "description": "Lighthouse skill — hit 90+ on all categories",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "lighthouse",
+        "perf"
+      ],
+      "updatedAt": "2026-09-03T11:17:11.995Z"
+    },
+    "skill/loadtest": {
+      "name": "skill/loadtest",
+      "type": "skill",
+      "description": "Loadtest skill — k6 scenarios and capacity planning",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "loadtest",
+        "k6"
+      ],
+      "updatedAt": "2026-09-03T11:17:11.985Z"
+    },
+    "skill/logging": {
+      "name": "skill/logging",
+      "type": "skill",
+      "description": "Logging skill — structured logs and correlation IDs",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "logging",
+        "otel"
+      ],
+      "updatedAt": "2026-09-03T11:17:11.984Z"
+    },
+    "skill/makefile": {
+      "name": "skill/makefile",
+      "type": "skill",
+      "description": "Makefile skill — idiomatic make targets and caching",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "makefile",
+        "build"
+      ],
+      "updatedAt": "2026-09-03T11:17:11.977Z"
+    },
+    "skill/markdown": {
+      "name": "skill/markdown",
+      "type": "skill",
+      "description": "Markdown skill — lint, format and convert Markdown docs",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "markdown",
+        "docs"
+      ],
+      "updatedAt": "2026-09-03T11:17:11.975Z"
+    },
+    "skill/mongo": {
+      "name": "skill/mongo",
+      "type": "skill",
+      "description": "Mongo skill — aggregations and schema design",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "mongo",
+        "nosql"
+      ],
+      "updatedAt": "2026-09-03T11:17:11.979Z"
+    },
+    "skill/monitoring": {
+      "name": "skill/monitoring",
+      "type": "skill",
+      "description": "Monitoring skill — alerts, SLOs and dashboards",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "monitoring",
+        "slo"
+      ],
+      "updatedAt": "2026-09-03T11:17:11.983Z"
+    },
+    "skill/notebook": {
+      "name": "skill/notebook",
+      "type": "skill",
+      "description": "Notebook skill — Jupyter workflows that reproduce",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "notebook",
+        "jupyter"
+      ],
+      "updatedAt": "2026-09-03T11:17:11.988Z"
+    },
+    "skill/numpy": {
+      "name": "skill/numpy",
+      "type": "skill",
+      "description": "NumPy skill — vectorized numeric computing",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "numpy",
+        "python"
+      ],
+      "updatedAt": "2026-09-03T11:17:11.989Z"
+    },
+    "skill/oauth": {
+      "name": "skill/oauth",
+      "type": "skill",
+      "description": "OAuth skill — OAuth2 and OIDC login integrations",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "oauth",
+        "login"
+      ],
+      "updatedAt": "2026-09-03T11:17:11.982Z"
+    },
+    "skill/onnx": {
+      "name": "skill/onnx",
+      "type": "skill",
+      "description": "ONNX skill — export and optimize model graphs",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "onnx",
+        "models"
+      ],
+      "updatedAt": "2026-09-03T11:17:11.990Z"
+    },
+    "skill/pandas": {
+      "name": "skill/pandas",
+      "type": "skill",
+      "description": "Pandas skill — dataframe tricks and performance",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "pandas",
+        "python"
+      ],
+      "updatedAt": "2026-09-03T11:17:11.989Z"
+    },
+    "skill/parquet": {
+      "name": "skill/parquet",
+      "type": "skill",
+      "description": "Parquet skill — columnar data wrangling tips",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "parquet",
+        "data"
+      ],
+      "updatedAt": "2026-09-03T11:17:11.988Z"
     },
     "skill/pdf": {
       "name": "skill/pdf",
@@ -1212,6 +3085,160 @@
       ],
       "updatedAt": "2026-09-02T09:44:15.248Z"
     },
+    "skill/pentest": {
+      "name": "skill/pentest",
+      "type": "skill",
+      "description": "Pentest skill — methodology and checklists",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "pentest",
+        "security"
+      ],
+      "updatedAt": "2026-09-03T11:17:11.993Z"
+    },
+    "skill/postgres-admin": {
+      "name": "skill/postgres-admin",
+      "type": "skill",
+      "description": "Postgres admin skill — vacuum, indexes and roles",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "postgres",
+        "admin"
+      ],
+      "updatedAt": "2026-09-03T11:17:11.979Z"
+    },
+    "skill/powershell": {
+      "name": "skill/powershell",
+      "type": "skill",
+      "description": "PowerShell skill — Windows automation scripts",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "powershell",
+        "windows"
+      ],
+      "updatedAt": "2026-09-03T11:17:11.978Z"
+    },
+    "skill/profiling": {
+      "name": "skill/profiling",
+      "type": "skill",
+      "description": "Profiling skill — CPU and memory flamegraphs",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "profiling",
+        "perf"
+      ],
+      "updatedAt": "2026-09-03T11:17:11.985Z"
+    },
+    "skill/prompt-eng": {
+      "name": "skill/prompt-eng",
+      "type": "skill",
+      "description": "Prompt engineering skill — patterns that hold up",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "prompt",
+        "llm"
+      ],
+      "updatedAt": "2026-09-03T11:17:11.991Z"
+    },
+    "skill/pwa": {
+      "name": "skill/pwa",
+      "type": "skill",
+      "description": "PWA skill — service workers and installability",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "pwa",
+        "web"
+      ],
+      "updatedAt": "2026-09-03T11:17:11.995Z"
+    },
+    "skill/pytorch": {
+      "name": "skill/pytorch",
+      "type": "skill",
+      "description": "PyTorch skill — training loops and debugging",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "pytorch",
+        "dl"
+      ],
+      "updatedAt": "2026-09-03T11:17:11.990Z"
+    },
+    "skill/rag": {
+      "name": "skill/rag",
+      "type": "skill",
+      "description": "RAG skill — chunking, retrieval and eval loops",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "rag",
+        "retrieval"
+      ],
+      "updatedAt": "2026-09-03T11:17:11.990Z"
+    },
+    "skill/react-native": {
+      "name": "skill/react-native",
+      "type": "skill",
+      "description": "React Native skill — Expo apps that ship",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "react-native",
+        "mobile"
+      ],
+      "updatedAt": "2026-09-03T11:17:11.996Z"
+    },
+    "skill/redteam": {
+      "name": "skill/redteam",
+      "type": "skill",
+      "description": "Redteam skill — adversarial prompt testing",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "redteam",
+        "safety"
+      ],
+      "updatedAt": "2026-09-03T11:17:11.993Z"
+    },
+    "skill/regex": {
+      "name": "skill/regex",
+      "type": "skill",
+      "description": "Regex skill — build and debug regular expressions",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "regex",
+        "patterns"
+      ],
+      "updatedAt": "2026-09-03T11:17:11.976Z"
+    },
     "skill/research": {
       "name": "skill/research",
       "type": "skill",
@@ -1225,6 +3252,34 @@
         "analysis"
       ],
       "updatedAt": "2026-09-02T09:44:15.253Z"
+    },
+    "skill/rest": {
+      "name": "skill/rest",
+      "type": "skill",
+      "description": "REST skill — resource design and versioning",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "rest",
+        "api"
+      ],
+      "updatedAt": "2026-09-03T11:17:11.980Z"
+    },
+    "skill/scikit": {
+      "name": "skill/scikit",
+      "type": "skill",
+      "description": "Scikit skill — classical ML pipelines quickly",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "scikit",
+        "ml"
+      ],
+      "updatedAt": "2026-09-03T11:17:11.989Z"
     },
     "skill/search": {
       "name": "skill/search",
@@ -1240,6 +3295,20 @@
       ],
       "updatedAt": "2026-09-02T09:44:15.253Z"
     },
+    "skill/sql": {
+      "name": "skill/sql",
+      "type": "skill",
+      "description": "SQL skill — queries, joins and window functions",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "sql",
+        "queries"
+      ],
+      "updatedAt": "2026-09-03T11:17:11.978Z"
+    },
     "skill/summarize": {
       "name": "skill/summarize",
       "type": "skill",
@@ -1253,6 +3322,48 @@
         "nlp"
       ],
       "updatedAt": "2026-09-02T09:44:15.255Z"
+    },
+    "skill/tauri": {
+      "name": "skill/tauri",
+      "type": "skill",
+      "description": "Tauri skill — lightweight Rust desktop apps",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "tauri",
+        "rust"
+      ],
+      "updatedAt": "2026-09-03T11:17:11.996Z"
+    },
+    "skill/tensorflow": {
+      "name": "skill/tensorflow",
+      "type": "skill",
+      "description": "TensorFlow skill — Keras models and serving",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "tensorflow",
+        "dl"
+      ],
+      "updatedAt": "2026-09-03T11:17:11.990Z"
+    },
+    "skill/tracing": {
+      "name": "skill/tracing",
+      "type": "skill",
+      "description": "Tracing skill — distributed traces with OpenTelemetry",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "tracing",
+        "otel"
+      ],
+      "updatedAt": "2026-09-03T11:17:11.984Z"
     },
     "skill/translate": {
       "name": "skill/translate",
@@ -1268,6 +3379,20 @@
       ],
       "updatedAt": "2026-09-02T09:44:15.254Z"
     },
+    "skill/vector-db": {
+      "name": "skill/vector-db",
+      "type": "skill",
+      "description": "Vector DB skill — Pinecone, Qdrant and pgvector",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "vectordb",
+        "search"
+      ],
+      "updatedAt": "2026-09-03T11:17:11.991Z"
+    },
     "skill/video": {
       "name": "skill/video",
       "type": "skill",
@@ -1282,6 +3407,34 @@
       ],
       "updatedAt": "2026-09-02T09:44:15.250Z"
     },
+    "skill/wcag": {
+      "name": "skill/wcag",
+      "type": "skill",
+      "description": "WCAG skill — AA checklists with code examples",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "wcag",
+        "a11y"
+      ],
+      "updatedAt": "2026-09-03T11:17:11.994Z"
+    },
+    "skill/websocket": {
+      "name": "skill/websocket",
+      "type": "skill",
+      "description": "WebSocket skill — realtime channels and reconnects",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "websocket",
+        "realtime"
+      ],
+      "updatedAt": "2026-09-03T11:17:11.980Z"
+    },
     "skill/writing": {
       "name": "skill/writing",
       "type": "skill",
@@ -1295,6 +3448,20 @@
         "content"
       ],
       "updatedAt": "2026-09-02T09:44:15.254Z"
+    },
+    "skill/yaml": {
+      "name": "skill/yaml",
+      "type": "skill",
+      "description": "YAML skill — validate and transform YAML configs",
+      "latest": "1.0.0",
+      "versions": [
+        "1.0.0"
+      ],
+      "keywords": [
+        "yaml",
+        "config"
+      ],
+      "updatedAt": "2026-09-03T11:17:11.975Z"
     },
     "stripe/skill": {
       "name": "stripe/skill",

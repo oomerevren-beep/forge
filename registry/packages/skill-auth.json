@@ -1,0 +1,24 @@
+{
+  "name": "skill/auth",
+  "type": "skill",
+  "description": "Auth skill — sessions, passwords and MFA flows",
+  "homepage": "https://github.com/skill/auth",
+  "repository": "https://github.com/skill/auth",
+  "keywords": [
+    "auth",
+    "security"
+  ],
+  "versions": {
+    "1.0.0": {
+      "version": "1.0.0",
+      "tarball": "https://github.com/skill/auth/releases/download/v1.0.0/skill-auth-1.0.0.tar.gz",
+      "sha256": "placeholder-sha256-skill-auth",
+      "engines": {
+        "*": "*"
+      },
+      "dependencies": {},
+      "publishedAt": "2026-09-03T11:17:11.981Z"
+    }
+  },
+  "latest": "1.0.0"
+}

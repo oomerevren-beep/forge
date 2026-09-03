@@ -1,0 +1,24 @@
+{
+  "name": "hook/post-publish",
+  "type": "hook",
+  "description": "Post-publish hook — announce new versions",
+  "homepage": "https://github.com/hook/post-publish",
+  "repository": "https://github.com/hook/post-publish",
+  "keywords": [
+    "hook",
+    "publish"
+  ],
+  "versions": {
+    "1.0.0": {
+      "version": "1.0.0",
+      "tarball": "https://github.com/hook/post-publish/releases/download/v1.0.0/hook-post-publish-1.0.0.tar.gz",
+      "sha256": "placeholder-sha256-hook-post-publish",
+      "engines": {
+        "*": "*"
+      },
+      "dependencies": {},
+      "publishedAt": "2026-09-03T11:17:12.002Z"
+    }
+  },
+  "latest": "1.0.0"
+}

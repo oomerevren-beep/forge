@@ -1,0 +1,24 @@
+{
+  "name": "skill/gdpr",
+  "type": "skill",
+  "description": "GDPR skill — DPIAs, DSARs and retention rules",
+  "homepage": "https://github.com/skill/gdpr",
+  "repository": "https://github.com/skill/gdpr",
+  "keywords": [
+    "gdpr",
+    "privacy"
+  ],
+  "versions": {
+    "1.0.0": {
+      "version": "1.0.0",
+      "tarball": "https://github.com/skill/gdpr/releases/download/v1.0.0/skill-gdpr-1.0.0.tar.gz",
+      "sha256": "placeholder-sha256-skill-gdpr",
+      "engines": {
+        "*": "*"
+      },
+      "dependencies": {},
+      "publishedAt": "2026-09-03T11:17:11.994Z"
+    }
+  },
+  "latest": "1.0.0"
+}

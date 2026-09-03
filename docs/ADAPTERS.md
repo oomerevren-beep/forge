@@ -2,16 +2,20 @@
 
 Her harness farkli yerde, farkli formatta paket bekler. Adapter bu farki gizler.
 
-## Destek Matrisi (v0.1)
+## Destek Matrisi (v0.2 — Epoch 1b, 7 harness x 6 tip)
 
-| Harness | Skill | MCP | Plugin | Agent | Tespit Yolu |
-|---------|-------|-----|--------|-------|-------------|
-| claude-code | `~/.claude/skills/<name>/` | `~/.claude/settings.json` | - | `~/.claude/agents/` | `~/.claude/` var mi |
-| codex | `~/.codex/skills/<name>/` | `~/.codex/mcp.json` | - | `~/.codex/agents/` | `codex --version` |
-| opencode | `.opencode/skills/<name>/` | `opencode.json` | `.opencode/plugins/` | `.opencode/agents/` | `opencode.json` var mi |
-| cursor | `.cursor/skills/<name>/` | `.cursor/mcp.json` | - | `.cursor/agents/` | `.cursor/` var mi |
-| dsh | `~/.dsh/plugins/<name>/` | `~/.dsh/mcp.json` | `~/.dsh/plugins/` | - | `dsh --version` |
-| generic | `./.forge/packages/<name>/` | `./.forge/mcp.json` | - | - | fallback |
+| Harness | Skill | MCP | Plugin | Agent | Command | Hook | Tespit Yolu |
+|---------|-------|-----|--------|-------|---------|------|-------------|
+| claude-code | `~/.claude/skills/<name>/` | `~/.claude/settings.json` | `~/.claude/skills/<name>/` | `~/.claude/skills/<name>/` | `~/.claude/skills/<name>/` | `~/.claude/skills/<name>/` | `~/.claude/` var mi |
+| codex | `~/.codex/skills/<name>/` | `~/.codex/mcp.json` | `~/.codex/skills/<name>/` | `~/.codex/skills/<name>/` | `~/.codex/skills/<name>/` | `~/.codex/skills/<name>/` | `~/.codex/` var mi |
+| opencode | `.opencode/skills/<name>/` | `opencode.json` | `.opencode/skills/<name>/` | `.opencode/skills/<name>/` | `.opencode/skills/<name>/` | `.opencode/skills/<name>/` | `opencode.json` var mi |
+| cursor | `.cursor/skills/<name>/` | `.cursor/mcp.json` | `.cursor/skills/<name>/` | `.cursor/skills/<name>/` | `.cursor/skills/<name>/` | `.cursor/skills/<name>/` | `.cursor/` var mi |
+| dsh | `~/.dsh/skills/<name>/` | `~/.dsh/mcp.json` | `~/.dsh/skills/<name>/` | `~/.dsh/skills/<name>/` | `~/.dsh/skills/<name>/` | `~/.dsh/skills/<name>/` | `~/.dsh/` var mi |
+| windsurf | `~/.windsurf/skills/<name>/` | `mcp_config.json` | `~/.windsurf/skills/<name>/` | `~/.windsurf/skills/<name>/` | `~/.windsurf/skills/<name>/` | `~/.windsurf/skills/<name>/` | `.windsurf/` var mi |
+| generic | `./.forge/packages/<name>/` | `./.forge/mcp.json` | `./.forge/packages/<name>/` | `./.forge/packages/<name>/` | `./.forge/packages/<name>/` | `./.forge/packages/<name>/` | fallback (her zaman) |
+
+Not: Faz 11'den beri 6 tipin tamamı her harness'in skills alanına kurulur (tek kaynak, `forge list` tutarlı).
+Kod: `cli/src/adapters/<name>.ts` — 1 dosya = 1 harness, `index.ts` re-export eder.
 
 ## Adapter Interface (TypeScript)
 

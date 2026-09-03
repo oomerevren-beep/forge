@@ -1,0 +1,24 @@
+{
+  "name": "cmd/preview",
+  "type": "command",
+  "description": "Slash command /preview — preview deploy links",
+  "homepage": "https://github.com/cmd/preview",
+  "repository": "https://github.com/cmd/preview",
+  "keywords": [
+    "command",
+    "preview"
+  ],
+  "versions": {
+    "1.0.0": {
+      "version": "1.0.0",
+      "tarball": "https://github.com/cmd/preview/releases/download/v1.0.0/cmd-preview-1.0.0.tar.gz",
+      "sha256": "placeholder-sha256-cmd-preview",
+      "engines": {
+        "*": "*"
+      },
+      "dependencies": {},
+      "publishedAt": "2026-09-03T11:17:12.000Z"
+    }
+  },
+  "latest": "1.0.0"
+}

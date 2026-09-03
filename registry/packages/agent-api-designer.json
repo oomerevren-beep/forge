@@ -1,0 +1,25 @@
+{
+  "name": "agent/api-designer",
+  "type": "agent",
+  "description": "API designer agent — design REST and GraphQL schemas cleanly",
+  "homepage": "https://github.com/agent/api-designer",
+  "repository": "https://github.com/agent/api-designer",
+  "keywords": [
+    "agent",
+    "api",
+    "design"
+  ],
+  "versions": {
+    "1.0.0": {
+      "version": "1.0.0",
+      "tarball": "https://github.com/agent/api-designer/releases/download/v1.0.0/agent-api-designer-1.0.0.tar.gz",
+      "sha256": "placeholder-sha256-agent-api-designer",
+      "engines": {
+        "*": "*"
+      },
+      "dependencies": {},
+      "publishedAt": "2026-09-03T11:17:11.955Z"
+    }
+  },
+  "latest": "1.0.0"
+}

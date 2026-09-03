@@ -1,0 +1,25 @@
+{
+  "name": "pdf/convert",
+  "type": "skill",
+  "description": "PDF convert skill — PDF to Word, HTML, Markdown and back",
+  "homepage": "https://github.com/pdf/convert",
+  "repository": "https://github.com/pdf/convert",
+  "keywords": [
+    "pdf",
+    "convert",
+    "export"
+  ],
+  "versions": {
+    "1.0.0": {
+      "version": "1.0.0",
+      "tarball": "https://github.com/pdf/convert/releases/download/v1.0.0/pdf-convert-1.0.0.tar.gz",
+      "sha256": "placeholder-sha256-pdf-convert",
+      "engines": {
+        "*": "*"
+      },
+      "dependencies": {},
+      "publishedAt": "2026-09-03T11:17:11.951Z"
+    }
+  },
+  "latest": "1.0.0"
+}

@@ -1,0 +1,25 @@
+{
+  "name": "agent/prompt-optimizer",
+  "type": "agent",
+  "description": "Prompt optimizer agent — refine prompts with eval feedback",
+  "homepage": "https://github.com/agent/prompt-optimizer",
+  "repository": "https://github.com/agent/prompt-optimizer",
+  "keywords": [
+    "agent",
+    "prompt",
+    "optimize"
+  ],
+  "versions": {
+    "1.0.0": {
+      "version": "1.0.0",
+      "tarball": "https://github.com/agent/prompt-optimizer/releases/download/v1.0.0/agent-prompt-optimizer-1.0.0.tar.gz",
+      "sha256": "placeholder-sha256-agent-prompt-optimizer",
+      "engines": {
+        "*": "*"
+      },
+      "dependencies": {},
+      "publishedAt": "2026-09-03T11:17:11.961Z"
+    }
+  },
+  "latest": "1.0.0"
+}

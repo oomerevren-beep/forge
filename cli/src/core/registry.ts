@@ -1,6 +1,7 @@
 import { readFileSync, existsSync } from "fs";
 import { join } from "path";
 import { toSlug } from "./store.js";
+import { compareSemver, satisfiesRange, maxSatisfying } from "./semver.js";
 
 export interface RegistryIndex {
   generatedAt: string;
@@ -84,12 +85,9 @@ export function resolveVersion(pkg: string, requested?: string): { detail: Packa
   if (detail.versions[requested]) {
     return { detail, version: requested, versionMeta: detail.versions[requested] };
   }
-  // simple semver range: ^1.2.0, ~1.2.0, >=1.0.0 — for v0.1 pick highest satisfying
-  const range = requested;
-  const satisfying = Object.keys(detail.versions).filter((v) => satisfiesRange(v, range));
-  if (satisfying.length === 0) throw new Error(`No version satisfying ${range} for ${pkg}. Available: ${Object.keys(detail.versions).join(", ")}`);
-  satisfying.sort(compareSemver);
-  const picked = satisfying[satisfying.length - 1];
+  // semver range (Faz 10: semver.ts tek kaynak) — pick highest satisfying
+  const picked = maxSatisfying(Object.keys(detail.versions), requested);
+  if (!picked) throw new Error(`No version satisfying ${requested} for ${pkg}. Available: ${Object.keys(detail.versions).join(", ")}`);
   return { detail, version: picked, versionMeta: detail.versions[picked] };
 }
 
@@ -104,53 +102,34 @@ export function parsePackageArg(arg: string): { name: string; version?: string }
   return { name: arg };
 }
 
-// --- minimal semver helpers ---
-function parseSemver(v: string): [number, number, number] {
-  const m = v.match(/^(\d+)\.(\d+)\.(\d+)/);
-  if (!m) return [0, 0, 0];
-  return [parseInt(m[1]), parseInt(m[2]), parseInt(m[3])];
-}
+// --- semver helpers Faz 10'da semver.ts'e taşındı (tek kaynak) ---
+// Bu dosya geriye dönük uyumluluk için re-export eder.
+export { parseSemver, compareSemver, satisfiesRange, maxSatisfying, isValidRange } from "./semver.js";
 
-function compareSemver(a: string, b: string): number {
-  const [aM, am, ap] = parseSemver(a);
-  const [bM, bm, bp] = parseSemver(b);
-  if (aM !== bM) return aM - bM;
-  if (am !== bm) return am - bm;
-  return ap - bp;
-}
-
-function satisfiesRange(version: string, range: string): boolean {
-  const v = parseSemver(version);
-  const r = range.trim();
-  if (r === "*" || r === "") return true;
-  if (r.startsWith("^")) {
-    const base = parseSemver(r.slice(1));
-    // ^1.2.3 => >=1.2.3 <2.0.0 ; ^0.2.3 => >=0.2.3 <0.3.0
-    if (base[0] !== 0) return v[0] === base[0] && compareSemver(version, r.slice(1)) >= 0;
-    if (base[1] !== 0) return v[0] === 0 && v[1] === base[1] && compareSemver(version, r.slice(1)) >= 0;
-    return v[0] === 0 && v[1] === 0 && v[2] === base[2] && compareSemver(version, r.slice(1)) >= 0;
-  }
-  if (r.startsWith("~")) {
-    const base = parseSemver(r.slice(1));
-    return v[0] === base[0] && v[1] === base[1] && compareSemver(version, r.slice(1)) >= 0;
-  }
-  if (r.startsWith(">=")) {
-    const base = r.slice(2).trim();
-    return compareSemver(version, base) >= 0;
-  }
-  if (r.startsWith(">")) {
-    const base = r.slice(1).trim();
-    return compareSemver(version, base) > 0;
-  }
-  // exact
-  return version === r;
-}
-
-export function searchPackages(query: string): RegistryPackageSummary[] {
+export function searchPackages(query: string, opts: { type?: string; limit?: number } = {}): RegistryPackageSummary[] {
   const index = loadIndex();
-  const q = query.toLowerCase();
-  return Object.values(index.packages).filter((p) => {
-    const hay = `${p.name} ${p.description} ${p.keywords?.join(" ") ?? ""} ${p.type}`.toLowerCase();
-    return hay.includes(q);
-  });
+  const tokens = query.toLowerCase().split(/\s+/).filter(Boolean);
+  if (tokens.length === 0) return [];
+  const scored: { p: RegistryPackageSummary; score: number }[] = [];
+  for (const p of Object.values(index.packages)) {
+    if (opts.type && p.type !== opts.type) continue;
+    const name = p.name.toLowerCase();
+    const desc = (p.description ?? "").toLowerCase();
+    const kw = (p.keywords ?? []).join(" ").toLowerCase();
+    const type = (p.type ?? "").toLowerCase();
+    let score = 0;
+    for (const t of tokens) {
+      if (name === t) score += 50;
+      else if (name.startsWith(t)) score += 15;
+      else if (name.includes(t)) score += 10;
+      if (kw.split(/\s+/).includes(t)) score += 8;
+      else if (kw.includes(t)) score += 5;
+      if (type === t) score += 6;
+      if (desc.includes(t)) score += 2;
+    }
+    if (score > 0) scored.push({ p, score });
+  }
+  scored.sort((a, b) => b.score - a.score || a.p.name.localeCompare(b.p.name));
+  const out = scored.map((s) => s.p);
+  return typeof opts.limit === "number" ? out.slice(0, opts.limit) : out;
 }

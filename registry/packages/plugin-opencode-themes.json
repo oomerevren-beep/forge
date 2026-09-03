@@ -1,0 +1,24 @@
+{
+  "name": "plugin/opencode-themes",
+  "type": "plugin",
+  "description": "OpenCode themes plugin — themes and keymaps pack",
+  "homepage": "https://github.com/plugin/opencode-themes",
+  "repository": "https://github.com/plugin/opencode-themes",
+  "keywords": [
+    "plugin",
+    "opencode"
+  ],
+  "versions": {
+    "1.0.0": {
+      "version": "1.0.0",
+      "tarball": "https://github.com/plugin/opencode-themes/releases/download/v1.0.0/plugin-opencode-themes-1.0.0.tar.gz",
+      "sha256": "placeholder-sha256-plugin-opencode-themes",
+      "engines": {
+        "*": "*"
+      },
+      "dependencies": {},
+      "publishedAt": "2026-09-03T11:17:12.003Z"
+    }
+  },
+  "latest": "1.0.0"
+}

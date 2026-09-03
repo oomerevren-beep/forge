@@ -1,0 +1,25 @@
+{
+  "name": "pdf/sign",
+  "type": "skill",
+  "description": "PDF sign skill — e-sign PDFs and manage signatures",
+  "homepage": "https://github.com/pdf/sign",
+  "repository": "https://github.com/pdf/sign",
+  "keywords": [
+    "pdf",
+    "sign",
+    "signature"
+  ],
+  "versions": {
+    "1.0.0": {
+      "version": "1.0.0",
+      "tarball": "https://github.com/pdf/sign/releases/download/v1.0.0/pdf-sign-1.0.0.tar.gz",
+      "sha256": "placeholder-sha256-pdf-sign",
+      "engines": {
+        "*": "*"
+      },
+      "dependencies": {},
+      "publishedAt": "2026-09-03T11:17:11.948Z"
+    }
+  },
+  "latest": "1.0.0"
+}

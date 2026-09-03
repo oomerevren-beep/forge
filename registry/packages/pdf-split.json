@@ -1,0 +1,25 @@
+{
+  "name": "pdf/split",
+  "type": "skill",
+  "description": "PDF split skill — extract pages and split PDFs by range",
+  "homepage": "https://github.com/pdf/split",
+  "repository": "https://github.com/pdf/split",
+  "keywords": [
+    "pdf",
+    "split",
+    "pages"
+  ],
+  "versions": {
+    "1.0.0": {
+      "version": "1.0.0",
+      "tarball": "https://github.com/pdf/split/releases/download/v1.0.0/pdf-split-1.0.0.tar.gz",
+      "sha256": "placeholder-sha256-pdf-split",
+      "engines": {
+        "*": "*"
+      },
+      "dependencies": {},
+      "publishedAt": "2026-09-03T11:17:11.946Z"
+    }
+  },
+  "latest": "1.0.0"
+}

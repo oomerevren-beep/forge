@@ -1,0 +1,24 @@
+{
+  "name": "skill/chaos",
+  "type": "skill",
+  "description": "Chaos skill — fault injection and game days",
+  "homepage": "https://github.com/skill/chaos",
+  "repository": "https://github.com/skill/chaos",
+  "keywords": [
+    "chaos",
+    "resilience"
+  ],
+  "versions": {
+    "1.0.0": {
+      "version": "1.0.0",
+      "tarball": "https://github.com/skill/chaos/releases/download/v1.0.0/skill-chaos-1.0.0.tar.gz",
+      "sha256": "placeholder-sha256-skill-chaos",
+      "engines": {
+        "*": "*"
+      },
+      "dependencies": {},
+      "publishedAt": "2026-09-03T11:17:11.986Z"
+    }
+  },
+  "latest": "1.0.0"
+}

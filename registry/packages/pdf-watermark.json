@@ -1,0 +1,25 @@
+{
+  "name": "pdf/watermark",
+  "type": "skill",
+  "description": "PDF watermark skill — stamp watermarks and headers on PDFs",
+  "homepage": "https://github.com/pdf/watermark",
+  "repository": "https://github.com/pdf/watermark",
+  "keywords": [
+    "pdf",
+    "watermark",
+    "stamp"
+  ],
+  "versions": {
+    "1.0.0": {
+      "version": "1.0.0",
+      "tarball": "https://github.com/pdf/watermark/releases/download/v1.0.0/pdf-watermark-1.0.0.tar.gz",
+      "sha256": "placeholder-sha256-pdf-watermark",
+      "engines": {
+        "*": "*"
+      },
+      "dependencies": {},
+      "publishedAt": "2026-09-03T11:17:11.950Z"
+    }
+  },
+  "latest": "1.0.0"
+}

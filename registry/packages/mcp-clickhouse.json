@@ -1,0 +1,32 @@
+{
+  "name": "mcp/clickhouse",
+  "type": "mcp",
+  "description": "ClickHouse MCP server — analytical SQL queries fast",
+  "homepage": "https://github.com/mcp/clickhouse",
+  "repository": "https://github.com/mcp/clickhouse",
+  "keywords": [
+    "mcp",
+    "clickhouse",
+    "analytics"
+  ],
+  "versions": {
+    "1.0.0": {
+      "version": "1.0.0",
+      "tarball": "https://github.com/mcp/clickhouse/releases/download/v1.0.0/mcp-clickhouse-1.0.0.tar.gz",
+      "sha256": "placeholder-sha256-mcp-clickhouse",
+      "engines": {
+        "*": "*"
+      },
+      "dependencies": {},
+      "mcp": {
+        "command": "npx",
+        "args": [
+          "-y",
+          "@modelcontextprotocol/server-clickhouse"
+        ]
+      },
+      "publishedAt": "2026-09-03T11:17:11.974Z"
+    }
+  },
+  "latest": "1.0.0"
+}

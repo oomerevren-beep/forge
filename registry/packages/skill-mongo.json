@@ -1,0 +1,24 @@
+{
+  "name": "skill/mongo",
+  "type": "skill",
+  "description": "Mongo skill — aggregations and schema design",
+  "homepage": "https://github.com/skill/mongo",
+  "repository": "https://github.com/skill/mongo",
+  "keywords": [
+    "mongo",
+    "nosql"
+  ],
+  "versions": {
+    "1.0.0": {
+      "version": "1.0.0",
+      "tarball": "https://github.com/skill/mongo/releases/download/v1.0.0/skill-mongo-1.0.0.tar.gz",
+      "sha256": "placeholder-sha256-skill-mongo",
+      "engines": {
+        "*": "*"
+      },
+      "dependencies": {},
+      "publishedAt": "2026-09-03T11:17:11.979Z"
+    }
+  },
+  "latest": "1.0.0"
+}

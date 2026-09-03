@@ -50,9 +50,9 @@ function generateMockPackage(
   dest: string
 ): void {
   const type = detail.type;
-  // SKILL.md
-  if (type === "skill" || type === "agent" || type === "command") {
-    const skillName = pkgName.split("/")[1] ?? pkgName;
+  const skillName = pkgName.split("/")[1] ?? pkgName;
+  // Faz 11: her tip gerçek iskelet üretir — forge add her tipi doğru yere kurar
+  if (type === "skill") {
     const content = `# ${skillName} — ${detail.description}
 
 > Installed via Forge v0.1 — ${pkgName}@${version}
@@ -79,9 +79,29 @@ forge doctor
     writeFileSync(join(dest, "SKILL.md"), content);
   }
 
-  // MCP: also write a forge-mcp.json manifest for adapter use
+  if (type === "agent") {
+    writeFileSync(join(dest, "agent.md"), `# ${skillName} — ${detail.description}\n\n> Installed via Forge — ${pkgName}@${version}\n\nDefine your agent's system prompt here.\n`);
+    writeFileSync(join(dest, "SKILL.md"), `# ${skillName} — agent\n\nSee agent.md for system prompt.\n`);
+  }
+
+  if (type === "command") {
+    writeFileSync(join(dest, "command.md"), `# ${skillName} — ${detail.description}\n\n> Installed via Forge — ${pkgName}@${version}\n\nSlash command: /${skillName}\n`);
+  }
+
+  if (type === "hook") {
+    writeFileSync(join(dest, "hook.json"), JSON.stringify({ name: pkgName, hooks: { "pre-tool": { entry: "./hook.js" } } }, null, 2) + "\n");
+    writeFileSync(join(dest, "hook.js"), `// ${pkgName} hook entry\nmodule.exports = {};\n`);
+  }
+
+  if (type === "plugin") {
+    writeFileSync(join(dest, "plugin.json"), JSON.stringify({ name: skillName, entry: "index.js", hooks: ["pre-tool", "post-tool"] }, null, 2) + "\n");
+    writeFileSync(join(dest, "index.js"), `// ${pkgName} plugin entry\nmodule.exports = {};\n`);
+  }
+
+  // MCP: also write a forge-mcp.json manifest for adapter use (Faz 11: mcp.json dahil)
   if (type === "mcp" && versionMeta.mcp) {
     writeFileSync(join(dest, "forge-mcp.json"), JSON.stringify(versionMeta.mcp, null, 2));
+    writeFileSync(join(dest, "mcp.json"), JSON.stringify({ mcpServers: { [skillName]: versionMeta.mcp } }, null, 2) + "\n");
     // also SKILL.md for discoverability
     writeFileSync(
       join(dest, "SKILL.md"),

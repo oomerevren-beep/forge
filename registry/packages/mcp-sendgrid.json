@@ -1,0 +1,32 @@
+{
+  "name": "mcp/sendgrid",
+  "type": "mcp",
+  "description": "SendGrid MCP server — email sends and templates",
+  "homepage": "https://github.com/mcp/sendgrid",
+  "repository": "https://github.com/mcp/sendgrid",
+  "keywords": [
+    "mcp",
+    "sendgrid",
+    "email"
+  ],
+  "versions": {
+    "1.0.0": {
+      "version": "1.0.0",
+      "tarball": "https://github.com/mcp/sendgrid/releases/download/v1.0.0/mcp-sendgrid-1.0.0.tar.gz",
+      "sha256": "placeholder-sha256-mcp-sendgrid",
+      "engines": {
+        "*": "*"
+      },
+      "dependencies": {},
+      "mcp": {
+        "command": "npx",
+        "args": [
+          "-y",
+          "@modelcontextprotocol/server-sendgrid"
+        ]
+      },
+      "publishedAt": "2026-09-03T11:17:11.972Z"
+    }
+  },
+  "latest": "1.0.0"
+}

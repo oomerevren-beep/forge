@@ -1,0 +1,25 @@
+{
+  "name": "agent/meeting-notes",
+  "type": "agent",
+  "description": "Meeting notes agent — action items and decisions from calls",
+  "homepage": "https://github.com/agent/meeting-notes",
+  "repository": "https://github.com/agent/meeting-notes",
+  "keywords": [
+    "agent",
+    "meeting",
+    "notes"
+  ],
+  "versions": {
+    "1.0.0": {
+      "version": "1.0.0",
+      "tarball": "https://github.com/agent/meeting-notes/releases/download/v1.0.0/agent-meeting-notes-1.0.0.tar.gz",
+      "sha256": "placeholder-sha256-agent-meeting-notes",
+      "engines": {
+        "*": "*"
+      },
+      "dependencies": {},
+      "publishedAt": "2026-09-03T11:17:11.962Z"
+    }
+  },
+  "latest": "1.0.0"
+}

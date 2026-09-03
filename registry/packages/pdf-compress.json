@@ -1,0 +1,25 @@
+{
+  "name": "pdf/compress",
+  "type": "skill",
+  "description": "PDF compress skill — shrink PDF size without quality loss",
+  "homepage": "https://github.com/pdf/compress",
+  "repository": "https://github.com/pdf/compress",
+  "keywords": [
+    "pdf",
+    "compress",
+    "optimize"
+  ],
+  "versions": {
+    "1.0.0": {
+      "version": "1.0.0",
+      "tarball": "https://github.com/pdf/compress/releases/download/v1.0.0/pdf-compress-1.0.0.tar.gz",
+      "sha256": "placeholder-sha256-pdf-compress",
+      "engines": {
+        "*": "*"
+      },
+      "dependencies": {},
+      "publishedAt": "2026-09-03T11:17:11.948Z"
+    }
+  },
+  "latest": "1.0.0"
+}

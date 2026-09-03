@@ -1,0 +1,32 @@
+{
+  "name": "mcp/mailchimp",
+  "type": "mcp",
+  "description": "Mailchimp MCP server — audiences and campaigns",
+  "homepage": "https://github.com/mcp/mailchimp",
+  "repository": "https://github.com/mcp/mailchimp",
+  "keywords": [
+    "mcp",
+    "mailchimp",
+    "email"
+  ],
+  "versions": {
+    "1.0.0": {
+      "version": "1.0.0",
+      "tarball": "https://github.com/mcp/mailchimp/releases/download/v1.0.0/mcp-mailchimp-1.0.0.tar.gz",
+      "sha256": "placeholder-sha256-mcp-mailchimp",
+      "engines": {
+        "*": "*"
+      },
+      "dependencies": {},
+      "mcp": {
+        "command": "npx",
+        "args": [
+          "-y",
+          "@modelcontextprotocol/server-mailchimp"
+        ]
+      },
+      "publishedAt": "2026-09-03T11:17:11.973Z"
+    }
+  },
+  "latest": "1.0.0"
+}

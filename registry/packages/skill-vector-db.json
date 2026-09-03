@@ -1,0 +1,24 @@
+{
+  "name": "skill/vector-db",
+  "type": "skill",
+  "description": "Vector DB skill — Pinecone, Qdrant and pgvector",
+  "homepage": "https://github.com/skill/vector-db",
+  "repository": "https://github.com/skill/vector-db",
+  "keywords": [
+    "vectordb",
+    "search"
+  ],
+  "versions": {
+    "1.0.0": {
+      "version": "1.0.0",
+      "tarball": "https://github.com/skill/vector-db/releases/download/v1.0.0/skill-vector-db-1.0.0.tar.gz",
+      "sha256": "placeholder-sha256-skill-vector-db",
+      "engines": {
+        "*": "*"
+      },
+      "dependencies": {},
+      "publishedAt": "2026-09-03T11:17:11.991Z"
+    }
+  },
+  "latest": "1.0.0"
+}

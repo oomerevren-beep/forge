@@ -1,0 +1,32 @@
+{
+  "name": "mcp/datadog",
+  "type": "mcp",
+  "description": "Datadog MCP server — metrics, monitors and dashboards",
+  "homepage": "https://github.com/mcp/datadog",
+  "repository": "https://github.com/mcp/datadog",
+  "keywords": [
+    "mcp",
+    "datadog",
+    "metrics"
+  ],
+  "versions": {
+    "1.0.0": {
+      "version": "1.0.0",
+      "tarball": "https://github.com/mcp/datadog/releases/download/v1.0.0/mcp-datadog-1.0.0.tar.gz",
+      "sha256": "placeholder-sha256-mcp-datadog",
+      "engines": {
+        "*": "*"
+      },
+      "dependencies": {},
+      "mcp": {
+        "command": "npx",
+        "args": [
+          "-y",
+          "@modelcontextprotocol/server-datadog"
+        ]
+      },
+      "publishedAt": "2026-09-03T11:17:11.967Z"
+    }
+  },
+  "latest": "1.0.0"
+}

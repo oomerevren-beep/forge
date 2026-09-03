@@ -1,0 +1,24 @@
+{
+  "name": "skill/feature-flags",
+  "type": "skill",
+  "description": "Feature flags skill — gradual rollouts and kill switches",
+  "homepage": "https://github.com/skill/feature-flags",
+  "repository": "https://github.com/skill/feature-flags",
+  "keywords": [
+    "flags",
+    "rollout"
+  ],
+  "versions": {
+    "1.0.0": {
+      "version": "1.0.0",
+      "tarball": "https://github.com/skill/feature-flags/releases/download/v1.0.0/skill-feature-flags-1.0.0.tar.gz",
+      "sha256": "placeholder-sha256-skill-feature-flags",
+      "engines": {
+        "*": "*"
+      },
+      "dependencies": {},
+      "publishedAt": "2026-09-03T11:17:11.986Z"
+    }
+  },
+  "latest": "1.0.0"
+}

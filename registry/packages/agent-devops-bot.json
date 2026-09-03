@@ -1,0 +1,25 @@
+{
+  "name": "agent/devops-bot",
+  "type": "agent",
+  "description": "DevOps bot agent — Docker, CI pipelines and deploy automation",
+  "homepage": "https://github.com/agent/devops-bot",
+  "repository": "https://github.com/agent/devops-bot",
+  "keywords": [
+    "agent",
+    "devops",
+    "ci"
+  ],
+  "versions": {
+    "1.0.0": {
+      "version": "1.0.0",
+      "tarball": "https://github.com/agent/devops-bot/releases/download/v1.0.0/agent-devops-bot-1.0.0.tar.gz",
+      "sha256": "placeholder-sha256-agent-devops-bot",
+      "engines": {
+        "*": "*"
+      },
+      "dependencies": {},
+      "publishedAt": "2026-09-03T11:17:11.956Z"
+    }
+  },
+  "latest": "1.0.0"
+}

@@ -1,5 +1,6 @@
 import { readLinks } from "../core/store.js";
-import { loadPackageDetail, resolveVersion } from "../core/registry.js";
+import { loadIndex, loadPackageDetail, resolveVersion } from "../core/registry.js";
+import { compareSemver } from "../core/semver.js";
 import { ensurePackageContent } from "../core/installer.js";
 import { toSlug, ensureForgeDirs, writeLinks } from "../core/store.js";
 import { detectAdapters, addMcpServerToConfig, allAdapters } from "../adapters/index.js";
@@ -22,27 +23,31 @@ function pickAdapters(harnesses?: string[]) {
 }
 
 export async function runOutdated(opts: { cwd?: string } = {}): Promise<void> {
+  const t0 = Date.now();
   const cwd = resolvePath(opts.cwd ?? process.cwd());
+  void cwd;
   const links = readLinks();
   const entries = Object.values(links);
   if (entries.length === 0) {
     console.log("[forge] no packages installed");
     return;
   }
+  // Faz 10 polish: index'i tek sefer yükle (20 pakette <10s hedefi için), semver-aware karşılaştır
+  const index = loadIndex();
   let outdated = 0;
   for (const rec of entries) {
     try {
-      const detail = loadPackageDetail(rec.pkg);
-      const latest = detail.latest;
-      if (latest !== rec.version) {
-        // Check if latest is actually newer? simple string compare: if latest version > installed by semver naive
+      const summary = (index.packages as Record<string, { latest: string }>)[rec.pkg];
+      const latest = summary?.latest ?? loadPackageDetail(rec.pkg).latest;
+      if (compareSemver(latest, rec.version) > 0) {
         console.log(`${rec.pkg}  ${rec.version} → ${latest} (latest)`);
         outdated++;
       }
     } catch {}
   }
-  if (outdated === 0) console.log("[forge] all packages up to date");
-  else console.log(`\n[forge] ${outdated} package(s) outdated — run 'forge update'`);
+  const dt = ((Date.now() - t0) / 1000).toFixed(1);
+  if (outdated === 0) console.log(`[forge] all packages up to date (${entries.length} checked in ${dt}s)`);
+  else console.log(`\n[forge] ${outdated} package(s) outdated — run 'forge update' (${dt}s)`);
 }
 
 export async function runUpdate(pkgArg?: string, opts: { cwd?: string } = {}): Promise<void> {

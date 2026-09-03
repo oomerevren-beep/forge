@@ -1,0 +1,24 @@
+{
+  "name": "skill/yaml",
+  "type": "skill",
+  "description": "YAML skill — validate and transform YAML configs",
+  "homepage": "https://github.com/skill/yaml",
+  "repository": "https://github.com/skill/yaml",
+  "keywords": [
+    "yaml",
+    "config"
+  ],
+  "versions": {
+    "1.0.0": {
+      "version": "1.0.0",
+      "tarball": "https://github.com/skill/yaml/releases/download/v1.0.0/skill-yaml-1.0.0.tar.gz",
+      "sha256": "placeholder-sha256-skill-yaml",
+      "engines": {
+        "*": "*"
+      },
+      "dependencies": {},
+      "publishedAt": "2026-09-03T11:17:11.975Z"
+    }
+  },
+  "latest": "1.0.0"
+}

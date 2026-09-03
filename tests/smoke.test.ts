@@ -84,17 +84,17 @@ describe("forge core — smoke", () => {
     rmSync(dir, { recursive: true, force: true });
   });
 
-  it("registry stats totals 100 and breakdown", () => {
+  it("registry stats totals 250 and breakdown", () => {
     const idx = loadIndex();
-    assert.equal(idx.count, 100);
-    // stats.json should exist and sum to 100
+    assert.equal(idx.count, 250);
+    // stats.json should exist and sum to 250
     const statsPath = join(process.cwd(), "registry/stats.json");
     if (existsSync(statsPath)) {
       const stats = JSON.parse(readFileSync(statsPath, "utf-8"));
       const byType = stats.byType || stats;
       const sum = (byType.skill || 0) + (byType.mcp || 0) + (byType.agent || 0) + (byType.command || 0) + (byType.hook || 0) + (byType.plugin || 0);
-      assert.equal(sum, 100);
-      assert.equal(stats.totalPackages || sum, 100);
+      assert.equal(sum, 250);
+      assert.equal(stats.totalPackages || sum, 250);
     }
   });
 
@@ -102,6 +102,17 @@ describe("forge core — smoke", () => {
     const mcp = searchPackages("mcp");
     assert.ok(mcp.length >= 20);
     const pdf = searchPackages("pdf");
-    assert.ok(pdf.length >= 1);
+    assert.ok(pdf.length >= 10);
+    const agent = searchPackages("agent");
+    assert.ok(agent.length >= 20);
+  });
+
+  it("search <200ms offline (Faz 13-lite)", () => {
+    const t0 = Date.now();
+    searchPackages("pdf");
+    searchPackages("agent");
+    searchPackages("mcp");
+    const dt = Date.now() - t0;
+    assert.ok(dt < 200, `search took ${dt}ms, expected <200ms`);
   });
 });

@@ -1,0 +1,24 @@
+{
+  "name": "plugin/claude-marketplace",
+  "type": "plugin",
+  "description": "Claude marketplace plugin — distribute skills easily",
+  "homepage": "https://github.com/plugin/claude-marketplace",
+  "repository": "https://github.com/plugin/claude-marketplace",
+  "keywords": [
+    "plugin",
+    "claude"
+  ],
+  "versions": {
+    "1.0.0": {
+      "version": "1.0.0",
+      "tarball": "https://github.com/plugin/claude-marketplace/releases/download/v1.0.0/plugin-claude-marketplace-1.0.0.tar.gz",
+      "sha256": "placeholder-sha256-plugin-claude-marketplace",
+      "engines": {
+        "*": "*"
+      },
+      "dependencies": {},
+      "publishedAt": "2026-09-03T11:17:12.002Z"
+    }
+  },
+  "latest": "1.0.0"
+}

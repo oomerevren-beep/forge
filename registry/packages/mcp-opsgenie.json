@@ -1,0 +1,32 @@
+{
+  "name": "mcp/opsgenie",
+  "type": "mcp",
+  "description": "Opsgenie MCP server — alerts and escalation policies",
+  "homepage": "https://github.com/mcp/opsgenie",
+  "repository": "https://github.com/mcp/opsgenie",
+  "keywords": [
+    "mcp",
+    "opsgenie",
+    "alerts"
+  ],
+  "versions": {
+    "1.0.0": {
+      "version": "1.0.0",
+      "tarball": "https://github.com/mcp/opsgenie/releases/download/v1.0.0/mcp-opsgenie-1.0.0.tar.gz",
+      "sha256": "placeholder-sha256-mcp-opsgenie",
+      "engines": {
+        "*": "*"
+      },
+      "dependencies": {},
+      "mcp": {
+        "command": "npx",
+        "args": [
+          "-y",
+          "@modelcontextprotocol/server-opsgenie"
+        ]
+      },
+      "publishedAt": "2026-09-03T11:17:11.968Z"
+    }
+  },
+  "latest": "1.0.0"
+}

@@ -1,0 +1,25 @@
+{
+  "name": "pdf/extract",
+  "type": "skill",
+  "description": "PDF extract skill — pull text, tables and images from PDFs",
+  "homepage": "https://github.com/pdf/extract",
+  "repository": "https://github.com/pdf/extract",
+  "keywords": [
+    "pdf",
+    "extract",
+    "parse"
+  ],
+  "versions": {
+    "1.0.0": {
+      "version": "1.0.0",
+      "tarball": "https://github.com/pdf/extract/releases/download/v1.0.0/pdf-extract-1.0.0.tar.gz",
+      "sha256": "placeholder-sha256-pdf-extract",
+      "engines": {
+        "*": "*"
+      },
+      "dependencies": {},
+      "publishedAt": "2026-09-03T11:17:11.949Z"
+    }
+  },
+  "latest": "1.0.0"
+}

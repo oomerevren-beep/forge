@@ -1,0 +1,25 @@
+{
+  "name": "agent/security-auditor",
+  "type": "agent",
+  "description": "Security auditor agent — scan code for vulns and hardening tips",
+  "homepage": "https://github.com/agent/security-auditor",
+  "repository": "https://github.com/agent/security-auditor",
+  "keywords": [
+    "agent",
+    "security",
+    "audit"
+  ],
+  "versions": {
+    "1.0.0": {
+      "version": "1.0.0",
+      "tarball": "https://github.com/agent/security-auditor/releases/download/v1.0.0/agent-security-auditor-1.0.0.tar.gz",
+      "sha256": "placeholder-sha256-agent-security-auditor",
+      "engines": {
+        "*": "*"
+      },
+      "dependencies": {},
+      "publishedAt": "2026-09-03T11:17:11.955Z"
+    }
+  },
+  "latest": "1.0.0"
+}
