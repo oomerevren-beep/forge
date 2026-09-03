@@ -1,0 +1,22 @@
+{
+  "version": 1,
+  "recipe": {
+    "name": "Node.js app",
+    "kind": "node",
+    "bootstrap": [
+      "npm install"
+    ],
+    "build": [
+      "npm run build"
+    ],
+    "test": [
+      "npm run test"
+    ],
+    "evidence": [
+      "Detected package.json",
+      "Package manager: npm",
+      "Scripts: dev, build, prepublishOnly, test, registry:build, seed"
+    ]
+  },
+  "updatedAt": "2026-09-03T11:24:14.218830+00:00"
+}
