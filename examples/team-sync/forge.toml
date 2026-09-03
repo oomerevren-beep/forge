@@ -1,0 +1,7 @@
+[project]
+name = "my-app"
+version = "0.1.0"
+
+[dependencies]
+"anthropics/plan" = "^1.2.0"
+"mcp/filesystem" = "^1.0.0"

@@ -36,8 +36,15 @@ See `docs/ADAPTERS.md`. In short:
 ## Scripts
 
 - `npm run build` — type-check + emit to `dist/` (used by `npm pack` and `bin`)
-- `npm test` — smoke tests (registry + TOML + store)
+- `npm test` — 35 tests (smoke + semver + init + adapters + installer-security)
 - `npm run dev -- <args>` — run CLI from source via `tsx`
+
+## Ground rules
+
+- [Code of Conduct](CODE_OF_CONDUCT.md) applies everywhere. Be kind, review kindly.
+- Security bugs: do NOT open a public issue — see [SECURITY.md](SECURITY.md).
+- Conventional Commits (`feat:`, `fix:`, `docs:`, `registry:`) — one concern per commit.
+- New? Start with [`good first issue`](https://github.com/oomerevren-beep/forge/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22).
 
 ## Pull requests
 

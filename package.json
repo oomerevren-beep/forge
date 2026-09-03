@@ -37,6 +37,7 @@
     "install.ps1",
     "forge.toml",
     "README.md",
+    "CHANGELOG.md",
     "LICENSE"
   ],
   "engines": {

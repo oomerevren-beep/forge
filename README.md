@@ -109,12 +109,19 @@ Requires Node 18+ for v0.1 (TypeScript). Rust binary in v0.2 — single binary, 
 
 ## Quick Start
 
+60 seconds, copy-paste:
+
 ```bash
+npm i -g tryforge          # or: curl -fsSL https://raw.githubusercontent.com/oomerevren-beep/forge/main/install.sh | sh
 forge doctor              # detect your harnesses (7 checked)
+forge add anthropics/plan # install latest → all harnesses at once
+```
+
+More once you're in:
+
+```bash
 forge search plan         # find packages (try: pdf, mcp, agent)
-forge add anthropics/plan # install latest (resolves ^1.2.0)
-forge add mcp/filesystem  # MCP → auto-writes to mcp.json
-forge list                # 8 installed, with versions
+forge list                # installed, with versions
 forge info mcp/github     # detail + versions + engines
 forge outdated            # what can be updated
 forge update              # update all (or: forge update mcp/github)
@@ -261,6 +268,8 @@ Full diagram and crate layout in `docs/ARCHITECTURE.md`. Tech choices: `commande
 
 ## Docs
 
+- [Install](docs/INSTALL.md) — npm / curl / source, verification
+- [Examples](examples/) — minimal skill + team sync, copy-paste
 - [Vision](docs/VISION.md) — why now, why 100k
 - [PRD](docs/PRD.md) — users, stories, commands, harness matrix
 - [Architecture](docs/ARCHITECTURE.md) — components, security, perf
@@ -268,6 +277,7 @@ Full diagram and crate layout in `docs/ARCHITECTURE.md`. Tech choices: `commande
 - [Registry](docs/REGISTRY.md) — index schema, publish, fork
 - [Adapters](docs/ADAPTERS.md) — add a harness in one file
 - [Roadmap](docs/ROADMAP.md) — v0.1 → v1.0
+- [Changelog](CHANGELOG.md) — release history
 
 ---
 
@@ -289,15 +299,16 @@ git clone https://github.com/oomerevren-beep/forge
 cd forge
 npm install
 npm run build
-npm test                  # 34 tests (smoke + semver + init + adapters + installer-security)
+npm test                  # 35 tests (smoke + semver + init + adapters + installer-security)
 npm run dev -- --help     # or: npx tsx cli/src/index.ts --help
 ```
 
 - Add a package: create `registry/packages/<slug>.json` → `npm run registry:build`
 - Add a harness: `cli/src/adapters/<name>.ts` → register in `adapters/index.ts` → `forge doctor`
 - PR checklist: `npm run build && npm test && npm run registry:build -- --check`
+- New? Start with [`good first issue`](https://github.com/oomerevren-beep/forge/issues?q=is%3Aissue+is%3Aopen+label%3A%22good+first+issue%22) — questions in [Discussions](https://github.com/oomerevren-beep/forge/discussions)
 
-See `CONTRIBUTING.md` and `AGENTS.md`.
+See `CONTRIBUTING.md`, [Code of Conduct](CODE_OF_CONDUCT.md), [Security](SECURITY.md) and `AGENTS.md`.
 
 ---
 

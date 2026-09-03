@@ -1,0 +1,6 @@
+[package]
+name = "my-skill"
+version = "0.1.0"
+type = "skill"
+description = "Minimal example skill"
+license = "MIT"
