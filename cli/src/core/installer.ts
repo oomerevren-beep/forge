@@ -40,8 +40,8 @@ export async function ensurePackageContent(
 
   ensureForgeDirs();
 
-  const tarballUrl = versionMeta.tarball;
-  const sha256 = versionMeta.sha256;
+  const tarballUrl = versionMeta.tarball ?? "";
+  const sha256 = versionMeta.sha256 ?? "";
   const isPlaceholder = sha256.startsWith("placeholder") || tarballUrl.includes("placeholder");
 
   // No verified tarball in registry: mock ONLY with explicit opt-in, else hard error.
@@ -53,8 +53,21 @@ export async function ensurePackageContent(
       );
     }
     console.warn(`[forge] warning: installing MOCK content for ${pkgName}@${version} (--mock)`);
-    if (!existsSync(dest)) mkdirSync(dest, { recursive: true });
-    generateMockPackage(pkgName, version, detail, versionMeta, dest);
+    let createdMockDir = false;
+    if (!existsSync(dest)) {
+      mkdirSync(dest, { recursive: true });
+      createdMockDir = true;
+    }
+    try {
+      generateMockPackage(pkgName, version, detail, versionMeta, dest);
+    } catch (err) {
+      if (createdMockDir) {
+        try {
+          rmSync(dest, { recursive: true, force: true });
+        } catch {}
+      }
+      throw err;
+    }
     return dest;
   }
 
