@@ -7,6 +7,7 @@ import { type Adapter, installSkillFiles, uninstallSkillFiles, listDirNames, tar
 export const opencodeAdapter: Adapter = {
   name: "opencode",
   displayName: "OpenCode",
+  version: "0.1.0",
   detect: () => existsSync(join(process.cwd(), "opencode.json")) || existsSync(join(homedir(), ".config", "opencode", "opencode.json")),
   skillDir: (slug) => join(process.cwd(), ".opencode", "skills", slug),
   mcpConfigPath: () => {

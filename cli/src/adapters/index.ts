@@ -1,7 +1,4 @@
-// cli/src/adapters/index.ts — Faz 12: 7 harness re-export (per-file split)
-// Her harness 1 dosya: claude.ts, codex.ts, opencode.ts, cursor.ts, dsh.ts, windsurf.ts, generic.ts
-// Geriye dönük uyumluluk: mevcut import'lar ./adapters/index.js çalışmaya devam eder.
-
+// cli/src/adapters/index.ts — Epoch 1e: adapter plugin sistemi ile birleştirilmiş
 export type { Adapter } from "./types.js";
 export {
   readMcpConfig,
@@ -12,6 +9,7 @@ export {
   packagesDir,
   packageDir,
   toSlug,
+  targetDirFor,
 } from "./types.js";
 
 export { claudeAdapter } from "./claude.js";

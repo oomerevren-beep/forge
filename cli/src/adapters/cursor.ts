@@ -7,6 +7,7 @@ import { type Adapter, installSkillFiles, uninstallSkillFiles, listDirNames, tar
 export const cursorAdapter: Adapter = {
   name: "cursor",
   displayName: "Cursor",
+  version: "0.1.0",
   detect: () => existsSync(join(process.cwd(), ".cursor")) || existsSync(join(homedir(), ".cursor")),
   skillDir: (slug) => {
     if (existsSync(join(process.cwd(), ".cursor"))) return join(process.cwd(), ".cursor", "skills", slug);

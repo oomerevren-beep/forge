@@ -7,6 +7,7 @@ import { type Adapter, installSkillFiles, uninstallSkillFiles, listDirNames, tar
 export const windsurfAdapter: Adapter = {
   name: "windsurf",
   displayName: "Windsurf",
+  version: "0.1.0",
   detect: () => existsSync(join(process.cwd(), ".windsurf")) || existsSync(join(homedir(), ".windsurf")) || existsSync(join(homedir(), ".codeium", "windsurf")),
   skillDir: (slug) => {
     if (existsSync(join(process.cwd(), ".windsurf"))) return join(process.cwd(), ".windsurf", "skills", slug);

@@ -7,6 +7,7 @@ import { type Adapter, installSkillFiles, uninstallSkillFiles, removeLinkOrDir, 
 export const claudeAdapter: Adapter = {
   name: "claude-code",
   displayName: "Claude Code",
+  version: "0.1.0",
   detect: () => existsSync(join(homedir(), ".claude")),
   skillDir: (slug) => join(homedir(), ".claude", "skills", slug),
   // Epoch 1c: Claude user-scope MCP = ~/.claude.json (not settings.json which is behavior config)

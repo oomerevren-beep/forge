@@ -1,0 +1,62 @@
+// tests/sign.test.ts — Epoch 1e: paket imzalama testleri
+import { describe, it } from "node:test";
+import assert from "node:assert/strict";
+import { writeFileSync, mkdirSync, rmSync } from "fs";
+import { tmpdir } from "os";
+import { join } from "path";
+import { generateKeyPair, signData, verifySignature, signPackage, verifyPackage } from "../cli/src/core/sign.js";
+
+describe("forge sign — paket imzalama", () => {
+  it("RSA key pair üretir", () => {
+    const dir = join(tmpdir(), `forge-test-sign-${Date.now()}`);
+    mkdirSync(dir, { recursive: true });
+    const { privateKey, publicKey } = generateKeyPair("test");
+    assert.ok(privateKey.includes("BEGIN PRIVATE KEY"));
+    assert.ok(publicKey.includes("BEGIN PUBLIC KEY"));
+    rmSync(dir, { recursive: true, force: true });
+  });
+
+  it("İmza doğrulama başarılı", () => {
+    const { privateKey, publicKey } = generateKeyPair("test");
+    const data = "test data for signing";
+    const sig = signData(data, privateKey);
+    assert.ok(typeof sig === "string");
+    assert.ok(sig.length > 0);
+    const valid = verifySignature(data, sig, publicKey);
+    assert.equal(valid, true);
+  });
+
+  it("İmza doğrulama başarısız (bozulmuş veri)", () => {
+    const { privateKey, publicKey } = generateKeyPair("test");
+    const data = "test data for signing";
+    const sig = signData(data, privateKey);
+    const valid = verifySignature("tamamen farklı data", sig, publicKey);
+    assert.equal(valid, false);
+  });
+
+  it("Paket imzalama ve doğrulama", () => {
+    const dir = join(tmpdir(), `forge-test-pkgsign-${Date.now()}`);
+    mkdirSync(dir, { recursive: true });
+    const pkgPath = join(dir, "package.tar.gz");
+    writeFileSync(pkgPath, "fake package content for testing");
+    const sig = signPackage(pkgPath);
+    assert.ok(sig.sha256.length === 64); // hex sha256
+    assert.ok(sig.signature.length > 0);
+    assert.ok(sig.publicKey.includes("PUBLIC KEY"));
+    const valid = verifyPackage(pkgPath, sig);
+    assert.equal(valid, true);
+    rmSync(dir, { recursive: true, force: true });
+  });
+
+  it("Paket doğrulama başarısız (bozulmuş paket)", () => {
+    const dir = join(tmpdir(), `forge-test-pkgsign2-${Date.now()}`);
+    mkdirSync(dir, { recursive: true });
+    const pkgPath = join(dir, "package.tar.gz");
+    writeFileSync(pkgPath, "original content");
+    const sig = signPackage(pkgPath);
+    writeFileSync(pkgPath, "modified content");
+    const valid = verifyPackage(pkgPath, sig);
+    assert.equal(valid, false);
+    rmSync(dir, { recursive: true, force: true });
+  });
+});

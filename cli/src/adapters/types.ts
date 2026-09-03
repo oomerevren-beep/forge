@@ -7,6 +7,7 @@ export { forgeHome, packagesDir, packageDir, toSlug } from "../core/store.js";
 export interface Adapter {
   readonly name: string;
   readonly displayName: string;
+  readonly version?: string; // Epoch 1e: adapter versiyonu (plugin sistemi)
   detect(): boolean;
   skillDir(slug: string): string;
   mcpConfigPath(): string | null;

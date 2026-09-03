@@ -10,6 +10,7 @@ import { type Adapter, installSkillFiles, uninstallSkillFiles, listDirNames } fr
 export const dshAdapter: Adapter = {
   name: "dsh",
   displayName: "DeepSeek (DSH, community/untested)",
+  version: "0.1.0",
   detect: () => existsSync(join(homedir(), ".dsh")) || existsSync(join(process.cwd(), ".dsh")),
   skillDir: (slug) => {
     if (existsSync(join(process.cwd(), ".dsh"))) return join(process.cwd(), ".dsh", "skills", slug);

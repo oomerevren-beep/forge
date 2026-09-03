@@ -7,6 +7,7 @@ import { type Adapter, installSkillFiles, uninstallSkillFiles, listDirNames, tar
 export const codexAdapter: Adapter = {
   name: "codex",
   displayName: "Codex",
+  version: "0.1.0",
   detect: () => existsSync(join(homedir(), ".codex")),
   skillDir: (slug) => join(homedir(), ".codex", "skills", slug),
   mcpConfigPath: () => join(homedir(), ".codex", "mcp.json"),
