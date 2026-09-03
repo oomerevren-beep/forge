@@ -11,12 +11,12 @@ export interface ParsedVersion {
 }
 
 export function parseSemver(v: string): ParsedVersion {
-  const m = v.trim().match(/^(\d+)\.(\d+)\.(\d+)(?:[-.]?([a-zA-Z0-9.]+))?/);
+  const m = v.trim().match(/^(\d+)(?:\.(\d+))?(?:\.(\d+))?(?:[-.]?([a-zA-Z0-9.]+))?/);
   if (!m) return { major: 0, minor: 0, patch: 0 };
   return {
     major: parseInt(m[1], 10),
-    minor: parseInt(m[2], 10),
-    patch: parseInt(m[3], 10),
+    minor: m[2] !== undefined ? parseInt(m[2], 10) : 0,
+    patch: m[3] !== undefined ? parseInt(m[3], 10) : 0,
     pre: m[4],
   };
 }
