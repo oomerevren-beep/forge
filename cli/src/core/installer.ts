@@ -222,6 +222,28 @@ async function downloadAndExtract(url: string, expectedSha256: string, dest: str
       unlinkSync(tmpFile);
     } catch {}
   }
+
+  // Tar-slip/symlink guard (portable — no GNU-only flags): refuse archives
+  // that plant symlinks. GNU/bsdtar already neutralize `../` and absolute
+  // members by default; symlinks are the residual escape class.
+  await assertNoSymlinks(dest);
+}
+
+/** Walk dest; throw on any symlink entry (file or dir). */
+async function assertNoSymlinks(dest: string): Promise<void> {
+  const { readdirSync, lstatSync } = await import("fs");
+  const stack: string[] = [dest];
+  while (stack.length > 0) {
+    const dir = stack.pop() as string;
+    for (const entry of readdirSync(dir, { withFileTypes: true })) {
+      const full = join(dir, entry.name);
+      const stat = lstatSync(full);
+      if (stat.isSymbolicLink()) {
+        throw new Error(`tarball contains symlink entry (${entry.name}) — refusing to install`);
+      }
+      if (stat.isDirectory()) stack.push(full);
+    }
+  }
 }
 
 export function isPlaceholderSha(sha: string): boolean {

@@ -13,6 +13,7 @@ import { runInit } from "./commands/init.js";
 import { runInstall } from "./commands/install.js";
 import { runOutdated, runUpdate } from "./commands/update.js";
 import { runAudit } from "./commands/audit.js";
+import { DEP_NAME_RE } from "./core/project.js";
 import { ensureConfig } from "./core/config.js";
 
 ensureConfig();
@@ -35,6 +36,10 @@ program
   .option("--mock", "allow mock content for packages with no verified tarball yet")
   .action(async (pkgArg, opts) => {
     const { name, version: requested } = parsePackageArg(pkgArg);
+    if (!DEP_NAME_RE.test(name)) {
+      console.error(`[forge] invalid package name "${name}" — expected scope/name (e.g. anthropics/plan)`);
+      process.exit(1);
+    }
     console.log(`[forge] resolving ${name}${requested ? "@" + requested : ""}...`);
 
     let detail, version, versionMeta;
@@ -141,6 +146,10 @@ program
   .argument("<pkg>", "package name")
   .action(async (pkgArg) => {
     const { name } = parsePackageArg(pkgArg);
+    if (!DEP_NAME_RE.test(name)) {
+      console.error(`[forge] invalid package name "${name}" — expected scope/name (e.g. anthropics/plan)`);
+      process.exit(1);
+    }
     const slug = toSlug(name);
     const links = readLinks();
     const record = links[name];

@@ -1,7 +1,7 @@
 import { existsSync } from "fs";
 import { resolve, join } from "path";
 import { homedir } from "os";
-import { loadIndex, resolveVersion } from "../core/registry.js";
+import { loadIndex, resolveVersion, satisfiesRange } from "../core/registry.js";
 import { ensurePackageContent } from "../core/installer.js";
 import { ensureForgeDirs, readLinks, writeLinks, toSlug } from "../core/store.js";
 import { allAdapters, detectAdapters, addMcpServerToConfig } from "../adapters/index.js";
@@ -63,10 +63,17 @@ export async function runInstall(opts: { cwd?: string; frozen?: boolean; mock?: 
       process.exit(1);
     }
     // verify lock matches dependencies keys (at least every dep has an entry)
+    // AND that each locked version still satisfies forge.toml's range —
+    // a hand-aged lock must never silently downgrade under --frozen.
     const lockMap = new Map(lock.packages.map((p) => [p.name, p]));
-    for (const depName of Object.keys(deps)) {
-      if (!lockMap.has(depName)) {
+    for (const [depName, depRange] of Object.entries(deps)) {
+      const locked = lockMap.get(depName);
+      if (!locked) {
         console.error(`[forge] --frozen: lock missing ${depName} (run 'forge install' without --frozen to update lock)`);
+        process.exit(1);
+      }
+      if (!satisfiesRange(locked.version, depRange)) {
+        console.error(`[forge] --frozen: locked ${depName}@${locked.version} does not satisfy forge.toml range "${depRange}" (run 'forge install' without --frozen to update lock)`);
         process.exit(1);
       }
     }

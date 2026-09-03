@@ -5,9 +5,9 @@ Write-Host "[forge] installer - $Repo@$Version"
 
 function Show-PathHelp($cmd) {
   Write-Host "[forge] '$cmd' is installed but not on your PATH. Fix in 2 steps:"
-  Write-Host "[forge]   1. Find npm's global bin: npm prefix -g  (append \node_modules\.bin is NOT it - use the prefix root)"
-  Write-Host "[forge]   2. Add it to PATH: `$env:Path += ';' + (npm prefix -g)` (current shell) or via System Settings (permanent)"
-  Write-Host "[forge]      then restart your shell and run: forge doctor"
+  Write-Host "[forge]   1. Open a NEW PowerShell and run: npm prefix -g"
+  Write-Host "[forge]   2. Add that folder to PATH permanently: setx PATH ""$env:Path;PASTE_FOLDER_HERE"""
+  Write-Host "[forge]      (replace PASTE_FOLDER_HERE, restart the shell) then run: forge doctor"
 }
 
 if (Get-Command npm -ErrorAction SilentlyContinue) {

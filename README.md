@@ -43,7 +43,7 @@ No more `git clone + cp SKILL.md`. One command, every harness. **Star to get not
 - [Create a Package](#create-a-package)
 - [How it Works](#how-it-works)
 - [Comparison](#comparison)
-- [Registry — 100 Packages](#registry--100-packages)
+- [Registry — 250 Packages](#registry--250-packages)
 - [Architecture](#architecture)
 - [Docs](#docs)
 - [Roadmap](#roadmap)
@@ -252,7 +252,7 @@ CLI (TypeScript v0.1 → Rust v0.2)
   ├─ registry client (index.json + semver)
   ├─ store (~/.forge/packages/ + links.json + cache)
   ├─ adapters (detect/install/list — 1 file per harness)
-  └─ commands (add/remove/list/search/info/doctor/init/install/update)
+  └─ commands (add/remove/list/search/info/doctor/init/install/update/outdated/audit)
 ```
 
 Full diagram and crate layout in `docs/ARCHITECTURE.md`. Tech choices: `commander` + `smol-toml` + `tsx` (no `bun` on Windows), `tsc` emit to `dist/` for `npm pack`.

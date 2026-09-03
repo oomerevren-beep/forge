@@ -11,7 +11,7 @@ export interface ProjectToml {
   package?: Record<string, unknown>;
 }
 
-const DEP_NAME_RE = /^[a-z0-9-]+\/[a-z0-9-]+$/;
+export const DEP_NAME_RE = /^[a-z0-9-]+\/[a-z0-9-]+$/;
 
 export function findProjectToml(cwd: string): string | null {
   const candidate = join(resolve(cwd), "forge.toml");
