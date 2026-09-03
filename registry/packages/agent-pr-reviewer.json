@@ -1,7 +1,7 @@
 {
   "name": "agent/pr-reviewer",
   "type": "agent",
-  "description": "PR reviewer agent — thorough pull request reviews with suggestions",
+  "description": "PR reviewer agent \u2014 thorough pull request reviews with suggestions",
   "homepage": "https://github.com/agent/pr-reviewer",
   "repository": "https://github.com/oomerevren-beep/forge",
   "keywords": [
@@ -22,5 +22,6 @@
       "verified": true
     }
   },
-  "latest": "1.0.0"
+  "latest": "1.0.0",
+  "verified": true
 }

@@ -1,7 +1,7 @@
 {
   "name": "pdf/ocr",
   "type": "skill",
-  "description": "PDF OCR skill — scanned PDFs to searchable text with OCR",
+  "description": "PDF OCR skill \u2014 scanned PDFs to searchable text with OCR",
   "homepage": "https://github.com/pdf/ocr",
   "repository": "https://github.com/oomerevren-beep/forge",
   "keywords": [
@@ -22,5 +22,6 @@
       "verified": true
     }
   },
-  "latest": "1.0.0"
+  "latest": "1.0.0",
+  "verified": true
 }

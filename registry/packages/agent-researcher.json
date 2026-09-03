@@ -1,7 +1,7 @@
 {
   "name": "agent/researcher",
   "type": "agent",
-  "description": "Researcher agent — deep web research with cited summaries",
+  "description": "Researcher agent \u2014 deep web research with cited summaries",
   "homepage": "https://github.com/agent/researcher",
   "repository": "https://github.com/oomerevren-beep/forge",
   "keywords": [
@@ -22,5 +22,6 @@
       "verified": true
     }
   },
-  "latest": "1.0.0"
+  "latest": "1.0.0",
+  "verified": true
 }

@@ -99,7 +99,7 @@ Supported harnesses (`forge doctor` detects all of them):
 | Codex | ✅ |
 | OpenCode | ✅ |
 | Cursor | ✅ |
-| DeepSeek (dsh) | ✅ |
+| DeepSeek (dsh) | ⚠️ (community/untested) |
 | Windsurf | ✅ |
 | Generic (any other) | ✅ |
 
@@ -114,11 +114,8 @@ curl -fsSL https://raw.githubusercontent.com/oomerevren-beep/forge/main/install.
 # Windows PowerShell
 irm https://raw.githubusercontent.com/oomerevren-beep/forge/main/install.ps1 | iex
 
-# via npm (Node 18+)
+# via npm (Node 22+)
 npm i -g tryforge
-
-# via cargo (v0.2 — Rust rewrite)
-cargo install tryforge
 ```
 
 Requires Node 18+ for v0.1 (TypeScript). Rust binary in v0.2 — single binary, no runtime. Details and troubleshooting: [docs/INSTALL.md](docs/INSTALL.md).

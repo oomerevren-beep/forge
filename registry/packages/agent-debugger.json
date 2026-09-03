@@ -1,7 +1,7 @@
 {
   "name": "agent/debugger",
   "type": "agent",
-  "description": "Debugger agent — reproduce and root-cause failures step by step",
+  "description": "Debugger agent \u2014 reproduce and root-cause failures step by step",
   "homepage": "https://github.com/agent/debugger",
   "repository": "https://github.com/oomerevren-beep/forge",
   "keywords": [
@@ -22,5 +22,6 @@
       "verified": true
     }
   },
-  "latest": "1.0.0"
+  "latest": "1.0.0",
+  "verified": true
 }

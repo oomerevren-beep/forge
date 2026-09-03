@@ -1,7 +1,7 @@
 {
   "name": "pdf/forms",
   "type": "skill",
-  "description": "PDF forms skill — fill and extract AcroForm form data",
+  "description": "PDF forms skill \u2014 fill and extract AcroForm form data",
   "homepage": "https://github.com/pdf/forms",
   "repository": "https://github.com/oomerevren-beep/forge",
   "keywords": [
@@ -22,5 +22,6 @@
       "verified": true
     }
   },
-  "latest": "1.0.0"
+  "latest": "1.0.0",
+  "verified": true
 }

@@ -1,7 +1,7 @@
 {
   "name": "pdf/merge",
   "type": "skill",
-  "description": "PDF merge skill — combine multiple PDFs into one document fast",
+  "description": "PDF merge skill \u2014 combine multiple PDFs into one document fast",
   "homepage": "https://github.com/pdf/merge",
   "repository": "https://github.com/oomerevren-beep/forge",
   "keywords": [
@@ -22,5 +22,6 @@
       "verified": true
     }
   },
-  "latest": "1.0.0"
+  "latest": "1.0.0",
+  "verified": true
 }

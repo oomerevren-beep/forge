@@ -1,7 +1,7 @@
 {
   "name": "pdf/compress",
   "type": "skill",
-  "description": "PDF compress skill — shrink PDF size without quality loss",
+  "description": "PDF compress skill \u2014 shrink PDF size without quality loss",
   "homepage": "https://github.com/pdf/compress",
   "repository": "https://github.com/oomerevren-beep/forge",
   "keywords": [
@@ -22,5 +22,6 @@
       "verified": true
     }
   },
-  "latest": "1.0.0"
+  "latest": "1.0.0",
+  "verified": true
 }

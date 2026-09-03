@@ -1,7 +1,7 @@
 {
   "name": "pdf/tables",
   "type": "skill",
-  "description": "PDF tables skill — detect and export tables from PDFs to CSV",
+  "description": "PDF tables skill \u2014 detect and export tables from PDFs to CSV",
   "homepage": "https://github.com/pdf/tables",
   "repository": "https://github.com/oomerevren-beep/forge",
   "keywords": [
@@ -22,5 +22,6 @@
       "verified": true
     }
   },
-  "latest": "1.0.0"
+  "latest": "1.0.0",
+  "verified": true
 }

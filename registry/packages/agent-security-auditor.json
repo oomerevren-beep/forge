@@ -1,7 +1,7 @@
 {
   "name": "agent/security-auditor",
   "type": "agent",
-  "description": "Security auditor agent — scan code for vulns and hardening tips",
+  "description": "Security auditor agent \u2014 scan code for vulns and hardening tips",
   "homepage": "https://github.com/agent/security-auditor",
   "repository": "https://github.com/oomerevren-beep/forge",
   "keywords": [
@@ -22,5 +22,6 @@
       "verified": true
     }
   },
-  "latest": "1.0.0"
+  "latest": "1.0.0",
+  "verified": true
 }

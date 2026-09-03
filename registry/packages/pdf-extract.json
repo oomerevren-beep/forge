@@ -1,7 +1,7 @@
 {
   "name": "pdf/extract",
   "type": "skill",
-  "description": "PDF extract skill — pull text, tables and images from PDFs",
+  "description": "PDF extract skill \u2014 pull text, tables and images from PDFs",
   "homepage": "https://github.com/pdf/extract",
   "repository": "https://github.com/oomerevren-beep/forge",
   "keywords": [
@@ -22,5 +22,6 @@
       "verified": true
     }
   },
-  "latest": "1.0.0"
+  "latest": "1.0.0",
+  "verified": true
 }

@@ -1,7 +1,7 @@
 {
   "name": "pdf/split",
   "type": "skill",
-  "description": "PDF split skill — extract pages and split PDFs by range",
+  "description": "PDF split skill \u2014 extract pages and split PDFs by range",
   "homepage": "https://github.com/pdf/split",
   "repository": "https://github.com/oomerevren-beep/forge",
   "keywords": [
@@ -22,5 +22,6 @@
       "verified": true
     }
   },
-  "latest": "1.0.0"
+  "latest": "1.0.0",
+  "verified": true
 }

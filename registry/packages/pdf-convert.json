@@ -1,7 +1,7 @@
 {
   "name": "pdf/convert",
   "type": "skill",
-  "description": "PDF convert skill — PDF to Word, HTML, Markdown and back",
+  "description": "PDF convert skill \u2014 PDF to Word, HTML, Markdown and back",
   "homepage": "https://github.com/pdf/convert",
   "repository": "https://github.com/oomerevren-beep/forge",
   "keywords": [
@@ -22,5 +22,6 @@
       "verified": true
     }
   },
-  "latest": "1.0.0"
+  "latest": "1.0.0",
+  "verified": true
 }
