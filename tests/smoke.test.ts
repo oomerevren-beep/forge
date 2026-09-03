@@ -35,11 +35,11 @@ describe("forge core — smoke", () => {
     assert.ok(errs.length > 0);
   });
 
-  it("registry index loads and search works", () => {
+  it("registry index loads and search works (Epoch 1d: verified only)", () => {
     const idx = loadIndex();
-    assert.ok(idx.count >= 100);
+    assert.ok(idx.count >= 10); // 21 verified packages
     const res = searchPackages("mcp");
-    assert.ok(res.length >= 20);
+    assert.ok(res.length >= 3); // 5 verified mcp
   });
 
   it("smol-toml stringify/parse roundtrip", () => {
@@ -84,27 +84,27 @@ describe("forge core — smoke", () => {
     rmSync(dir, { recursive: true, force: true });
   });
 
-  it("registry stats totals 250 and breakdown", () => {
+  it("registry stats totals 21 and breakdown (Epoch 1d: verified only)", () => {
     const idx = loadIndex();
-    assert.equal(idx.count, 250);
-    // stats.json should exist and sum to 250
+    assert.equal(idx.count, 21);
+    // stats.json should exist and sum to 21
     const statsPath = join(process.cwd(), "registry/stats.json");
     if (existsSync(statsPath)) {
       const stats = JSON.parse(readFileSync(statsPath, "utf-8"));
       const byType = stats.byType || stats;
       const sum = (byType.skill || 0) + (byType.mcp || 0) + (byType.agent || 0) + (byType.command || 0) + (byType.hook || 0) + (byType.plugin || 0);
-      assert.equal(sum, 250);
-      assert.equal(stats.totalPackages || sum, 250);
+      assert.equal(sum, 21);
+      assert.equal(stats.totalPackages || sum, 21);
     }
   });
 
-  it("search mcp returns 24 and skill/pdf exists", () => {
+  it("search mcp returns 5 and skill/pdf exists (Epoch 1d: verified only)", () => {
     const mcp = searchPackages("mcp");
-    assert.ok(mcp.length >= 20);
+    assert.ok(mcp.length >= 3); // 5 verified mcp
     const pdf = searchPackages("pdf");
-    assert.ok(pdf.length >= 10);
+    assert.ok(pdf.length >= 5); // 8 verified pdf
     const agent = searchPackages("agent");
-    assert.ok(agent.length >= 20);
+    assert.ok(agent.length >= 3); // 5 verified agent
   });
 
   it("search <200ms offline (Faz 13-lite)", () => {

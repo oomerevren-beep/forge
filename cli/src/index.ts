@@ -162,6 +162,7 @@ program
     const version = record?.version ?? "unknown";
     // Remove from adapters
     const adapters = allAdapters; // try all to be thorough
+    let cleaned = false;
     for (const adapter of adapters) {
       const wasInstalled = await adapter.isInstalled(slug);
       if (wasInstalled) {
@@ -171,12 +172,18 @@ program
           await adapter.uninstall(slug, "mcp");
           await adapter.uninstall(slug, "agent");
           console.log(`  ✓ removed from ${adapter.displayName}`);
+          cleaned = true;
         } catch (e) {
           console.warn(`  ✗ ${adapter.displayName}: ${(e as Error).message}`);
         }
-        // MCP config cleanup
-        const cfgPath = adapter.mcpConfigPath();
-        if (cfgPath) removeMcpServerFromConfig(cfgPath, slug);
+      }
+      // Epoch 1d: MCP config cleanup — ALWAYS, even if link is missing
+      // (orphan MCP entries from crashed installs)
+      const cfgPath = adapter.mcpConfigPath();
+      if (cfgPath) {
+        try {
+          removeMcpServerFromConfig(cfgPath, slug);
+        } catch {}
       }
     }
     // Remove from store (keep cache? remove package dir)
@@ -189,6 +196,11 @@ program
       delete links[name];
       writeLinks(links);
     } else {
+      // Epoch 1d: always clean links entry if it exists (even partial)
+      if (links[name]) {
+        delete links[name];
+        writeLinks(links);
+      }
       // try to clean any version dir matching slug
       for (const p of listInstalledPackages()) {
         if (p.slug === slug) {

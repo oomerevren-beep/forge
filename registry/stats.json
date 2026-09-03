@@ -1,15 +1,13 @@
 {
-  "generatedAt": "2026-09-03T17:59:19.742Z",
-  "totalPackages": 250,
+  "generatedAt": "2026-09-03T19:12:58.146Z",
+  "totalPackages": 21,
   "byType": {
-    "skill": 127,
-    "agent": 33,
-    "command": 15,
-    "hook": 10,
-    "mcp": 54,
-    "plugin": 11
+    "agent": 5,
+    "command": 2,
+    "mcp": 5,
+    "skill": 9
   },
-  "placeholderSha": 230,
+  "placeholderSha": 0,
   "verifiedCount": 21,
-  "communityCount": 229
+  "communityCount": 0
 }
