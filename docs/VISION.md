@@ -2,64 +2,66 @@
 
 > The Homebrew for AI Agents. One CLI to rule every harness.
 
-## Tek cumle
-`brew` ne ise sistem paketleri icin, `forge` o'dur AI agent ekosistemi icin.
+## One sentence
+
+What `brew` is for system packages, `forge` is for the AI agent ecosystem.
 
 ## Problem
-2026'da AI coding agent patlamasi yasaniyor ama ekosistem daginik:
 
-- **Skills:** 280k star `superpowers`, 172k `anthropics/skills` — ama kurulum `git clone + cp .md` tas devri
-- **MCP Servers:** 5000+ MCP server var, her biri farkli install yontemi (npx, docker, pip)
-- **Plugins:** DeepSeek Harness 18 gunde 207k star aldi ("Everything is a Plugin") ama sadece DeepSeek'te calisiyor
-- **Agents/Subagents:** Her harness kendi klasorunde sakliyor
-- **Prompts/Commands:** Slash command'lar harness'e ozel
+In 2026 the AI coding-agent boom is here but the ecosystem is fragmented:
 
-Sonuc: Bir developer Claude Code, Codex, OpenCode, Cursor, DeepSeek Harness arasinda ayni paketi 5 kez manuel kuruyor. Versiyon yok, guncelleme yok, dependency yok.
+- **Skills:** 280k-star `superpowers`, 172k `anthropics/skills` — but installing means `git clone + cp .md`, stone age
+- **MCP Servers:** 5000+ MCP servers exist, each with a different install method (npx, docker, pip)
+- **Plugins:** DeepSeek Harness hit 207k stars in 18 days ("Everything is a Plugin") but only runs on DeepSeek
+- **Agents/Subagents:** every harness stores them in its own folder
+- **Prompts/Commands:** slash commands are harness-specific
 
-## Cozum: Forge
+Result: one developer installs the same package 5 times by hand across Claude Code, Codex, OpenCode, Cursor, DeepSeek Harness. No versions, no updates, no dependencies.
 
-Tek paket yoneticisi, tum tipler, tum harness'lar:
+## Solution: Forge
+
+One package manager, all types, all harnesses:
 
 ```
 forge add anthropics/plan          # skill
 forge add modelcontextprotocol/filesystem  # mcp
 forge add vercel/nextjs-plugin     # plugin
-forge add obra/superpowers         # agent koleksiyonu
+forge add obra/superpowers         # agent collection
 forge add dotprompt/react-best-practices # prompt
 ```
 
-Tek komut -> dogru yere kurar, versiyonlar, gunceller.
+One command -> installs to the right place, versions, updates.
 
-## Kapsam — Sadece Skill Degil
+## Scope — Not Just Skills
 
-Forge 6 paket tipini yonetir (hepsi `forge.toml` ile tanimli):
+Forge manages 6 package types (all declared via `forge.toml`):
 
-| Tip | Aciklama | Ornek |
+| Type | Description | Example |
 |-----|----------|-------|
-| `skill` | SKILL.md tabanli yetenek (Anthropic standard) | `anthropics/plan`, `superpowers` |
+| `skill` | SKILL.md-based capability (Anthropic standard) | `anthropics/plan`, `superpowers` |
 | `mcp` | Model Context Protocol server | `mcp/filesystem`, `mcp/github` |
 | `plugin` | Harness extension (DSH, OpenCode plugin) | `dsh/desktop`, `opencode/lsp` |
-| `agent` | Subagent tanimi (orchestrator/worker) | `agency/frontend-wizard` |
+| `agent` | Subagent definition (orchestrator/worker) | `agency/frontend-wizard` |
 | `command` | Slash command | `/plan`, `/review` |
 | `hook` | Lifecycle hook | `pre-commit`, `post-tool` |
 
-Hepsi ayni registry'de, ayni CLI ile, ayni semantik versiyonlama ile.
+All in the same registry, same CLI, same semantic versioning.
 
-## Rekabet
+## Competition
 
-| Rakip | Star | Ne yapar | Eksikleri |
+| Rival | Stars | What it does | Gaps |
 |-------|------|----------|-----------|
-| `npx skills` (Vercel) | 30k | 75+ ajan, repo-agnostik | Doğrulama yok, takım senkronu yok, yerel CLI yok |
-| `anthropics/skills` | 173k | Claude skill'leri | Tek harness, versiyonlama yok |
-| `DSH` (DeepSeek) | 208k | Plugin modeli | Tek harness, doğrulama yok |
-| `mcp-registry` | — | MCP sunucuları | Tek tür, merkezi |
+| `npx skills` (Vercel) | 30k | 75+ agents, repo-agnostic | No verification, no team sync, no local CLI |
+| `anthropics/skills` | 173k | Claude skills | Single harness, no versioning |
+| `DSH` (DeepSeek) | 208k | Plugin model | Single harness, no verification |
+| `mcp-registry` | — | MCP servers | Single type, centralized |
 
-**Forge'un farkı**: fail-closed doğrulama + takım senkronu + offline arama + yerel CLI. Bu kombinasyon yok.
+**Forge's edge**: fail-closed verification + team sync + offline search + local CLI. That combination exists nowhere else.
 
-## Kuzey Yildizi Metrigi
+## North-Star Metric
 
-`forge add` ile kurulan paket sayisi. Hedef: 1. ay 10k install, 6. ay 1M install.
+Packages installed via `forge add`. Goal: 10k installs in month 1, 1M by month 6.
 
-## Uzun Vadeli
+## Long Term
 
-Forge registry -> Agent App Store. `forge publish` ile herkes paket yayinlar, `forge search` ile kesfeder, `forge update` ile gunceller. Sonra `forge run` ile agent'i dogrudan calistir (harness soyutlamasi). Nihai vizyon: **Agent OS package manager**.
+Forge registry -> Agent App Store. Anyone publishes with `forge publish`, discovers with `forge search`, updates with `forge update`. Then run the agent directly with `forge run` (harness abstraction). Endgame: **the Agent OS package manager**.

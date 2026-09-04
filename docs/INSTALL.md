@@ -1,17 +1,17 @@
 # Install — Forge
 
-Üç yoldan biri. Önerilen: npm (yayınlanan `tryforge@0.1.1`).
+One of three paths. Recommended: npm (published `tryforge@0.1.1`).
 
-## 1. npm (önerilen)
+## 1. npm (recommended)
 
 ```bash
 npm i -g tryforge
 forge doctor
 ```
 
-Gereksinim: Node 22+.
+Requirement: Node 22+.
 
-## 2. curl (npm'siz)
+## 2. curl (no npm)
 
 ```bash
 # macOS / Linux
@@ -23,9 +23,9 @@ curl -fsSL https://raw.githubusercontent.com/oomerevren-beep/forge/main/install.
 irm https://raw.githubusercontent.com/oomerevren-beep/forge/main/install.ps1 | iex
 ```
 
-Yükleyici önce npm'i dener, yoksa GitHub release binary'sine düşer. Kurulumdan sonra terminali yeniden açıp `forge doctor` çalıştırın (PATH'e eklenmesi gerekebilir).
+The installer tries npm first, then falls back to the GitHub release binary. After installing, reopen your terminal and run `forge doctor` (it may need to be added to PATH).
 
-## 3. Kaynaktan
+## 3. From source
 
 ```bash
 git clone https://github.com/oomerevren-beep/forge
@@ -36,11 +36,11 @@ npm test
 npx tsx cli/src/index.ts --help
 ```
 
-## Doğrulama
+## Verification
 
 ```bash
-forge doctor              # 7 harness algılanır
-forge search plan         # registry araması (<200ms, offline)
+forge doctor              # 7 harnesses detected
+forge search plan         # registry search (<200ms, offline)
 ```
 
-Sorun yaşarsanız: [FAQ](../README.md#faq) ve `forge doctor` çıktısıyla bir [bug report](https://github.com/oomerevren-beep/forge/issues/new?template=bug_report.md) açın.
+If you hit a problem: see [FAQ](../README.md#faq) and open a [bug report](https://github.com/oomerevren-beep/forge/issues/new?template=bug_report.md) with your `forge doctor` output.

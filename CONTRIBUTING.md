@@ -25,6 +25,18 @@ npm run registry:build -- --check # CI check (fails if out of sync)
 
 To add a real package, create `registry/packages/my-pkg.json` following `schema/forge.schema.json`, then run `npm run registry:build`.
 
+## Adding a skill package
+
+New skills start from a generated skeleton — never from a blank file:
+
+```bash
+npx tsx cli/src/index.ts init my-skill --type skill --yes   # or mcp|plugin|agent|command|hook
+# edit SKILL.md + forge.toml, verify the skeleton:
+ls my-skill   # forge.toml + SKILL.md (+ type-specific files)
+```
+
+Every type ships its required files (`SKILL.md` for skills, `agent.md` for agents, `mcp.json` + `src/index.ts` for MCPs). See `docs/SPEC.md` for the per-type `forge.toml` fields.
+
 ## Adding a harness adapter
 
 See `docs/ADAPTERS.md`. In short:

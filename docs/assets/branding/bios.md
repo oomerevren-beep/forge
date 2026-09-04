@@ -15,11 +15,11 @@ Link: https://github.com/oomerevren-beep/forge
 ## HN (about)
 Creator of forge (https://github.com/oomerevren-beep/forge) — package manager for AI agent skills/MCPs/plugins. 5 harnesses, 100 packages, forge.toml team sync.
 
-## Ortak linkler
+## Shared links
 Website: https://github.com/oomerevren-beep/forge
 Install: curl -fsSL https://raw.githubusercontent.com/oomerevren-beep/forge/main/install.sh | sh
 
-## Username denenecekler (forge alınmışsa fallback)
+## Candidate usernames (fallbacks if forge is taken)
 1. forge
 2. forge_cli
 3. tryforge

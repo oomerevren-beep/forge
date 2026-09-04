@@ -227,26 +227,26 @@ Add a harness = one file in `cli/src/adapters/`. See `docs/ADAPTERS.md`.
 
 ---
 
-## Rekabet
+## Competition
 
 |  | **Forge** | `npx skills` (Vercel) | `anthropics/skills` | `DSH` | `mcp-registry` |
 |---|---|---|---|---|---|
-| Türler | **6** (skill/mcp/plugin/agent/command/hook) | 1 (skill) | 1 (skill) | plugin | 1 (mcp) |
-| Harness | **7** (Claude/Codex/OpenCode/Cursor/DSH/Windsurf/Generic) | 75+ ajan | 1 | 1 | ~1 |
-| Versiyonlama | **semver + lock** | skills-lock.json | none | none | partial |
-| Güncelleme | `forge update` | check/update | manual | manual | manual |
-| Takım senkronu | **`forge.toml` + `forge.lock`** | none | none | none | none |
-| Arama | `<200ms` offline | `skills find` | GitHub search | none | web only |
-| Paket doğrulama | **sha256 + fail-closed** | none | none | none | none |
-| Yerel CLI | **evet** (npm i -g) | npx (her seferinde indirir) | manual | manual | — |
+| Types | **6** (skill/mcp/plugin/agent/command/hook) | 1 (skill) | 1 (skill) | plugin | 1 (mcp) |
+| Harnesses | **7** (Claude/Codex/OpenCode/Cursor/DSH/Windsurf/Generic) | 75+ agents | 1 | 1 | ~1 |
+| Versioning | **semver + lock** | skills-lock.json | none | none | partial |
+| Updates | `forge update` | check/update | manual | manual | manual |
+| Team sync | **`forge.toml` + `forge.lock`** | none | none | none | none |
+| Search | `<200ms` offline | `skills find` | GitHub search | none | web only |
+| Package verification | **sha256 + fail-closed** | none | none | none | none |
+| Local CLI | **yes** (npm i -g) | npx (downloads every run) | manual | manual | — |
 
-Fark: Forge, her paketi sha256 ile doğrular (fail-closed), `forge.toml` ile takım senkronu yapar, offline arama yapar ve yerel CLI olarak çalışır. Vercel skills repo-agnostik çalışır ama doğrulama ve takım senkronu yok.
+Difference: Forge verifies every package with sha256 (fail-closed), syncs teams via `forge.toml`, searches offline, and runs as a local CLI. Vercel skills is repo-agnostic but has no verification and no team sync.
 
 ---
 
 ## Registry — 21 Verified Packages
 
-Epoch 1d: Sadece sha256 doğrulanmış paketler listeleniyor (fail-closed).
+Epoch 1d: only sha256-verified packages are listed (fail-closed).
 
 ```bash
 forge search mcp        # 5 results
@@ -255,13 +255,13 @@ forge search --type skill plan  # filtered
 forge info pdf/compress # versions, engines, sha
 ```
 
-Stats: **9 skills, 5 MCPs, 5 agents, 2 commands.** Tümü verified (sha256 pinned).
+Stats: **9 skills, 5 MCPs, 5 agents, 2 commands.** All verified (sha256 pinned).
 
 ```bash
 npm run registry:build  # index + search + stats + --check in CI
 ```
 
-Düzenli güncelleme: Yeni paketler eklemek için `registry/packages/<slug>.json` oluşturun → `npm run registry:build -- --check`.
+Regular updates: to add new packages, create `registry/packages/<slug>.json` → `npm run registry:build -- --check`.
 
 ---
 
@@ -305,15 +305,15 @@ See `docs/ROADMAP.md`.
 
 ---
 
-## Paket Doğrulama
+## Package Verification
 
-Forge, fail-closed paket doğrulama sağlar:
+Forge provides fail-closed package verification:
 
-1. **sha256 pin**: Her paket sürümü SHA-256 hash'i ile imzalanır
-2. **Verify on install**: İndirme sırasında hash kontrol edilir — uyarsa exit 1
-3. **Audit trail**: `forge audit` mock/tamamlanmamış kurulumları listeler
+1. **sha256 pin**: every package version is signed with its SHA-256 hash
+2. **Verify on install**: the hash is checked during download — mismatch means exit 1
+3. **Audit trail**: `forge audit` lists mock/incomplete installs
 
-Gelecek (v0.2): Sigstore/cosign ile imzalama, verified publisher programı.
+Future (v0.2): Sigstore/cosign signing, verified-publisher program.
 
 - Add a package: create `registry/packages/<slug>.json` → `npm run registry:build`
 - Add a harness: `cli/src/adapters/<name>.ts` → register in `adapters/index.ts` → `forge doctor`
@@ -336,7 +336,7 @@ Those are single-type and single-harness. Forge is `brew` for *all* agent packag
 No. `curl -fsSL https://raw.githubusercontent.com/oomerevren-beep/forge/main/install.sh | sh` works today. `forge.sh` is a future vanity alias.
 
 **Are most packages mock content?**
-Honest answer: 245 of 250 registry entries still carry placeholder SHAs (only 5 verified so far). Forge is fail-closed — installing one without `--mock` errors out instead of silently faking it; `forge audit` flags every unverified install. Real tarballs land as maintainers verify them (tracked for Faz 13-full).
+Honest answer: 245 of 250 registry entries still carry placeholder SHAs (only 5 verified so far). Forge is fail-closed — installing one without `--mock` errors out instead of silently faking it; `forge audit` flags every unverified install. Real tarballs land as maintainers verify them (tracked for Phase 13-full).
 
 **Windows symlinks?**
 Junction (`symlinkSync(..., 'junction')`) on dirs, fallback to `cpSync` on `EPERM`. `doctor` checks `links.json` (source of truth), not just dir scan.

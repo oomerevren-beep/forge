@@ -1,13 +1,13 @@
 # Team Sync Example
 
-Bir projede herkesin aynı agent paketlerini alması: `forge.toml` + `forge.lock`.
+Everyone on a project gets the same agent packages: `forge.toml` + `forge.lock`.
 
-## Dene
+## Try
 
 ```bash
 cd examples/team-sync
 cat forge.toml
-forge install --dry-run   # ne kurulacağını gösterir, yazmaz
-forge install             # kurar + forge.lock yazar
-forge install --frozen    # CI: lock'taki exact sürümler
+forge install --dry-run   # shows what would be installed, writes nothing
+forge install             # installs + writes forge.lock
+forge install --frozen    # CI: exact locked versions
 ```

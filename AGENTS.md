@@ -1,40 +1,40 @@
 # AGENTS.md — Forge
 
-Sen Forge'un otonom ajanisin. Bu repo `forge` — AI agent ekosisteminin homebrew'u.
+You are Forge's autonomous agent. This repo is `forge` — the homebrew of the AI agent ecosystem.
 
-## Proje
+## Project
 
-- **Ad:** Forge
+- **Name:** Forge
 - **Repo:** `forge` (GitHub: `oomerevren-beep/forge` / `oomerevren/forge`)
-- **Dil:** TypeScript (v0.1 Bun) -> Rust (v0.2)
-- **Calisma alani:** `C:/Users/ömer/Desktop/forge`
+- **Language:** TypeScript (v0.1) -> Rust (v0.2)
+- **Workspace:** `C:/Users/ömer/Desktop/forge`
 
-## Komutlar
+## Commands
 
 ```bash
 cd C:/Users/ömer/Desktop/forge
-bun install
-bun run dev          # CLI dev
-bun run build        # build
-bun test             # test
-bun run registry:build  # registry index olustur
+npm install
+npm run dev          # CLI dev
+npm run build        # build
+npm test             # test
+npm run registry:build  # build registry index
 ```
 
-## Kurallar
+## Rules
 
-- Dil: Turkce (teknik terimler Ingilizce)
-- Her degisiklikte `docs/` guncelle
-- Her 3 adimda kendi kendini dogrula (test calistir)
-- Commit mesaji: `feat:`, `fix:`, `docs:`, `registry:` prefix
+- Language: English (100% English OSS standard)
+- Update `docs/` with every change
+- Self-verify every 3 steps (run tests)
+- Commit messages: `feat:`, `fix:`, `docs:`, `registry:` prefix
 
-## Mimari
+## Architecture
 
-Bkz: `docs/ARCHITECTURE.md`, `docs/SPEC.md`, `docs/REGISTRY.md`
+See: `docs/ARCHITECTURE.md`, `docs/SPEC.md`, `docs/REGISTRY.md`
 
-## Harness'ler
+## Harnesses
 
-Adapter'lar `cli/src/adapters/` altinda. Yeni harness eklerken `docs/ADAPTERS.md` oku.
+Adapters live under `cli/src/adapters/`. When adding a new harness, read `docs/ADAPTERS.md`.
 
 ## Registry
 
-`registry/` klasoru dogrudan deploy edilir. `registry/packages/*.json` elle duzenleme — `scripts/seed-registry.ts` ile olustur.
+The `registry/` folder is deployed directly. Never hand-edit `registry/packages/*.json` — generate with `scripts/seed-registry.ts`.

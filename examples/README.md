@@ -1,10 +1,10 @@
 # Examples
 
-Copy-paste ile çalışan minimal örnekler. Her klasör bağımsız denenebilir.
+Minimal copy-paste examples. Each folder can be tried independently.
 
-| Örnek | Ne gösterir |
+| Example | Shows |
 |-------|-------------|
-| [`minimal-skill/`](minimal-skill/) | En küçük `skill` paketi: `SKILL.md` + `forge.toml` |
-| [`team-sync/`](team-sync/) | Takım senkronu: `forge.toml` + `forge install` |
+| [`minimal-skill/`](minimal-skill/) | Smallest `skill` package: `SKILL.md` + `forge.toml` |
+| [`team-sync/`](team-sync/) | Team sync: `forge.toml` + `forge install` |
 
-Önce CLI kurulu olmalı: `npm i -g tryforge` veya `curl -fsSL https://raw.githubusercontent.com/oomerevren-beep/forge/main/install.sh | sh`.
+The CLI must be installed first: `npm i -g tryforge` or `curl -fsSL https://raw.githubusercontent.com/oomerevren-beep/forge/main/install.sh | sh`.

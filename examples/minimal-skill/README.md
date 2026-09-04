@@ -1,13 +1,13 @@
 # Minimal Skill Example
 
-En küçük kurulabilir `skill` paketi. `forge init my-skill --type skill` ile üretilen iskeletin aynısıdır.
+The smallest installable `skill` package. Identical to the skeleton produced by `forge init my-skill --type skill`.
 
-## Dosyalar
+## Files
 
-- `SKILL.md` — yetenek tanımı (Anthropic standardı)
-- `forge.toml` — paket bildirimi
+- `SKILL.md` — capability definition (Anthropic standard)
+- `forge.toml` — package declaration
 
-## Dene
+## Try
 
 ```bash
 cd examples/minimal-skill
