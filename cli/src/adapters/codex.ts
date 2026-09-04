@@ -1,30 +1,41 @@
-// cli/src/adapters/codex.ts — Codex harness
+// cli/src/adapters/codex.ts — Codex harness (shared file-adapter base)
 import { existsSync } from "fs";
 import { join } from "path";
-import { homedir } from "os";
-import { type Adapter, installSkillFiles, uninstallSkillFiles } from "./types.js";
+import { type Adapter } from "./types.js";
+import {
+  testHome,
+  sharedList,
+  sharedIsInstalled,
+  sharedUninstall,
+  sharedInstall,
+  type ScopePaths,
+} from "./base.js";
+import { syncAgentsMd, unsyncAgentsMd } from "./agents-md.js";
+
+function paths(): ScopePaths {
+  const base = join(testHome(), ".codex", "skills");
+  return { skillBases: () => [base], installBase: () => base };
+}
 
 export const codexAdapter: Adapter = {
   name: "codex",
   displayName: "Codex",
-  version: "0.1.0",
-  detect: () => existsSync(join(homedir(), ".codex")),
-  skillDir: (slug) => join(homedir(), ".codex", "skills", slug),
-  mcpConfigPath: () => join(homedir(), ".codex", "mcp.json"),
-  async install(pkgSlug, srcDir, type) {
-    void type;
-    installSkillFiles("codex", pkgSlug, srcDir, join(homedir(), ".codex", "skills"));
+  version: "0.2.0",
+  detect: () => existsSync(join(testHome(), ".codex")),
+  skillDir: (slug) => join(paths().installBase(), slug),
+  mcpConfigPath: () => join(testHome(), ".codex", "mcp.json"),
+  async install(pkgSlug, srcDir, _type, meta) {
+    sharedInstall(paths(), pkgSlug, srcDir);
+    syncAgentsMd(process.cwd(), pkgSlug, join(paths().installBase(), pkgSlug), meta);
   },
   async uninstall(pkgSlug, _type) {
-    uninstallSkillFiles(pkgSlug, join(homedir(), ".codex", "skills"));
+    sharedUninstall(paths(), pkgSlug);
+    unsyncAgentsMd(process.cwd(), pkgSlug);
   },
   async list() {
-    const dir = join(homedir(), ".codex", "skills");
-    if (!existsSync(dir)) return [];
-    const { readdirSync } = await import("fs");
-    return readdirSync(dir, { withFileTypes: true }).filter((d) => (d.isDirectory() || d.isSymbolicLink()) && !d.name.startsWith(".")).map((d) => d.name);
+    return sharedList(paths());
   },
   async isInstalled(pkgSlug) {
-    return existsSync(join(homedir(), ".codex", "skills", pkgSlug));
+    return sharedIsInstalled(paths(), pkgSlug);
   },
 };

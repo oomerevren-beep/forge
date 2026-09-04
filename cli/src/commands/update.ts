@@ -87,7 +87,7 @@ export async function runUpdate(pkgArg?: string, opts: { cwd?: string; mock?: bo
       const { version, versionMeta } = await resolveVersion(name, latest);
       const src = await ensurePackageContent(name, version, detail, versionMeta, { allowMock: opts.mock });
       for (const adapter of adapters) {
-        await adapter.install(toSlug(name), src, detail.type);
+        await adapter.install(toSlug(name), src, detail.type, { version, description: detail.description });
         if (detail.type === "mcp" && versionMeta.mcp) {
           const cfgPath = adapter.mcpConfigPath();
           if (cfgPath) addMcpServerToConfig(cfgPath, toSlug(name), versionMeta.mcp);

@@ -27,8 +27,8 @@
   ],
   "type": "module",
   "bin": {
-    "forge": "dist/cli/src/index.js",
-    "tryforge": "dist/cli/src/index.js"
+    "forge": "./dist/index.cjs",
+    "tryforge": "./dist/index.cjs"
   },
   "files": [
     "dist/",
@@ -46,9 +46,10 @@
   "scripts": {
     "dev": "tsx cli/src/index.ts",
     "build": "tsc -p tsconfig.build.json",
+    "bundle": "esbuild cli/src/index.ts --bundle --platform=node --format=cjs --outfile=dist/index.cjs --banner:js=\"#!/usr/bin/env node\" --minify && node -e \"const fs=require('fs');const p='dist/index.cjs';const L=fs.readFileSync(p,'utf8').split('\\n');if(L[1]&&L[1].startsWith('#!'))L.splice(1,1);fs.writeFileSync(p,L.join('\\n'));fs.chmodSync(p, 0o755)\"",
     "lint": "eslint cli/ scripts/ tests/ eslint.config.js --max-warnings 0",
     "typecheck": "tsc --noEmit",
-    "prepublishOnly": "npm run build && npm test && npm run registry:build -- --check",
+    "prepublishOnly": "npm run build && npm run bundle && npm test && npm run registry:build -- --check",
     "test": "node --import tsx --test tests/**/*.test.ts cli/src/**/*.test.ts",
     "registry:build": "tsx scripts/build-registry.ts",
     "seed": "tsx scripts/seed-registry.ts"
@@ -60,6 +61,7 @@
   "devDependencies": {
     "@eslint/js": "^10.0.1",
     "@types/node": "^26.4.1",
+    "esbuild": "^0.28.2",
     "eslint": "^10.9.1",
     "playwright": "^1.62.1",
     "tsx": "^4.23.13",

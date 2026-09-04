@@ -1,40 +1,85 @@
-// cli/src/adapters/windsurf.ts — Windsurf harness (new in Phase 12)
-import { existsSync } from "fs";
+// cli/src/adapters/windsurf.ts — Windsurf harness (2026 format)
+//
+// Skills: <scope>/skills/<slug>/ (kept for back-compat).
+// Rules (Cascade AI): merged forge blocks in <project>/.windsurfrules —
+// user content outside markers is never touched (see core/merge.ts).
+// MCP: synced to <project>/.windsurf/mcp_config.json, else the global
+// ~/.codeium/windsurf/mcp_config.json (via mcpConfigPath).
+import { existsSync, rmSync } from "fs";
 import { join } from "path";
-import { homedir } from "os";
-import { type Adapter, installSkillFiles, uninstallSkillFiles, listDirNames } from "./types.js";
+import { type Adapter, type PackageMeta } from "./types.js";
+import {
+  testHome,
+  pointerBody,
+  sharedList,
+  sharedIsInstalled,
+  sharedUninstall,
+  sharedInstall,
+  syncBlockFile,
+  unsyncBlockFile,
+  shouldSyncRules,
+  type ScopePaths,
+} from "./base.js";
+
+function inProject(): boolean {
+  return existsSync(join(process.cwd(), ".windsurf"));
+}
+
+function paths(): ScopePaths {
+  return {
+    skillBases: () => [join(process.cwd(), ".windsurf", "skills"), join(testHome(), ".windsurf", "skills")],
+    installBase: () =>
+      inProject() ? join(process.cwd(), ".windsurf", "skills") : join(testHome(), ".windsurf", "skills"),
+  };
+}
+
+function rulesPath(): string {
+  return join(process.cwd(), ".windsurfrules");
+}
+
+function syncRules(projectDir: string, pkgSlug: string, meta?: PackageMeta): void {
+  const file = join(projectDir, ".windsurfrules");
+  if (!shouldSyncRules(projectDir, file)) return;
+  syncBlockFile(
+    file,
+    pkgSlug,
+    meta?.version ?? "0.0.0",
+    pointerBody({
+      slug: pkgSlug,
+      version: meta?.version ?? "",
+      description: meta?.description ?? `${pkgSlug} (installed via Forge)`,
+      skillPath: join(paths().installBase(), pkgSlug),
+    }),
+  );
+}
 
 export const windsurfAdapter: Adapter = {
   name: "windsurf",
   displayName: "Windsurf",
-  version: "0.1.0",
-  detect: () => existsSync(join(process.cwd(), ".windsurf")) || existsSync(join(homedir(), ".windsurf")) || existsSync(join(homedir(), ".codeium", "windsurf")),
-  skillDir: (slug) => {
-    if (existsSync(join(process.cwd(), ".windsurf"))) return join(process.cwd(), ".windsurf", "skills", slug);
-    return join(homedir(), ".windsurf", "skills", slug);
-  },
+  version: "0.2.0",
+  detect: () =>
+    existsSync(join(process.cwd(), ".windsurf")) ||
+    existsSync(join(testHome(), ".windsurf")) ||
+    existsSync(join(testHome(), ".codeium", "windsurf")),
+  skillDir: (slug) => join(paths().installBase(), slug),
   mcpConfigPath: () => {
-    if (existsSync(join(process.cwd(), ".windsurf"))) return join(process.cwd(), ".windsurf", "mcp_config.json");
-    return join(homedir(), ".codeium", "windsurf", "mcp_config.json");
+    if (inProject()) return join(process.cwd(), ".windsurf", "mcp_config.json");
+    return join(testHome(), ".codeium", "windsurf", "mcp_config.json");
   },
-  async install(pkgSlug, srcDir, type) {
-    void type;
-    const base = existsSync(join(process.cwd(), ".windsurf")) ? join(process.cwd(), ".windsurf", "skills") : join(homedir(), ".windsurf", "skills");
-    installSkillFiles("windsurf", pkgSlug, srcDir, base);
+  async install(pkgSlug, srcDir, _type, meta) {
+    sharedInstall(paths(), pkgSlug, srcDir);
+    syncRules(process.cwd(), pkgSlug, meta);
   },
   async uninstall(pkgSlug, _type) {
-    const bases = [join(process.cwd(), ".windsurf", "skills"), join(homedir(), ".windsurf", "skills")];
-    for (const b of bases) uninstallSkillFiles(pkgSlug, b);
+    sharedUninstall(paths(), pkgSlug);
+    unsyncBlockFile(rulesPath(), pkgSlug);
+    // Per-package Cascade rule files, if a previous version created them.
+    rmSync(join(process.cwd(), ".windsurf", "rules", `${pkgSlug}.md`), { force: true });
   },
   async list() {
-    const bases = [join(process.cwd(), ".windsurf", "skills"), join(homedir(), ".windsurf", "skills")];
-    for (const b of bases) {
-      if (existsSync(b)) return listDirNames(b);
-    }
-    return [];
+    return sharedList(paths());
   },
   async isInstalled(pkgSlug) {
-    const bases = [join(process.cwd(), ".windsurf", "skills"), join(homedir(), ".windsurf", "skills")];
-    return bases.some((b) => existsSync(join(b, pkgSlug)));
+    return sharedIsInstalled(paths(), pkgSlug);
   },
 };

@@ -1,7 +1,18 @@
 // cli/src/adapters/generic.ts — Generic fallback (./.forge/packages)
 import { join } from "path";
-import { type Adapter, installSkillFiles, uninstallSkillFiles, listDirNames } from "./types.js";
-import { existsSync } from "fs";
+import { type Adapter } from "./types.js";
+import {
+  sharedList,
+  sharedIsInstalled,
+  sharedUninstall,
+  sharedInstall,
+  type ScopePaths,
+} from "./base.js";
+
+function paths(): ScopePaths {
+  const base = join(process.cwd(), ".forge", "packages");
+  return { skillBases: () => [base], installBase: () => base };
+}
 
 export const genericAdapter: Adapter = {
   name: "generic",
@@ -9,16 +20,16 @@ export const genericAdapter: Adapter = {
   detect: () => true, // always as fallback
   skillDir: (slug) => join(process.cwd(), ".forge", "packages", slug),
   mcpConfigPath: () => join(process.cwd(), ".forge", "mcp.json"),
-  async install(pkgSlug, srcDir, _type) {
-    installSkillFiles("generic", pkgSlug, srcDir, join(process.cwd(), ".forge", "packages"));
+  async install(pkgSlug, srcDir, _type, _meta) {
+    sharedInstall(paths(), pkgSlug, srcDir);
   },
   async uninstall(pkgSlug, _type) {
-    uninstallSkillFiles(pkgSlug, join(process.cwd(), ".forge", "packages"));
+    sharedUninstall(paths(), pkgSlug);
   },
   async list() {
-    return listDirNames(join(process.cwd(), ".forge", "packages"));
+    return sharedList(paths());
   },
   async isInstalled(pkgSlug) {
-    return existsSync(join(process.cwd(), ".forge", "packages", pkgSlug));
+    return sharedIsInstalled(paths(), pkgSlug);
   },
 };

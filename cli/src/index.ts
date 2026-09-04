@@ -23,7 +23,7 @@ const program = new Command();
 program
   .name("forge")
   .description("The Homebrew for AI Agents — one CLI for skills, MCPs, plugins, agents")
-  .version("0.1.1")
+  .version("0.1.2")
   .helpOption("-h, --help", "display help for command");
 
 // --- add ---
@@ -89,7 +89,7 @@ program
     let failed = 0;
     for (const adapter of adapters) {
       try {
-        await adapter.install(slug, srcDir, detail.type);
+        await adapter.install(slug, srcDir, detail.type, { version, description: detail.description });
         console.log(`  ✓ ${adapter.displayName} → ${adapter.skillDir(slug)}`);
 
         // MCP: inject into mcp config
@@ -124,7 +124,10 @@ program
           const depResolved = await resolveVersion(depName, depRange);
           const depSrc = await ensurePackageContent(depName, depResolved.version, depResolved.detail, depResolved.versionMeta, { allowMock: opts.mock });
           for (const adapter of adapters) {
-            await adapter.install(toSlug(depName), depSrc, depResolved.detail.type);
+            await adapter.install(toSlug(depName), depSrc, depResolved.detail.type, {
+              version: depResolved.version,
+              description: depResolved.detail.description,
+            });
           }
           console.log(`  ✓ dep ${depName}@${depResolved.version}`);
         } catch (e) {
@@ -351,7 +354,7 @@ program
           if (opts.fix) {
             const src = liveDir;
             if (existsSync(src)) {
-              await adapter.install(rec.slug, src, rec.type ?? "skill");
+              await adapter.install(rec.slug, src, rec.type ?? "skill", { version: rec.version });
               console.log(`    → fixed`);
               fixed++;
             } else {

@@ -11,10 +11,16 @@ export interface Adapter {
   detect(): boolean;
   skillDir(slug: string): string;
   mcpConfigPath(): string | null;
-  install(pkgSlug: string, srcDir: string, type: string): Promise<void>;
+  install(pkgSlug: string, srcDir: string, type: string, meta?: PackageMeta): Promise<void>;
   uninstall(pkgSlug: string, type: string): Promise<void>;
   list(): Promise<string[]>;
   isInstalled(pkgSlug: string): Promise<boolean>;
+}
+
+/** Optional package metadata for rule-file sync (4th arg of install). */
+export interface PackageMeta {
+  version?: string;
+  description?: string;
 }
 
 export function ensureDir(dir: string): void {

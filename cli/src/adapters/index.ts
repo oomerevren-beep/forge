@@ -1,5 +1,5 @@
 // cli/src/adapters/index.ts — Epoch 1e: merged with the adapter plugin system
-export type { Adapter } from "./types.js";
+export type { Adapter, PackageMeta } from "./types.js";
 export {
   readMcpConfig,
   writeMcpConfig,
