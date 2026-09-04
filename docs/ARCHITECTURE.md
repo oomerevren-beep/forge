@@ -1,6 +1,6 @@
 # Forge — Architecture
 
-## 1. Genel Mimari
+## 1. Overview
 
 ```
 +----------------+      +----------------+      +----------------+
@@ -27,50 +27,58 @@
 +----------------+
 ```
 
-## 2. Bilesenler
+## 2. Components
 
-### 2.1 CLI (Rust)
+### 2.1 CLI (TypeScript v0.1 → Rust v0.2)
 
-Neden Rust: Tek binary, hizli, cross-platform, `cargo install forge` ile dagitim.
+Why Rust (target): single binary, fast, cross-platform, `cargo install forge` distribution.
 
 ```
-crates/
-  forge-cli/        # ana binary, clap ile komutlar
-  forge-core/       # paket cozme, indirme, cache
+crates/ (v0.2 target)
+  forge-cli/        # main binary, commands via clap
+  forge-core/       # package resolution, download, cache
   forge-registry/   # registry client (search, fetch index)
-  forge-adapter/    # harness adapter trait + impl'lar
-  forge-spec/       # forge.toml parser + validasyon
+  forge-adapter/    # harness adapter trait + impls
+  forge-spec/       # forge.toml parser + validation
 ```
 
-Alternatif v0.1: Node/TypeScript ile basla (hizli prototip), v0.2'de Rust'a gec. Karar: **v0.1 TypeScript (Bun)**, v0.2 Rust rewrite. Hizli cikmak icin.
+Shipped v0.1 in TypeScript for speed (prototype), Rust rewrite in v0.2.
+Zero-install: `npx forge add <pkg>` runs the bundled `dist/index.cjs`
+(esbuild single file, no global install).
+
+```
+dist/
+  index.cjs           # esbuild bundle — the published bin (./dist/index.cjs)
+  cli/...             # tsc emit (types + CI)
+```
 
 ### 2.2 Local Store
 
 ```
 ~/.forge/
-  config.toml          # kullanici ayari (default harness'lar, registry url)
+  config.toml          # user settings (default harnesses, registry url)
   packages/
-    anthropics-plan@1.2.0/  # indirilen paket icerigi
+    anthropics-plan@1.2.0/  # downloaded package content
     mcp-filesystem@2.0.1/
   links/
-    claude-code -> ~/.claude/skills/  # symlink veya copy kaydi
+    claude-code -> ~/.claude/skills/  # symlink or copy record
   cache/
     index.json         # registry index cache
     tarballs/
 ```
 
-`forge.toml` proje seviyesinde de olabilir (npm gibi):
+`forge.toml` may also live at project level (like npm):
 ```
 my-project/
-  forge.toml           # proje bagimliliklari
-  .forge/              # proje local (opsiyonel)
+  forge.toml           # project dependencies
+  .forge/              # project-local (optional)
 ```
 
 ### 2.3 Registry
 
-**Git-native, merkeziyetsiz:**
+**Git-native, decentralized:**
 
-- Her paket zaten bir GitHub repo'su. Registry sadece index.
+- Every package is already a GitHub repo. The registry is only an index.
 - `registry/index.json`:
 ```json
 {
@@ -89,83 +97,108 @@ my-project/
 }
 ```
 
-- Kaynak: GitHub Releases + `registry/packages/<name>.json` (PR ile eklenir)
+- Source: GitHub Releases + `registry/packages/<name>.json` (added via PR)
 - CDN: Cloudflare R2 + `registry.forge.sh/index.json`
-- Search: Algolia veya basit `search.json` + flexsearch (offline)
+- Search: offline `search.json` (CLI); Algolia deferred to v0.2+
 
-**Publish akisi:**
-1. Yazar `forge publish` der
-2. CLI `forge.toml` validate eder, tarball olusturur, GitHub Release acar
-3. Registry repo'suna PR acar (`registry/packages/anthropics-plan.json` eklenir)
-4. Bot merge eder -> R2'ye deploy -> CDN invalid
+**Publish flow:**
+1. Author runs `forge publish`
+2. CLI validates `forge.toml`, builds the tarball, opens a GitHub Release
+3. Opens a PR to the registry repo (`registry/packages/anthropics-plan.json` added)
+4. Bot merges -> deploys to R2 -> CDN invalidate
 
-v0.1'de registry = bu repo'nun `registry/` klasoru (dogfooding), sonradan ayri repo.
+In v0.1 the registry is this repo's `registry/` folder (dogfooding), later a separate repo.
 
-### 2.4 Adapter Sistemi
+### 2.4 Adapter System (Phase 2)
+
+One file per harness (`cli/src/adapters/<name>.ts`), shared mechanics in
+`cli/src/adapters/base.ts` (scope resolution, list/isInstalled loops,
+rule-file sync), shared project rules in `agents-md.ts`.
 
 ```typescript
 interface Adapter {
   name: string; // "claude-code"
-  detect(): boolean; // harness kurulu mu?
-  install(pkg: Package, files: string[]): void;
-  uninstall(pkg: string): void;
-  list(): string[]; // kurulu paketler
-  mcpConfigPath(): string; // mcp.json yeri
+  detect(): boolean; // is the harness installed?
+  install(pkg: string, srcDir: string, type: string, meta?: PackageMeta): void;
+  uninstall(pkg: string, type: string): void;
+  list(): Promise<string[]>; // installed packages
+  mcpConfigPath(): string | null; // mcp.json location
 }
 ```
 
-Her adapter harness'in bekledigi dosya duzenine kopyalar/symlink atar.
+Rule files per harness (2026 formats, non-destructive merge via
+`core/merge.ts` — `<!-- FORGE:START/END -->` blocks, user content untouched):
+
+| Harness | Skills | Rules | MCP |
+|---|---|---|---|
+| claude-code | `~/.claude/skills|agents|…/` (type-aware) | `<project>/CLAUDE.md` (merged block) | `~/.claude.json` |
+| cursor | `<scope>/skills/` (legacy) | `<scope>/rules/<slug>.mdc` (frontmatter) | `<scope>/mcp.json` |
+| windsurf | `<scope>/skills/` | `<project>/.windsurfrules` (merged) | `<project>/.windsurf/mcp_config.json` or `~/.codeium/windsurf/mcp_config.json` |
+| opencode | `.opencode/skills/` or `~/.config/opencode/skills/` | `<project>/AGENTS.md` (merged) | `opencode.json` |
+| codex | `~/.codex/skills/` | `<project>/AGENTS.md` (merged) | `~/.codex/mcp.json` |
+| dsh | `<scope>/skills/` | `<project>/AGENTS.md` (merged) | `<scope>/mcp.json` |
+| generic | `./.forge/packages/` | — | `./.forge/mcp.json` |
+
+Each adapter copies/symlinks into the layout its harness expects.
 
 - Skill: `SKILL.md` -> `~/.claude/skills/<name>/SKILL.md`
-- MCP: `mcp.json` entry ekler
-- Plugin: harness plugin klasorune kopyalar
-- Agent: `agents/<name>.md` -> ilgili klasor
+- MCP: appends an `mcp.json` entry
+- Plugin: copies into the harness plugin folder
+- Agent: `agents/<name>.md` -> matching folder
 
-### 2.5 Dependency Cozme
+### 2.5 Dependency Resolution
 
-npm benzeri: `forge add A` -> A'nin dependencies'ini de kur. Semver `^`, `~`, `*` destekle. Basit DFS, conflict'te en yuksek versiyonu sec (v0.1).
+Like npm: `forge add A` also installs A's dependencies. Semver `^`, `~`, `*`
+supported. Simple DFS, highest version wins on conflict (v0.1).
 
-## 3. Guvenlik
+## 3. Security
 
-- `forge.toml` sha256 ile imzali (tarball hash)
-- `forge audit` -> bilinen zafiyetli paketleri isaretle
-- `forge doctor` -> supheli dosya (executable, network call) uyar
-- Publish icin GitHub OIDC (sadece repo owner publish edebilir)
+- `forge.toml` pinned by sha256 (tarball hash)
+- `forge audit` -> flags known-vulnerable packages
+- `forge doctor` -> warns on suspicious files (executables, network calls)
+- Publishing via GitHub OIDC (only the repo owner can publish)
+- `forge install --frozen` -> integrity barrier: yanked versions and hash
+  drift refuse the install (see `docs/SPEC.md` §4)
 
-## 4. Performans
+## 4. Performance
 
-- Index cache: 5 dk TTL, `forge update --refresh` ile force
+- Index cache: 5 min TTL, `forge update --refresh` to force
 - Tarball cache: `~/.forge/cache/tarballs/`
-- Paralel indirme (p-limit)
-- Shallow clone (sadece tag)
+- Parallel downloads (p-limit)
+- Shallow clone (tag only)
+- CLI startup: single-file esbuild bundle (`node dist/index.cjs --version`
+  ~0.15s on Windows vs ~3.1s via tsx — 20x; node runtime floor ~0.10s,
+  bundle overhead ~0.05s)
 
-## 5. Dagitim
+## 5. Distribution
 
-- `npm i -g forge` (Bun build)
-- `cargo install forge` (Rust build)
+- `npx forge ...` / `bunx forge ...` (zero-install, recommended for trying)
+- `npm i -g tryforge` (global)
+- `cargo install forge` (Rust build, v0.2)
 - `brew install forge` (tap)
 - `winget install forge`
 - GitHub Releases binary (curl | sh)
 
-## 6. Teknoloji Secimleri
+## 6. Tech Choices
 
-| Bilesen | v0.1 | v0.2 |
+| Component | v0.1 | v0.2 |
 |---------|------|------|
-| CLI | TypeScript + Bun (hizli) | Rust |
+| CLI | TypeScript + tsx (fast) | Rust |
+| Bundle | esbuild single file | cargo |
 | Registry | JSON + R2 | + Algolia search |
 | Publish | GitHub Action | + OIDC |
-| Test | Vitest | + Rust test |
+| Test | node:test + tsx | + Rust test |
 
-## 7. Klasor Yapisi (repo)
+## 7. Repo Layout
 
 ```
 forge/
-  docs/               # bu belgeler
+  docs/               # these documents
   registry/           # index.json + packages/*.json
-  packages/           # ornek paketler (dogfooding)
-  cli/                # CLI kaynagi (TypeScript/Rust)
-  adapters/           # harness adapter'lari
-  scripts/            # publish, sync scriptleri
+  packages/           # sample packages (dogfooding)
+  cli/                # CLI source (TypeScript/Rust)
+  adapters/           # (see cli/src/adapters/) harness adapters
+  scripts/            # publish, sync scripts
   .github/workflows/  # CI, registry deploy
-  forge.toml          # forge'un kendi bagimliliklari (self-hosting)
+  forge.toml          # forge's own dependencies (self-hosting)
 ```

@@ -1,23 +1,23 @@
 # Forge — Registry Design
 
-## 1. Ilke
+## 1. Principle
 
-Registry = sadece index. Kaynak GitHub'da kalir. Forge tarball'i GitHub Release'den ceker. Merkeziyetsiz, fork'lanabilir.
+Registry = index only. Sources stay on GitHub. Forge pulls tarballs from GitHub Releases. Decentralized, forkable.
 
-## 2. Yapi
+## 2. Layout
 
 ```
 registry/
-  index.json              # tum paketlerin ozeti (CDN'de)
-  search.json             # search icin duzlestirilmis liste
+  index.json              # summary of all packages (on CDN)
+  search.json             # flattened list for search
   packages/
-    anthropics-plan.json  # paket detay (versiyonlar)
+    anthropics-plan.json  # package detail (versions)
     mcp-filesystem.json
     obra-superpowers.json
-  stats.json              # indirme sayilari (opsiyonel)
+  stats.json              # download counts (optional)
 ```
 
-### index.json (ozet, ~100KB)
+### index.json (summary, ~100KB)
 
 ```json
 {
@@ -37,7 +37,7 @@ registry/
 }
 ```
 
-### packages/<slug>.json (detay)
+### packages/<slug>.json (detail)
 
 ```json
 {
@@ -62,59 +62,59 @@ registry/
 }
 ```
 
-## 3. Publish Akisi
+## 3. Publish Flow
 
 ```
-Yazar: forge publish
-  1. forge.toml validate
-  2. tarball olustur (files.include)
-  3. sha256 hesapla
-  4. GitHub Release olustur (gh release create v1.2.0 tarball)
-  5. registry/packages/<slug>.json guncelle (lokal)
-  6. PR ac: registry/packages/<slug>.json -> forge/registry repo
-     veya dogrudan push (maintainer ise)
-  7. CI: index.json ve search.json'u yeniden olustur
-  8. R2'ye deploy + CDN purge
+Author: forge publish
+  1. validate forge.toml
+  2. build tarball (files.include)
+  3. compute sha256
+  4. create GitHub Release (gh release create v1.2.0 tarball)
+  5. update registry/packages/<slug>.json (local)
+  6. open PR: registry/packages/<slug>.json -> forge/registry repo
+     or push directly (if maintainer)
+  7. CI: rebuild index.json and search.json
+  8. deploy to R2 + CDN purge
 ```
 
-v0.1'de adim 6 = bu repo'ya PR (tek repo, basit).
+In v0.1 step 6 = PR to this repo (single repo, simple).
 
 ## 4. Search
 
-- Offline: `search.json` + `flexsearch` (CLI'de)
-- Online (v0.2): Algolia veya Typesense
-- `forge search <query>` -> `search.json`'i filtreler (description, keywords, name)
+- Offline: `search.json` (in the CLI)
+- Online (v0.2): Algolia or Typesense
+- `forge search <query>` -> filters `search.json` (description, keywords, name)
 
-## 5. Versiyonlama
+## 5. Versioning
 
-- Semver zorunlu
-- `latest` = en yuksek semver (prerelease haric)
-- `next` tag (opsiyonel, beta icin)
+- Semver required
+- `latest` = highest semver (excluding prereleases)
+- `next` tag (optional, for betas)
 
-## 6. Guvenlik
+## 6. Security
 
-- Her versiyon `sha256` ile pin'li
-- Publish sadece repo owner (GitHub OIDC dogrulama)
-- `registry/packages/*.json` degisikligi CI'da `forge.toml` ile cross-check edilir
+- Every version pinned with `sha256`
+- Publish restricted to the repo owner (GitHub OIDC verification)
+- `registry/packages/*.json` changes are cross-checked against `forge.toml` in CI
 
 ## 7. Mirror / Fork
 
-Herkes registry'yi fork'layip kendi `registry.forge.sh` yerine `registry.mycompany.com` kullanabilir:
+Anyone can fork the registry and point at their own host instead of `registry.forge.sh`:
 
 ```toml
 # ~/.forge/config.toml
 registry = "https://registry.mycompany.com/index.json"
 ```
 
-Private registry icin ayni format.
+Same format for private registries.
 
-## 8. Baslangic Seed (v0.1 icin 100 paket)
+## 8. Starter Seed (100 packages for v0.1)
 
-- `anthropics/*` (10+ skill)
+- `anthropics/*` (10+ skills)
 - `obra/superpowers`
 - `mcp/*` (filesystem, github, memory, fetch, etc. 20+)
 - `agency/*` (frontend, backend, etc.)
-- `awesome-llm-apps` icerisinden secmeler
-- Community: `taste-skill`, `last30days-skill`, vb.
+- picks from `awesome-llm-apps`
+- Community: `taste-skill`, `last30days-skill`, etc.
 
-Script: `scripts/seed-registry.ts` ile otomatik port.
+Script: auto-port with `scripts/seed-registry.ts`.

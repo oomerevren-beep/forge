@@ -1,8 +1,22 @@
 # Install — Forge
 
-One of three paths. Recommended: npm (published `tryforge@0.1.1`).
+One of three paths. Recommended: npx (zero-install, always the latest release).
 
-## 1. npm (recommended)
+## 0. npx / bunx (zero-install, recommended for trying)
+
+```bash
+npx -y tryforge doctor
+npx -y tryforge add pdf/extract
+```
+
+```bash
+bunx tryforge doctor
+```
+
+No global install, no setup — the single-file `dist/index.cjs` bundle runs
+anywhere with Node 22+. For daily use, prefer the global install below.
+
+## 1. npm (global, recommended for daily use)
 
 ```bash
 npm i -g tryforge

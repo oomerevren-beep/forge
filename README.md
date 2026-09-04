@@ -21,7 +21,7 @@ npm i -g tryforge
 ```
 
 ```bash
-forge doctor                # detect your harnesses
+npx -y tryforge doctor   # zero-install: no global install needed
 forge add pdf/extract      # skill → all harnesses at once
 forge add mcp/filesystem    # MCP server → auto mcp.json
 ```
@@ -127,7 +127,7 @@ Requires Node 22+ (TypeScript). Details and troubleshooting: [docs/INSTALL.md](d
 60 seconds, copy-paste:
 
 ```bash
-npm i -g tryforge          # or: curl -fsSL https://raw.githubusercontent.com/oomerevren-beep/forge/main/install.sh | sh
+npx -y tryforge doctor    # zero-install (or: npm i -g tryforge)
 forge doctor              # detect your harnesses (7 checked)
 forge add anthropics/plan # install latest → all harnesses at once
 ```
@@ -238,7 +238,7 @@ Add a harness = one file in `cli/src/adapters/`. See `docs/ADAPTERS.md`.
 | Team sync | **`forge.toml` + `forge.lock`** | none | none | none | none |
 | Search | `<200ms` offline | `skills find` | GitHub search | none | web only |
 | Package verification | **sha256 + fail-closed** | none | none | none | none |
-| Local CLI | **yes** (npm i -g) | npx (downloads every run) | manual | manual | — |
+| Local CLI | **yes** (npx, zero-install) | npx (downloads every run) | manual | manual | — |
 
 Difference: Forge verifies every package with sha256 (fail-closed), syncs teams via `forge.toml`, searches offline, and runs as a local CLI. Vercel skills is repo-agnostic but has no verification and no team sync.
 

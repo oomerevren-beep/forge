@@ -1,51 +1,51 @@
 # Forge — PRD (Product Requirements Document)
 
-## 1. Hedef Kullanici
+## 1. Target Users
 
-- **Primary:** AI coding agent kullanan developer (Claude Code / Codex / OpenCode / Cursor / Windsurf / DeepSeek Harness)
-- **Secondary:** Skill/MCP/plugin yazan creator (dagitim kanali ariyor)
-- **Tertiary:** Team lead (takimda ayni skill setini standartlastirmak isteyen)
+- **Primary:** developer using AI coding agents (Claude Code / Codex / OpenCode / Cursor / Windsurf / DeepSeek Harness)
+- **Secondary:** creator writing skills/MCPs/plugins (looking for a distribution channel)
+- **Tertiary:** team lead (wants to standardize the same skill set across the team)
 
-## 2. Kullanici Hikayeleri
+## 2. User Stories
 
-### US-1: Kurulum
-> Ben bir developer olarak, `anthropics/plan` skill'ini tek komutla tum harness'larima kurmak istiyorum, her birine manuel kopyalamak istemiyorum.
+### US-1: Install
+> As a developer, I want to install the `anthropics/plan` skill on all my harnesses with one command instead of manually copying it into each one.
 
-### US-2: Kesif
-> Yeni bir proje baslatirken `forge search pdf` yazip PDF isleyen en iyi 10 paketi gormek istiyorum.
+### US-2: Discovery
+> Starting a new project, I want to type `forge search pdf` and see the 10 best packages that handle PDFs.
 
-### US-3: Guncelleme
-> Kullandigim 20 skill'i tek komutla guncellemek istiyorum: `forge update`.
+### US-3: Update
+> I want to update my 20 skills with one command: `forge update`.
 
-### US-4: Yayinlama
-> Yaptigim skill'i `forge publish` ile registry'e atip herkesin `forge add benim-skillim` demesini istiyorum.
+### US-4: Publish
+> I want to push my skill to the registry with `forge publish` so anyone can say `forge add my-skill`.
 
-### US-5: Takim Senkronu
-> `forge.toml` dosyami git'e pushlayip takim arkadasimin `forge install` ile ayni seti kurmasini istiyorum (npm gibi).
+### US-5: Team Sync
+> I want to push my `forge.toml` to git so my teammate gets the same set via `forge install` (like npm).
 
-### US-6: MCP Kurulumu
-> `forge add mcp/filesystem` dedigimde MCP server'in otomatik `mcp.json` / `.cursor/mcp.json` / `claude.json`'a eklenmesini istiyorum.
+### US-6: MCP Install
+> When I say `forge add mcp/filesystem`, I want the MCP server auto-added to `mcp.json` / `.cursor/mcp.json` / `claude.json`.
 
-## 3. Fonksiyonel Gereksinimler
+## 3. Functional Requirements
 
-### 3.1 CLI Komutlari (v0.1)
+### 3.1 CLI Commands (v0.1)
 
-| Komut | Aciklama | Ornek |
+| Command | Description | Example |
 |-------|----------|-------|
-| `forge add <pkg>[@ver]` | Paket kur | `forge add anthropics/plan@1.2.0` |
-| `forge remove <pkg>` | Paket kaldir | `forge remove anthropics/plan` |
-| `forge list` | Kurulu paketleri listele | `forge list` |
-| `forge search <query>` | Registry'de ara | `forge search pdf` |
-| `forge info <pkg>` | Paket detayi | `forge info anthropics/plan` |
-| `forge update [pkg]` | Guncelle (hepsi veya tek) | `forge update` |
-| `forge install` | forge.toml'dan kur | `forge install` |
-| `forge publish` | Registry'e yayinla | `forge publish` |
-| `forge init` | Yeni paket olustur | `forge init my-skill --type skill` |
-| `forge doctor` | Harness tespiti + saglik | `forge doctor` |
+| `forge add <pkg>[@ver]` | Install package | `forge add anthropics/plan@1.2.0` |
+| `forge remove <pkg>` | Remove package | `forge remove anthropics/plan` |
+| `forge list` | List installed packages | `forge list` |
+| `forge search <query>` | Search registry | `forge search pdf` |
+| `forge info <pkg>` | Package detail | `forge info anthropics/plan` |
+| `forge update [pkg]` | Update (all or one) | `forge update` |
+| `forge install` | Install from forge.toml | `forge install` |
+| `forge publish` | Publish to registry | `forge publish` |
+| `forge init` | Create new package | `forge init my-skill --type skill` |
+| `forge doctor` | Harness detection + health | `forge doctor` |
 
-### 3.2 Paket Tipleri
+### 3.2 Package Types
 
-Her paket `forge.toml` icerir, Tip `type` ile belirtilir:
+Every package contains `forge.toml`, type declared via `type`:
 
 ```toml
 [package]
@@ -70,41 +70,41 @@ dsh = "*"
 include = ["SKILL.md", "scripts/*", "references/*"]
 ```
 
-### 3.3 Harness Adapter'leri (v0.1 destegi)
+### 3.3 Harness Adapters (v0.1 support)
 
-- `claude-code` -> `~/.claude/skills/<name>/`, `~/.claude/commands/`, `.claude/settings.json` (mcp)
-- `codex` -> `~/.codex/skills/`, `~/.codex/mcp.json`
-- `opencode` -> `.opencode/skills/`, `opencode.json` (mcp/plugins)
-- `cursor` -> `.cursor/skills/`, `.cursor/mcp.json`
-- `dsh` -> `~/.dsh/plugins/`
-- `generic` -> `./.forge/packages/<name>/` (bilinmeyen harness icin fallback)
+- `claude-code` -> `~/.claude/skills/<name>/`, `~/.claude/commands/`, `~/.claude.json` (mcp) + `<project>/CLAUDE.md` rules
+- `codex` -> `~/.codex/skills/`, `~/.codex/mcp.json` + `<project>/AGENTS.md` rules
+- `opencode` -> `.opencode/skills/`, `opencode.json` (mcp/plugins) + `<project>/AGENTS.md` rules
+- `cursor` -> `<scope>/skills/`, `<scope>/rules/<name>.mdc`, `<scope>/mcp.json`
+- `windsurf` -> `<scope>/skills/`, `<project>/.windsurfrules`, `<scope>/mcp_config.json`
+- `dsh` -> `~/.dsh/plugins/` + `<project>/AGENTS.md` rules
+- `generic` -> `./.forge/packages/<name>/` (fallback for unknown harnesses)
 
 ### 3.4 Registry
 
-- Git-native: Her paket bir GitHub repo'su (veya monorepo alt klasoru)
-- Index: `registry/index.json` (CDN'de, Cloudflare R2)
-- Search: `registry/search.json` (offline search icin)
-- Publish: GitHub Release + `forge publish` ile index guncelleme (GitHub Action)
+- Git-native: every package is a GitHub repo (or monorepo subfolder)
+- Index: `registry/index.json` (on CDN, Cloudflare R2)
+- Search: `registry/search.json` (for offline search)
+- Publish: GitHub Release + `forge publish` index update (GitHub Action)
 
-## 4. Non-Fonksiyonel
+## 4. Non-Functional
 
-- **Hiz:** `forge add` < 3s (cache hit), < 10s (cold)
-- **Offline:** `forge list` ve kurulu paketler offline calisir
-- **Guvenlik:** `forge.toml` checksum, `forge doctor` ile supheli paket uyarisi, `npm audit` benzeri `forge audit`
+- **Speed:** `forge add` < 3s (cache hit), < 10s (cold)
+- **Offline:** `forge list` and installed packages work offline
+- **Security:** `forge.toml` checksum, suspicious-package warnings via `forge doctor`, `forge audit` like `npm audit`
 - **Cross-platform:** Windows, macOS, Linux (bash + PowerShell)
-- **Dil:** CLI Rust (tek binary) + registry TypeScript + adapter'lar Node/Python
 
-## 5. Basari Kriterleri (v0.1)
+## 5. Success Criteria (v0.1)
 
-- [ ] 4 harness'te `forge add` calisiyor
-- [ ] 100 paket registry'de
+- [ ] `forge add` works on 4 harnesses
+- [ ] 100 packages in the registry
 - [ ] `forge search` < 500ms
-- [ ] `forge publish` ile 1. community paketi yayinlandi
-- [ ] README'deki 7 saniyelik demo gif'i var
+- [ ] 1st community package published via `forge publish`
+- [ ] 7-second demo gif in the README
 
-## 6. Kapsam Disi (v0.2+)
+## 6. Out of Scope (v0.2+)
 
-- `forge run` (agent calistirma soyutlamasi)
-- `forge cloud` (takim registry'si)
+- `forge run` (agent-execution abstraction)
+- `forge cloud` (team registry)
 - GUI / VS Code extension
 - Billing / private registry
