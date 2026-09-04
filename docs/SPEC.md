@@ -91,10 +91,10 @@ Dependencies on other forge packages. Semver ranges: `^1.2.0`, `~1.2.0`, `*`, `>
 - Consumer (project) side may also have `forge.toml`:
 
 ```toml
-# my-project/forge.toml
+# my-project/forge.toml — universal agent context (Docker for Context)
 [project]
-name = "my-app"
-version = "0.1.0"
+name = "my-fintech-app"
+version = "1.0.0"
 
 [dependencies]
 "anthropics/plan" = "^1.2.0"
@@ -103,6 +103,40 @@ version = "0.1.0"
 ```
 
 `forge install` reads this file and installs everything (like `package.json` in npm).
+
+### Universal project manifest (Phase 3)
+
+One file declares the whole team context — roles, skills (any source),
+MCP servers, and permission boundaries:
+
+```toml
+[project]
+name = "my-fintech-app"
+version = "1.0.0"
+
+[agents.developer]
+model = "claude-3-7-sonnet"
+system_prompt = "You are a senior fintech engineer. TDD."
+
+[skills]
+"agent-pr-reviewer" = "^1.2.0"
+"team-security-rules" = { source = "github:my-org/agent-security", ref = "main" }
+"local-helper" = { source = "./packages/helper" }
+
+[mcp.servers.postgres]
+command = "npx"
+args = ["-y", "@modelcontextprotocol/server-postgres", "postgresql://localhost/db"]
+env = { DB_SSL = "require" }
+
+[permissions]
+allowed_paths = ["./src", "./tests"]
+denied_paths = [".env*", "id_rsa*", "./secrets"]
+allow_network = false
+```
+
+`forge sync` distributes all of it to every detected editor in one run
+(skills + rule files + MCP configs + agent-roles block + `forge.lock`).
+`forge audit` enforces `[permissions].denied_paths` on package content.
 
 ## 4. Lockfile — forge.lock (Phase 2)
 

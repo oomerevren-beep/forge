@@ -29,6 +29,8 @@ export interface LinkRecord {
   type?: string;
   adapters: string[];
   installedAt: string;
+  /** Non-registry origin (github:owner/repo@ref, local:./path, ...). Absent = registry. */
+  source?: string;
 }
 
 export function ensureForgeDirs(): void {

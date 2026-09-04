@@ -6,21 +6,12 @@ import { ensurePackageContent } from "../core/installer.js";
 import { ensureForgeDirs, readLinks, writeLinks, toSlug } from "../core/store.js";
 import { allAdapters, detectAdapters, addMcpServerToConfig } from "../adapters/index.js";
 import { findProjectToml, loadProjectToml, validateProjectToml } from "../core/project.js";
-import { readLock, writeLock, verifyLockIntegrity, type LockEntry } from "../core/lock.js";
+import { readLock, writeLock, verifyLockIntegrity, lockEntryFor, type LockEntry } from "../core/lock.js";
 import { loadConfig } from "../core/config.js";
-import type { PackageVersion } from "../core/registry.js";
-
-/** Build a lock entry with pinned integrity (source URL + sha256). */
-function toLockEntry(name: string, version: string, type: string, meta: PackageVersion): LockEntry {
-  return {
-    name,
-    version,
-    type,
-    ...(meta.tarball ? { tarball: meta.tarball } : {}),
-    ...(meta.sha256 ? { sha256: meta.sha256 } : {}),
-    source: "registry",
-  };
-}
+import { scanPackageDir } from "../core/scan.js";
+import { parseSourceArg, resolveExternalSource } from "../core/sources.js";
+import { storeExternal } from "./add-external.js";
+import { injectMcpServers } from "./sync.js";
 
 function pickAdapters(projectHarnesses?: string[]) {
   if (projectHarnesses && projectHarnesses.length > 0) {
@@ -63,7 +54,8 @@ export async function runInstall(opts: { cwd?: string; frozen?: boolean; mock?: 
   }
 
   const deps = project.dependencies;
-  if (Object.keys(deps).length === 0) {
+  const hasSkills = Object.keys(project.skills ?? {}).length > 0;
+  if (Object.keys(deps).length === 0 && !hasSkills) {
     console.log(`[forge] no dependencies in ${tomlPath}`);
     return;
   }
@@ -137,8 +129,10 @@ export async function runInstall(opts: { cwd?: string; frozen?: boolean; mock?: 
     return;
   }
 
-  // Normal: resolve from dependencies
-  console.log(`[forge] installing ${Object.keys(deps).length} package(s) from ${tomlPath}...`);
+  // Normal: resolve from dependencies (+ [skills] from the universal manifest)
+  const skillEntries = Object.entries(project.skills ?? {});
+  const totalWork = Object.keys(deps).length + skillEntries.length;
+  console.log(`[forge] installing ${totalWork} package(s) from ${tomlPath}...`);
   const adapters = pickAdapters(project.forge?.harnesses);
   console.log(`[forge] harnesses: ${adapters.map((a) => a.displayName).join(", ")}`);
 
@@ -147,10 +141,60 @@ export async function runInstall(opts: { cwd?: string; frozen?: boolean; mock?: 
   let ok = 0;
   let skipped = 0;
 
+  // External [skills] (github:/URL/local) resolve outside the registry loop.
+  for (const [skillName, ref] of skillEntries) {
+    const source = ref.source ?? "registry";
+    if (source === "registry") continue; // handled in the registry loop below
+    try {
+      const spec = parseSourceArg(ref.ref ? `${source}#${ref.ref}` : source);
+      const staged = resolveExternalSource(spec);
+      try {
+        const highs = scanPackageDir(staged.dir).filter((f) => f.severity === "high");
+        if (highs.length > 0) {
+          throw new Error(`security scan FAILED (${highs.length} high): ${highs[0].rule} ${highs[0].file} — refusing install`);
+        }
+        const srcDir = storeExternal(staged);
+        for (const adapter of adapters) {
+          await adapter.install(toSlug(skillName), srcDir, staged.type, { version: staged.version, description: staged.description });
+        }
+        ensureForgeDirs();
+        const links = readLinks();
+        links[skillName] = {
+          pkg: skillName,
+          version: staged.version,
+          slug: toSlug(skillName),
+          type: staged.type,
+          adapters: adapters.map((a) => a.name),
+          installedAt: new Date().toISOString(),
+          source: staged.source,
+        };
+        writeLinks(links);
+        lockEntries.push(lockEntryFor(skillName, staged.version, staged.type, {}, staged.source));
+        ok++;
+        console.log(`  ✓ ${skillName}@${staged.version} (from ${staged.source})`);
+      } catch (e) {
+        try {
+          staged.cleanup();
+        } catch { /* best-effort */ }
+        throw e;
+      }
+    } catch (e) {
+      console.error(`  ✗ ${skillName} failed: ${(e as Error).message}`);
+    }
+  }
+
+  // Registry skills without explicit source join the semver loop.
+  const mergedDeps: Record<string, string> = { ...deps };
+  for (const [skillName, ref] of skillEntries) {
+    if ((ref.source ?? "registry") === "registry" && ref.version && mergedDeps[skillName] === undefined) {
+      mergedDeps[skillName] = ref.version;
+    }
+  }
+
   // Check existing links to skip already-installed exact version? We reinstall if range resolves same version already installed? For idempotency allow skip? We'll still ensure content but count skipped.
   const existingLinks = readLinks();
 
-  for (const [depName, depRange] of Object.entries(deps)) {
+  for (const [depName, depRange] of Object.entries(mergedDeps)) {
     try {
       const { detail, version, versionMeta } = await resolveVersion(depName, depRange);
       const already = existingLinks[depName];
@@ -159,7 +203,7 @@ export async function runInstall(opts: { cwd?: string; frozen?: boolean; mock?: 
         // verify adapters still have it? For speed skip re-install? But ensure adapters have it
         // For mcp packages isInstalled checks skillDir which is not created — treat store existence as enough
         if (detail.type === "mcp") {
-          lockEntries.push(toLockEntry(depName, version, detail.type, versionMeta));
+          lockEntries.push(lockEntryFor(depName, version, detail.type, versionMeta));
           skipped++;
           console.log(`  = ${depName}@${version} already installed`);
           continue;
@@ -170,7 +214,7 @@ export async function runInstall(opts: { cwd?: string; frozen?: boolean; mock?: 
           if (!(await a.isInstalled(toSlug(depName)))) allPresent = false;
         }
         if (allPresent) {
-          lockEntries.push(toLockEntry(depName, version, detail.type, versionMeta));
+          lockEntries.push(lockEntryFor(depName, version, detail.type, versionMeta));
           skipped++;
           console.log(`  = ${depName}@${version} already installed`);
           continue;
@@ -207,7 +251,7 @@ export async function runInstall(opts: { cwd?: string; frozen?: boolean; mock?: 
         installedAt: new Date().toISOString(),
       };
       writeLinks(links);
-      lockEntries.push(toLockEntry(depName, version, detail.type, versionMeta));
+      lockEntries.push(lockEntryFor(depName, version, detail.type, versionMeta));
       ok++;
       console.log(`  ✓ ${depName}@${version}`);
     } catch (e) {
@@ -219,14 +263,21 @@ export async function runInstall(opts: { cwd?: string; frozen?: boolean; mock?: 
   lockEntries.sort((a, b) => a.name.localeCompare(b.name));
   writeLock(lockEntries, cwd);
 
+  // Project MCP servers → every adapter config.
+  const mcpServers = project.mcp?.servers ?? {};
+  if (Object.keys(mcpServers).length > 0) {
+    const writes = injectMcpServers(adapters, mcpServers);
+    console.log(`[forge] ✓ ${Object.keys(mcpServers).length} MCP server(s) injected (${writes} config writes)`);
+  }
+
   const dt = ((Date.now() - t0) / 1000).toFixed(1);
   const total = ok + skipped;
-  const failed = Object.keys(deps).length - total;
+  const failed = totalWork - total;
   if (failed > 0) {
-    console.log(`\n[forge] ✗ ${failed} package(s) failed — installed ${ok} new, ${skipped} cached (${total}/${Object.keys(deps).length}) on ${adapters.length} harness(es) in ${dt}s`);
+    console.log(`\n[forge] ✗ ${failed} package(s) failed — installed ${ok} new, ${skipped} cached (${total}/${totalWork}) on ${adapters.length} harness(es) in ${dt}s`);
     process.exitCode = 1;
   } else {
-    console.log(`\n[forge] ✓ installed ${ok} new, ${skipped} cached (${total}/${Object.keys(deps).length}) on ${adapters.length} harness(es) in ${dt}s`);
+    console.log(`\n[forge] ✓ installed ${ok} new, ${skipped} cached (${total}/${totalWork}) on ${adapters.length} harness(es) in ${dt}s`);
   }
   console.log(`[forge] lock written to ${cwd}/forge.lock`);
 }

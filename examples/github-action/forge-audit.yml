@@ -1,0 +1,61 @@
+name: Forge Audit
+on:
+  pull_request:
+    branches: [main]
+  push:
+    branches: [main]
+
+jobs:
+  forge-audit:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Verify forge.toml exists
+        run: |
+          if [ ! -f forge.toml ]; then
+            echo "::error::forge.toml missing — run 'npx forge init' to create one"
+            exit 1
+          fi
+
+      - name: Install Forge
+        run: npm i -g tryforge
+
+      - name: Run forge audit
+        run: forge audit
+
+      - name: Security scan packages
+        run: |
+          if [ -d .forge/packages ]; then
+            forge audit --json
+          fi
+
+      - name: Comment PR with audit results
+        if: github.event_name == 'pull_request'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            let body = '## 🔥 Forge Audit\n\n';
+            try {
+              const raw = fs.readFileSync('.forge/links.json', 'utf-8');
+              const links = JSON.parse(raw);
+              const pkgs = Object.keys(links);
+              if (pkgs.length === 0) {
+                body += 'No packages installed.\n';
+              } else {
+                body += `| Package | Version | Source |\n|---|---|---|\n`;
+                for (const p of pkgs) {
+                  const r = links[p];
+                  body += `| ${r.pkg} | ${r.version} | ${r.source ?? 'registry'} |\n`;
+                }
+              }
+            } catch {
+              body += 'Could not read install state.\n';
+            }
+            github.rest.issues.createComment({
+              issue_number: context.issue.number,
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              body
+            });

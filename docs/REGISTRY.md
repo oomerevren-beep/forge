@@ -4,6 +4,11 @@
 
 Registry = index only. Sources stay on GitHub. Forge pulls tarballs from GitHub Releases. Decentralized, forkable.
 
+Packages also resolve OUTSIDE the registry (Phase 3): `github:owner/repo`,
+`owner/repo` (registry-first fallback), `<git-url>`, `./local/path`.
+External installs pin `source` in `forge.lock`/links and pass the same
+security scan — HIGH findings refuse the install.
+
 ## 2. Layout
 
 ```

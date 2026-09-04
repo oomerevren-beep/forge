@@ -19,6 +19,24 @@ export interface ForgeLock {
   packages: LockEntry[];
 }
 
+/** Build a lock entry with pinned integrity (source URL + sha256). */
+export function lockEntryFor(
+  name: string,
+  version: string,
+  type: string,
+  meta: { tarball?: string; sha256?: string },
+  source = "registry",
+): LockEntry {
+  return {
+    name,
+    version,
+    type,
+    ...(meta.tarball ? { tarball: meta.tarball } : {}),
+    ...(meta.sha256 ? { sha256: meta.sha256 } : {}),
+    source,
+  };
+}
+
 export function lockPath(cwd = process.cwd()): string {
   return join(resolve(cwd), "forge.lock");
 }

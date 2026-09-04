@@ -2,6 +2,57 @@
 
 All notable changes are kept in this file. Format follows [Keep a Changelog](https://keepachangelog.com/en/1.1.0/), versions follow [SemVer](https://semver.org/).
 
+## [Unreleased] — Stage 5: README transformation, docs portal, GTM launch
+
+### Added
+- `forge tui` — interactive terminal dashboard (category browse, search, sync, init)
+- `forge test <pkg>` — validate package against adapter matrix (dry-run)
+- `forge pack` — build verified tarball from current directory
+- `forge verify <pkg>` — schema + security + adapter verification
+- GitHub Action template (`examples/github-action/forge-audit.yml`)
+- Viral badge: `[![Managed by Forge](https://img.shields.io/badge/Agent%20Context-Forge-6366f1?style=flat-square&logo=anthropic)](https://github.com/oomerevren-beep/forge)`
+- Documentation portal (`docs/README.md`)
+- GTM launch texts (`docs/private/GTM-LAUNCH-TEXTS.md`) — HN, X thread, Reddit
+
+### Changed
+- `README.md` rewritten: hero section, 60-second quickstart, comparison matrix, security section, full command reference
+- `verify` and `test` use `process.exitCode` (testable) instead of `process.exit`
+
+## [Unreleased] — Stage 4: TUI, developer experience, viral loops
+
+### Added
+- Interactive TUI dashboard (`cli/src/commands/tui.ts`) — `@clack/prompts` + `picocolors`
+- `forge test` command (`cli/src/commands/test.ts`)
+- `forge pack` command (`cli/src/commands/pack.ts`)
+- `forge verify` command (`cli/src/commands/verify.ts`)
+- GitHub Action template for CI audit
+- Viral README badge
+
+## [Unreleased] — Stage 3: universal context, decentralized sources, audit engine
+
+### Added
+- Decentralized sources: `forge add github:owner/repo[#ref]`, `owner/repo`
+  (registry-first fallback), `<git-url>[#ref]`, `./local/path`
+  (`cli/src/core/sources.ts`, shallow clones, manifest auto-parse).
+- Universal `forge.toml`: `[project]`, `[agents.<role>]`, `[skills]`
+  (version or `{ version, source, ref }`), `[mcp.servers.*]`, `[permissions]`
+  — parser, validator, and `schema/forge.schema.json` (with `$id`) updated.
+- `forge sync`: one-command team sync — skills + rule files + MCP servers +
+  agent-roles block + deterministic `forge.lock` (`cli/src/commands/sync.ts`).
+- Static security engine (`cli/src/core/scan.ts`, 19 rules): shell-danger,
+  prompt-inject/exfiltration, perm-violation; HIGH blocks external installs
+  and fails `forge audit` (exit 1).
+- `copyDirRecursive` (`cli/src/core/fsutil.ts`): `fs.cpSync` silently yields
+  empty dirs under non-ASCII Windows home paths (Node 24) — all store
+  staging and install fallbacks now copy file-by-file (fail-closed).
+
+### Changed
+- `forge install` consumes `[skills]` (any source) and injects
+  `[mcp.servers.*]` into every detected adapter config.
+- `forge add` runs a pre-install scan (`--skip-scan` opt-out) and resolves
+  non-registry refs; `LinkRecord` records `source`.
+- `Adapter.install` call sites pass version/description for rule sync.
+
 ## [Unreleased] — Stage 2: core engine, zero-friction DX, dynamic adapters
 
 ### Added

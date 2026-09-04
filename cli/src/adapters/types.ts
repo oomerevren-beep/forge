@@ -1,6 +1,7 @@
 // cli/src/adapters/types.ts — Epoch 1c: fail-closed MCP config, Windows junction, skill files
-import { existsSync, mkdirSync, readFileSync, writeFileSync, rmSync, cpSync, copyFileSync, symlinkSync, lstatSync, unlinkSync, renameSync } from "fs";
+import { existsSync, mkdirSync, readFileSync, writeFileSync, rmSync, copyFileSync, symlinkSync, lstatSync, unlinkSync, renameSync } from "fs";
 import { join, dirname } from "path";
+import { copyDirRecursive } from "../core/fsutil.js";
 
 export { forgeHome, packagesDir, packageDir, toSlug } from "../core/store.js";
 
@@ -43,7 +44,9 @@ export function trySymlinkOrCopy(src: string, dest: string): void {
     symlinkSync(src, dest, isWin ? "junction" : "dir");
     return;
   } catch {
-    cpSync(src, dest, { recursive: true });
+    // NOTE: raw fs.cpSync silently yields empty dirs under non-ASCII
+    // Windows home paths — always use copyDirRecursive (see fsutil.ts).
+    copyDirRecursive(src, dest);
   }
 }
 

@@ -1,6 +1,8 @@
 {
   "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "title": "forge.toml schema",
+  "$id": "https://raw.githubusercontent.com/oomerevren-beep/forge/main/schema/forge.schema.json",
+  "title": "forge.toml schema — universal agent context (Docker for Context)",
+  "description": "Single manifest for AI agent configuration: project meta, agent roles, skills, MCP servers, permissions. Works for both package manifests ([package]) and project files ([project]/[dependencies]/[skills]).",
   "type": "object",
   "properties": {
     "package": {
@@ -17,6 +19,82 @@
         "source": { "type": "string" }
       }
     },
+    "project": {
+      "type": "object",
+      "properties": {
+        "name": { "type": "string" },
+        "version": { "type": "string" },
+        "description": { "type": "string" }
+      }
+    },
+    "agents": {
+      "type": "object",
+      "description": "Shared agent roles, e.g. [agents.developer] = { model, system_prompt }",
+      "additionalProperties": {
+        "type": "object",
+        "properties": {
+          "model": { "type": "string" },
+          "system_prompt": { "type": "string" }
+        },
+        "additionalProperties": false
+      }
+    },
+    "skills": {
+      "type": "object",
+      "description": "Team skills: name = \"^1.2.0\" or { version, source, ref }",
+      "additionalProperties": {
+        "anyOf": [
+          { "type": "string" },
+          {
+            "type": "object",
+            "properties": {
+              "version": { "type": "string" },
+              "source": { "type": "string" },
+              "ref": { "type": "string" }
+            },
+            "additionalProperties": false
+          }
+        ]
+      }
+    },
+    "mcp": {
+      "type": "object",
+      "description": "Package-level MCP template ([mcp]) or project servers ([mcp.servers.<name>])",
+      "properties": {
+        "command": { "type": "string" },
+        "args": { "type": "array", "items": { "type": "string" } },
+        "env": { "type": "object" },
+        "servers": {
+          "type": "object",
+          "additionalProperties": {
+            "type": "object",
+            "required": ["command"],
+            "properties": {
+              "command": { "type": "string" },
+              "args": { "type": "array", "items": { "type": "string" } },
+              "env": { "type": "object", "additionalProperties": { "type": "string" } }
+            },
+            "additionalProperties": false
+          }
+        }
+      }
+    },
+    "permissions": {
+      "type": "object",
+      "description": "Install-time permission boundaries enforced by forge audit/sync",
+      "properties": {
+        "allowed_paths": { "type": "array", "items": { "type": "string" } },
+        "denied_paths": { "type": "array", "items": { "type": "string" } },
+        "allow_network": { "type": "boolean" }
+      },
+      "additionalProperties": false
+    },
+    "forge": {
+      "type": "object",
+      "properties": {
+        "harnesses": { "type": "array", "items": { "type": "string" } }
+      }
+    },
     "engines": { "type": "object", "additionalProperties": { "type": "string" } },
     "dependencies": { "type": "object", "additionalProperties": { "type": "string" } },
     "files": {
@@ -24,14 +102,6 @@
       "properties": {
         "include": { "type": "array", "items": { "type": "string" } },
         "exclude": { "type": "array", "items": { "type": "string" } }
-      }
-    },
-    "mcp": {
-      "type": "object",
-      "properties": {
-        "command": { "type": "string" },
-        "args": { "type": "array", "items": { "type": "string" } },
-        "env": { "type": "object" }
       }
     }
   }

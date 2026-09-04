@@ -6,11 +6,13 @@ import { join } from "path";
 import { homedir } from "os";
 
 import { loadPackageDetail, resolveVersion, parsePackageArg, searchPackages } from "./core/registry.js";
+import { parseSourceArg } from "./core/sources.js";
 import { ensurePackageContent } from "./core/installer.js";
 import { ensureForgeDirs, readLinks, writeLinks, packageDir, toSlug, listInstalledPackages } from "./core/store.js";
 import { allAdapters, detectAdapters, addMcpServerToConfig, removeMcpServerFromConfig, readMcpConfig } from "./adapters/index.js";
 import { runInit } from "./commands/init.js";
 import { runInstall } from "./commands/install.js";
+import { runSync } from "./commands/sync.js";
 import { runOutdated, runUpdate } from "./commands/update.js";
 import { runAudit } from "./commands/audit.js";
 import { DEP_NAME_RE } from "./core/project.js";
@@ -29,16 +31,35 @@ program
 // --- add ---
 program
   .command("add")
-  .description("Install a package (e.g. forge add anthropics/plan@1.2.0)")
-  .argument("<pkg>", "package name, e.g. anthropics/plan or anthropics/plan@1.2.0")
+  .description("Install a package (registry, github:, git URL, or local path)")
+  .argument("<pkg>", "package ref: scope/name[@range], github:owner/repo[#ref], <git-url>[#ref], ./local/path")
   .option("--global", "install globally (default)")
   .option("--dry-run", "show what would be installed without writing")
   .option("--mock", "allow mock content for packages with no verified tarball yet")
+  .option("--skip-scan", "skip the pre-install security scan (not recommended)", false)
   .action(async (pkgArg, opts) => {
+    const { installExternal } = await import("./commands/add-external.js");
+    const extOpts = { dryRun: opts.dryRun, mock: opts.mock, skipScan: opts.skipScan };
+    const spec = parseSourceArg(pkgArg);
+    // Explicit external sources (github:, git URLs, local paths) bypass the registry.
+    if (spec.kind !== "registry" && spec.explicit) {
+      await installExternal(spec, extOpts);
+      return;
+    }
+    // Bare owner/repo (or scope/name[@range]): registry FIRST, GitHub fallback.
     const { name, version: requested } = parsePackageArg(pkgArg);
     if (!DEP_NAME_RE.test(name)) {
       console.error(`[forge] invalid package name "${name}" — expected scope/name (e.g. anthropics/plan)`);
       process.exit(1);
+    }
+    if (spec.kind !== "registry") {
+      try {
+        await loadPackageDetail(name);
+      } catch {
+        console.log(`[forge] ${name} not in registry — trying GitHub...`);
+        await installExternal({ ...spec, explicit: true }, extOpts);
+        return;
+      }
     }
     console.log(`[forge] resolving ${name}${requested ? "@" + requested : ""}...`);
 
@@ -453,6 +474,16 @@ program
     await runInstall({ frozen: opts.frozen, mock: opts.mock });
   });
 
+// --- sync ---
+program
+  .command("sync")
+  .description("One-command team sync: skills + rules + MCP servers + agent roles (e.g. forge sync)")
+  .option("--mock", "allow mock content for packages with no verified tarball yet", false)
+  .option("--skip-scan", "skip the pre-install security scan (not recommended)", false)
+  .action(async (opts) => {
+    await runSync({ mock: opts.mock, skipScan: opts.skipScan });
+  });
+
 // --- outdated ---
 program
   .command("outdated")
@@ -469,6 +500,46 @@ program
   .option("--mock", "allow mock content for packages with no verified tarball yet", false)
   .action(async (pkg, opts) => {
     await runUpdate(pkg, { mock: opts.mock });
+  });
+
+// --- tui ---
+program
+  .command("tui")
+  .description("Launch interactive TUI dashboard (no args = same as npx forge)")
+  .action(async () => {
+    const { runTui } = await import("./commands/tui.js");
+    await runTui();
+  });
+
+// --- test ---
+program
+  .command("test")
+  .description("Test a package against the adapter matrix (dry-run install)")
+  .argument("<pkg>", "package name or path")
+  .option("--mock", "allow mock content for packages with no verified tarball yet", false)
+  .action(async (pkg, opts) => {
+    const { runTest } = await import("./commands/test.js");
+    await runTest(pkg, { mock: opts.mock });
+  });
+
+// --- pack ---
+program
+  .command("pack")
+  .description("Package the current directory into a verified tarball")
+  .option("--check", "validate only — do not write tarball", false)
+  .action(async (opts) => {
+    const { runPack } = await import("./commands/pack.js");
+    await runPack({ check: opts.check });
+  });
+
+// --- verify ---
+program
+  .command("verify")
+  .description("Verify a package: schema, permissions, security scan")
+  .argument("<pkg>", "package name or path")
+  .action(async (pkg) => {
+    const { runVerify } = await import("./commands/verify.js");
+    await runVerify(pkg);
   });
 
 // --- audit (Phase 10 skeleton, full DB in Phase 22) ---
