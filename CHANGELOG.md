@@ -7,7 +7,7 @@ Tüm önemli değişiklikler bu dosyada tutulur. Format [Keep a Changelog](https
 ### Added
 - `tryforge` npm paketi yayınlandı (`npm i -g tryforge`).
 - 7 harness adapter'ı: Claude Code, Codex, OpenCode, Cursor, DeepSeek (dsh), Windsurf, Generic.
-- 250 paketlik tohum registry (`registry/index.json` + `search.json` + `stats.json`).
+- 21 verified paketlik registry (`registry/index.json` + `search.json` + `stats.json`).
 - `forge.toml` + `forge.lock` ile takım senkronu (`forge install`, `--frozen`).
 - `forge audit` (mock/unverified işaretleme), `forge doctor` sağlık kontrolü.
 - Fail-closed installer: `sha256` doğrulanamayan içerik `--mock` olmadan kurulmaz.

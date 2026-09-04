@@ -97,8 +97,12 @@ export function backupFileIfExists(configPath: string): string | null {
 }
 
 export function addMcpServerToConfig(configPath: string, name: string, mcp: { command: string; args?: string[]; env?: Record<string, string> }): void {
-  const cfg = readMcpConfig(configPath);
-  if (cfg === null) throw new Error(`[forge] ${configPath} does not exist or is invalid JSON`);
+  // Epoch 1e: dosya yoksa oluştur (taze makine desteği)
+  let cfg = readMcpConfig(configPath);
+  if (cfg === null) {
+    // Dosya yok veya boş — yeni config oluştur
+    cfg = {};
+  }
   if (!cfg["mcpServers"]) cfg["mcpServers"] = {};
   const servers = cfg["mcpServers"] as Record<string, unknown>;
   servers[name] = {

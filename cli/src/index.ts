@@ -86,6 +86,7 @@ program
     console.log(`[forge] detected harnesses: ${adapters.map((a) => `${a.displayName} (${a.name})`).join(", ")}`);
 
     // Install to each adapter
+    let failed = 0;
     for (const adapter of adapters) {
       try {
         await adapter.install(slug, srcDir, detail.type);
@@ -102,7 +103,16 @@ program
         }
       } catch (e) {
         console.warn(`  ✗ ${adapter.displayName} failed: ${(e as Error).message}`);
+        failed++;
       }
+    }
+
+    // Epoch 1e: herhangi bir adapter hatasında exit 1
+    if (failed > 0) {
+      console.log(`\n[forge] ✗ ${failed} harness(es) failed — installed on ${adapters.length - failed}/${adapters.length}`);
+      process.exitCode = 1;
+    } else {
+      console.log(`\n[forge] ✓ installed ${name}@${version} on ${adapters.length} harness(es)`);
     }
 
     // Handle dependencies (shallow, one level for v0.1)

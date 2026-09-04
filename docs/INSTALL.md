@@ -9,7 +9,7 @@ npm i -g tryforge
 forge doctor
 ```
 
-Gereksinim: Node 18+.
+Gereksinim: Node 22+.
 
 ## 2. curl (npm'siz)
 

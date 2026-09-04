@@ -41,6 +41,8 @@ export function isValidRange(r: string): boolean {
   if (/^v?\d+\.\d+\.\d+/.test(t)) return true;
   // ^ + full semver: ^1.2.0, ^0.2.3
   if (/^\^v?\d+\.\d+\.\d+/.test(t)) return true;
+  // ^ + partial: ^1.2, ^1
+  if (/^\^\d+(\.\d+)?$/.test(t)) return true;
   // ~ + full semver: ~1.2.3, ~0.1.0
   if (/^~v?\d+\.\d+\.\d+/.test(t)) return true;
   // x-range: 1.x, 1.2.x, 1.*, 1.2.*

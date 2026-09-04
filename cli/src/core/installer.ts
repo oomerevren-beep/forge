@@ -209,10 +209,11 @@ async function downloadAndExtract(url: string, expectedSha256: string, dest: str
           throw new Error(`sha256 mismatch: expected ${expectedSha256}, got ${sha256}`);
         }
         // Use Python tarfile for extraction (works reliably on Windows + Unix)
+        // Epoch 1e: filter='data' prevents tar-slip (../ path traversal) and symlink escapes
         execFileSync("python", ["-c", `
 import tarfile, os, sys
 with tarfile.open(sys.argv[1], 'r:gz') as tf:
-    tf.extractall(sys.argv[2])
+    tf.extractall(sys.argv[2], filter='data')
 `, downloaded, dest], { stdio: "pipe" });
         rmSync(downloaded, { force: true });
         return;
@@ -251,11 +252,12 @@ with tarfile.open(sys.argv[1], 'r:gz') as tf:
   wfs(tmpFile, buf);
 
   // Extract via Python tarfile (works reliably on Windows + Unix)
+  // Epoch 1e: filter='data' prevents tar-slip (../ path traversal) and symlink escapes
   try {
     execFileSync("python", ["-c", `
 import tarfile, os, sys
 with tarfile.open(sys.argv[1], 'r:gz') as tf:
-    tf.extractall(sys.argv[2])
+    tf.extractall(sys.argv[2], filter='data')
 `, tmpFile, dest], { stdio: "pipe" });
   } catch (e) {
     throw new Error(`tar extract failed: ${(e as Error).message}`);
@@ -266,15 +268,16 @@ with tarfile.open(sys.argv[1], 'r:gz') as tf:
     } catch {}
   }
 
-  // Tar-slip/symlink guard (portable — no GNU-only flags): refuse archives
-  // that plant symlinks. GNU/bsdtar already neutralize `../` and absolute
-  // members by default; symlinks are the residual escape class.
+  // Defense-in-depth: filter='data' already strips symlinks and ../ escapes,
+  // but we verify post-extraction as a safety net.
   await assertNoSymlinks(dest);
 }
 
-/** Walk dest; throw on any symlink entry (file or dir). */
+/** Walk dest; throw on any symlink entry OR path that escapes the dest root.
+ *  Epoch 1e: symlinks that stay WITHIN the dest dir are safe (GitHub archives use them). */
 async function assertNoSymlinks(dest: string): Promise<void> {
-  const { readdirSync, lstatSync } = await import("fs");
+  const { readdirSync, lstatSync, realpathSync, readlinkSync } = await import("fs");
+  const destReal = realpathSync(dest);
   const stack: string[] = [dest];
   while (stack.length > 0) {
     const dir = stack.pop() as string;
@@ -282,9 +285,30 @@ async function assertNoSymlinks(dest: string): Promise<void> {
       const full = join(dir, entry.name);
       const stat = lstatSync(full);
       if (stat.isSymbolicLink()) {
-        throw new Error(`tarball contains symlink entry (${entry.name}) — refusing to install`);
+        // Epoch 1e: allow symlinks that resolve within the package dir (GitHub archives)
+        try {
+          const linkTarget = readlinkSync(full);
+          const resolved = realpathSync(full);
+          if (!resolved.startsWith(destReal + sep) && resolved !== destReal) {
+            throw new Error(`tarball symlink escapes package dir: ${entry.name} → ${linkTarget}`);
+          }
+        } catch (e) {
+          if ((e as Error).message?.includes("escapes")) throw e;
+          // If we can't resolve, refuse
+          throw new Error(`tarball contains unresolvable symlink (${entry.name}) — refusing to install`);
+        }
+      } else {
+        // Epoch 1e: verify resolved path stays within dest (anti-tar-slip)
+        try {
+          const fullReal = realpathSync(full);
+          if (!fullReal.startsWith(destReal + sep) && fullReal !== destReal) {
+            throw new Error(`tarball entry escapes package dir: ${entry.name}`);
+          }
+        } catch (e) {
+          if ((e as Error).message?.includes("escapes")) throw e;
+        }
+        if (stat.isDirectory()) stack.push(full);
       }
-      if (stat.isDirectory()) stack.push(full);
     }
   }
 }

@@ -13,10 +13,9 @@ export const claudeAdapter: Adapter = {
   // Epoch 1c: Claude user-scope MCP = ~/.claude.json (not settings.json which is behavior config)
   mcpConfigPath: () => join(homedir(), ".claude.json"),
   async install(pkgSlug, srcDir, type) {
-    // Epoch 1c: type-aware install — skills go to skills/, agents to agents/
-    void type;
-    const base = join(homedir(), ".claude", "skills");
-    installSkillFiles("claude-code", pkgSlug, srcDir, base);
+    // Epoch 1d: type-aware install — her tip kendi dizinine gider
+    const base = join(homedir(), ".claude");
+    installSkillFiles("claude-code", pkgSlug, srcDir, targetDirFor(base, type));
   },
   async uninstall(pkgSlug, type) {
     void type;

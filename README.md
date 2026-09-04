@@ -16,13 +16,13 @@
 curl -fsSL https://raw.githubusercontent.com/oomerevren-beep/forge/main/install.sh | sh
 # Windows PowerShell
 irm https://raw.githubusercontent.com/oomerevren-beep/forge/main/install.ps1 | iex
-# or, with Node 18+
+# or, with Node 22+
 npm i -g tryforge
 ```
 
 ```bash
 forge doctor                # detect your harnesses
-forge add anthropics/plan   # skill → all 7 harnesses at once
+forge add pdf/extract      # skill → all harnesses at once
 forge add mcp/filesystem    # MCP server → auto mcp.json
 ```
 
@@ -118,7 +118,7 @@ irm https://raw.githubusercontent.com/oomerevren-beep/forge/main/install.ps1 | i
 npm i -g tryforge
 ```
 
-Requires Node 18+ for v0.1 (TypeScript). Rust binary in v0.2 — single binary, no runtime. Details and troubleshooting: [docs/INSTALL.md](docs/INSTALL.md).
+Requires Node 22+ (TypeScript). Details and troubleshooting: [docs/INSTALL.md](docs/INSTALL.md).
 
 ---
 
@@ -296,7 +296,7 @@ Full diagram and crate layout in `docs/ARCHITECTURE.md`. Tech choices: `commande
 
 ## Roadmap
 
-**v0.1 — Homebrew moment** (now): 7 harnesses, 250 packages, `add/search/list/doctor/install/init` — Trending prep.
+**v0.1 — Homebrew moment** (now): 7 harnesses, 21 verified packages, `add/search/list/doctor/install/init`.
 **v0.2 — NPM moment**: `forge publish`, deps, `cargo install`.
 **v0.3 — Store moment**: `forge run`, Rust binary, GUI.
 **v1.0 — Cloud**: team registry, `brew install forge`, `winget`.
@@ -356,6 +356,6 @@ MIT — see [LICENSE](LICENSE).
 ---
 
 <p align="center">
-  <strong>Star this repo to get notified at launch. 250 packages are live at <a href="https://github.com/oomerevren-beep/forge/releases/tag/v0.1.1">v0.1.1</a>.</strong><br>
+  <strong>Star this repo to get notified at launch. 21 verified packages are live at <a href="https://github.com/oomerevren-beep/forge/releases/tag/v0.1.1">v0.1.1</a>.</strong><br>
   <code>forge add</code> → 7 places at once. <code>forge install</code> → team sync. Homebrew simple.
 </p>
