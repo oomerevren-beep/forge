@@ -4,9 +4,9 @@ import { join } from "path";
 import { homedir } from "os";
 import { type Adapter, installSkillFiles, uninstallSkillFiles, listDirNames } from "./types.js";
 
-// Epoch 1c: DSH adapter artık deprecated/legacy olarak işaretlenmiş.
-// DeepSeek Harness'ında "skills" kavramı yok; cordis.yml + TS plugin modeli kullanılır.
-// Adapter'ı tutuyoruz (geriye uyumluluk) ama "community-maintained, untested" olarak gösteriyoruz.
+// Epoch 1c: DSH adapter is marked deprecated/legacy.
+// The DeepSeek harness has no "skills" concept; it uses a cordis.yml + TS plugin model.
+// Kept for backwards compatibility, surfaced as "community-maintained, untested".
 export const dshAdapter: Adapter = {
   name: "dsh",
   displayName: "DeepSeek (DSH, community/untested)",

@@ -1,11 +1,10 @@
-import { existsSync, mkdirSync, writeFileSync, createWriteStream, rmSync, readFileSync } from "fs";
+import { existsSync, mkdirSync, writeFileSync, rmSync, readFileSync } from "fs";
 import { join, resolve, sep } from "path";
 import { createHash } from "crypto";
 import { tmpdir } from "os";
 import { execFileSync } from "child_process";
 import { packageDir, packagesDir, isPackageInstalled, toSlug, ensureForgeDirs, tarballsDir } from "./store.js";
 import type { PackageDetail, PackageVersion } from "./registry.js";
-import { signPackage, verifyPackage } from "./sign.js";
 
 export interface EnsureContentOpts {
   /** Mock content generation is ONLY allowed with explicit opt-in (`--mock` flag).
@@ -65,7 +64,7 @@ export async function ensurePackageContent(
       if (createdMockDir) {
         try {
           rmSync(dest, { recursive: true, force: true });
-        } catch {}
+        } catch { /* best-effort rollback; the error below is what matters */ }
       }
       throw err;
     }
@@ -86,11 +85,12 @@ export async function ensurePackageContent(
     if (createdDir) {
       try {
         rmSync(dest, { recursive: true, force: true });
-      } catch {}
+      } catch { /* best-effort rollback; the error below is what matters */ }
     }
     throw new Error(
       `[forge] download/verify failed for ${pkgName}@${version}: ${(err as Error).message}\n` +
-      `[forge] Nothing was installed. Re-run with --mock to install mock content instead.`
+      `[forge] Nothing was installed. Re-run with --mock to install mock content instead.`,
+      { cause: err },
     );
   }
 }
@@ -104,7 +104,7 @@ function generateMockPackage(
 ): void {
   const type = detail.type;
   const skillName = pkgName.split("/")[1] ?? pkgName;
-  // Faz 11: her tip gerçek iskelet üretir — forge add her tipi doğru yere kurar
+  // Phase 11: every type produces a real skeleton — forge add installs each type to the right place
   if (type === "skill") {
     const content = `# ${skillName} — ${detail.description}
 
@@ -151,7 +151,7 @@ forge doctor
     writeFileSync(join(dest, "index.js"), `// ${pkgName} plugin entry\nmodule.exports = {};\n`);
   }
 
-  // MCP: also write a forge-mcp.json manifest for adapter use (Faz 11: mcp.json dahil)
+  // MCP: also write a forge-mcp.json manifest for adapter use (Phase 11: includes mcp.json)
   if (type === "mcp" && versionMeta.mcp) {
     writeFileSync(join(dest, "forge-mcp.json"), JSON.stringify(versionMeta.mcp, null, 2));
     writeFileSync(join(dest, "mcp.json"), JSON.stringify({ mcpServers: { [skillName]: versionMeta.mcp } }, null, 2) + "\n");
@@ -218,7 +218,7 @@ with tarfile.open(sys.argv[1], 'r:gz') as tf:
         rmSync(downloaded, { force: true });
         return;
       }
-    } catch (e) {
+    } catch {
       // fall through to fetch fallback
     }
   }
@@ -260,12 +260,12 @@ with tarfile.open(sys.argv[1], 'r:gz') as tf:
     tf.extractall(sys.argv[2], filter='data')
 `, tmpFile, dest], { stdio: "pipe" });
   } catch (e) {
-    throw new Error(`tar extract failed: ${(e as Error).message}`);
+    throw new Error(`tar extract failed: ${(e as Error).message}`, { cause: e });
   } finally {
     try {
       const { unlinkSync } = await import("fs");
       unlinkSync(tmpFile);
-    } catch {}
+    } catch { /* temp-file cleanup is best-effort */ }
   }
 
   // Defense-in-depth: filter='data' already strips symlinks and ../ escapes,
@@ -295,7 +295,7 @@ async function assertNoSymlinks(dest: string): Promise<void> {
         } catch (e) {
           if ((e as Error).message?.includes("escapes")) throw e;
           // If we can't resolve, refuse
-          throw new Error(`tarball contains unresolvable symlink (${entry.name}) — refusing to install`);
+          throw new Error(`tarball contains unresolvable symlink (${entry.name}) — refusing to install`, { cause: e });
         }
       } else {
         // Epoch 1e: verify resolved path stays within dest (anti-tar-slip)

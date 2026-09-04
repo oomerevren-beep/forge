@@ -7,7 +7,7 @@ export { forgeHome, packagesDir, packageDir, toSlug } from "../core/store.js";
 export interface Adapter {
   readonly name: string;
   readonly displayName: string;
-  readonly version?: string; // Epoch 1e: adapter versiyonu (plugin sistemi)
+  readonly version?: string; // Epoch 1e: adapter version (plugin system)
   detect(): boolean;
   skillDir(slug: string): string;
   mcpConfigPath(): string | null;
@@ -67,15 +67,16 @@ export function readMcpConfig(configPath: string): Record<string, unknown> | nul
   } catch (e) {
     throw new Error(
       `[forge] MCP config at ${configPath} contains invalid JSON: ${(e as Error).message}\n` +
-      `[forge] Refusing to modify. Fix the config manually or rename it, then retry.`
+      `[forge] Refusing to modify. Fix the config manually or rename it, then retry.`,
+      { cause: e },
     );
   }
 }
 
-export function writeMcpConfig(configPath: string, data: Record<string, unknown>, opts: { expectedMtimeMs?: number } = {}): void {
+export function writeMcpConfig(configPath: string, data: Record<string, unknown>): void {
   ensureDir(dirname(configPath));
   backupFileIfExists(configPath);
-  // Epoch 1d: Atomic write — temp dosyaya yaz, sonra rename (crash-safe)
+  // Epoch 1d: atomic write — write to temp file, then rename (crash-safe)
   const tmp = configPath + ".tmp." + Date.now();
   writeFileSync(tmp, JSON.stringify(data, null, 2) + "\n");
   renameSync(tmp, configPath);
@@ -97,10 +98,10 @@ export function backupFileIfExists(configPath: string): string | null {
 }
 
 export function addMcpServerToConfig(configPath: string, name: string, mcp: { command: string; args?: string[]; env?: Record<string, string> }): void {
-  // Epoch 1e: dosya yoksa oluştur (taze makine desteği)
+  // Epoch 1e: create the file when missing (fresh-machine support)
   let cfg = readMcpConfig(configPath);
   if (cfg === null) {
-    // Dosya yok veya boş — yeni config oluştur
+    // File missing or empty — create a fresh config
     cfg = {};
   }
   if (!cfg["mcpServers"]) cfg["mcpServers"] = {};
@@ -118,12 +119,12 @@ export function removeMcpServerFromConfig(configPath: string, name: string): voi
   if (cfg === null) return; // file doesn't exist or invalid — nothing to remove
   const servers = cfg["mcpServers"] as Record<string, unknown> | undefined;
   if (servers && name in servers) {
-    delete servers[name];
+    Reflect.deleteProperty(servers, name);
     writeMcpConfig(configPath, cfg);
   }
 }
 
-// Epoch 1d: type-aware hedef dizin
+// Epoch 1d: type-aware target directory
 export function targetDirFor(base: string, type: string): string {
   const dirMap: Record<string, string> = {
     skill: "skills",

@@ -88,10 +88,10 @@ export async function runInit(opts: { name?: string; type?: string; yes?: boolea
     if (!existsSync(full) || opts.force) writeFileSync(full, content);
   }
 
-  const relDir = targetDir === cwd ? "." : opts.name!;
+  const relDir = targetDir === cwd ? "." : (opts.name ?? rawName);
   console.log(`[forge] ✓ created ${relDir}/forge.toml [${type}]`);
   if (Object.keys(extras).length) console.log(`[forge]   + ${Object.keys(extras).join(", ")}`);
-  console.log(`[forge] next: edit forge.toml & SKILL.md, then 'forge publish' (Faz 8)`);
+  console.log(`[forge] next: edit forge.toml & SKILL.md, then 'forge publish' (Phase 8)`);
 }
 
 function normalizeName(input: string): string {

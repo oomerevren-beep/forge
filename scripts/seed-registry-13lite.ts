@@ -1,7 +1,7 @@
 #!/usr/bin/env tsx
-// scripts/seed-registry-13lite.ts — Faz 13-lite: 100 → 250 paket (+150, elle kürasyon)
-// Odak: pdf (10+), agent (20+), mcp kategorileri — search "wow" için.
-// Idempotent: var olan dosyaları atlar, sonra 'npm run registry:build' çalıştır.
+// scripts/seed-registry-13lite.ts — Phase 13-lite: 100 → 250 packages (+150, hand-curated)
+// Focus: pdf (10+), agent (20+), mcp categories — for a "wow" search.
+// Idempotent: skips existing files, then run 'npm run registry:build'.
 import { existsSync, writeFileSync, mkdirSync } from "fs";
 import { join } from "path";
 
@@ -10,7 +10,7 @@ const PACKAGES_DIR = "registry/packages";
 type Row = [name: string, type: "skill" | "mcp" | "plugin" | "agent" | "command" | "hook", description: string, keywords: string[]];
 
 const ROWS: Row[] = [
-  // --- PDF (12) — forge search pdf 10+ hedefi ---
+  // --- PDF (12) — 'forge search pdf' 10+ goal ---
   ["pdf/merge", "skill", "PDF merge skill — combine multiple PDFs into one document fast", ["pdf", "merge", "document"]],
   ["pdf/split", "skill", "PDF split skill — extract pages and split PDFs by range", ["pdf", "split", "pages"]],
   ["pdf/ocr", "skill", "PDF OCR skill — scanned PDFs to searchable text with OCR", ["pdf", "ocr", "scan"]],
@@ -24,7 +24,7 @@ const ROWS: Row[] = [
   ["pdf/annotate", "skill", "PDF annotate skill — comments, highlights and review markup", ["pdf", "annotate", "review"]],
   ["pdf/tables", "skill", "PDF tables skill — detect and export tables from PDFs to CSV", ["pdf", "tables", "csv"]],
 
-  // --- Agent (25) — forge search agent 20+ hedefi ---
+  // --- Agent (25) — 'forge search agent' 20+ goal ---
   ["agent/pr-reviewer", "agent", "PR reviewer agent — thorough pull request reviews with suggestions", ["agent", "review", "pr"]],
   ["agent/changelog-writer", "agent", "Changelog writer agent — generate release notes from commits", ["agent", "changelog", "release"]],
   ["agent/migrator", "agent", "Migrator agent — framework and version migration assistant", ["agent", "migrate", "refactor"]],

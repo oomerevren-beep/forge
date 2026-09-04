@@ -1,7 +1,7 @@
 import { readFileSync, existsSync } from "fs";
 import { join } from "path";
 import { toSlug } from "./store.js";
-import { compareSemver, satisfiesRange, maxSatisfying } from "./semver.js";
+import { maxSatisfying } from "./semver.js";
 import { loadConfig } from "./config.js";
 
 export interface RegistryIndex {
@@ -18,7 +18,7 @@ export interface RegistryPackageSummary {
   versions: string[];
   keywords?: string[];
   updatedAt?: string;
-  /** Trust tier: true = latest tarball fetched + sha256 pinned (Faz 6-oncesi verified core). */
+  /** Trust tier: true = latest tarball fetched + sha256 pinned (pre-Phase-6 verified core). */
   verified?: boolean;
 }
 
@@ -50,13 +50,13 @@ export interface PackageDetail {
 }
 
 function registryRoot(): string {
-  // Epoch 1d: config.registry desteği — uzak index URL'si kullanıcı tarafından belirtilebilir
+  // Epoch 1d: config.registry support — remote index URL can be user-provided
   try {
     const cfg = loadConfig();
     if (cfg.registry && /^https?:\/\//.test(cfg.registry)) {
       return cfg.registry;
     }
-  } catch {}
+  } catch { /* config override is optional; fall back to bundled registry */ }
 
   const candidates = [
     join(import.meta.dirname ?? "./", "../../../registry"),
@@ -71,14 +71,14 @@ function registryRoot(): string {
 
 export async function loadIndex(): Promise<RegistryIndex> {
   const root = registryRoot();
-  // Epoch 1d: uzak registry URL'si desteği
+  // Epoch 1d: remote registry URL support
   if (/^https?:\/\//.test(root)) {
     try {
       const res = await fetch(root + "/index.json");
       if (!res.ok) throw new Error(`HTTP ${res.status} for ${root}/index.json`);
       return await res.json();
     } catch (e) {
-      throw new Error(`Remote registry fetch failed: ${(e as Error).message}`);
+      throw new Error(`Remote registry fetch failed: ${(e as Error).message}`, { cause: e });
     }
   }
   const p = join(root, "index.json");
@@ -89,14 +89,14 @@ export async function loadIndex(): Promise<RegistryIndex> {
 export async function loadPackageDetail(pkg: string): Promise<PackageDetail> {
   const root = registryRoot();
   const slug = toSlug(pkg);
-  // Epoch 1d: uzak registry URL'si desteği
+  // Epoch 1d: remote registry URL support
   if (/^https?:\/\//.test(root)) {
     try {
       const res = await fetch(`${root}/packages/${slug}.json`);
       if (!res.ok) throw new Error(`HTTP ${res.status} for ${root}/packages/${slug}.json`);
       return await res.json();
     } catch (e) {
-      throw new Error(`Package not found: ${pkg} (${(e as Error).message})`);
+      throw new Error(`Package not found: ${pkg} (${(e as Error).message})`, { cause: e });
     }
   }
   const p = join(root, "packages", `${slug}.json`);
@@ -116,7 +116,7 @@ export async function resolveVersion(pkg: string, requested?: string): Promise<{
   if (detail.versions[requested]) {
     return { detail, version: requested, versionMeta: detail.versions[requested] };
   }
-  // semver range (Faz 10: semver.ts tek kaynak) — pick highest satisfying
+  // semver range (Phase 10: semver.ts is the single source) — pick highest satisfying
   const picked = maxSatisfying(Object.keys(detail.versions), requested);
   if (!picked) throw new Error(`No version satisfying ${requested} for ${pkg}. Available: ${Object.keys(detail.versions).join(", ")}`);
   return { detail, version: picked, versionMeta: detail.versions[picked] };
@@ -133,8 +133,8 @@ export function parsePackageArg(arg: string): { name: string; version?: string }
   return { name: arg };
 }
 
-// --- semver helpers Faz 10'da semver.ts'e taşındı (tek kaynak) ---
-// Bu dosya geriye dönük uyumluluk için re-export eder.
+// --- semver helpers moved to semver.ts in Phase 10 (single source) ---
+// This file re-exports for backwards compatibility.
 export { parseSemver, compareSemver, satisfiesRange, maxSatisfying, isValidRange } from "./semver.js";
 
 export async function searchPackages(query: string, opts: { type?: string; limit?: number } = {}): Promise<RegistryPackageSummary[]> {

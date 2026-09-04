@@ -1,5 +1,5 @@
-// cli/src/core/plugin.ts — Epoch 1e: adapter plugin sistemi
-// Adapter'ları CLI çekirdeğinden ayırarak dinamik yükleme
+// cli/src/core/plugin.ts — Epoch 1e: adapter plugin system
+// Dynamically load adapters, decoupled from the CLI core
 import { existsSync, readdirSync } from "fs";
 import { join } from "path";
 import type { Adapter } from "../adapters/types.js";

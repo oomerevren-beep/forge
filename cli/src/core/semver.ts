@@ -1,5 +1,5 @@
-// cli/src/core/semver.ts — Epoch 1c: tam semver (^ ~ >= > <= < * exact + kompozit + x-range + pre-release)
-// Tek kaynak (single source of truth) — registry.ts ve project.ts burayı kullanır.
+// cli/src/core/semver.ts — Epoch 1c: full semver (^ ~ >= > <= < * exact + composite + x-range + pre-release)
+// Single source of truth — used by registry.ts and project.ts.
 
 export type SemverTuple = [number, number, number];
 
@@ -48,13 +48,13 @@ export function isValidRange(r: string): boolean {
   // x-range: 1.x, 1.2.x, 1.*, 1.2.*
   if (/^\d+\.(\*|x)$/.test(t)) return true;
   if (/^\d+\.\d+\.(\*|x)$/.test(t)) return true;
-  // Kısmi aralıklar: ^1, ~1, ~1.2
+  // Partial ranges: ^1, ~1, ~1.2
   if (/^\^\d+$/.test(t)) return true;
   if (/^~\d+$/.test(t)) return true;
   if (/^~\d+\.\d+$/.test(t)) return true;
-  // Tek operatörler: >=1.0.0, <2.0.0, =1.2.3
+  // Single operators: >=1.0.0, <2.0.0, =1.2.3
   if (/^(>=|<=|>|<|=)\s*v?\d+\.\d+\.\d+/.test(t)) return true;
-  // Kompozit aralıklar: >=1.2.0 <2.0.0
+  // Composite ranges: >=1.2.0 <2.0.0
   if (/^(>=|<=|>|<)\s*v?\d+\.\d+\.\d+\s+(>=|<=|>|<)\s*v?\d+\.\d+\.\d+/.test(t)) return true;
   return false;
 }
@@ -63,7 +63,7 @@ export function satisfiesRange(version: string, range: string): boolean {
   const r = range.trim();
   if (r === "*" || r === "" || r === "latest") return true;
 
-  // Kompozit aralık: "op1 ver1 op2 ver2"
+  // Composite range: "op1 ver1 op2 ver2"
   const composite = r.match(/^(>=|<=|>|<)\s*(v?\d+\.\d+\.\d+)\s+(>=|<=|>|<)\s*(v?\d+\.\d+\.\d+)$/);
   if (composite) {
     const [, op1, ver1, op2, ver2] = composite;
@@ -117,7 +117,7 @@ export function satisfiesRange(version: string, range: string): boolean {
     return pv.major === parseInt(maj, 10) && pv.minor === parseInt(min, 10);
   }
 
-  // Tek operatörler
+  // Single operators
   if (r.startsWith(">=")) return applyOp(version, ">=", r.slice(2).trim());
   if (r.startsWith("<=")) return applyOp(version, "<=", r.slice(2).trim());
   if (r.startsWith(">")) return applyOp(version, ">", r.slice(1).trim());

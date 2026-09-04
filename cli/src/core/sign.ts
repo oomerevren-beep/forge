@@ -1,5 +1,5 @@
-// cli/src/core/sign.ts — Epoch 1e: paket imzalama/doğrulama
-// RSA key pair ile paket imzalama, verified publisher sistemi
+// cli/src/core/sign.ts — Epoch 1e: package signing/verification
+// RSA key-pair package signing, verified-publisher system
 import { createHash, createSign, createVerify, generateKeyPairSync } from "crypto";
 import { readFileSync, writeFileSync, existsSync, mkdirSync } from "fs";
 import { join } from "path";

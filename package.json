@@ -45,7 +45,9 @@
   },
   "scripts": {
     "dev": "tsx cli/src/index.ts",
-    "build": "tsc",
+    "build": "tsc -p tsconfig.build.json",
+    "lint": "eslint cli/ scripts/ tests/ eslint.config.js --max-warnings 0",
+    "typecheck": "tsc --noEmit",
     "prepublishOnly": "npm run build && npm test && npm run registry:build -- --check",
     "test": "node --import tsx --test tests/**/*.test.ts cli/src/**/*.test.ts",
     "registry:build": "tsx scripts/build-registry.ts",
@@ -56,9 +58,12 @@
     "smol-toml": "^1.8.0"
   },
   "devDependencies": {
+    "@eslint/js": "^10.0.1",
     "@types/node": "^26.4.1",
+    "eslint": "^10.9.1",
     "playwright": "^1.62.1",
     "tsx": "^4.23.13",
-    "typescript": "^7.0.2"
+    "typescript": "^6.0.3",
+    "typescript-eslint": "^8.69.0"
   }
 }

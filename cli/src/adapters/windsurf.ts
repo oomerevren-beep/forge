@@ -1,8 +1,8 @@
-// cli/src/adapters/windsurf.ts — Windsurf harness (Faz 12 yeni)
+// cli/src/adapters/windsurf.ts — Windsurf harness (new in Phase 12)
 import { existsSync } from "fs";
 import { join } from "path";
 import { homedir } from "os";
-import { type Adapter, installSkillFiles, uninstallSkillFiles, listDirNames, targetDirFor } from "./types.js";
+import { type Adapter, installSkillFiles, uninstallSkillFiles, listDirNames } from "./types.js";
 
 export const windsurfAdapter: Adapter = {
   name: "windsurf",

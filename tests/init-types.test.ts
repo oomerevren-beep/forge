@@ -5,8 +5,8 @@ import { tmpdir } from "os";
 import { join } from "path";
 import { runInit } from "../cli/src/commands/init.js";
 
-// Faz 11: init 6 tip gerçek iskelet üretir
-describe("forge init — Faz 11 (6 tip)", () => {
+// Phase 11: init produces real skeletons for all 6 types
+describe("forge init — Phase 11 (6 types)", () => {
   const cases: { type: string; files: string[] }[] = [
     { type: "skill", files: ["forge.toml", "SKILL.md"] },
     { type: "mcp", files: ["forge.toml", "mcp.json", "src/index.ts"] },

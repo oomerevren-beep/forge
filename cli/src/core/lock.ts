@@ -1,6 +1,6 @@
 import { existsSync, readFileSync, writeFileSync } from "fs";
 import { join, resolve } from "path";
-import { parse, stringify } from "smol-toml";
+import { parse } from "smol-toml";
 
 export interface LockEntry {
   name: string;

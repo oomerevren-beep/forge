@@ -5,8 +5,8 @@ import { tmpdir } from "os";
 import { join } from "path";
 import { allAdapters, detectAdapters, genericAdapter, dshAdapter, windsurfAdapter } from "../cli/src/adapters/index.js";
 
-// Faz 12 matrix: 7 harness add/remove/list mock FS ile
-describe("forge adapters — Faz 12 matrix (7 harness)", () => {
+// Phase 12 matrix: 7 harnesses, add/remove/list over a mock FS
+describe("forge adapters — Phase 12 matrix (7 harnesses)", () => {
   it("allAdapters has 7 entries with unique names", () => {
     const names = allAdapters.map((a) => a.name).sort();
     assert.deepEqual(names, ["claude-code", "codex", "cursor", "dsh", "generic", "opencode", "windsurf"]);

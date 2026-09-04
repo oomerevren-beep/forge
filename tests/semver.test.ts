@@ -2,8 +2,8 @@ import { describe, it } from "node:test";
 import assert from "node:assert/strict";
 import { satisfiesRange, maxSatisfying, isValidRange, compareSemver } from "../cli/src/core/semver.js";
 
-// Faz 10: semver tam (^ ~ >= > <= < * exact)
-describe("forge semver — Faz 10", () => {
+// Phase 10: full semver (^ ~ >= > <= < * exact)
+describe("forge semver — Phase 10", () => {
   it("^1.2.3 = >=1.2.3 <2.0.0", () => {
     assert.ok(satisfiesRange("1.2.3", "^1.2.3"));
     assert.ok(satisfiesRange("1.9.0", "^1.2.3"));

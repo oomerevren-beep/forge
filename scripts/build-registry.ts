@@ -132,8 +132,6 @@ function build(): void {
       process.exit(1);
     }
     const existing = JSON.parse(readFileSync(INDEX_FILE, "utf-8"));
-    const expected = JSON.stringify(index, null, 2);
-    const actual = JSON.stringify(existing, null, 2);
     // compare count and package keys (ignore generatedAt)
     const existingCount = existing.count;
     const expectedCount = index.count;
@@ -143,7 +141,7 @@ function build(): void {
       process.exit(1);
     }
     console.log(`[build --check] OK — index.json in sync (count=${existingCount})`);
-    if (placeholderCount > 0) console.warn(`[build --check] warn: ${placeholderCount} placeholder sha256 (expected in Faz 2)`);
+    if (placeholderCount > 0) console.warn(`[build --check] warn: ${placeholderCount} placeholder sha256 (expected in Phase 2)`);
     return;
   }
 
@@ -153,7 +151,7 @@ function build(): void {
   console.log(`[build] wrote ${INDEX_FILE} (${all.length} packages)`);
   console.log(`[build] wrote ${SEARCH_FILE} (${search.length} entries)`);
   console.log(`[build] wrote ${STATS_FILE} ${JSON.stringify(byType)}`);
-  if (placeholderCount > 0) console.warn(`[build] warn: ${placeholderCount} placeholder sha256 (Faz 2 mock, Faz 3 real)`);
+  if (placeholderCount > 0) console.warn(`[build] warn: ${placeholderCount} placeholder sha256 (Phase 2 mock, Phase 3 real)`);
 }
 
 build();

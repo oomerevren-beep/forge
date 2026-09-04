@@ -1,11 +1,11 @@
 #!/usr/bin/env node
-// forge CLI — v0.1 (Faz 1: gerçek add/remove/list/doctor)
+// forge CLI — v0.1 (Phase 1: real add/remove/list/doctor)
 import { Command } from "commander";
-import { existsSync, rmSync, readFileSync } from "fs";
+import { existsSync, rmSync } from "fs";
 import { join } from "path";
 import { homedir } from "os";
 
-import { loadIndex, loadPackageDetail, resolveVersion, parsePackageArg, searchPackages } from "./core/registry.js";
+import { loadPackageDetail, resolveVersion, parsePackageArg, searchPackages } from "./core/registry.js";
 import { ensurePackageContent } from "./core/installer.js";
 import { ensureForgeDirs, readLinks, writeLinks, packageDir, toSlug, listInstalledPackages } from "./core/store.js";
 import { allAdapters, detectAdapters, addMcpServerToConfig, removeMcpServerFromConfig, readMcpConfig } from "./adapters/index.js";
@@ -107,7 +107,7 @@ program
       }
     }
 
-    // Epoch 1e: herhangi bir adapter hatasında exit 1
+    // Epoch 1e: exit 1 on any adapter failure
     if (failed > 0) {
       console.log(`\n[forge] ✗ ${failed} harness(es) failed — installed on ${adapters.length - failed}/${adapters.length}`);
       process.exitCode = 1;
@@ -172,7 +172,6 @@ program
     const version = record?.version ?? "unknown";
     // Remove from adapters
     const adapters = allAdapters; // try all to be thorough
-    let cleaned = false;
     for (const adapter of adapters) {
       const wasInstalled = await adapter.isInstalled(slug);
       if (wasInstalled) {
@@ -182,7 +181,6 @@ program
           await adapter.uninstall(slug, "mcp");
           await adapter.uninstall(slug, "agent");
           console.log(`  ✓ removed from ${adapter.displayName}`);
-          cleaned = true;
         } catch (e) {
           console.warn(`  ✗ ${adapter.displayName}: ${(e as Error).message}`);
         }
@@ -193,7 +191,7 @@ program
       if (cfgPath) {
         try {
           removeMcpServerFromConfig(cfgPath, slug);
-        } catch {}
+        } catch { /* stale MCP entries are best-effort cleanup */ }
       }
     }
     // Remove from store (keep cache? remove package dir)
@@ -203,12 +201,12 @@ program
         rmSync(dir, { recursive: true, force: true });
         console.log(`[forge] removed store: ${dir}`);
       }
-      delete links[name];
+      Reflect.deleteProperty(links, name);
       writeLinks(links);
     } else {
       // Epoch 1d: always clean links entry if it exists (even partial)
       if (links[name]) {
-        delete links[name];
+        Reflect.deleteProperty(links, name);
         writeLinks(links);
       }
       // try to clean any version dir matching slug
@@ -329,7 +327,6 @@ program
                 console.log(`  ! missing MCP config: ${name} on ${adapterName} → ${cfgPath}`);
                 if (opts.fix && existsSync(liveDir)) {
                   try {
-                    const detail = await loadPackageDetail(name);
                     const resolved = await resolveVersion(name, rec.version);
                     if (resolved.versionMeta.mcp) {
                       addMcpServerToConfig(cfgPath, rec.slug, resolved.versionMeta.mcp);
@@ -471,10 +468,10 @@ program
     await runUpdate(pkg, { mock: opts.mock });
   });
 
-// --- audit (Faz 10 iskelet, Faz 22'de tam) ---
+// --- audit (Phase 10 skeleton, full DB in Phase 22) ---
 program
   .command("audit")
-  .description("Audit installed packages (skeleton — full DB in Faz 22)")
+  .description("Audit installed packages (skeleton — full DB in Phase 22)")
   .option("--json", "output JSON", false)
   .action(async (opts) => {
     await runAudit({ json: opts.json });

@@ -28,7 +28,7 @@ function assertNoPartialContent(dir: string): void {
   assert.equal(readdirSync(dir).length, 0, `partial content left in ${dir}`);
 }
 
-describe("forge installer — fail-closed (launch hazirligi)", () => {
+describe("forge installer — fail-closed (launch hardening)", () => {
   it("placeholder SHA without --mock throws, writes nothing", async () => {
     const uniq = `${Date.now()}-${process.pid}`;
     const name = `test-failclosed/placeholder-${uniq}`;
@@ -96,6 +96,7 @@ describe("forge installer — fail-closed (launch hazirligi)", () => {
       const bak = JSON.parse(readFileSync(cfg + ".bak", "utf-8")) as Record<string, unknown>;
       assert.ok((bak.mcpServers as Record<string, unknown>).old);
       const cur = readMcpConfig(cfg);
+      assert.ok(cur, "rewritten config must parse");
       assert.ok((cur.mcpServers as Record<string, unknown>).added);
     } finally {
       rmSync(dir, { recursive: true, force: true });

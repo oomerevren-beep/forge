@@ -31,7 +31,7 @@ describe("forge core — smoke", () => {
   });
 
   it("validateProjectToml rejects bad name", () => {
-    const errs = validateProjectToml({ dependencies: { "badname": "^1.0.0" } } as any);
+    const errs = validateProjectToml({ dependencies: { "badname": "^1.0.0" } });
     assert.ok(errs.length > 0);
   });
 
@@ -43,10 +43,9 @@ describe("forge core — smoke", () => {
   });
 
   it("smol-toml stringify/parse roundtrip", () => {
-    const obj = { dependencies: { "a/b": "^1.0.0" } };
     // just ensure parse works on a sample
     const raw = `[dependencies]\n"a/b" = "^1.0.0"\n`;
-    const parsed = parse(raw) as any;
+    const parsed = parse(raw) as { dependencies: Record<string, string> };
     assert.equal(parsed.dependencies["a/b"], "^1.0.0");
   });
 
@@ -60,10 +59,10 @@ describe("forge core — smoke", () => {
   });
 
   it("search --type filter returns only that type", async () => {
-    const skills = await searchPackages("plan", { type: "skill" } as any);
+    const skills = await searchPackages("plan", { type: "skill" });
     // if filter is supported, all results should be skill; if not, at least 1 skill result exists
     if (skills.length > 0) {
-      const allSkill = skills.every((p: any) => p.type === "skill");
+      const allSkill = skills.every((p) => p.type === "skill");
       assert.ok(allSkill || skills.length >= 1);
     } else {
       // fallback: search without filter still finds plan
@@ -107,7 +106,7 @@ describe("forge core — smoke", () => {
     assert.ok(agent.length >= 3); // 5 verified agent
   });
 
-  it("search <200ms offline (Faz 13-lite)", async () => {
+  it("search <200ms offline (Phase 13-lite)", async () => {
     const t0 = Date.now();
     await searchPackages("pdf");
     await searchPackages("agent");

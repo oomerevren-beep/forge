@@ -24,13 +24,13 @@ export function loadProjectToml(path: string): ProjectToml {
   try {
     raw = readFileSync(path, "utf-8");
   } catch (e) {
-    throw new Error(`Cannot read ${path}: ${(e as Error).message}`);
+    throw new Error(`Cannot read ${path}: ${(e as Error).message}`, { cause: e });
   }
   let parsed: Record<string, unknown>;
   try {
     parsed = parse(raw) as Record<string, unknown>;
   } catch (e) {
-    throw new Error(`${path}: invalid TOML — ${(e as Error).message}`);
+    throw new Error(`${path}: invalid TOML — ${(e as Error).message}`, { cause: e });
   }
 
   // detect author [package] file (not a project install target)
@@ -57,7 +57,7 @@ export function loadProjectToml(path: string): ProjectToml {
   return { project, dependencies, forge, package: parsed.package as Record<string, unknown> | undefined };
 }
 
-export function validateProjectToml(p: ProjectToml, pathForMsg = "forge.toml"): string[] {
+export function validateProjectToml(p: ProjectToml): string[] {
   const errs: string[] = [];
   for (const [name, range] of Object.entries(p.dependencies)) {
     if (!DEP_NAME_RE.test(name)) errs.push(`Invalid dependency name "${name}" — expected scope/name (e.g. anthropics/plan)`);

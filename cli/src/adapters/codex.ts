@@ -2,7 +2,7 @@
 import { existsSync } from "fs";
 import { join } from "path";
 import { homedir } from "os";
-import { type Adapter, installSkillFiles, uninstallSkillFiles, listDirNames, targetDirFor } from "./types.js";
+import { type Adapter, installSkillFiles, uninstallSkillFiles } from "./types.js";
 
 export const codexAdapter: Adapter = {
   name: "codex",

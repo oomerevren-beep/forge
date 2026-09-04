@@ -1,4 +1,4 @@
-// cli/src/adapters/index.ts — Epoch 1e: adapter plugin sistemi ile birleştirilmiş
+// cli/src/adapters/index.ts — Epoch 1e: merged with the adapter plugin system
 export type { Adapter } from "./types.js";
 export {
   readMcpConfig,

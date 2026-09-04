@@ -1,7 +1,7 @@
 import { existsSync } from "fs";
 import { resolve, join } from "path";
 import { homedir } from "os";
-import { loadIndex, resolveVersion, satisfiesRange } from "../core/registry.js";
+import { resolveVersion, satisfiesRange } from "../core/registry.js";
 import { ensurePackageContent } from "../core/installer.js";
 import { ensureForgeDirs, readLinks, writeLinks, toSlug } from "../core/store.js";
 import { allAdapters, detectAdapters, addMcpServerToConfig } from "../adapters/index.js";
@@ -43,7 +43,7 @@ export async function runInstall(opts: { cwd?: string; frozen?: boolean; mock?: 
     process.exit(1);
   }
 
-  const errs = validateProjectToml(project, tomlPath);
+  const errs = validateProjectToml(project);
   if (errs.length > 0) {
     for (const er of errs) console.error(`[forge] ${er}`);
     process.exit(1);

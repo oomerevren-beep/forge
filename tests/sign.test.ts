@@ -1,4 +1,4 @@
-// tests/sign.test.ts — Epoch 1e: paket imzalama testleri
+// tests/sign.test.ts — Epoch 1e: package signing tests
 import { describe, it } from "node:test";
 import assert from "node:assert/strict";
 import { writeFileSync, mkdirSync, rmSync } from "fs";
@@ -6,8 +6,8 @@ import { tmpdir } from "os";
 import { join } from "path";
 import { generateKeyPair, signData, verifySignature, signPackage, verifyPackage } from "../cli/src/core/sign.js";
 
-describe("forge sign — paket imzalama", () => {
-  it("RSA key pair üretir", () => {
+describe("forge sign — package signing", () => {
+  it("generates an RSA key pair", () => {
     const dir = join(tmpdir(), `forge-test-sign-${Date.now()}`);
     mkdirSync(dir, { recursive: true });
     const { privateKey, publicKey } = generateKeyPair("test");
@@ -16,7 +16,7 @@ describe("forge sign — paket imzalama", () => {
     rmSync(dir, { recursive: true, force: true });
   });
 
-  it("İmza doğrulama başarılı", () => {
+  it("signature verification succeeds", () => {
     const { privateKey, publicKey } = generateKeyPair("test");
     const data = "test data for signing";
     const sig = signData(data, privateKey);
@@ -26,15 +26,15 @@ describe("forge sign — paket imzalama", () => {
     assert.equal(valid, true);
   });
 
-  it("İmza doğrulama başarısız (bozulmuş veri)", () => {
+  it("signature verification fails (tampered data)", () => {
     const { privateKey, publicKey } = generateKeyPair("test");
     const data = "test data for signing";
     const sig = signData(data, privateKey);
-    const valid = verifySignature("tamamen farklı data", sig, publicKey);
+    const valid = verifySignature("completely different data", sig, publicKey);
     assert.equal(valid, false);
   });
 
-  it("Paket imzalama ve doğrulama", () => {
+  it("signs and verifies a package", () => {
     const dir = join(tmpdir(), `forge-test-pkgsign-${Date.now()}`);
     mkdirSync(dir, { recursive: true });
     const pkgPath = join(dir, "package.tar.gz");
@@ -48,7 +48,7 @@ describe("forge sign — paket imzalama", () => {
     rmSync(dir, { recursive: true, force: true });
   });
 
-  it("Paket doğrulama başarısız (bozulmuş paket)", () => {
+  it("package verification fails (tampered package)", () => {
     const dir = join(tmpdir(), `forge-test-pkgsign2-${Date.now()}`);
     mkdirSync(dir, { recursive: true });
     const pkgPath = join(dir, "package.tar.gz");

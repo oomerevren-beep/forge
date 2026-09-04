@@ -1,5 +1,5 @@
 // cli/src/commands/audit.ts — trust-tier audit (verified vs community vs mock).
-// Full vulnerability DB in Faz 22; tier flags are accurate as of the verified-core sprint.
+// Full vulnerability DB in Phase 22; tier flags are accurate as of the verified-core sprint.
 
 import { existsSync } from "fs";
 import { join } from "path";
@@ -14,7 +14,7 @@ export async function runAudit(opts: { json?: boolean } = {}): Promise<void> {
 
   if (entries.length === 0) {
     console.log("[forge] audit: no installed packages — nothing to check");
-    console.log("[forge] audit: full vulnerability DB in Faz 22");
+    console.log("[forge] audit: full vulnerability DB in Phase 22");
     return;
   }
 
@@ -39,7 +39,7 @@ export async function runAudit(opts: { json?: boolean } = {}): Promise<void> {
         if (existsSync(join(packageDir(rec.slug, rec.version), ".forge-mock"))) {
           findings.push({ pkg: rec.pkg, level: "info", message: `installed from MOCK content (--mock was used)` });
         }
-      } catch {}
+      } catch { /* marker check is best-effort; unreadable dir simply means "not mock" */ }
     } catch (e) {
       findings.push({ pkg: rec.pkg, level: "warn", message: `registry read failed: ${(e as Error).message}` });
     }
@@ -50,7 +50,7 @@ export async function runAudit(opts: { json?: boolean } = {}): Promise<void> {
     return;
   }
 
-  console.log(`[forge] audit — ${entries.length} package(s) checked (skeleton, full DB Faz 22):\n`);
+  console.log(`[forge] audit — ${entries.length} package(s) checked (skeleton, full DB Phase 22):\n`);
   if (findings.length === 0) {
     console.log("[forge] ✓ no issues");
   } else {

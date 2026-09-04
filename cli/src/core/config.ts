@@ -1,6 +1,5 @@
 import { existsSync, mkdirSync, readFileSync, writeFileSync } from "fs";
 import { join } from "path";
-import { homedir } from "os";
 import { parse, stringify } from "smol-toml";
 import { forgeHome } from "./store.js";
 

@@ -32,7 +32,7 @@ export async function runOutdated(opts: { cwd?: string } = {}): Promise<void> {
     console.log("[forge] no packages installed");
     return;
   }
-  // Faz 10 polish: index'i tek sefer yükle (20 pakette <10s hedefi için), semver-aware karşılaştır
+  // Phase 10 polish: load the index once (sub-10s goal for 20 packages), semver-aware compare
   const index = await loadIndex();
   let outdated = 0;
   for (const rec of entries) {
@@ -43,7 +43,7 @@ export async function runOutdated(opts: { cwd?: string } = {}): Promise<void> {
         console.log(`${rec.pkg}  ${rec.version} → ${latest} (latest)`);
         outdated++;
       }
-    } catch {}
+    } catch { /* per-package failure must not abort the outdated scan */ }
   }
   const dt = ((Date.now() - t0) / 1000).toFixed(1);
   if (outdated === 0) console.log(`[forge] all packages up to date (${entries.length} checked in ${dt}s)`);
@@ -60,7 +60,7 @@ export async function runUpdate(pkgArg?: string, opts: { cwd?: string; mock?: bo
     try {
       const proj = loadProjectToml(tomlPath);
       projectHarnesses = proj.forge?.harnesses;
-    } catch {}
+    } catch { /* unreadable project file means "no harness override" */ }
   }
   const adapters = pickAdapters(projectHarnesses);
 

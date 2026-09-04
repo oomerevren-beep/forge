@@ -1,6 +1,6 @@
 #!/usr/bin/env tsx
-// scripts/seed-registry.ts — Epoch 1d: sadece gerçek tarball'ı olan paketleri seed
-// Var olmayan repo'ları eklemez — fail-closed
+// scripts/seed-registry.ts — Epoch 1d: seed only packages with real tarballs
+// Never adds repos that do not exist — fail-closed
 import { existsSync, writeFileSync, mkdirSync } from "fs";
 import { join } from "path";
 
@@ -16,16 +16,16 @@ type Pkg = {
   source?: string;
   version: string;
   tarball: string;
-  sha256: string; // Epoch 1d: placeholder kabul etmiyoruz
+  sha256: string; // Epoch 1d: placeholders are rejected
   verified: boolean;
   engines?: Record<string, string>;
   mcp?: { command: string; args: string[]; env?: Record<string, string> };
   dependencies?: Record<string, string>;
 };
 
-// Sadece gerçekten doğrulanmış tarball'lar — Epoch 1d
+// Only genuinely verified tarballs — Epoch 1d
 const CATALOG: Pkg[] = [
-  // Gerçek tarball'lı paketler (SHA256 doğrulanmış)
+  // Real-tarball packages (SHA256 verified)
   {
     name: "pdf/compress", type: "skill", description: "PDF compress skill — shrink PDF size without quality loss",
     keywords: ["pdf", "compress", "optimize"], source: "registry-content",

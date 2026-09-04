@@ -1,7 +1,7 @@
 #!/usr/bin/env tsx
-// scripts/verify-npm-mcps.ts — MCP girdilerini gercek upstream npm tarball'iyla dogrula.
-// Her paket icin: npm metadata -> dist.tarball indir -> sha256 hesapla -> JSON'a pin + verified:true.
-// Fail-closed: herhangi bir adim basarisizsa o paket atlanir (placeholder korunur).
+// scripts/verify-npm-mcps.ts — verify MCP entries against real upstream npm tarballs.
+// Per package: npm metadata -> dist.tarball download -> sha256 compute -> pin into JSON + verified:true.
+// Fail-closed: any failing step skips that package (placeholder preserved).
 import { readFileSync, writeFileSync } from "fs";
 import { createHash } from "crypto";
 
@@ -10,6 +10,12 @@ const MAP: Array<{ slug: string; npm: string }> = [
   { slug: "mcp-sequential-thinking", npm: "@modelcontextprotocol/server-sequential-thinking" },
 ];
 
+type NpmMeta = {
+  "dist-tags"?: Record<string, string>;
+  versions?: Record<string, { dist?: { tarball?: string } }>;
+  time?: Record<string, string>;
+};
+
 async function main(): Promise<void> {
   let ok = 0;
   for (const { slug, npm } of MAP) {
@@ -17,10 +23,11 @@ async function main(): Promise<void> {
     try {
       const metaRes = await fetch(`https://registry.npmjs.org/${encodeURIComponent(npm)}`);
       if (!metaRes.ok) throw new Error(`metadata HTTP ${metaRes.status}`);
-      const meta = (await metaRes.json()) as any;
-      const version: string = meta["dist-tags"]?.latest;
+      const meta = (await metaRes.json()) as NpmMeta;
+      const version: string | undefined = meta["dist-tags"]?.latest;
       if (!version || !meta.versions?.[version]?.dist?.tarball) throw new Error("no latest dist");
-      const tarball: string = meta.versions[version].dist.tarball;
+      const tarball: string | undefined = meta.versions[version].dist?.tarball;
+      if (!tarball) throw new Error("no latest dist");
       const publishedAt: string = meta.time?.[version] ?? new Date().toISOString();
 
       const dl = await fetch(tarball);

@@ -1,9 +1,9 @@
-// cli/src/core/permissions.ts — Epoch 1e: sandbox izin manifestosu
+// cli/src/core/permissions.ts — Epoch 1e: sandbox permission manifest
 export interface PermissionManifest {
-  network?: boolean; // İnternet erişimi
-  filesystem?: "read" | "write" | "none"; // Dosya sistemi erişimi
-  exec?: boolean; // Komut çalıştırma
-  env?: string[]; // Erişilecek env değişkenleri
+  network?: boolean; // Internet access
+  filesystem?: "read" | "write" | "none"; // Filesystem access
+  exec?: boolean; // Command execution
+  env?: string[]; // Accessible env vars
 }
 
 export const DEFAULT_PERMISSIONS: PermissionManifest = {
