@@ -1,6 +1,6 @@
 {
   "name": "tryforge",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "description": "The Homebrew for AI Agents — one CLI for skills, MCPs, plugins, agents",
   "license": "MIT",
   "author": "Ömer Evren",
