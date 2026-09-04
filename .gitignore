@@ -1,19 +1,52 @@
-node_modules
-dist
-.cache
+# Dependencies
+node_modules/
+.pnp
+.pnp.js
+
+# Build Outputs
+dist/
+build/
+out/
+*.tsbuildinfo
+
+# Package Manager Archives & Temp
+*.tar.gz
+*.tgz
+*.zip
+.cache/
+
+# Agent, LLM & Local IDE Runtime Artifacts
+.hermes/
+.kiro/
+.claude/
+.cursor/
+.windsurf/
+run-state/
+*.checkpoint
+*.epoch
+
+# Environment & Credentials
+.env
+.env.local
+.env.*.local
+*.pem
+*.key
+
+# Operating System
 .DS_Store
-*.log
+Thumbs.db
+
+# Forge local runtime (machine-local install state, never shared)
 .forge/
-# project generic cache (Faz 3 .forge is local)
 forge.lock.bak
 /tmp/forge-*
-# hermes agent config — local only
-.hermes/
-# private strategy docs — never push to public GitHub
+
+# Private strategy docs — never push to public GitHub
 docs/private/
 docs/FAZ*-PLAN.md
 docs/*100K*
 docs/LAUNCH.md
 docs/REVIZE-*.md
-.npmrc
+
+# npm auth token — local only, user logs in on their own terminal
 .npmrc
