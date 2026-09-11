@@ -6,13 +6,11 @@ You are Forge's autonomous agent. This repo is `forge` — the homebrew of the A
 
 - **Name:** Forge
 - **Repo:** `forge` (GitHub: `oomerevren-beep/forge` / `oomerevren/forge`)
-- **Language:** TypeScript (v0.1) -> Rust (v0.2)
-- **Workspace:** `C:/Users/ömer/Desktop/forge`
+- **Language:** TypeScript (Node.js >= 18)
 
 ## Commands
 
 ```bash
-cd C:/Users/ömer/Desktop/forge
 npm install
 npm run dev          # CLI dev
 npm run build        # build
