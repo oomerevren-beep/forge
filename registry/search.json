@@ -9,7 +9,11 @@
       "release"
     ],
     "latest": "1.0.0",
-    "verified": true
+    "verified": true,
+    "tier": "verified",
+    "harnesses": [
+      "*"
+    ]
   },
   {
     "name": "agent/debugger",
@@ -21,7 +25,11 @@
       "triage"
     ],
     "latest": "1.0.0",
-    "verified": true
+    "verified": true,
+    "tier": "verified",
+    "harnesses": [
+      "*"
+    ]
   },
   {
     "name": "agent/pr-reviewer",
@@ -33,7 +41,11 @@
       "pr"
     ],
     "latest": "1.0.0",
-    "verified": true
+    "verified": true,
+    "tier": "verified",
+    "harnesses": [
+      "*"
+    ]
   },
   {
     "name": "agent/researcher",
@@ -45,7 +57,11 @@
       "web"
     ],
     "latest": "1.0.0",
-    "verified": true
+    "verified": true,
+    "tier": "verified",
+    "harnesses": [
+      "*"
+    ]
   },
   {
     "name": "agent/security-auditor",
@@ -57,7 +73,11 @@
       "audit"
     ],
     "latest": "1.0.0",
-    "verified": true
+    "verified": true,
+    "tier": "verified",
+    "harnesses": [
+      "*"
+    ]
   },
   {
     "name": "cmd/plan",
@@ -68,7 +88,11 @@
       "plan"
     ],
     "latest": "1.0.0",
-    "verified": true
+    "verified": true,
+    "tier": "verified",
+    "harnesses": [
+      "*"
+    ]
   },
   {
     "name": "cmd/review",
@@ -79,7 +103,11 @@
       "review"
     ],
     "latest": "1.0.0",
-    "verified": true
+    "verified": true,
+    "tier": "verified",
+    "harnesses": [
+      "*"
+    ]
   },
   {
     "name": "mcp/filesystem",
@@ -90,7 +118,11 @@
       "filesystem"
     ],
     "latest": "2026.8.31",
-    "verified": true
+    "verified": true,
+    "tier": "verified",
+    "harnesses": [
+      "*"
+    ]
   },
   {
     "name": "mcp/github",
@@ -101,7 +133,11 @@
       "github"
     ],
     "latest": "2025.4.8",
-    "verified": true
+    "verified": true,
+    "tier": "verified",
+    "harnesses": [
+      "*"
+    ]
   },
   {
     "name": "mcp/memory",
@@ -112,7 +148,11 @@
       "memory"
     ],
     "latest": "2026.8.31",
-    "verified": true
+    "verified": true,
+    "tier": "verified",
+    "harnesses": [
+      "*"
+    ]
   },
   {
     "name": "mcp/postgres",
@@ -124,7 +164,11 @@
       "sql"
     ],
     "latest": "0.6.2",
-    "verified": true
+    "verified": true,
+    "tier": "verified",
+    "harnesses": [
+      "*"
+    ]
   },
   {
     "name": "mcp/sequential-thinking",
@@ -135,7 +179,11 @@
       "reasoning"
     ],
     "latest": "2026.8.31",
-    "verified": true
+    "verified": true,
+    "tier": "verified",
+    "harnesses": [
+      "*"
+    ]
   },
   {
     "name": "obra/superpowers",
@@ -147,7 +195,13 @@
       "brainstorming"
     ],
     "latest": "3.0.0",
-    "verified": true
+    "verified": true,
+    "tier": "verified",
+    "harnesses": [
+      "claude-code",
+      "opencode",
+      "codex"
+    ]
   },
   {
     "name": "pdf/compress",
@@ -159,7 +213,11 @@
       "optimize"
     ],
     "latest": "1.0.0",
-    "verified": true
+    "verified": true,
+    "tier": "verified",
+    "harnesses": [
+      "*"
+    ]
   },
   {
     "name": "pdf/convert",
@@ -171,7 +229,11 @@
       "export"
     ],
     "latest": "1.0.0",
-    "verified": true
+    "verified": true,
+    "tier": "verified",
+    "harnesses": [
+      "*"
+    ]
   },
   {
     "name": "pdf/extract",
@@ -183,7 +245,11 @@
       "parse"
     ],
     "latest": "1.0.0",
-    "verified": true
+    "verified": true,
+    "tier": "verified",
+    "harnesses": [
+      "*"
+    ]
   },
   {
     "name": "pdf/forms",
@@ -195,7 +261,11 @@
       "acroform"
     ],
     "latest": "1.0.0",
-    "verified": true
+    "verified": true,
+    "tier": "verified",
+    "harnesses": [
+      "*"
+    ]
   },
   {
     "name": "pdf/merge",
@@ -207,7 +277,11 @@
       "document"
     ],
     "latest": "1.0.0",
-    "verified": true
+    "verified": true,
+    "tier": "verified",
+    "harnesses": [
+      "*"
+    ]
   },
   {
     "name": "pdf/ocr",
@@ -219,7 +293,11 @@
       "scan"
     ],
     "latest": "1.0.0",
-    "verified": true
+    "verified": true,
+    "tier": "verified",
+    "harnesses": [
+      "*"
+    ]
   },
   {
     "name": "pdf/split",
@@ -231,7 +309,11 @@
       "pages"
     ],
     "latest": "1.0.0",
-    "verified": true
+    "verified": true,
+    "tier": "verified",
+    "harnesses": [
+      "*"
+    ]
   },
   {
     "name": "pdf/tables",
@@ -243,6 +325,10 @@
       "csv"
     ],
     "latest": "1.0.0",
-    "verified": true
+    "verified": true,
+    "tier": "verified",
+    "harnesses": [
+      "*"
+    ]
   }
 ]

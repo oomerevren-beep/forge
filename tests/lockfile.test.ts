@@ -88,4 +88,52 @@ describe("forge lock — deterministic + integrity", () => {
     const lax = await verifyLockIntegrity(lock, { allowMock: true });
     assert.ok(!lax.some((i) => i.kind === "unverified"));
   });
+
+  it("pins resolved commit SHA and round-trips it in forge.lock", () => {
+    const ext: LockEntry = {
+      name: "external/tool",
+      version: "1.0.0",
+      type: "skill",
+      source: "github:acme/tool",
+      resolved: "a8c91b2c3d4e5f67890abcdef1234567890abcde",
+      sha256: "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    };
+    writeLock([ext]);
+    const lock = readLock();
+    assert.ok(lock);
+    assert.equal(lock.packages[0].resolved, ext.resolved);
+    assert.equal(lock.packages[0].sha256, ext.sha256);
+    assert.equal(lock.packages[0].source, ext.source);
+  });
+
+  it("verifies external package integrity: pinned passes, unpinned is flagged", async () => {
+    const pinnedLock = {
+      packages: [
+        {
+          name: "external/safe",
+          version: "1.0.0",
+          type: "skill",
+          source: "github:acme/safe",
+          resolved: "abc1234",
+          sha256: "1234567890abcdef",
+        },
+      ],
+    };
+    const ok = await verifyLockIntegrity(pinnedLock);
+    assert.equal(ok.length, 0);
+
+    const unpinnedLock = {
+      packages: [
+        {
+          name: "external/unsafe",
+          version: "1.0.0",
+          type: "skill",
+          source: "github:acme/unsafe",
+        },
+      ],
+    };
+    const issues = await verifyLockIntegrity(unpinnedLock);
+    assert.equal(issues.length, 1);
+    assert.equal(issues[0].kind, "unverified");
+  });
 });

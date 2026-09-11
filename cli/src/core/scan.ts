@@ -1,16 +1,17 @@
-// cli/src/core/scan.ts — Static security scanner (Phase 3).
+// cli/src/core/scan.ts — Deterministic Static Security Scanner & Audit Policy Engine.
 //
 // AI agents execute third-party skills/prompts, so every package is scanned
-// BEFORE install and BY audit afterwards. Three rule families:
+// BEFORE install and BY audit afterwards. Four rule families:
 //
 //   shell-danger  — destructive/remote-code shell in scripts
-//                   (rm -rf /, curl|bash, fork bombs, cred theft)
 //   prompt-inject — hidden instruction overrides + exfiltration in prompts
-//                   (ignore-previous, send secrets to http, embedded keys)
-//   perm-violation — package content touching project [permissions].denied_paths
+//   perm-violation— package content touching project [permissions].denied_paths
+//   taint-flow    — data flow analysis: env vars → network, secrets → exfil
 //
 // Severity: high blocks installs (fail-closed, exit 1); medium/low warn.
-// Scanners are regex-based, dependency-free, and deterministic.
+// Scanners are deterministic pattern & heuristic based and dependency-free.
+// Static scan passing indicates no known rules matched; it does not guarantee
+// complete safety or absence of unknown attack vectors.
 
 import { existsSync, readFileSync, readdirSync, statSync } from "fs";
 import { join, relative, extname, basename } from "path";
@@ -20,7 +21,7 @@ export type Severity = "high" | "medium" | "low";
 
 export interface ScanFinding {
   rule: string;
-  family: "shell-danger" | "prompt-inject" | "perm-violation";
+  family: "shell-danger" | "prompt-inject" | "perm-violation" | "taint-flow";
   severity: Severity;
   file: string;
   line: number;
@@ -34,7 +35,6 @@ interface Rule {
   severity: Severity;
   pattern: RegExp;
   message: string;
-  /** File extensions this rule applies to (lowercase, with dot). Empty = all text files. */
   exts: string[];
 }
 
@@ -45,24 +45,38 @@ const RULES: Rule[] = [
   { id: "rm-rf-root", family: "shell-danger", severity: "high", pattern: /\brm\s+(-[a-z]*r[a-z]*f|--recursive\s+--force)\s+\/( |$)/, message: "recursive delete rooted at /", exts: [] },
   { id: "curl-pipe-shell", family: "shell-danger", severity: "high", pattern: /\bcurl\b[^\n|]*\|\s*(bash|sh)(\s|$)/, message: "curl piped into a shell (remote code execution)", exts: [] },
   { id: "wget-pipe-shell", family: "shell-danger", severity: "high", pattern: /\bwget\b[^\n|]*\|\s*(bash|sh)(\s|$)/, message: "wget piped into a shell (remote code execution)", exts: [] },
-  { id: "fork-bomb", family: "shell-danger", severity: "high", pattern: /:\(\)\s*\{\s*:\s*\|\s*:\s*&?\s*\}\s*;?/, message: "shell fork bomb", exts: [] },
+  { id: "fork-bomb", family: "shell-danger", severity: "high", pattern: /:\(\)\s*\{\s*:\s*\|\s*:&?\s*\}\s*;?/, message: "shell fork bomb", exts: [] },
   { id: "disk-wipe", family: "shell-danger", severity: "high", pattern: /\b(mkfs|dd\s+[^\n]*of=\/dev\/)/, message: "disk wipe / raw device write", exts: [] },
   { id: "chmod-777-root", family: "shell-danger", severity: "high", pattern: /\bchmod\s+(-R\s+)?777\s+\//, message: "chmod 777 on a system path", exts: [] },
-  { id: "reverse-shell", family: "shell-danger", severity: "high", pattern: /\bnc(\.exe)?\s+[^\n]*-e\s+\S|bash\s+-i\s+>&\s*\/dev\/tcp\//, message: "reverse shell", exts: [] },
+  { id: "reverse-shell", family: "shell-danger", severity: "high", pattern: /\bnc(\.exe)?\s+[^\n]*-e\s+\S|bash\s+-i\s+>\s*\/dev\/tcp\//, message: "reverse shell", exts: [] },
   { id: "ssh-key-theft", family: "shell-danger", severity: "high", pattern: /\b(cat|type|Get-Content)\s+[^\n]*(id_rsa|id_ed25519|\.ssh\/)/, message: "reads private SSH keys", exts: [] },
   { id: "powershell-encoded", family: "shell-danger", severity: "high", pattern: /powershell[^\n]*-(e(nc(odedcommand)?)?)\b/i, message: "encoded PowerShell payload", exts: [] },
+  { id: "python-eval-exec", family: "shell-danger", severity: "high", pattern: /\b(eval|exec|os\.system|subprocess\.call)\s*\(\s*["'`]?(curl|wget|http)/, message: "dynamic code execution with remote content", exts: [] },
+  { id: "node-child-process", family: "shell-danger", severity: "high", pattern: /child_process|require\(['"]child_process['"]\)|execSync\s*\(\s*["'`]?(curl|wget|http)/, message: "Node.js child_process with remote content", exts: [] },
+
   // --- shell-danger (medium) ---
   { id: "sudo-curl", family: "shell-danger", severity: "medium", pattern: /\bsudo\s+(curl|wget)\b/, message: "privileged download", exts: [] },
   { id: "env-exfil-curl", family: "shell-danger", severity: "medium", pattern: /\bcurl\b[^\n]*\$(?:\{(?:AWS_|GITHUB_|OPENAI_|ANTHROPIC_|API_KEY|TOKEN|SECRET))/, message: "curl sends a secret-looking env var", exts: [] },
+  { id: "base64-obfuscation", family: "shell-danger", severity: "medium", pattern: /echo\s+[A-Za-z0-9+/]{40,}\s*\|\s*base64\s+(-d|--decode)/, message: "base64-encoded payload (possible obfuscation)", exts: [] },
+
   // --- prompt-inject (high) ---
   { id: "ignore-instructions", family: "prompt-inject", severity: "high", pattern: /\b(ignore|disregard)\s+(all\s+)?(previous|prior|above)\s+instructions\b/i, message: "instruction override (prompt injection)", exts: PROMPT_EXTS },
   { id: "system-role-hijack", family: "prompt-inject", severity: "high", pattern: /you are now (a|an|the)\b.{0,80}?(assistant|agent|system|root|admin)/i, message: "role hijack (prompt injection)", exts: PROMPT_EXTS },
   { id: "send-secrets-http", family: "prompt-inject", severity: "high", pattern: /\b(send|post|upload|exfiltrat\w*)\b[^\n]{0,120}?(api[\s_-]?key|secret|token|password|private[\s_-]?key)[^\n]{0,80}?\bhttps?:\/\//i, message: "instructs secret exfiltration over http", exts: PROMPT_EXTS },
+  { id: "delimiter-break", family: "prompt-inject", severity: "high", pattern: /```\s*(system|instructions?|prompt)|<\/(system|instructions?|prompt)>/i, message: "prompt delimiter breaking (injection)", exts: PROMPT_EXTS },
+  { id: "ignore-safety", family: "prompt-inject", severity: "high", pattern: /\b(ignore|bypass|disable)\s+(safety|security|filter|guardrail|moderation)\b/i, message: "safety bypass instruction", exts: PROMPT_EXTS },
+
   // --- prompt-inject (medium) ---
   { id: "embedded-aws-key", family: "prompt-inject", severity: "medium", pattern: /\bAKIA[0-9A-Z]{16}\b/, message: "embedded AWS access key", exts: [] },
   { id: "embedded-github-token", family: "prompt-inject", severity: "medium", pattern: /\bghp_[a-zA-Z0-9]{20,}\b/, message: "embedded GitHub token", exts: [] },
   { id: "embedded-private-key", family: "prompt-inject", severity: "medium", pattern: /-----BEGIN (RSA |OPENSSH |EC |DSA )?PRIVATE KEY-----/, message: "embedded private key", exts: [] },
   { id: "read-env-file", family: "prompt-inject", severity: "medium", pattern: /\b(cat|type|Get-Content|read)\s+[^\n]*\.env\b/i, message: "reads .env secrets file", exts: PROMPT_EXTS },
+  { id: "webhook-exfil", family: "prompt-inject", severity: "medium", pattern: /\b(hookbin|requestbin|webhook\.site|ngrok|burp|collaborator)\b/i, message: "known exfiltration endpoint", exts: [] },
+
+  // --- taint-flow (high) ---
+  { id: "env-to-network", family: "taint-flow", severity: "high", pattern: /\b(fetch|axios|request|http[s]?\.get|http[s]?\.post)\s*\([^)]*(?:\$(?:\{?(?:AWS_|GITHUB_|OPENAI_|ANTHROPIC_|API_KEY|TOKEN|SECRET|PASSWORD))|process\.env\.[A-Z_]+)/, message: "env var sent over network (data exfil)", exts: [] },
+  { id: "process-env-to-fetch", family: "taint-flow", severity: "high", pattern: /process\.env\.[A-Z_]+.*?\b(fetch|axios|request)\b/, message: "process.env used in network call", exts: [] },
+  { id: "secret-to-stdout", family: "taint-flow", severity: "medium", pattern: /console\.log\s*\([^)]*(?:secret|token|key|password|credential)/i, message: "secret logged to stdout", exts: [] },
 ];
 
 const MAX_FILE_BYTES = 512 * 1024;
@@ -83,9 +97,7 @@ function listTextFiles(dir: string, out: string[] = []): string[] {
     } else if (e.isFile()) {
       try {
         if (statSync(full).size <= MAX_FILE_BYTES) out.push(full);
-      } catch {
-        /* unreadable — skip */
-      }
+      } catch { /* unreadable — skip */ }
     }
   }
   return out;
@@ -118,7 +130,6 @@ export function scanPackageDir(
     for (const rule of RULES) {
       if (rule.exts.length > 0 && !rule.exts.includes(ext) && basename(file) !== "Dockerfile") continue;
       for (let i = 0; i < lines.length; i++) {
-        // reset stateful regexes
         rule.pattern.lastIndex = 0;
         if (rule.pattern.test(lines[i])) {
           findings.push({
@@ -136,12 +147,14 @@ export function scanPackageDir(
     }
   }
   findings.push(...checkPermissions(dir, files, opts.permissions));
+  if (opts.permissions?.allow_network === false) {
+    findings.push(...checkNetworkPermissions(dir, false));
+  }
   findings.sort((a, b) => a.file.localeCompare(b.file) || a.line - b.line || a.rule.localeCompare(b.rule));
   return findings;
 }
 
 function globToRegExp(glob: string): RegExp {
-  // Minimal glob: * matches any run except /, **/ matches any depth.
   const token = "FORGEGLOBSTAR";
   const esc = glob
     .replace(/[.+^${}()|[\]\\]/g, "\\$&")
@@ -184,4 +197,43 @@ export function countBySeverity(findings: ScanFinding[]): { high: number; medium
   const out = { high: 0, medium: 0, low: 0 };
   for (const f of findings) out[f.severity]++;
   return out;
+}
+
+/** Check if a package declares network permission but uses network APIs. */
+export function checkNetworkPermissions(
+  dir: string,
+  allowNetwork: boolean,
+): ScanFinding[] {
+  if (allowNetwork) return [];
+  const findings: ScanFinding[] = [];
+  const networkPatterns = [
+    { pattern: /\b(fetch|axios|request|http[s]?\.get|http[s]?\.post)\s*\(/, msg: "network call detected" },
+    { pattern: /\brequire\s*\(\s*["'](http|https|net|tls|dgram)["']\s*\)/, msg: "network module imported" },
+    { pattern: /\bimport\s+.*from\s+["'](http|https|axios|node-fetch)["']/, msg: "network module imported" },
+  ];
+
+  const files = listTextFiles(dir);
+  for (const file of files) {
+    const rel = relative(dir, file).replace(/\\/g, "/");
+    let raw: string;
+    try {
+      raw = readFileSync(file, "utf-8");
+    } catch {
+      continue;
+    }
+    for (const np of networkPatterns) {
+      if (np.pattern.test(raw)) {
+        findings.push({
+          rule: "network-permission-violation",
+          family: "perm-violation",
+          severity: "high",
+          file: rel,
+          line: 0,
+          match: np.msg,
+          message: `package uses network APIs but permissions.network = false`,
+        });
+      }
+    }
+  }
+  return findings;
 }

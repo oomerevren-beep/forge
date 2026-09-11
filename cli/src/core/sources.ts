@@ -12,10 +12,11 @@
 // a temp dir; the manifest (forge.toml [package], else SKILL.md / agent.md)
 // is parsed for name/version/type/description.
 
-import { existsSync, readFileSync, mkdirSync, rmSync, readdirSync } from "fs";
-import { join, resolve, basename } from "path";
+import { existsSync, readFileSync, mkdirSync, rmSync, readdirSync, lstatSync, readlinkSync } from "fs";
+import { join, resolve, basename, relative } from "path";
 import { tmpdir } from "os";
 import { execFileSync } from "child_process";
+import { createHash } from "crypto";
 import { parse } from "smol-toml";
 import { copyDirRecursive } from "./fsutil.js";
 
@@ -42,7 +43,45 @@ export interface ExternalPackage {
   description: string;
   /** Staged content dir (owned by caller — copy into the store, then remove). */
   dir: string;
+  /** Git commit SHA when available. */
+  resolved?: string;
+  /** Deterministic SHA-256 digest of staged content. */
+  sha256?: string;
   cleanup: () => void;
+}
+
+/** Compute a deterministic SHA-256 content digest across all files in a directory. */
+export function computeDirectoryHash(dir: string): string {
+  const hash = createHash("sha256");
+  function walk(current: string): string[] {
+    const list: string[] = [];
+    const entries = readdirSync(current, { withFileTypes: true }).sort((a, b) => a.name.localeCompare(b.name));
+    for (const entry of entries) {
+      if (entry.name === ".git" || entry.name === "node_modules") continue;
+      const full = join(current, entry.name);
+      if (entry.isDirectory()) {
+        list.push(...walk(full));
+      } else if (entry.isFile() || entry.isSymbolicLink()) {
+        list.push(full);
+      }
+    }
+    return list;
+  }
+  const files = walk(dir).sort();
+  for (const f of files) {
+    const rel = relative(dir, f).replace(/\\/g, "/");
+    hash.update(`path:${rel}\n`);
+    try {
+      const st = lstatSync(f);
+      if (st.isSymbolicLink()) {
+        hash.update(`symlink:${readlinkSync(f)}\n`);
+      } else {
+        const content = readFileSync(f);
+        hash.update(content);
+      }
+    } catch { /* best-effort ignore */ }
+  }
+  return hash.digest("hex");
 }
 
 export function parseSourceArg(arg: string): SourceSpec {
@@ -157,11 +196,13 @@ export function resolveLocalSource(absDir: string): ExternalPackage {
   const stage = stageDir();
   // NOTE: raw fs.cpSync silently yields empty dirs under non-ASCII paths.
   copyDirRecursive(dir, stage);
+  const digest = computeDirectoryHash(stage);
   return {
     kind: "local",
     source: `local:${absDir}`,
     ...meta,
     dir: stage,
+    sha256: digest,
     cleanup: () => rmSync(stage, { recursive: true, force: true }),
   };
 }
@@ -188,6 +229,11 @@ export function resolveGitSource(repo: string, want?: string): ExternalPackage {
       { cause: e },
     );
   }
+  let commitSha: string | undefined;
+  try {
+    commitSha = execFileSync("git", ["rev-parse", "HEAD"], { cwd: stage, stdio: "pipe" }).toString().trim();
+  } catch { /* best-effort */ }
+  const digest = computeDirectoryHash(stage);
   const shortName = (repo.split("/").pop() ?? "repo").replace(/\.git$/, "");
   const meta = parseManifest(stage, shortName);
   const canonical = !repo.includes("://") && kind === "github" ? `github:${repo}` : url;
@@ -196,6 +242,8 @@ export function resolveGitSource(repo: string, want?: string): ExternalPackage {
     source: want ? `${canonical}@${want}` : canonical,
     ...meta,
     dir: stage,
+    resolved: commitSha,
+    sha256: digest,
     cleanup: () => rmSync(stage, { recursive: true, force: true }),
   };
 }

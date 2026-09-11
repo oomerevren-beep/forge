@@ -2,7 +2,7 @@
 //
 // copyDirRecursive: Node's fs.cpSync(recursive) silently produces EMPTY dirs
 // when the destination is under a non-ASCII path on Windows (observed on
-// Node 24 + C:\Users\ömer\... — no error, exit 0, zero files copied).
+// Node 24 with non-ASCII home directories — no error, exit 0, zero files copied).
 // Single-file ops (copyFileSync/writeFileSync/mkdirSync) are unaffected, so
 // this helper walks the tree and copies file-by-file. Always prefer it over
 // raw fs.cpSync for store staging and install fallbacks.

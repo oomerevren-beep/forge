@@ -1,22 +1,23 @@
 #!/usr/bin/env node
-// forge CLI — v0.1 (Phase 1: real add/remove/list/doctor)
+// forge CLI — v0.2 (FVP: Full Viable Product)
 import { Command } from "commander";
 import { existsSync, rmSync } from "fs";
-import { join } from "path";
-import { homedir } from "os";
 
 import { loadPackageDetail, resolveVersion, parsePackageArg, searchPackages } from "./core/registry.js";
 import { parseSourceArg } from "./core/sources.js";
 import { ensurePackageContent } from "./core/installer.js";
 import { ensureForgeDirs, readLinks, writeLinks, packageDir, toSlug, listInstalledPackages } from "./core/store.js";
-import { allAdapters, detectAdapters, addMcpServerToConfig, removeMcpServerFromConfig, readMcpConfig } from "./adapters/index.js";
+import { allAdapters, detectAdapters, addMcpServerToConfig, removeMcpServerFromConfig } from "./adapters/index.js";
 import { runInit } from "./commands/init.js";
 import { runInstall } from "./commands/install.js";
 import { runSync } from "./commands/sync.js";
 import { runOutdated, runUpdate } from "./commands/update.js";
 import { runAudit } from "./commands/audit.js";
-import { DEP_NAME_RE } from "./core/project.js";
+import { runDoctor } from "./commands/doctor.js";
+import { DEP_NAME_RE, findProjectToml, loadProjectToml } from "./core/project.js";
 import { ensureConfig } from "./core/config.js";
+import { scanPackageDir } from "./core/scan.js";
+import { formatActionableError } from "./core/errors.js";
 
 ensureConfig();
 
@@ -24,8 +25,8 @@ const program = new Command();
 
 program
   .name("forge")
-  .description("The Homebrew for AI Agents — one CLI for skills, MCPs, plugins, agents")
-  .version("0.1.2")
+  .description("Forge — Docker for AI Agent Context. Universal package manager for skills, MCPs, plugins, agents.")
+  .version("0.2.0")
   .helpOption("-h, --help", "display help for command");
 
 // --- add ---
@@ -70,7 +71,7 @@ program
       version = resolved.version;
       versionMeta = resolved.versionMeta;
     } catch (e) {
-      console.error(`[forge] error: ${(e as Error).message}`);
+      console.error(formatActionableError(e));
       process.exit(1);
     }
 
@@ -96,11 +97,35 @@ program
     } catch (e) {
       // exitCode + return (not process.exit): lets open fetch handles close,
       // avoids a libuv handle-closing crash on Windows.
-      console.error((e as Error).message);
+      console.error(formatActionableError(e));
       process.exitCode = 1;
       return;
     }
     console.log(`[forge] package content ready: ${srcDir}`);
+    // Pre-install security scan: HIGH findings fail-closed unless --skip-scan
+    if (!opts.skipScan) {
+      let permissions;
+      try {
+        const tomlPath = findProjectToml(process.cwd());
+        if (tomlPath) permissions = loadProjectToml(tomlPath).permissions;
+      } catch { /* best-effort */ }
+      const findings = scanPackageDir(srcDir, { permissions });
+      const highs = findings.filter((f) => f.severity === "high");
+      const mediums = findings.filter((f) => f.severity === "medium");
+      for (const f of mediums.slice(0, 10)) {
+        console.warn(`[forge] scan warn [${f.rule}] ${f.file}${f.line > 0 ? `:${f.line}` : ""} — ${f.message}`);
+      }
+      if (highs.length > 0) {
+        console.error(`[forge] ✗ security scan FAILED for ${name}: ${highs.length} high-severity finding(s)`);
+        for (const f of highs.slice(0, 10)) {
+          console.error(`[forge]   [high] [${f.rule}] ${f.file}${f.line > 0 ? `:${f.line}` : ""} — ${f.message}`);
+        }
+        console.error(`[forge] Refusing to install. Re-run with --skip-scan only if you trust this package.`);
+        process.exitCode = 1;
+        return;
+      }
+      console.log(`[forge] scan clean (${findings.length} finding(s), 0 high)`);
+    }
 
     // Detect adapters
     const adapters = detectAdapters();
@@ -249,9 +274,42 @@ program
   .command("list")
   .alias("ls")
   .description("List installed packages")
-  .action(async () => {
+  .option("--json", "output JSON", false)
+  .action(async (opts) => {
     const links = readLinks();
     const entries = Object.values(links);
+    if (opts.json) {
+      if (entries.length === 0) {
+        const pkgs = listInstalledPackages();
+        const jsonList = pkgs.map((p) => ({
+          name: p.slug,
+          version: p.version,
+          slug: p.slug,
+          type: "skill",
+          adapters: [],
+          installedAt: "",
+          dir: p.dir,
+          exists: existsSync(p.dir),
+        }));
+        console.log(JSON.stringify(jsonList, null, 2));
+        return;
+      }
+      const jsonList = entries.map((r) => {
+        const dir = packageDir(r.slug, r.version);
+        return {
+          name: r.pkg,
+          version: r.version,
+          slug: r.slug,
+          type: r.type,
+          adapters: r.adapters,
+          installedAt: r.installedAt,
+          dir,
+          exists: existsSync(dir),
+        };
+      });
+      console.log(JSON.stringify(jsonList, null, 2));
+      return;
+    }
     if (entries.length === 0) {
       // fallback: list store dirs
       const pkgs = listInstalledPackages();
@@ -277,116 +335,13 @@ program
 // --- doctor ---
 program
   .command("doctor")
-  .description("Check harness health")
+  .description("Check system environment and harness health diagnostics")
   .option("--fix", "try to fix broken links")
   .option("--mock", "allow mock content when --fix restores packages with no verified tarball")
+  .option("--json", "output JSON", false)
   .action(async (opts) => {
-    ensureForgeDirs();
-    console.log("[forge] doctor — checking harnesses...\n");
-    for (const adapter of allAdapters) {
-      const detected = adapter.detect();
-      const icon = detected ? "✓" : "✗";
-      const extra = detected ? "(found)" : "(not found)";
-      // try to list count if detected
-      let countStr = "";
-      if (detected) {
-        try {
-          const list = await adapter.list();
-          countStr = ` — ${list.length} package(s)`;
-        } catch {
-          countStr = "";
-        }
-      }
-      let cfgInfo = "";
-      const cfgPath = adapter.mcpConfigPath();
-      if (cfgPath) cfgInfo = `  mcp: ${cfgPath}`;
-      console.log(`${icon} ${adapter.displayName} (${adapter.name}) ${extra}${countStr}${cfgInfo ? "\n " + cfgInfo : ""}`);
-    }
-
-    console.log("\n[forge] store:");
-    console.log(`  packages: ${join(homedir(), ".forge", "packages")}`);
-    console.log(`  cache:    ${join(homedir(), ".forge", "cache")}`);
-    const pkgs = listInstalledPackages();
-    console.log(`  installed: ${pkgs.length} package(s)`);
-    if (pkgs.length > 0) {
-      for (const p of pkgs.slice(0, 5)) console.log(`    - ${p.slug}@${p.version}`);
-      if (pkgs.length > 5) console.log(`    ... and ${pkgs.length - 5} more`);
-    }
-
-    // Epoch 1c: Check for broken links (links.json vs FS + --fix restores)
-    // MCP packages: check config entry existence (not skillDir)
-    const links = readLinks();
-    let broken = 0;
-    let fixed = 0;
-    for (const [name, rec] of Object.entries(links)) {
-      const dir = packageDir(rec.slug, rec.version);
-      if (!existsSync(dir)) {
-        broken++;
-        console.log(`  ! broken: ${name}@${rec.version} — missing ${dir}`);
-        if (opts.fix) {
-          try {
-            const detail = await loadPackageDetail(name);
-            const resolved = await resolveVersion(name, rec.version);
-            const srcDir = await ensurePackageContent(name, resolved.version, detail, resolved.versionMeta, { allowMock: opts.mock });
-            console.log(`    → store restored: ${srcDir}`);
-            fixed++;
-          } catch (e) {
-            console.log(`    → restore failed: ${(e as Error).message}`);
-            continue;
-          }
-        }
-      }
-      const liveDir = existsSync(dir) ? dir : packageDir(rec.slug, rec.version);
-      for (const adapterName of rec.adapters) {
-        const adapter = allAdapters.find((a) => a.name === adapterName);
-        if (!adapter) continue;
-        // Epoch 1c: MCP packages — verify config entry exists
-        if (rec.type === "mcp") {
-          const cfgPath = adapter.mcpConfigPath();
-          if (cfgPath) {
-            try {
-              const cfg = readMcpConfig(cfgPath);
-              const servers = (cfg?.["mcpServers"] as Record<string, unknown> | undefined);
-              if (!servers || !(rec.slug in servers)) {
-                console.log(`  ! missing MCP config: ${name} on ${adapterName} → ${cfgPath}`);
-                if (opts.fix && existsSync(liveDir)) {
-                  try {
-                    const resolved = await resolveVersion(name, rec.version);
-                    if (resolved.versionMeta.mcp) {
-                      addMcpServerToConfig(cfgPath, rec.slug, resolved.versionMeta.mcp);
-                      console.log(`    → MCP config restored`);
-                      fixed++;
-                    }
-                  } catch (e) {
-                    console.log(`    → cannot restore MCP config: ${(e as Error).message}`);
-                  }
-                }
-              }
-            } catch {
-              console.log(`  ! MCP config unreadable: ${cfgPath}`);
-            }
-          }
-          continue;
-        }
-        if (adapterName === "generic") continue;
-        const installed = await adapter.isInstalled(rec.slug);
-        if (!installed) {
-          console.log(`  ! missing link: ${name} on ${adapterName} → ${adapter.skillDir(rec.slug)}`);
-          if (opts.fix) {
-            const src = liveDir;
-            if (existsSync(src)) {
-              await adapter.install(rec.slug, src, rec.type ?? "skill", { version: rec.version });
-              console.log(`    → fixed`);
-              fixed++;
-            } else {
-              console.log(`    → cannot fix, store missing`);
-            }
-          }
-        }
-      }
-    }
-    if (broken === 0) console.log("\n[forge] ✓ no broken packages");
-    else console.log(`\n[forge] ${broken} broken package(s)${opts.fix ? ` (${fixed} fixed)` : " — run with --fix"}`);
+    const res = await runDoctor({ fix: opts.fix, mock: opts.mock, json: opts.json });
+    if (!res.ok) process.exitCode = 1;
   });
 
 // --- search ---
@@ -394,24 +349,43 @@ program
   .command("search")
   .description("Search registry")
   .argument("<query>", "search query")
-  .option("--type <type>", "filter by type (skill/mcp/plugin/agent/command/hook)")
+  .option("--type <type>", "filter by type (skill/mcp/plugin/agent/command/instruction/workflow/rule/prompt/config)")
+  .option("--harness <harness>", "filter by supported harness (claude-code/cursor/codex/windsurf/opencode)")
+  .option("--tier <tier>", "filter by quality tier (community/verified/trusted)")
+  .option("--author <author>", "filter by author or organization")
   .option("--json", "output JSON")
   .action(async (query, opts) => {
-    const results = await searchPackages(query);
-    let filtered = results;
-    if (opts.type) filtered = filtered.filter((p) => p.type === opts.type);
+    const results = await searchPackages(query, {
+      type: opts.type,
+      harness: opts.harness,
+      tier: opts.tier,
+      author: opts.author,
+    });
     if (opts.json) {
-      console.log(JSON.stringify(filtered, null, 2));
+      console.log(JSON.stringify(results, null, 2));
       return;
     }
-    if (filtered.length === 0) {
-      console.log(`No results for "${query}"${opts.type ? ` [type=${opts.type}]` : ""}`);
+    if (results.length === 0) {
+      const filters = [
+        opts.type ? `type=${opts.type}` : null,
+        opts.harness ? `harness=${opts.harness}` : null,
+        opts.tier ? `tier=${opts.tier}` : null,
+        opts.author ? `author=${opts.author}` : null,
+      ].filter(Boolean).join(", ");
+      console.log(`No results for "${query}"${filters ? ` [${filters}]` : ""}`);
       return;
     }
-    console.log(`Found ${filtered.length} package(s) for "${query}":\n`);
-    for (const p of filtered) {
-      const mark = (p as { verified?: boolean }).verified ? " [✓ verified]" : "";
-      console.log(`  - ${p.name}@${p.latest} [${p.type}]${mark} — ${p.description}`);
+    console.log(`Found ${results.length} package(s) for "${query}":\n`);
+    for (const p of results) {
+      const tier = p.tier ?? (p.verified ? "verified" : "community");
+      const mark =
+        tier === "trusted"
+          ? " [trusted ★]"
+          : tier === "verified"
+          ? " [verified ✓]"
+          : " [community]";
+      const authorStr = p.author ? ` by ${p.author}` : "";
+      console.log(`  - ${p.name}@${p.latest} [${p.type}]${mark}${authorStr} — ${p.description}`);
       if (p.keywords?.length) console.log(`    keywords: ${p.keywords.join(", ")}`);
     }
   });
@@ -419,48 +393,25 @@ program
 // --- info ---
 program
   .command("info")
-  .description("Show package info")
+  .description("Show package info with trust signals, permissions, and discovery")
   .argument("<pkg>", "package name")
   .option("--json", "output JSON")
   .action(async (pkg, opts) => {
-    try {
-      const detail = await loadPackageDetail(pkg);
-      if (opts.json) {
-        console.log(JSON.stringify(detail, null, 2));
-        return;
-      }
-      console.log(`\n${detail.name} [${detail.type}] — ${detail.description}\n`);
-      if (detail.homepage) console.log(`homepage:   ${detail.homepage}`);
-      if (detail.repository) console.log(`repository: ${detail.repository}`);
-      if (detail.keywords?.length) console.log(`keywords:   ${detail.keywords.join(", ")}`);
-      console.log(`latest:     ${detail.latest}`);
-      console.log(`versions:   ${Object.keys(detail.versions).join(", ")}\n`);
-      for (const [ver, meta] of Object.entries(detail.versions)) {
-        const marker = ver === detail.latest ? " (latest)" : "";
-        const trust = (meta as { verified?: boolean }).verified ? "verified ✓" : "community (unverified)";
-        console.log(`  ${ver}${marker} [${trust}]:`);
-        console.log(`    tarball: ${meta.tarball}`);
-        console.log(`    sha256:  ${meta.sha256.slice(0, 16)}...`);
-        if (meta.engines) console.log(`    engines: ${JSON.stringify(meta.engines)}`);
-        if (meta.dependencies && Object.keys(meta.dependencies).length) console.log(`    deps:    ${JSON.stringify(meta.dependencies)}`);
-        if (meta.mcp) console.log(`    mcp:     ${meta.mcp.command} ${(meta.mcp.args ?? []).join(" ")}`);
-      }
-    } catch (e) {
-      console.error(`Package ${pkg} not found: ${(e as Error).message}`);
-      process.exit(1);
-    }
+    const { runInfo } = await import("./commands/info.js");
+    await runInfo(pkg, { json: opts.json });
   });
 
 // --- init ---
 program
   .command("init")
-  .description("Scaffold a new package (e.g. forge init my-skill --type skill)")
+  .description("Scaffold a new package or import existing configs (forge init --from-existing)")
   .argument("[name]", "package name (e.g. my-skill or scope/name)")
   .option("--type <type>", "package type (skill/mcp/agent/command/hook/plugin)", "skill")
   .option("--yes", "skip prompts and use defaults", false)
   .option("--force", "overwrite existing forge.toml", false)
+  .option("--from-existing", "import existing .cursorrules, CLAUDE.md, mcp.json into forge.toml")
   .action(async (name, opts) => {
-    await runInit({ name, type: opts.type, yes: opts.yes, force: opts.force });
+    await runInit({ name, type: opts.type, yes: opts.yes, force: opts.force, fromExisting: opts.fromExisting });
   });
 
 // --- install ---
@@ -470,18 +421,30 @@ program
   .description("Install all dependencies from forge.toml (team sync, e.g. forge install)")
   .option("--frozen", "install exactly from forge.lock", false)
   .option("--mock", "allow mock content for packages with no verified tarball yet", false)
+  .option("--skip-scan", "skip the pre-install security scan (not recommended)", false)
   .action(async (opts) => {
-    await runInstall({ frozen: opts.frozen, mock: opts.mock });
+    await runInstall({ frozen: opts.frozen, mock: opts.mock, skipScan: opts.skipScan });
   });
 
 // --- sync ---
 program
   .command("sync")
   .description("One-command team sync: skills + rules + MCP servers + agent roles (e.g. forge sync)")
+  .option("--frozen", "fail loudly if forge.lock is missing, out of sync, or unverified", false)
   .option("--mock", "allow mock content for packages with no verified tarball yet", false)
   .option("--skip-scan", "skip the pre-install security scan (not recommended)", false)
+  .option("--watch", "watch forge.toml for changes and auto-sync (hot reload)", false)
+  .option("--dry-run", "preview changes without modifying files", false)
+  .option("--diff", "show colored unified diff of changes before writing", false)
   .action(async (opts) => {
-    await runSync({ mock: opts.mock, skipScan: opts.skipScan });
+    await runSync({
+      frozen: opts.frozen,
+      mock: opts.mock,
+      skipScan: opts.skipScan,
+      watch: opts.watch,
+      dryRun: opts.dryRun,
+      diff: opts.diff,
+    });
   });
 
 // --- outdated ---
@@ -522,14 +485,60 @@ program
     await runTest(pkg, { mock: opts.mock });
   });
 
+// --- create ---
+program
+  .command("create")
+  .description("Scaffold a new Forge package with manifest, README, LICENSE, and test template")
+  .argument("<name>", "package name (e.g. my-skill or scope/name)")
+  .option("--type <type>", "package type (skill/agent/mcp/rule/command/instruction/workflow/prompt/config)", "skill")
+  .option("--author <author>", "author name and optional email")
+  .option("--description <desc>", "package description")
+  .option("--license <license>", "SPDX license (default MIT)", "MIT")
+  .option("--force", "overwrite existing files", false)
+  .option("--cwd <path>", "working directory")
+  .action(async (name, opts) => {
+    const { runCreate } = await import("./commands/create.js");
+    await runCreate(name, opts);
+  });
+
+// --- validate ---
+program
+  .command("validate")
+  .description("Strict pre-publish validation: manifest, semver, license, README, permissions, secrets, and security")
+  .argument("[path]", "path to package directory", ".")
+  .option("--json", "output JSON", false)
+  .action(async (path, opts) => {
+    const { runValidate } = await import("./commands/validate.js");
+    await runValidate(path, { json: opts.json });
+  });
+
 // --- pack ---
 program
   .command("pack")
-  .description("Package the current directory into a verified tarball")
+  .description("Package the directory into a verified deterministic tarball")
+  .argument("[path]", "path to package directory", ".")
   .option("--check", "validate only — do not write tarball", false)
-  .action(async (opts) => {
+  .option("--out <dir>", "output directory for tarball")
+  .option("--json", "output JSON", false)
+  .action(async (path, opts) => {
     const { runPack } = await import("./commands/pack.js");
-    await runPack({ check: opts.check });
+    await runPack(path, { check: opts.check, out: opts.out, json: opts.json });
+  });
+
+// --- publish ---
+program
+  .command("publish")
+  .description("Publish package: validate -> scan -> pack -> registry")
+  .argument("[path]", "path to package directory", ".")
+  .option("--dry-run", "preview actions without publishing", false)
+  .option("--token <token>", "authentication token for registry")
+  .option("--registry <url>", "target registry URL")
+  .option("--tag <tag>", "release tag", "latest")
+  .option("--access <access>", "package access level (public/restricted)", "public")
+  .option("--json", "output JSON", false)
+  .action(async (path, opts) => {
+    const { runPublish } = await import("./commands/publish.js");
+    await runPublish(path, opts);
   });
 
 // --- verify ---

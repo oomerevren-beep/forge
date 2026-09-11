@@ -1,9 +1,10 @@
 import { describe, it } from "node:test";
 import assert from "node:assert/strict";
-import { existsSync, readFileSync, writeFileSync, mkdirSync, rmSync, readdirSync } from "fs";
+import { existsSync, readFileSync, writeFileSync, mkdirSync, rmSync, readdirSync, symlinkSync } from "fs";
 import { tmpdir } from "os";
 import { join } from "path";
-import { ensurePackageContent } from "../cli/src/core/installer.js";
+import { execFileSync } from "child_process";
+import { ensurePackageContent, extractTarArchive, assertNoSymlinks } from "../cli/src/core/installer.js";
 import { writeMcpConfig, readMcpConfig } from "../cli/src/adapters/types.js";
 import { packageDir } from "../cli/src/core/store.js";
 import type { PackageDetail } from "../cli/src/core/registry.js";
@@ -107,5 +108,53 @@ describe("forge installer — fail-closed (launch hardening)", () => {
     const src = readFileSync(join(process.cwd(), "cli/src/core/installer.ts"), "utf-8");
     assert.ok(!src.includes("execSync(`tar"), "shell-interpolated tar call must be gone");
     assert.ok(src.includes("tarfile.open"), "Python tarfile extraction must exist");
+  });
+
+  it("tar extraction rejects path traversal archives (tar-slip defense)", () => {
+    const testDir = join(tmpdir(), `forge-slip-${Date.now()}`);
+    mkdirSync(testDir, { recursive: true });
+    const tarFile = join(testDir, "bad.tar.gz");
+    const destDir = join(testDir, "dest");
+    mkdirSync(destDir, { recursive: true });
+
+    try {
+      execFileSync("python", ["-c", `
+import tarfile, io, sys
+with tarfile.open(sys.argv[1], "w:gz") as tf:
+    data = b"malicious escape"
+    ti = tarfile.TarInfo(name="../slip.txt")
+    ti.size = len(data)
+    tf.addfile(ti, io.BytesIO(data))
+`, tarFile], { stdio: "pipe" });
+
+      assert.throws(() => {
+        extractTarArchive(tarFile, destDir);
+      }, /tar-slip|outside|failed/i);
+
+      assert.equal(existsSync(join(testDir, "slip.txt")), false);
+    } finally {
+      rmSync(testDir, { recursive: true, force: true });
+    }
+  });
+
+  it("assertNoSymlinks detects and throws on directory escaping entries", async () => {
+    const testDir = join(tmpdir(), `forge-symlink-${Date.now()}`);
+    mkdirSync(testDir, { recursive: true });
+    const outside = join(testDir, "outside");
+    const dest = join(testDir, "dest");
+    mkdirSync(outside, { recursive: true });
+    mkdirSync(dest, { recursive: true });
+
+    try {
+      const linkPath = join(dest, "escape-link");
+      try {
+        symlinkSync(outside, linkPath, "junction");
+        await assert.rejects(() => assertNoSymlinks(dest), /escapes package dir/);
+      } catch (err) {
+        if ((err as Error).message.includes("escapes package dir")) throw err;
+      }
+    } finally {
+      rmSync(testDir, { recursive: true, force: true });
+    }
   });
 });

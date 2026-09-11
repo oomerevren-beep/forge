@@ -11,20 +11,22 @@ export interface LockEntry {
   tarball?: string;
   /** SHA-256 integrity hash pinned at resolve time. */
   sha256?: string;
-  /** Registry source id (default: bundled registry). */
+  /** Registry source id or canonical source string (default: bundled registry). */
   source?: string;
+  /** Resolved immutable commit SHA for git sources. */
+  resolved?: string;
 }
 
 export interface ForgeLock {
   packages: LockEntry[];
 }
 
-/** Build a lock entry with pinned integrity (source URL + sha256). */
+/** Build a lock entry with pinned integrity (source URL + sha256 + resolved). */
 export function lockEntryFor(
   name: string,
   version: string,
   type: string,
-  meta: { tarball?: string; sha256?: string },
+  meta: { tarball?: string; sha256?: string; resolved?: string },
   source = "registry",
 ): LockEntry {
   return {
@@ -33,6 +35,7 @@ export function lockEntryFor(
     type,
     ...(meta.tarball ? { tarball: meta.tarball } : {}),
     ...(meta.sha256 ? { sha256: meta.sha256 } : {}),
+    ...(meta.resolved ? { resolved: meta.resolved } : {}),
     source,
   };
 }
@@ -50,6 +53,7 @@ function toEntry(x: Record<string, unknown>): LockEntry {
   if (typeof x.tarball === "string" && x.tarball.length > 0) entry.tarball = x.tarball;
   if (typeof x.sha256 === "string" && x.sha256.length > 0) entry.sha256 = x.sha256;
   if (typeof x.source === "string" && x.source.length > 0) entry.source = x.source;
+  if (typeof x.resolved === "string" && x.resolved.length > 0) entry.resolved = x.resolved;
   return entry;
 }
 
@@ -87,6 +91,7 @@ export function writeLock(entries: LockEntry[], cwd = process.cwd()): void {
     if (e.tarball) lines.push(`tarball = "${escapeTomlString(e.tarball)}"`);
     if (e.sha256) lines.push(`sha256 = "${escapeTomlString(e.sha256)}"`);
     if (e.source) lines.push(`source = "${escapeTomlString(e.source)}"`);
+    if (e.resolved) lines.push(`resolved = "${escapeTomlString(e.resolved)}"`);
     lines.push("");
   }
   writeFileSync(p, lines.join("\n"));
@@ -100,10 +105,12 @@ export interface IntegrityIssue {
 
 /**
  * Security barrier for --frozen installs. For every locked entry:
- * - the locked version must still exist in the registry (else "yanked")
- * - a locked real sha256 must equal the registry sha256 (else "hash-mismatch")
- * - a placeholder/mock sha256 is reported as "unverified" (fatal unless
- *   the caller explicitly allows mock via opts.allowMock)
+ * - external packages: verify pinned commit SHA or content hash
+ * - registry packages:
+ *   - the locked version must still exist in the registry (else "yanked")
+ *   - a locked real sha256 must equal the registry sha256 (else "hash-mismatch")
+ *   - a placeholder/mock sha256 is reported as "unverified" (fatal unless
+ *     the caller explicitly allows mock via opts.allowMock)
  * Returns the issue list (empty = lock is trustworthy). Never throws on
  * registry I/O — transport failures surface as yanked with the cause inline.
  */
@@ -113,6 +120,19 @@ export async function verifyLockIntegrity(
 ): Promise<IntegrityIssue[]> {
   const issues: IntegrityIssue[] = [];
   for (const entry of lock.packages) {
+    if (entry.source && entry.source !== "registry") {
+      const lockedSha = entry.sha256 ?? "";
+      const lockedResolved = entry.resolved ?? "";
+      if (!lockedSha && !lockedResolved && !opts.allowMock) {
+        issues.push({
+          name: entry.name,
+          kind: "unverified",
+          message: `${entry.name} from ${entry.source} has no pinned commit SHA or integrity hash — refusing frozen install`,
+        });
+      }
+      continue;
+    }
+
     let detail;
     try {
       detail = await loadPackageDetail(entry.name);

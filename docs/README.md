@@ -12,7 +12,8 @@ Welcome to the Forge docs. This portal covers everything from your first `forge 
 
 ### Core Concepts
 
-- [Package Spec](SPEC.md) — `forge.toml` fields per type
+- [Package Specification](PACKAGE_SPEC.md) — canonical packaging standard, types, and quality tiers
+- [Package Spec (forge.toml)](SPEC.md) — `forge.toml` fields per type
 - [Architecture](ARCHITECTURE.md) — components, security, perf
 - [Registry](REGISTRY.md) — index schema, publish, fork
 - [Adapters](ADAPTERS.md) — add a harness in one file
@@ -22,7 +23,7 @@ Welcome to the Forge docs. This portal covers everything from your first `forge 
 - **Single developer:** `forge add` → `forge list` → `forge update`
 - **Team:** `forge.toml` → `forge install` → `forge sync`
 - **CI/CD:** `forge install --frozen` → `forge audit`
-- **Package author:** `forge init` → `forge test` → `forge pack` → `forge publish`
+- **Package author:** `forge create` → `forge validate` → `forge pack` → `forge publish`
 
 ### Reference
 

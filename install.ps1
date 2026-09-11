@@ -1,6 +1,6 @@
-﻿# Forge installer (Windows) - irm https://raw.githubusercontent.com/oomerevren-beep/forge/main/install.ps1 | iex
+# Forge installer (Windows) - irm https://raw.githubusercontent.com/oomerevren-beep/forge/main/install.ps1 | iex
 $Repo = "oomerevren-beep/forge"
-$Version = if ($env:FORGE_VERSION) { $env:FORGE_VERSION } else { "0.1.1" }
+$Version = if ($env:FORGE_VERSION) { $env:FORGE_VERSION } else { "0.2.0" }
 Write-Host "[forge] installer - $Repo@$Version"
 
 function Show-PathHelp($cmd) {
@@ -12,7 +12,7 @@ function Show-PathHelp($cmd) {
 
 if (Get-Command npm -ErrorAction SilentlyContinue) {
   Write-Host "[forge] installing via npm..."
-  npm i -g tryforge
+  npm i -g @oomerevren/tryforge
   if ($LASTEXITCODE -ne 0) {
     Write-Host "[forge] npm install failed (see error above). Fix npm first, then rerun this script."
     exit 1
@@ -53,7 +53,7 @@ try {
   Write-Host "[forge] binary fallback failed: $($_.Exception.Message)"
   Write-Host "[forge] do this instead:"
   Write-Host "[forge]   1. Install Node.js 18+ from https://nodejs.org (npm comes with it)"
-  Write-Host "[forge]   2. Restart PowerShell, then run: npm i -g tryforge"
+  Write-Host "[forge]   2. Restart PowerShell, then run: npm i -g @oomerevren/tryforge"
   Write-Host "[forge]   3. Verify with: forge doctor"
   exit 1
 }

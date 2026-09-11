@@ -77,21 +77,37 @@ export const claudeAdapter: Adapter = {
 - **Fallback:** Copy (no Windows symlink privilege)
 - **Project level:** also copy into project folders like `.opencode/skills/` (when detected)
 
-## Doctor Command
+## Doctor Command & Diagnostics (Phase P1)
 
-`forge doctor` checks per adapter:
+`forge doctor` provides comprehensive diagnostics across your system, environment, and adapters:
 
-- Is the harness installed?
-- Which version?
-- Which packages are installed?
-- Any broken packages? (missing SKILL.md, invalid mcp.json)
+- **Node.js runtime**: Verifies version (>= 18.0.0 required)
+- **Host OS & Arch**: Verifies environment support
+- **Configuration**: Validates `~/.forge/config.toml` and project `forge.toml`
+- **Lockfile integrity**: Validates `forge.lock` pinned hashes
+- **Writable directories**: Checks permissions for `~/.forge`, packages, and cache
+- **Adapter health**: Detects all harnesses (Claude Code, Cursor, Windsurf, OpenCode, Codex, DSH, Generic), checks package counts and validates MCP configurations
+- **Registry**: Tests accessibility and index parsing
+- **Broken links**: Detects missing directories or MCP entries with optional `--fix`
+- **Machine-readable JSON**: Pass `--json` for automation and CI/CD integration
 
-```
+```bash
 $ forge doctor
-✓ claude-code  1.2.3  (~/.claude) — 12 packages
-✓ opencode     0.8.1  (./opencode.json) — 8 packages
-✗ cursor       not found
-✓ codex        0.3.0  (~/.codex) — 3 packages
+[forge] doctor — System & Harness Diagnostics
+
+  ✓ Node.js runtime          Node.js v22.12.0 (>= 18.0.0 required)
+  ✓ Operating System         win32 (x64)
+  ✓ Global Configuration     Valid (~/.forge/config.toml)
+  ✓ Project Manifest         Valid forge.toml (3 dep(s))
+  ✓ Lockfile Integrity       forge.lock verified (3 package(s) pinned)
+  ✓ Writable Directories     ~/.forge, packages, cache, cwd all writable
+  ✓ Registry Accessibility   Accessible (250 packages available)
+  ✓ Adapters                 5/7 harness(es) detected
+
+Harnesses:
+  ✓ Claude Code      (3 package(s))
+  ✓ Cursor           (3 package(s))
+  ✓ Windsurf         (2 package(s))
 ```
 
 ## Adding a New Harness

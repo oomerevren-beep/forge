@@ -157,6 +157,10 @@ export function uninstallSkillFiles(pkgSlug: string, destBase: string): void {
 
 export async function listDirNames(dir: string): Promise<string[]> {
   if (!existsSync(dir)) return [];
-  const { readdirSync } = await import("fs");
-  return readdirSync(dir, { withFileTypes: true }).filter((d) => d.isDirectory() || d.isSymbolicLink()).map((d) => d.name);
+  try {
+    const { readdirSync } = await import("fs");
+    return readdirSync(dir, { withFileTypes: true }).filter((d) => d.isDirectory() || d.isSymbolicLink()).map((d) => d.name);
+  } catch {
+    return [];
+  }
 }

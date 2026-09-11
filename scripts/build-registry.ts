@@ -55,6 +55,22 @@ function loadAll(): { slug: string; detail: PackageDetail }[] {
   return out;
 }
 
+function resolveHarnesses(detail: PackageDetail, latestMeta?: Record<string, unknown>): string[] | undefined {
+  const detailRecord = detail as Record<string, unknown>;
+  const compat = (detailRecord.compatibility ?? latestMeta?.compatibility) as { harnesses?: string[] } | undefined;
+  if (compat?.harnesses && Array.isArray(compat.harnesses) && compat.harnesses.length > 0) {
+    return compat.harnesses;
+  }
+  if (Array.isArray(detailRecord.harnesses) && (detailRecord.harnesses as string[]).length > 0) {
+    return detailRecord.harnesses as string[];
+  }
+  const engines = (latestMeta?.engines ?? detailRecord.engines) as Record<string, string> | undefined;
+  if (engines && typeof engines === "object" && Object.keys(engines).length > 0) {
+    return Object.keys(engines);
+  }
+  return undefined;
+}
+
 function build(): void {
   const all = loadAll();
   // sort by name for deterministic output
@@ -80,9 +96,14 @@ function build(): void {
     for (const v of Object.values(detail.versions) as Array<{ sha256?: string }>) {
       if (v.sha256?.startsWith("placeholder")) placeholderCount++;
     }
-    const latestMeta = detail.versions[detail.latest] as { publishedAt?: string; verified?: boolean };
+    const latestMeta = detail.versions[detail.latest] as { publishedAt?: string; verified?: boolean; tier?: string; compatibility?: { harnesses?: string[] }; engines?: Record<string, string> } | undefined;
     const latestVerified = latestMeta?.verified === true;
     if (latestVerified) verifiedCount++;
+    const detailRecord = detail as Record<string, unknown>;
+    const tier = detailRecord.tier ?? latestMeta?.tier ?? (latestVerified ? "verified" : "community");
+    const author = detailRecord.author as string | undefined;
+    const harnesses = resolveHarnesses(detail, latestMeta as Record<string, unknown>);
+
     packages[detail.name] = {
       name: detail.name,
       type: detail.type,
@@ -92,6 +113,9 @@ function build(): void {
       ...(detail.keywords ? { keywords: detail.keywords } : {}),
       updatedAt: latestMeta?.publishedAt ?? now,
       verified: latestVerified,
+      ...(tier ? { tier: tier as string } : {}),
+      ...(author ? { author } : {}),
+      ...(harnesses ? { harnesses } : {}),
     };
   }
 
@@ -102,14 +126,24 @@ function build(): void {
   };
 
   // search.json — flat array for offline search
-  const search = all.map(({ detail }) => ({
-    name: detail.name,
-    type: detail.type,
-    description: detail.description,
-    keywords: detail.keywords ?? [],
-    latest: detail.latest,
-    verified: detail.versions[detail.latest]?.verified === true,
-  }));
+  const search = all.map(({ detail }) => {
+    const detailRecord = detail as Record<string, unknown>;
+    const latestMeta = detail.versions[detail.latest] as { verified?: boolean; tier?: string; compatibility?: { harnesses?: string[] }; engines?: Record<string, string> } | undefined;
+    const tier = detailRecord.tier ?? latestMeta?.tier ?? (latestMeta?.verified === true ? "verified" : "community");
+    const author = detailRecord.author as string | undefined;
+    const harnesses = resolveHarnesses(detail, latestMeta as Record<string, unknown>);
+    return {
+      name: detail.name,
+      type: detail.type,
+      description: detail.description,
+      keywords: detail.keywords ?? [],
+      latest: detail.latest,
+      verified: detail.versions[detail.latest]?.verified === true,
+      tier,
+      ...(author ? { author } : {}),
+      ...(harnesses ? { harnesses } : {}),
+    };
+  });
 
   // stats.json
   const byType: Record<string, number> = {};

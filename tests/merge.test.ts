@@ -97,4 +97,22 @@ describe("forge merge — non-destructive blocks", () => {
     upsertForgeBlock(nested, "a/b", "1.0.0", "Body.\n");
     assert.ok(existsSync(nested));
   });
+
+  it("recognizes and replaces legacy FORGE:START markers without duplicating", () => {
+    const legacy = '<!-- FORGE:START id="legacy/tool" version="0.9.0" -->\nOld Instructions\n<!-- FORGE:END id="legacy/tool" -->\n';
+    writeFileSync(file, `# Header\n\n${legacy}`);
+    assert.ok(hasForgeBlock(file, "legacy/tool"));
+    assert.equal(readForgeBlock(file, "legacy/tool")?.trim(), "Old Instructions");
+
+    upsertForgeBlock(file, "legacy/tool", "1.0.0", "New Instructions\n");
+    const updated = readFileSync(file, "utf-8");
+    assert.ok(updated.includes("New Instructions"));
+    assert.ok(!updated.includes("Old Instructions"));
+    // Ensure only one start marker is present
+    const matches = updated.match(/<!-- FORGE:(?:MANAGED:)?START id="legacy\/tool"/g);
+    assert.equal(matches?.length, 1);
+
+    assert.equal(removeForgeBlock(file, "legacy/tool"), true);
+    assert.ok(!hasForgeBlock(file, "legacy/tool"));
+  });
 });

@@ -20,6 +20,9 @@ export interface RegistryPackageSummary {
   updatedAt?: string;
   /** Trust tier: true = latest tarball fetched + sha256 pinned (pre-Phase-6 verified core). */
   verified?: boolean;
+  tier?: "community" | "verified" | "trusted";
+  author?: string;
+  harnesses?: string[];
 }
 
 export interface PackageVersion {
@@ -28,9 +31,12 @@ export interface PackageVersion {
   sha256: string;
   /** True only when tarball URL returned HTTP 200 and sha256 matches content. */
   verified?: boolean;
+  tier?: "community" | "verified" | "trusted";
   /** Upstream pin for archive tarballs (e.g. git commit sha). */
   sourceRef?: string;
   engines?: Record<string, string>;
+  compatibility?: { harnesses?: string[]; forge?: string; os?: string[] };
+  permissions?: { allowed_paths?: string[]; denied_paths?: string[]; allow_network?: boolean; allow_env?: boolean; allow_shell?: boolean; allow_exec?: boolean };
   dependencies?: Record<string, string>;
   mcp?: { command: string; args?: string[]; env?: Record<string, string> };
   publishedAt?: string;
@@ -43,10 +49,32 @@ export interface PackageDetail {
   homepage?: string;
   repository?: string;
   author?: string;
+  tier?: "community" | "verified" | "trusted";
   keywords?: string[];
   source?: string;
   versions: Record<string, PackageVersion>;
   latest: string;
+  verified?: boolean;
+  harnesses?: string[];
+  permissions?: { allowed_paths?: string[]; denied_paths?: string[]; allow_network?: boolean; allow_env?: boolean; allow_shell?: boolean; allow_exec?: boolean };
+  compatibility?: { harnesses?: string[]; forge?: string; os?: string[] };
+  readme?: string;
+}
+
+declare const __dirname: string | undefined;
+
+function getModuleDir(): string {
+  try {
+    if (typeof __dirname !== "undefined") return __dirname;
+  } catch {
+    /* __dirname not available */
+  }
+  try {
+    if (typeof import.meta !== "undefined" && import.meta.dirname) return import.meta.dirname;
+  } catch {
+    /* import.meta not available */
+  }
+  return process.cwd();
 }
 
 function registryRoot(): string {
@@ -58,15 +86,18 @@ function registryRoot(): string {
     }
   } catch { /* config override is optional; fall back to bundled registry */ }
 
+  const baseDir = getModuleDir();
   const candidates = [
-    join(import.meta.dirname ?? "./", "../../../registry"),
-    join(import.meta.dirname ?? "./", "../../../../registry"),
+    join(baseDir, "../registry"),
+    join(baseDir, "../../registry"),
+    join(baseDir, "../../../registry"),
+    join(baseDir, "../../../../registry"),
     join(process.cwd(), "registry"),
   ];
   for (const c of candidates) {
     if (existsSync(join(c, "index.json"))) return c;
   }
-  return join(import.meta.dirname ?? "./", "../../../registry");
+  return candidates[0];
 }
 
 export async function loadIndex(): Promise<RegistryIndex> {
@@ -137,13 +168,50 @@ export function parsePackageArg(arg: string): { name: string; version?: string }
 // This file re-exports for backwards compatibility.
 export { parseSemver, compareSemver, satisfiesRange, maxSatisfying, isValidRange } from "./semver.js";
 
-export async function searchPackages(query: string, opts: { type?: string; limit?: number } = {}): Promise<RegistryPackageSummary[]> {
+export interface SearchPackagesOptions {
+  type?: string;
+  limit?: number;
+  harness?: string;
+  tier?: "community" | "verified" | "trusted" | string;
+  author?: string;
+}
+
+const KNOWN_HARNESSES = new Set([
+  "claude-code",
+  "cursor",
+  "codex",
+  "windsurf",
+  "opencode",
+  "dsh",
+  "generic",
+]);
+
+export async function searchPackages(query: string, opts: SearchPackagesOptions = {}): Promise<RegistryPackageSummary[]> {
   const index = await loadIndex();
   const tokens = query.toLowerCase().split(/\s+/).filter(Boolean);
   if (tokens.length === 0) return [];
   const scored: { p: RegistryPackageSummary; score: number }[] = [];
   for (const p of Object.values(index.packages)) {
-    if (opts.type && p.type !== opts.type) continue;
+    if (opts.type && p.type.toLowerCase() !== opts.type.toLowerCase()) continue;
+    if (opts.tier) {
+      const effectiveTier = (p.tier ?? (p.verified ? "verified" : "community")).toLowerCase();
+      if (effectiveTier !== opts.tier.toLowerCase()) continue;
+    }
+    if (opts.author) {
+      const authorQuery = opts.author.toLowerCase();
+      const matchesAuthor = (p.author ?? "").toLowerCase().includes(authorQuery) ||
+        p.name.toLowerCase().startsWith(authorQuery + "/");
+      if (!matchesAuthor) continue;
+    }
+    if (opts.harness) {
+      const targetHarness = opts.harness.toLowerCase();
+      const harnesses = p.harnesses ?? ["*"];
+      const matchesHarness = harnesses.some((h) =>
+        h === "*" ? KNOWN_HARNESSES.has(targetHarness) : h.toLowerCase() === targetHarness,
+      );
+      if (!matchesHarness) continue;
+    }
+
     const name = p.name.toLowerCase();
     const desc = (p.description ?? "").toLowerCase();
     const kw = (p.keywords ?? []).join(" ").toLowerCase();
@@ -160,7 +228,7 @@ export async function searchPackages(query: string, opts: { type?: string; limit
     }
     if (score > 0) {
       // Verified tarballs rank first on ties — first touch should install cleanly.
-      if (p.verified) score += 4;
+      if (p.verified || p.tier === "verified" || p.tier === "trusted") score += 4;
       scored.push({ p, score });
     }
   }

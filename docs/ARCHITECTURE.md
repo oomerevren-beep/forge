@@ -151,14 +151,22 @@ Each adapter copies/symlinks into the layout its harness expects.
 Like npm: `forge add A` also installs A's dependencies. Semver `^`, `~`, `*`
 supported. Simple DFS, highest version wins on conflict (v0.1).
 
+### 2.6 Diff & Drift Engine (Phase P1)
+
+- **Diff Engine (`cli/src/core/diff.ts`)**: Pure TypeScript Longest Common Subsequence (LCS) unified diff generator with ANSI color formatting. Powers `forge sync --diff` and collision inspection.
+- **Drift Protection (`cli/src/core/drift.ts`)**: Manages `.forge/sync-state.json` recording hashes of generated blocks and rule files. When a user modifies a Forge-managed file, Forge warns with a colored unified diff and backs up the user's modifications to `<file>.drift.bak` instead of silently overwriting.
+- **Actionable Diagnostics (`cli/src/core/errors.ts`)**: Structured educational error reporting that maps failure modes (hash mismatch, missing lockfile, network permission blocks) to concrete resolution commands (`forge update <pkg>`, `forge init`, `allow_network = true`).
+- **Machine-Readable Outputs**: `forge doctor --json`, `forge audit --json`, `forge list --json`, and `forge search <query> --json` provide pure JSON on stdout for CI/CD and external tooling integration.
+
 ## 3. Security
 
 - `forge.toml` pinned by sha256 (tarball hash)
-- `forge audit` -> flags known-vulnerable packages
-- `forge doctor` -> warns on suspicious files (executables, network calls)
+- `forge audit` -> flags known-vulnerable packages and permission violations
+- `forge doctor` -> full environment and harness diagnostic checklist
 - Publishing via GitHub OIDC (only the repo owner can publish)
 - `forge install --frozen` -> integrity barrier: yanked versions and hash
   drift refuse the install (see `docs/SPEC.md` §4)
+- Drift protection -> prevents destructive overwrite of user edits in context files
 
 ## 4. Performance
 

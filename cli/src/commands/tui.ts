@@ -1,4 +1,4 @@
-// cli/src/commands/tui.ts — Interactive TUI dashboard (Phase 4).
+// cli/src/commands/tui.ts — Interactive TUI Dashboard (FVP).
 
 import {
   intro,
@@ -9,12 +9,15 @@ import {
   spinner,
   isCancel,
   cancel,
+  log,
 } from "@clack/prompts";
 import colors from "picocolors";
 
 import { detectAdapters } from "../adapters/index.js";
 import { searchPackages } from "../core/registry.js";
 import { runSync } from "./sync.js";
+import { runInit } from "./init.js";
+import { runAudit } from "./audit.js";
 import { findProjectToml } from "../core/project.js";
 
 interface TuiItem {
@@ -90,7 +93,7 @@ async function promptSearch(): Promise<void> {
         process.exit(0);
       }
       if (picked.length > 0) {
-        outro(colors.cyan(`Selected: ${picked.join(", ")} - run 'forge add <pkg>' to install.`));
+        outro(colors.cyan(`Selected: ${picked.join(", ")} — run 'forge add <pkg>' to install.`));
       }
     } catch (e) {
       s.stop("Search failed");
@@ -100,13 +103,13 @@ async function promptSearch(): Promise<void> {
 }
 
 export async function runTui(): Promise<void> {
-  intro(colors.bold(colors.magenta("🔥 Forge - The Homebrew for AI Agents")));
+  intro(colors.bold(colors.magenta("🔥 Forge — Docker for AI Agent Context")));
 
   const harnesses = detectProjectHarnesses();
   if (harnesses.length > 0) {
     console.log(colors.dim(`  Detected: ${harnesses.join(", ")}`));
   } else {
-    console.log(colors.dim("  No editor detected - installing for all harnesses."));
+    console.log(colors.dim("  No editor detected — installing for all harnesses."));
   }
 
   const tomlPath = findProjectToml(process.cwd());
@@ -117,11 +120,13 @@ export async function runTui(): Promise<void> {
   const category = await select({
     message: "What would you like to do?",
     options: [
-      { value: "browse", label: "Browse & Install Packages", hint: "Skills, MCPs, agents" },
-      { value: "search", label: "Search Registry", hint: "Fuzzy search all packages" },
-      { value: "sync", label: "Sync Team Context", hint: "forge sync - all editors" },
-      { value: "init", label: "Create New Package", hint: "forge init <name>" },
-      { value: "audit", label: "Security Audit", hint: "Scan installed packages" },
+      { value: "browse", label: "🔥 Browse & Install Packages", hint: "Skills, MCPs, agents" },
+      { value: "search", label: "🔍 Search Registry", hint: "Fuzzy search all packages" },
+      { value: "sync", label: "🔄 Sync Team Context", hint: "forge sync — all editors" },
+      { value: "watch", label: "⚡ Watch Mode", hint: "forge sync --watch (hot reload)" },
+      { value: "init", label: "✨ Create New Package", hint: "forge init <name>" },
+      { value: "init-from", label: "📦 Import Existing Configs", hint: "forge init --from-existing" },
+      { value: "audit", label: "🛡️ Security Audit", hint: "Scan installed packages" },
     ],
   });
 
@@ -149,6 +154,12 @@ export async function runTui(): Promise<void> {
       break;
     }
 
+    case "watch": {
+      log.warn("Starting watch mode — press Ctrl+C to stop");
+      await runSync({ watch: true });
+      break;
+    }
+
     case "init": {
       const type = await select({
         message: "Package type?",
@@ -167,18 +178,40 @@ export async function runTui(): Promise<void> {
       break;
     }
 
-    case "audit":
-      outro(colors.cyan("Run: forge audit"));
+    case "init-from": {
+      const s = spinner();
+      s.start("Scanning existing configs...");
+      try {
+        await runInit({ fromExisting: true });
+        s.stop("Done");
+      } catch (e) {
+        s.stop("Failed");
+        outro(colors.red(`Error: ${(e as Error).message}`));
+      }
       break;
+    }
+
+    case "audit": {
+      const s = spinner();
+      s.start("Running security audit...");
+      try {
+        await runAudit({});
+        s.stop("Audit complete");
+      } catch (e) {
+        s.stop("Audit failed");
+        outro(colors.red(`Error: ${(e as Error).message}`));
+      }
+      break;
+    }
 
     case "browse":
     default: {
       const subCategory = await select({
         message: "Browse category",
         options: [
-          { value: "skills", label: "Popular Skills", hint: "Code review, planning, etc." },
-          { value: "mcp", label: "MCP Servers", hint: "Postgres, GitHub, Filesystem" },
-          { value: "roles", label: "Agent Role Templates", hint: "Pre-built team roles" },
+          { value: "skills", label: "🔥 Trending Skills", hint: "Code review, planning, etc." },
+          { value: "mcp", label: "🔌 Verified MCP Servers", hint: "Postgres, GitHub, Filesystem" },
+          { value: "roles", label: "🛡️ Security Rules", hint: "Pre-built team roles" },
         ],
       });
       if (isCancel(subCategory)) {

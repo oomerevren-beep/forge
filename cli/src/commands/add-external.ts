@@ -2,8 +2,7 @@
 //
 // Handles github:/git-URL/local-path packages: resolve → stage → security
 // gate → copy into the forge store → install to adapters → record links.
-// Fail-closed: HIGH scan findings refuse the install (exit 1) unless the
-// package comes from the verified registry path (which only warns).
+// Fail-closed: HIGH scan findings refuse the install (exit 1).
 
 import {
   resolveExternalSource,

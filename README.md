@@ -1,26 +1,25 @@
-# Forge — The Universal Package Manager for AI Agent Context, Skills & MCPs
+# Forge — Universal Package Manager for AI Agent Context, Skills & MCPs
 
-> **Stop manually copying `.cursorrules` and `mcp.json` across 5 different AI editors. One command to rule them all.**
+> **Stop manually copying `.cursorrules` and `mcp.json` across different AI editors. One command to rule them all.**
 
 <div align="center">
 
 [![CI](https://github.com/oomerevren-beep/forge/actions/workflows/ci.yml/badge.svg)](https://github.com/oomerevren-beep/forge/actions)
-[![npm version](https://img.shields.io/npm/v/tryforge?label=npm&color=CB3837)](https://www.npmjs.com/package/tryforge)
-[![npm downloads](https://img.shields.io/npm/dw/tryforge?label=downloads)](https://www.npmjs.com/package/tryforge)
+[![npm version](https://img.shields.io/npm/v/@oomerevren/tryforge?label=npm&color=CB3837)](https://www.npmjs.com/package/@oomerevren/tryforge)
 [![license MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
 [![registry](https://img.shields.io/badge/registry-21%20verified%20packages-green.svg)](registry/index.json)
-[![GitHub stars](https://img.shields.io/github/stars/oomerevren-beep/forge?style=social)](https://github.com/oomerevren-beep/forge)
+[![GitHub](https://img.shields.io/badge/github-oomerevren--beep%2Fforge-181717?logo=github)](https://github.com/oomerevren-beep/forge)
 
 <br>
 
 ```bash
-npx -y tryforge doctor
-forge add agent-security-auditor
+npx tryforge doctor
+forge add agent/security-auditor
 ```
 
 <br>
 
-<em>3-second wow: `forge add agent-security-auditor` writes rules to Cursor, Claude, Codex, Windsurf — simultaneously.</em>
+<em>Single command: <code>forge add agent/security-auditor</code> configures rules across Cursor, Claude Code, Codex, and Windsurf simultaneously.</em>
 
 </div>
 
@@ -28,31 +27,32 @@ forge add agent-security-auditor
 
 ## Why Forge?
 
-You're using Claude Code + Codex + OpenCode + Cursor. You want the same security rules, MCP servers, and skills everywhere. Today you:
+When you work across multiple AI tools (Claude Code, Codex, OpenCode, Cursor, Windsurf), you need identical security rules, MCP servers, and skills everywhere. Today developers usually:
 
-1. `git clone` a repo
-2. Copy `SKILL.md` to 4 different folders
-3. Manually paste the same rules into `.cursorrules`, `CLAUDE.md`, `.windsurfrules`
-4. Repeat for every new skill, every update
+1. `git clone` or bookmark a skill repository
+2. Manually copy `SKILL.md` into several different editor directories
+3. Copy-paste instructions into `.cursor/rules/`, `CLAUDE.md`, `.windsurfrules`, etc.
+4. Manually re-edit configuration files on every update or team member machine
 
-**Forge fixes it.** One command → every editor. Deterministic `forge.toml` → your whole team ships the same AI context.
+**Forge solves this.** One command installs context to every detected harness. A deterministic `forge.toml` ensures your entire team runs identical agent context.
 
 <div align="center">
 
-| | Manual Setup | Forge |
+| Feature | Manual Setup | Forge |
 |---|---|---|
-| Multi-editor support | ❌ Copy-paste × 4 | ✅ One command |
-| Version pinning | ❌ None | ✅ `forge.lock` + SHA-256 |
-| Security audit | ❌ Zero | ✅ AST scanner (HIGH = refuse) |
-| Team sync | ❌ Out of sync | ✅ `forge sync` |
-| Updates | ❌ Manual | ✅ `forge update` |
-| Zero-install | ❌ | ✅ `npx -y tryforge` |
+| Multi-editor support | ❌ Copy-paste across directories | ✅ One command to all harnesses |
+| Version pinning | ❌ Manual and error-prone | ✅ Deterministic `forge.lock` + SHA-256 |
+| Security pre-scan | ❌ None | ✅ Static security scanner (fail-closed on HIGH) |
+| Team sync | ❌ Context drifts over time | ✅ `forge sync` (`--frozen` for CI) |
+| Drift protection | ❌ Silent overwriting | ✅ Colored diff preview & automatic `.drift.bak` |
+| Updates | ❌ Manual file hunting | ✅ `forge update` |
+| Zero-install | ❌ | ✅ `npx tryforge` |
 
 </div>
 
 ---
 
-## Install
+## Installation
 
 ```bash
 # macOS / Linux
@@ -61,12 +61,13 @@ curl -fsSL https://raw.githubusercontent.com/oomerevren-beep/forge/main/install.
 # Windows PowerShell
 irm https://raw.githubusercontent.com/oomerevren-beep/forge/main/install.ps1 | iex
 
-# Or with Node 22+
-npm i -g tryforge
+# Or with Node 20+ via npm (provides both 'forge' and 'tryforge' commands)
+npm i -g @oomerevren/tryforge
 ```
 
 ```bash
-npx -y tryforge doctor   # zero-install — no global install needed
+# Zero-install check (no global install needed)
+npx tryforge doctor
 ```
 
 ---
@@ -75,32 +76,32 @@ npx -y tryforge doctor   # zero-install — no global install needed
 
 ```bash
 # 1. Initialize your project
-npx forge init
+npx tryforge init
 
-# 2. Add the packages you want
-forge add github:my-org/agent-security
+# 2. Add packages (from registry, GitHub, or local path)
 forge add pdf/merge
 forge add mcp/filesystem
+forge add github:oomerevren-beep/forge
 
-# 3. Sync every editor
-npx forge sync
+# 3. Sync across all harnesses in your workspace
+forge sync
 ```
 
-Done. Cursor, Claude Code, Codex, OpenCode, Windsurf, DSH — all share the same context.
+Done. Cursor, Claude Code, Codex, OpenCode, Windsurf, DSH, and Generic fallback now share the exact same context.
 
 ---
 
 ## Supported Harnesses
 
-| Harness | Status | Rule Format |
-|---------|:------:|-------------|
-| Claude Code | ✅ | `CLAUDE.md` merged blocks |
-| Cursor | ✅ | `.cursor/rules/*.mdc` |
-| OpenCode | ✅ | `AGENTS.md` shared blocks |
-| Codex | ✅ | `AGENTS.md` shared blocks |
-| Windsurf | ✅ | `.windsurfrules` merged |
-| DSH | ⚠️ | `AGENTS.md` (community) |
-| Generic | ✅ | `.forge/` fallback |
+| Harness | Status | Configuration Target |
+|---|:---:|---|
+| **Claude Code** | ✅ | `CLAUDE.md` (AST/comment-delimited managed blocks) |
+| **Cursor** | ✅ | `.cursor/rules/*.mdc` (frontmatter rule files) |
+| **OpenCode** | ✅ | `AGENTS.md` (shared block management) |
+| **Codex** | ✅ | `AGENTS.md` (shared block management) |
+| **Windsurf** | ✅ | `.windsurfrules` (managed blocks) |
+| **DSH** | ⚠️ | `AGENTS.md` (community harness) |
+| **Generic** | ✅ | `.forge/` fallback directory |
 
 ---
 
@@ -113,11 +114,12 @@ name = "my-app"
 version = "1.0.0"
 
 [dependencies]
-"agent-pr-reviewer" = "^1.2.0"
-"mcp-filesystem" = "^1.0.0"
+"agent/security-auditor" = "^1.0.0"
+"mcp/filesystem" = "^1.0.0"
+"pdf/merge" = "^1.0.0"
 
 [skills.team-rules]
-source = "github:my-org/team-skills"
+source = "github:oomerevren-beep/team-skills"
 ref = "main"
 
 [agents.developer]
@@ -134,41 +136,37 @@ allow_network = false
 ```
 
 ```bash
-# Everyone on the team runs:
+# In CI or onboarding a new teammate:
 git pull
-npx forge sync
-# That's it — identical AI context across every editor
+forge sync --frozen
 ```
 
 ---
 
-## Security
+## Security Model
 
 Forge is **fail-closed** by default:
 
-- **sha256 verification** — every package is hash-pinned; mismatch = exit 1
-- **Static scanner** — 19 rules (shell-danger, prompt-inject, perm-violation); HIGH blocks install
-- **`forge audit`** — flags mock/unverified installs (exit 1 on high-severity)
-- **`forge.toml` [permissions]** — denied paths enforced per-project
+- **Cryptographic verification:** Every registry package is SHA-256 hash-pinned in `forge.lock`; mismatches fail closed with exit code 1.
+- **Deterministic static security scanner:** 19+ static regex and heuristic rules inspect packages before install for shell hazards (`rm -rf /`, `curl | sh`, reverse shells, disk wipes), prompt injection delimiters, secret exfiltration, and project permission boundaries.
+- **Fail-closed policy:** Any `high`-severity finding refuses installation and sync immediately.
+- **Archive & traversal hardening:** Tar extraction enforces path checks against tar-slip (`../`) and escaping symlinks.
+- **Audit command:** Run `forge audit` to verify all installed workspace packages.
 
-```bash
-forge audit                    # scan installed packages
-forge test ./my-package        # pre-publish validation
-forge verify ./my-package      # full schema + security + adapter check
-```
+> For full architectural details, rule catalogs, and honest scanner limitations, see [docs/SECURITY.md](docs/SECURITY.md).
 
 ---
 
 ## Available Packages
 
-**21 verified packages** (sha256-pinned). Registry is git-native and forkable.
+**21 verified packages** are available in the default git-native registry (`registry/index.json`), all SHA-256 pinned:
 
 | Category | Examples |
-|----------|----------|
-| Skills | `cmd/plan`, `cmd/review`, `obra/superpowers` |
-| MCP Servers | `mcp/filesystem`, `mcp/github`, `mcp/postgres`, `mcp/memory`, `mcp/sequential-thinking` |
-| Agents | `agency/frontend`, `agency/backend` |
-| PDF Tools | `pdf/merge`, `pdf/split`, `pdf/forms`, `pdf/ocr`, `pdf/extract`, `pdf/compress`, `pdf/convert`, `pdf/tables` |
+|---|---|
+| **Skills** | `cmd/plan`, `cmd/review`, `obra/superpowers` |
+| **MCP Servers** | `mcp/filesystem`, `mcp/github`, `mcp/postgres`, `mcp/memory`, `mcp/sequential-thinking` |
+| **Agents** | `agency/frontend`, `agency/backend`, `agent/security-auditor` |
+| **PDF Tools** | `pdf/merge`, `pdf/split`, `pdf/forms`, `pdf/ocr`, `pdf/extract`, `pdf/compress`, `pdf/convert`, `pdf/tables` |
 
 ```bash
 forge search pdf
@@ -178,124 +176,44 @@ forge info mcp/github
 
 ---
 
-## Commands
+## CLI Commands
 
-| Command | What it does |
-|---------|-------------|
-| `forge add <pkg>` | Install to all harnesses (registry, GitHub, local) |
-| `forge remove <pkg>` | Uninstall from all harnesses |
-| `forge install` | Install all `[dependencies]` from `forge.toml` |
-| `forge install --frozen` | CI mode: exact from `forge.lock` |
-| `forge sync` | One-command team sync (skills + rules + MCP + roles) |
-| `forge init <name>` | Scaffold a new package |
-| `forge test <pkg>` | Validate against adapter matrix (dry-run) |
-| `forge pack` | Build verified tarball |
-| `forge verify <pkg>` | Schema + security + adapter check |
-| `forge audit` | Scan installed packages (fail-closed) |
-| `forge doctor` | Health check harnesses + store |
-| `forge search <query>` | Fuzzy search (<200ms, offline) |
-| `forge list` | List installed packages |
-| `forge outdated` | Show packages with newer versions |
-| `forge update` | Update all (or one) to latest |
-| `forge tui` | Interactive terminal dashboard |
-
----
-
-## Architecture
-
-```
-CLI (TypeScript)
-  ├─ registry client (index.json + semver)
-  ├─ store (~/.forge/ + links.json + cache)
-  ├─ adapters (1 file per harness — symlink or copy)
-  ├─ core (merge engine, security scanner, lock, sources)
-  └─ commands (add/remove/sync/audit/test/pack/verify/tui)
-```
-
-**v0.1 → v0.2 → v1.0:**
-- **v0.1** (now): 7 harnesses, 21 verified packages, full CLI
-- **v0.2**: `forge publish`, Rust rewrite for `cargo install`
-- **v1.0**: Team registry, `brew install forge`, `winget`
-
-See [docs/ROADMAP.md](docs/ROADMAP.md).
-
----
-
-## Add a Package
-
-```bash
-# 1. Create your package
-forge init my-skill --type skill --yes
-# Edit SKILL.md + forge.toml
-
-# 2. Verify it
-forge verify .
-
-# 3. Publish (v0.2: tarball + GitHub Release + registry PR)
-```
-
-Until `publish` lands, open a PR adding `registry/packages/<slug>.json` + run `npm run registry:build -- --check`.
-
----
-
-## Add a Harness
-
-One file: `cli/src/adapters/<name>.ts`. Implement the `Adapter` interface. Register in `adapters/index.ts`. Done.
-
-See [docs/ADAPTERS.md](docs/ADAPTERS.md).
+| Command | Description |
+|---|---|
+| `forge add <pkg>` | Install to all harnesses (registry, GitHub, or local path) |
+| `forge remove <pkg>` | Safely remove managed package blocks without touching user code |
+| `forge install` | Install all `[dependencies]` declared in `forge.toml` |
+| `forge install --frozen` | CI mode: strictly verify against `forge.lock` |
+| `forge sync` | Synchronize skills, rules, MCP servers, and agent roles |
+| `forge sync --dry-run` | Preview sync actions without writing to disk |
+| `forge sync --diff` | Display colored unified diff before modifying files |
+| `forge sync --frozen` | Strict team sync verifying lockfile integrity |
+| `forge init [name]` | Scaffold a new Forge project or package |
+| `forge test <pkg>` | Dry-run package installation against the harness matrix |
+| `forge pack` | Build a verified tarball from a package directory |
+| `forge verify <pkg>` | Verify package manifest, permissions, and security scan |
+| `forge audit [--json]` | Scan installed packages and report security findings |
+| `forge search <query> [--json]` | Fast search across registry index (<200ms, offline) |
+| `forge list [--json]` | List installed packages and active adapters |
+| `forge outdated` | Check for available package updates |
+| `forge update [pkg]` | Update dependencies to their latest compatible versions |
+| `forge doctor [--json]` | Diagnostic health check (Node, OS, config, lockfile, adapters) |
+| `forge tui` | Interactive terminal UI dashboard |
 
 ---
 
 ## Documentation
 
-- [Install Guide](docs/INSTALL.md)
-- [Package Spec](docs/SPEC.md) — `forge.toml` fields per type
-- [Architecture](docs/ARCHITECTURE.md) — components, security, perf
-- [Adapters](docs/ADAPTERS.md) — add a harness in one file
-- [Registry](docs/REGISTRY.md) — index schema, publish, fork
-- [Roadmap](docs/ROADMAP.md)
-- [Examples](examples/)
-
----
-
-## Badges
-
-Add `forge` to your project:
-
-```markdown
-[![Managed by Forge](https://img.shields.io/badge/Agent%20Context-Forge-6366f1?style=flat-square&logo=anthropic)](https://github.com/oomerevren-beep/forge)
-```
-
----
-
-## FAQ
-
-**Is this just for Claude Code?**
-No. 7 harnesses today, one file per new harness. The point is *universal*.
-
-**Does `install.sh` need `forge.sh` domain?**
-No. Works from GitHub raw today.
-
-**Are packages verified?**
-21 are sha256-pinned and pass the static scanner. The rest is tracked for Phase 13.
-
-**Windows support?**
-Full. Junction on dirs, file-by-file copy fallback for non-ASCII paths, PowerShell installer.
-
-**Private registry?**
-Yes. Fork this repo, keep `registry/` private, point `~/.forge/config.toml` to your own index.
+- [docs/INSTALL.md](docs/INSTALL.md) — Comprehensive installation instructions
+- [docs/SECURITY.md](docs/SECURITY.md) — Security model, scanner rules, limitations & disclosure policy
+- [docs/SPEC.md](docs/SPEC.md) — `forge.toml` specification and package manifest schema
+- [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) — System architecture, core engines, and merge strategy
+- [docs/ADAPTERS.md](docs/ADAPTERS.md) — Harness adapter development guide
+- [docs/REGISTRY.md](docs/REGISTRY.md) — Registry schema, verification, and self-hosting
+- [docs/ROADMAP.md](docs/ROADMAP.md) — Roadmap from v0.2 to v1.0
 
 ---
 
 ## License
 
 MIT — see [LICENSE](LICENSE).
-
----
-
-<div align="center">
-
-<strong>Star this repo to get notified at v1.0.</strong><br>
-<code>forge add</code> → 7 places at once. <code>forge sync</code> → team sync. Homebrew simple.
-
-</div>

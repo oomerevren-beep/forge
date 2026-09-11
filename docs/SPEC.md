@@ -61,8 +61,9 @@ access = "public" # public | private
 
 - `name` (required): `scope/name` format, scope = GitHub org/user. E.g. `anthropics/plan`, `mcp/filesystem`
 - `version` (required): semver `MAJOR.MINOR.PATCH`
-- `type` (required): `skill` | `mcp` | `plugin` | `agent` | `command` | `hook`
-- `description` (required): one-sentence description (for registry search)
+- `type` (required): `skill` | `agent` | `command` | `instruction` | `mcp` | `workflow` | `rule` | `prompt` | `config` (plus legacy `plugin` | `hook`)
+- `description` (required): one-sentence description between 10 and 300 characters
+- `tier` (optional): `community` | `verified` | `trusted` (see [PACKAGE_SPEC.md](PACKAGE_SPEC.md))
 - `license`, `homepage`, `repository`, `author`, `keywords` (optional but recommended)
 - `source` (optional): subfolder inside a monorepo (e.g. `skills/plan`)
 
@@ -135,8 +136,11 @@ allow_network = false
 ```
 
 `forge sync` distributes all of it to every detected editor in one run
-(skills + rule files + MCP configs + agent-roles block + `forge.lock`).
-`forge audit` enforces `[permissions].denied_paths` on package content.
+### Sync Flags and Drift Protection (Phase P1)
+
+- `forge sync --dry-run`: Previews actions and resolutions without touching the filesystem or modifying `forge.lock`.
+- `forge sync --diff`: Computes and outputs terminal-colored unified diffs for rule files, agent role blocks in `AGENTS.md`, MCP configs, and `forge.lock` before changes are made.
+- **Drift Protection**: If a Forge-managed file (e.g. `.cursor/rules/*.mdc`) or a marked block inside `AGENTS.md` / `CLAUDE.md` has been manually altered by the user, Forge detects the drift, displays a unified diff warning, and automatically creates a `.drift.bak` safety backup rather than silently overwriting user edits.
 
 ## 4. Lockfile — forge.lock (Phase 2)
 

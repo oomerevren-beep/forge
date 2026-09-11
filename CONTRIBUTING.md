@@ -48,7 +48,7 @@ See `docs/ADAPTERS.md`. In short:
 ## Scripts
 
 - `npm run build` — type-check + emit to `dist/` (used by `npm pack` and `bin`)
-- `npm test` — 35 tests (smoke + semver + init + adapters + installer-security)
+- `npm test` — full suite (adapters matrix, merge, lockfile, installer-security, sync/drift, doctor, ecosystem; `ℹ tests N` summary must show 0 fail)
 - `npm run dev -- <args>` — run CLI from source via `tsx`
 
 ## Ground rules

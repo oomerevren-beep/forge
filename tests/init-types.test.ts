@@ -33,4 +33,39 @@ describe("forge init — Phase 11 (6 types)", () => {
       }
     });
   }
+
+  it("init --from-existing imports configs and honors --force flag", async () => {
+    const dir = mkdtempSync(join(tmpdir(), "forge-init-existing-"));
+    try {
+      const { writeFileSync } = await import("fs");
+      writeFileSync(join(dir, ".cursorrules"), "# My Custom Skill\nDo something useful.\n");
+
+      // First run: creates forge.toml
+      await runInit({ fromExisting: true, cwd: dir });
+      assert.ok(existsSync(join(dir, "forge.toml")));
+
+      // Second run without force: process.exit(1)
+      let exited = false;
+      const origExit = process.exit;
+      process.exit = ((code?: number) => {
+        exited = true;
+        throw new Error(`exit:${code ?? 0}`);
+      }) as typeof process.exit;
+
+      try {
+        await runInit({ fromExisting: true, cwd: dir, force: false });
+      } catch (e) {
+        assert.ok((e as Error).message.startsWith("exit:"));
+      } finally {
+        process.exit = origExit;
+      }
+      assert.ok(exited, "should refuse to overwrite without force");
+
+      // Third run with force: succeeds without throwing
+      await runInit({ fromExisting: true, cwd: dir, force: true });
+      assert.ok(existsSync(join(dir, "forge.toml")));
+    } finally {
+      rmSync(dir, { recursive: true, force: true });
+    }
+  });
 });

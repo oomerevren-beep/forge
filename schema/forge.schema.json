@@ -11,12 +11,23 @@
       "properties": {
         "name": { "type": "string", "pattern": "^[a-z0-9-]+\\/[a-z0-9-]+$" },
         "version": { "type": "string", "pattern": "^\\d+\\.\\d+\\.\\d+" },
-        "type": { "enum": ["skill", "mcp", "plugin", "agent", "command", "hook"] },
-        "description": { "type": "string", "minLength": 10, "maxLength": 200 },
+        "type": { "enum": ["skill", "agent", "command", "instruction", "mcp", "workflow", "rule", "prompt", "config", "plugin", "hook"] },
+        "description": { "type": "string", "minLength": 10, "maxLength": 300 },
         "license": { "type": "string" },
+        "author": { "type": "string" },
+        "tier": { "enum": ["community", "verified", "trusted"] },
         "homepage": { "type": "string" },
         "repository": { "type": "string" },
+        "keywords": { "type": "array", "items": { "type": "string" } },
         "source": { "type": "string" }
+      }
+    },
+    "compatibility": {
+      "type": "object",
+      "properties": {
+        "harnesses": { "type": "array", "items": { "type": "string" } },
+        "forge": { "type": "string" },
+        "os": { "type": "array", "items": { "type": "string" } }
       }
     },
     "project": {
@@ -85,7 +96,10 @@
       "properties": {
         "allowed_paths": { "type": "array", "items": { "type": "string" } },
         "denied_paths": { "type": "array", "items": { "type": "string" } },
-        "allow_network": { "type": "boolean" }
+        "allow_network": { "type": "boolean" },
+        "allow_env": { "type": "boolean" },
+        "allow_shell": { "type": "boolean" },
+        "allow_exec": { "type": "boolean" }
       },
       "additionalProperties": false
     },

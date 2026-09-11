@@ -4,7 +4,7 @@ import assert from "node:assert/strict";
 import { mkdtempSync, mkdirSync, writeFileSync, rmSync } from "fs";
 import { tmpdir } from "os";
 import { join } from "path";
-import { parseSourceArg, resolveLocalSource } from "../cli/src/core/sources.js";
+import { parseSourceArg, resolveLocalSource, computeDirectoryHash } from "../cli/src/core/sources.js";
 
 describe("forge sources — decentralized resolution", () => {
   it("leaves versioned registry args to the registry path", () => {
@@ -102,6 +102,20 @@ describe("forge sources — decentralized resolution", () => {
 
     it("refuses missing dirs (fail-closed)", () => {
       assert.throws(() => resolveLocalSource(join(dir, "nope")), /not found/);
+    });
+
+    it("computeDirectoryHash is deterministic and distinguishes file changes", () => {
+      const src = join(dir, "hash-test");
+      mkdirSync(src, { recursive: true });
+      writeFileSync(join(src, "a.txt"), "hello\n");
+      writeFileSync(join(src, "b.txt"), "world\n");
+      const h1 = computeDirectoryHash(src);
+      const h2 = computeDirectoryHash(src);
+      assert.equal(h1, h2);
+
+      writeFileSync(join(src, "b.txt"), "world modified\n");
+      const h3 = computeDirectoryHash(src);
+      assert.notEqual(h1, h3);
     });
   });
 });

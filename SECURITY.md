@@ -4,6 +4,7 @@
 
 | Version | Supported |
 |---------|:---------:|
+| 0.2.x   | ✅        |
 | 0.1.x   | ✅        |
 | < 0.1   | ❌        |
 
@@ -26,7 +27,7 @@ What happens next:
 
 We do not currently publish a PGP key. If your report is sensitive, state that in the subject line (`[SENSITIVE] ...`) and we will arrange an encrypted channel for follow-up. Reports sent in plain email are still accepted and handled confidentially — they are never forwarded or quoted publicly.
 
-## Scope notes
-
 - `forge` installs fail-closed: a tarball whose `sha256` cannot be verified is not installed (see `forge audit`). For registry-related reports, include the package's `registry/packages/<slug>.json` entry plus the expected/actual hash.
 - Dependency scanning runs via Dependabot + `npm audit`; critical alerts are closed within 7 days.
+- For complete details on Forge's security architecture, static scanner rules, archive hardening, and scanner limitations, see [docs/SECURITY.md](docs/SECURITY.md).
+

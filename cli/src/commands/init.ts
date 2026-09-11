@@ -1,4 +1,9 @@
-import { existsSync, mkdirSync, writeFileSync } from "fs";
+// cli/src/commands/init.ts — Reverse Migration & Instant Onboarding (FVP).
+//
+// `forge init --from-existing` detects existing AI editor configs in a project
+// and reverse-engineers them into a canonical forge.toml.
+
+import { existsSync, readFileSync, writeFileSync, mkdirSync } from "fs";
 import { join, resolve, basename, sep } from "path";
 
 type PkgType = "skill" | "mcp" | "agent" | "command" | "hook" | "plugin";
@@ -10,7 +15,7 @@ const TEMPLATES: Record<PkgType, { forgeToml: (name: string) => string; extraFil
       return `[package]\nname = "${name}"\nversion = "0.1.0"\ntype = "skill"\ndescription = "A new Forge skill — describe what it does"\nlicense = "MIT"\n\n[engines]\nclaude-code = "*"\n\n[skill]\nname = "${short}"\ninvocation = "/${short}"\nallowed-tools = ["Read", "Write", "Bash"]\n`;
     },
     extraFiles: (name) => ({
-      "SKILL.md": `# ${name}\n\nA Forge skill. Replace this with your skill prompt.\n\n## Usage\n\nDescribe when Muse should use this skill.\n\n## Instructions\n\n- Step 1: ...\n- Step 2: ...\n`,
+      "SKILL.md": `# ${name}\n\nA Forge skill. Replace this with your skill prompt.\n\n## Usage\n\nDescribe when the agent should use this skill.\n\n## Instructions\n\n- Step 1: ...\n- Step 2: ...\n`,
     }),
   },
   mcp: {
@@ -52,8 +57,15 @@ const TEMPLATES: Record<PkgType, { forgeToml: (name: string) => string; extraFil
   },
 };
 
-export async function runInit(opts: { name?: string; type?: string; yes?: boolean; force?: boolean; cwd?: string }): Promise<void> {
+export async function runInit(opts: { name?: string; type?: string; yes?: boolean; force?: boolean; cwd?: string; fromExisting?: boolean }): Promise<void> {
   const cwd = resolve(opts.cwd ?? process.cwd());
+
+  // --- Reverse migration mode ---
+  if (opts.fromExisting) {
+    await runReverseMigration(cwd, !!opts.force);
+    return;
+  }
+
   const rawName = opts.name ?? basename(cwd);
   const pkgName = normalizeName(rawName);
   const type = (opts.type ?? "skill") as PkgType;
@@ -61,7 +73,6 @@ export async function runInit(opts: { name?: string; type?: string; yes?: boolea
     console.error(`[forge] unknown type "${type}" — choose: ${Object.keys(TEMPLATES).join(", ")}`);
     process.exit(1);
   }
-  // Epoch 1c: prevent path traversal — targetDir must be inside cwd
   const targetDir = opts.name ? resolve(cwd, opts.name) : cwd;
   const resolvedCwd = resolve(cwd);
   if (!targetDir.startsWith(resolvedCwd + sep) && targetDir !== resolvedCwd) {
@@ -83,7 +94,6 @@ export async function runInit(opts: { name?: string; type?: string; yes?: boolea
   const extras = tpl.extraFiles(pkgName);
   for (const [rel, content] of Object.entries(extras)) {
     const full = join(targetDir, rel);
-    // ensure parent
     mkdirSync(join(targetDir, ...rel.split("/").slice(0, -1)), { recursive: true });
     if (!existsSync(full) || opts.force) writeFileSync(full, content);
   }
@@ -91,18 +101,160 @@ export async function runInit(opts: { name?: string; type?: string; yes?: boolea
   const relDir = targetDir === cwd ? "." : (opts.name ?? rawName);
   console.log(`[forge] ✓ created ${relDir}/forge.toml [${type}]`);
   if (Object.keys(extras).length) console.log(`[forge]   + ${Object.keys(extras).join(", ")}`);
-  console.log(`[forge] next: edit forge.toml & SKILL.md, then 'forge publish' (Phase 8)`);
+  console.log(`[forge] next: edit forge.toml & SKILL.md, then 'forge publish' (v0.2)`);
+}
+
+async function runReverseMigration(cwd: string, force = false): Promise<void> {
+  console.log("[forge] scanning for existing AI editor configs...\n");
+
+  const found: ReverseResult = {
+    skills: [],
+    mcpServers: {},
+    rules: [],
+    dependencies: [],
+  };
+
+  // Detect .cursorrules
+  const cursorRules = join(cwd, ".cursorrules");
+  if (existsSync(cursorRules)) {
+    console.log(`  ✓ Found .cursorrules`);
+    const content = readFileSync(cursorRules, "utf-8");
+    found.skills.push(...extractSkillNames(content, "cursor"));
+    found.rules.push(".cursorrules");
+  }
+
+  // Detect .cursor/rules/*.mdc
+  const cursorRulesDir = join(cwd, ".cursor", "rules");
+  if (existsSync(cursorRulesDir)) {
+    const { readdirSync } = await import("fs");
+    const files = readdirSync(cursorRulesDir).filter((f) => f.endsWith(".mdc"));
+    if (files.length > 0) {
+      console.log(`  ✓ Found .cursor/rules/: ${files.length} rule(s)`);
+      for (const f of files) {
+        const content = readFileSync(join(cursorRulesDir, f), "utf-8");
+        found.skills.push(...extractSkillNames(content, "cursor"));
+      }
+      found.rules.push(".cursor/rules/");
+    }
+  }
+
+  // Detect CLAUDE.md
+  const claudeMd = join(cwd, "CLAUDE.md");
+  if (existsSync(claudeMd)) {
+    console.log(`  ✓ Found CLAUDE.md`);
+    const content = readFileSync(claudeMd, "utf-8");
+    found.skills.push(...extractSkillNames(content, "claude"));
+    found.rules.push("CLAUDE.md");
+  }
+
+  // Detect .windsurfrules
+  const windsurfRules = join(cwd, ".windsurfrules");
+  if (existsSync(windsurfRules)) {
+    console.log(`  ✓ Found .windsurfrules`);
+    const content = readFileSync(windsurfRules, "utf-8");
+    found.skills.push(...extractSkillNames(content, "windsurf"));
+    found.rules.push(".windsurfrules");
+  }
+
+  // Detect mcp.json (multiple locations)
+  const mcpLocations = [
+    join(cwd, "mcp.json"),
+    join(cwd, ".cursor", "mcp.json"),
+    join(cwd, ".claude", "mcp.json"),
+    join(cwd, ".codeium", "windsurf", "mcp_config.json"),
+  ];
+  for (const mcpPath of mcpLocations) {
+    if (existsSync(mcpPath)) {
+      console.log(`  ✓ Found ${mcpPath.replace(cwd, ".")}`);
+      try {
+        const content = readFileSync(mcpPath, "utf-8");
+        const data = JSON.parse(content);
+        const servers = data.mcpServers ?? data.mcp_servers ?? {};
+        for (const [name, def] of Object.entries(servers)) {
+          found.mcpServers[name] = def;
+        }
+      } catch {
+        console.log(`    (skipped: invalid JSON)`);
+      }
+    }
+  }
+
+  // Detect AGENTS.md
+  const agentsMd = join(cwd, "AGENTS.md");
+  if (existsSync(agentsMd)) {
+    console.log(`  ✓ Found AGENTS.md`);
+    const content = readFileSync(agentsMd, "utf-8");
+    found.skills.push(...extractSkillNames(content, "agents"));
+    found.rules.push("AGENTS.md");
+  }
+
+  // Summary
+  const skillCount = found.skills.length;
+  const mcpCount = Object.keys(found.mcpServers).length;
+
+  if (skillCount === 0 && mcpCount === 0) {
+    console.log("\n[forge] no existing configs found — run 'forge init' to create a new project");
+    return;
+  }
+
+  console.log(`\n[forge] found: ${skillCount} skill(s), ${mcpCount} MCP server(s), ${found.rules.length} config file(s)`);
+
+  // Generate forge.toml
+  const forgeTomlPath = join(cwd, "forge.toml");
+  if (existsSync(forgeTomlPath) && !force) {
+    console.log(`\n[forge] ${forgeTomlPath} already exists — use --force to overwrite`);
+    process.exit(1);
+  }
+
+  let toml = `[project]\nname = "${basename(cwd)}"\nversion = "0.1.0"\n\n`;
+
+  if (found.dependencies.length > 0) {
+    toml += `[dependencies]\n`;
+    for (const dep of found.dependencies) {
+      toml += `"${dep}" = "^1.0.0"\n`;
+    }
+    toml += "\n";
+  }
+
+  if (mcpCount > 0) {
+    toml += `[mcp.servers]\n`;
+    for (const [name, def] of Object.entries(found.mcpServers)) {
+      const d = def as Record<string, unknown>;
+      const cmd = JSON.stringify(d.command ?? "npx");
+      const args = JSON.stringify(d.args ?? []);
+      toml += `${name} = { command = ${cmd}, args = ${args} }\n`;
+    }
+    toml += "\n";
+  }
+
+  writeFileSync(forgeTomlPath, toml);
+  console.log(`[forge] ✓ created forge.toml with imported configs`);
+  console.log(`[forge] run 'forge sync' to manage them.`);
+}
+
+interface ReverseResult {
+  skills: string[];
+  mcpServers: Record<string, unknown>;
+  rules: string[];
+  dependencies: string[];
+}
+
+function extractSkillNames(content: string, source: string): string[] {
+  const names: string[] = [];
+  const lines = content.split("\n");
+  for (const line of lines) {
+    // Match markdown headings that look like skill names
+    const m = line.match(/^#+\s+(.+?)\s*$/);
+    if (m && !m[1].toLowerCase().includes("managed") && !m[1].toLowerCase().includes("instructions")) {
+      const name = m[1].replace(/[^a-zA-Z0-9\-_]/g, "-").toLowerCase();
+      if (name.length > 2 && name.length < 40) names.push(`${source}/${name}`);
+    }
+  }
+  return names;
 }
 
 function normalizeName(input: string): string {
-  // allow my-skill -> my-skill/my-skill ? We expect scope/name
-  // If input contains /, keep; otherwise treat as unscoped and prefix with local scope?
-  // For scaffold we use "local/<name>" if no slash? But spec expects scope/name — use "local/<name>" fallback?
-  // Simpler: if no slash, use "<name>/<name>" is weird. Use input as-is if it has /, else input (consumer scaffold may be folder name)
-  // Forge init in a project folder without scope — keep as input; for package scaffold we need scope/name.
-  // We'll produce scope/name: if input has /, use it; else `local/${input}`
   if (input.includes("/")) return input;
-  // If it's a simple name like my-skill, make it local/my-skill
   if (/^[a-z0-9-]+$/.test(input)) return `local/${input}`;
   return input;
 }

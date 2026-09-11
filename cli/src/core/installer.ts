@@ -208,14 +208,16 @@ async function downloadAndExtract(url: string, expectedSha256: string, dest: str
         if (sha256 !== expectedSha256) {
           throw new Error(`sha256 mismatch: expected ${expectedSha256}, got ${sha256}`);
         }
-        // Use Python tarfile for extraction (works reliably on Windows + Unix)
+        // Use Python tarfile for extraction with pure-Node fallback
         // Epoch 1e: filter='data' prevents tar-slip (../ path traversal) and symlink escapes
-        execFileSync("python", ["-c", `
-import tarfile, os, sys
-with tarfile.open(sys.argv[1], 'r:gz') as tf:
-    tf.extractall(sys.argv[2], filter='data')
-`, downloaded, dest], { stdio: "pipe" });
+        try {
+          extractTarArchive(downloaded, dest);
+        } catch {
+          const { extractTarGz } = await import("./tar.js");
+          extractTarGz(buf, dest);
+        }
         rmSync(downloaded, { force: true });
+        await assertNoSymlinks(dest);
         return;
       }
     } catch {
@@ -251,16 +253,17 @@ with tarfile.open(sys.argv[1], 'r:gz') as tf:
   const { writeFileSync: wfs } = await import("fs");
   wfs(tmpFile, buf);
 
-  // Extract via Python tarfile (works reliably on Windows + Unix)
+  // Extract via Python tarfile (with pure-Node extractTarGz fallback)
   // Epoch 1e: filter='data' prevents tar-slip (../ path traversal) and symlink escapes
   try {
-    execFileSync("python", ["-c", `
-import tarfile, os, sys
-with tarfile.open(sys.argv[1], 'r:gz') as tf:
-    tf.extractall(sys.argv[2], filter='data')
-`, tmpFile, dest], { stdio: "pipe" });
-  } catch (e) {
-    throw new Error(`tar extract failed: ${(e as Error).message}`, { cause: e });
+    extractTarArchive(tmpFile, dest);
+  } catch {
+    try {
+      const { extractTarGz } = await import("./tar.js");
+      extractTarGz(buf, dest);
+    } catch (err) {
+      throw new Error(`tar extract failed: ${(err as Error).message}`, { cause: err });
+    }
   } finally {
     try {
       const { unlinkSync } = await import("fs");
@@ -273,9 +276,46 @@ with tarfile.open(sys.argv[1], 'r:gz') as tf:
   await assertNoSymlinks(dest);
 }
 
+function getPythonCommand(): string {
+  if (process.env.PYTHON) return process.env.PYTHON;
+  const candidates = process.platform === "win32" ? ["python", "python3"] : ["python3", "python"];
+  for (const cmd of candidates) {
+    try {
+      execFileSync(cmd, ["--version"], { stdio: "ignore" });
+      return cmd;
+    } catch {
+      /* candidate not found — continue */
+    }
+  }
+  return "python";
+}
+
+/** Extract tar.gz archive safely using Python with tar-slip and symlink traversal guards. */
+export function extractTarArchive(tarPath: string, dest: string): void {
+  const py = getPythonCommand();
+  execFileSync(py, ["-c", `
+import tarfile, os, sys
+dest_dir = os.path.abspath(sys.argv[2])
+try:
+    with tarfile.open(sys.argv[1], 'r:gz') as tf:
+        tf.extractall(dest_dir, filter='data')
+except TypeError:
+    with tarfile.open(sys.argv[1], 'r:gz') as tf:
+        for member in tf.getmembers():
+            target_path = os.path.abspath(os.path.join(dest_dir, member.name))
+            if not target_path.startswith(dest_dir + os.sep) and target_path != dest_dir:
+                raise Exception(f"tar-slip attempt: {member.name}")
+            if member.issym() or member.islnk():
+                link_target = os.path.abspath(os.path.join(os.path.dirname(target_path), member.linkname))
+                if not link_target.startswith(dest_dir + os.sep) and link_target != dest_dir:
+                    raise Exception(f"symlink escape attempt: {member.name} -> {member.linkname}")
+            tf.extract(member, dest_dir)
+`, tarPath, dest], { stdio: "pipe" });
+}
+
 /** Walk dest; throw on any symlink entry OR path that escapes the dest root.
  *  Epoch 1e: symlinks that stay WITHIN the dest dir are safe (GitHub archives use them). */
-async function assertNoSymlinks(dest: string): Promise<void> {
+export async function assertNoSymlinks(dest: string): Promise<void> {
   const { readdirSync, lstatSync, realpathSync, readlinkSync } = await import("fs");
   const destReal = realpathSync(dest);
   const stack: string[] = [dest];

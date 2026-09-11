@@ -1,4 +1,4 @@
-import { existsSync, readFileSync } from "fs";
+import { existsSync, readFileSync, statSync } from "fs";
 import { join, resolve } from "path";
 import { parse } from "smol-toml";
 import { isValidRange } from "./semver.js";
@@ -24,12 +24,76 @@ export interface ProjectPermissions {
   allowed_paths?: string[];
   denied_paths?: string[];
   allow_network?: boolean;
+  allow_env?: boolean;
+  allow_shell?: boolean;
+  allow_exec?: boolean;
+}
+
+export const PACKAGE_TYPES = [
+  "skill",
+  "agent",
+  "command",
+  "instruction",
+  "mcp",
+  "workflow",
+  "rule",
+  "prompt",
+  "config",
+  "plugin",
+  "hook",
+] as const;
+
+export type PackageType = (typeof PACKAGE_TYPES)[number];
+
+export const QUALITY_TIERS = ["community", "verified", "trusted"] as const;
+export type QualityTier = (typeof QUALITY_TIERS)[number];
+
+export interface CompatibilityDeclaration {
+  harnesses?: string[];
+  forge?: string;
+  os?: string[];
+}
+
+export interface PackageManifestPackage {
+  name: string;
+  version: string;
+  type: PackageType;
+  description: string;
+  license?: string;
+  author?: string;
+  tier?: QualityTier;
+  homepage?: string;
+  repository?: string;
+  keywords?: string[];
+  source?: string;
+}
+
+export interface PackageManifest {
+  package: PackageManifestPackage;
+  compatibility?: CompatibilityDeclaration;
+  permissions?: ProjectPermissions;
+  engines?: Record<string, string>;
+  dependencies?: Record<string, string>;
+  files?: { include?: string[]; exclude?: string[] };
+  mcp?: { command: string; args?: string[]; env?: Record<string, string> };
+  skill?: { name?: string; invocation?: string; "allowed-tools"?: string[] };
+  agent?: { model?: string; system_prompt?: string; tools?: string[] };
+  rule?: { severity?: string; targets?: string[] };
+  workflow?: Record<string, unknown>;
+  command?: { name?: string; invocation?: string };
+  instruction?: Record<string, unknown>;
+  prompt?: Record<string, unknown>;
+  config?: Record<string, unknown>;
+  plugin?: { entry?: string; hooks?: string[] };
+  hook?: { event?: string; entry?: string };
 }
 
 export interface ProjectToml {
   project?: { name?: string; version?: string; description?: string };
   dependencies: Record<string, string>;
+  engines?: Record<string, string>;
   forge?: { harnesses?: string[] };
+  compatibility?: CompatibilityDeclaration;
   /** Shared agent roles: [agents.developer] = { model, system_prompt }. */
   agents?: Record<string, AgentRole>;
   /** Team skills: [skills] name = "^1.0" or { version, source, ref }. */
@@ -45,7 +109,17 @@ export interface ProjectToml {
 export const DEP_NAME_RE = /^[a-z0-9-]+\/[a-z0-9-]+$/;
 
 export function findProjectToml(cwd: string): string | null {
-  const candidate = join(resolve(cwd), "forge.toml");
+  const resolved = resolve(cwd);
+  if (existsSync(resolved)) {
+    try {
+      if (statSync(resolved).isFile()) {
+        if (resolved.endsWith("forge.toml") || resolved.endsWith(".toml")) return resolved;
+      }
+    } catch {
+      /* ignore */
+    }
+  }
+  const candidate = join(resolved, "forge.toml");
   if (existsSync(candidate)) return candidate;
   return null;
 }
@@ -190,17 +264,44 @@ export function loadProjectToml(path: string): ProjectToml {
         throw new Error(`${path}: [permissions].${key} must be string[]`);
       }
     }
-    if (p.allow_network !== undefined && typeof p.allow_network !== "boolean") {
-      throw new Error(`${path}: [permissions].allow_network must be a boolean`);
+    for (const key of ["allow_network", "allow_env", "allow_shell", "allow_exec"] as const) {
+      if (p[key] !== undefined && typeof p[key] !== "boolean") {
+        throw new Error(`${path}: [permissions].${key} must be a boolean`);
+      }
     }
     permissions = {
       ...(Array.isArray(p.allowed_paths) ? { allowed_paths: p.allowed_paths as string[] } : {}),
       ...(Array.isArray(p.denied_paths) ? { denied_paths: p.denied_paths as string[] } : {}),
       ...(typeof p.allow_network === "boolean" ? { allow_network: p.allow_network } : {}),
+      ...(typeof p.allow_env === "boolean" ? { allow_env: p.allow_env } : {}),
+      ...(typeof p.allow_shell === "boolean" ? { allow_shell: p.allow_shell } : {}),
+      ...(typeof p.allow_exec === "boolean" ? { allow_exec: p.allow_exec } : {}),
     };
   }
 
-  return { project, dependencies, forge, agents, skills, mcp, permissions, package: parsed.package as Record<string, unknown> | undefined };
+  const compatibility = parsed.compatibility as CompatibilityDeclaration | undefined;
+  const engines = parsed.engines as Record<string, string> | undefined;
+
+  return { project, dependencies, engines, forge, compatibility, agents, skills, mcp, permissions, package: parsed.package as Record<string, unknown> | undefined };
+}
+
+export function loadPackageToml(path: string): PackageManifest {
+  let raw: string;
+  try {
+    raw = readFileSync(path, "utf-8");
+  } catch (e) {
+    throw new Error(`Cannot read ${path}: ${(e as Error).message}`, { cause: e });
+  }
+  let parsed: Record<string, unknown>;
+  try {
+    parsed = parse(raw) as Record<string, unknown>;
+  } catch (e) {
+    throw new Error(`${path}: invalid TOML — ${(e as Error).message}`, { cause: e });
+  }
+  if (!parsed.package || typeof parsed.package !== "object" || Array.isArray(parsed.package)) {
+    throw new Error(`${path}: missing required [package] table in package manifest`);
+  }
+  return parsed as unknown as PackageManifest;
 }
 
 export function validateProjectToml(p: ProjectToml): string[] {

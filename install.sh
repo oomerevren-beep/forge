@@ -3,7 +3,7 @@
 # or: FORGE_VERSION=0.1.1 sh install.sh
 set -e
 REPO="oomerevren-beep/forge"
-VERSION="${FORGE_VERSION:-0.1.1}"
+VERSION="${FORGE_VERSION:-0.2.0}"
 
 echo "[forge] installer — $REPO@$VERSION"
 
@@ -17,7 +17,7 @@ print_path_help() {
 
 if command -v npm >/dev/null 2>&1; then
   echo "[forge] installing via npm..."
-  if npm i -g tryforge; then
+  if npm i -g @oomerevren/tryforge; then
     if command -v forge >/dev/null 2>&1; then
       echo "[forge] ✓ installed via npm — run 'forge doctor' to verify (also available as 'tryforge')"
       exit 0

@@ -1,7 +1,7 @@
 {
   "name": "@oomerevren/tryforge",
-  "version": "0.1.2",
-  "description": "The Homebrew for AI Agents — one CLI for skills, MCPs, plugins, agents",
+  "version": "0.2.0",
+  "description": "Forge — Universal package manager for AI agent context (skills, MCPs, rules, agents).",
   "license": "MIT",
   "author": "Ömer Evren",
   "homepage": "https://github.com/oomerevren-beep/forge#quick-start",
@@ -13,17 +13,17 @@
     "url": "https://github.com/oomerevren-beep/forge/issues"
   },
   "keywords": [
-    "package-manager",
-    "homebrew",
-    "ai-agents",
-    "claude-code",
+    "forge",
+    "agent-context",
     "mcp",
     "skills",
+    "ai-agents",
+    "claude-code",
     "cursor",
     "opencode",
     "codex",
-    "cli",
-    "developer-tools"
+    "windsurf",
+    "docker-for-context"
   ],
   "type": "module",
   "bin": {
@@ -46,7 +46,7 @@
   "scripts": {
     "dev": "tsx cli/src/index.ts",
     "build": "tsc -p tsconfig.build.json",
-    "bundle": "esbuild cli/src/index.ts --bundle --platform=node --format=cjs --outfile=dist/index.cjs --banner:js=\"#!/usr/bin/env node\" --minify && node -e \"const fs=require('fs');const p='dist/index.cjs';const L=fs.readFileSync(p,'utf8').split('\\n');if(L[1]&&L[1].startsWith('#!'))L.splice(1,1);fs.writeFileSync(p,L.join('\\n'));fs.chmodSync(p, 0o755)\"",
+    "bundle": "esbuild cli/src/index.ts --bundle --platform=node --format=cjs --main-fields=module,main --outfile=dist/index.cjs --minify && node -e \"try{require('fs').chmodSync('dist/index.cjs',0o755)}catch{}\"",
     "lint": "eslint cli/ scripts/ tests/ eslint.config.js --max-warnings 0",
     "typecheck": "tsc --noEmit",
     "prepublishOnly": "npm run build && npm run bundle && npm test && npm run registry:build -- --check",
@@ -56,7 +56,9 @@
   },
   "dependencies": {
     "@clack/prompts": "^0.11.0",
+    "chokidar": "^4.0.3",
     "commander": "^12.0.0",
+    "jsonc-parser": "^3.3.1",
     "picocolors": "^1.1.1",
     "smol-toml": "^1.8.0"
   },
@@ -66,8 +68,12 @@
     "esbuild": "^0.28.2",
     "eslint": "^10.9.1",
     "playwright": "^1.62.1",
+    "remark": "^15.0.1",
+    "remark-parse": "^11.0.0",
     "tsx": "^4.23.13",
     "typescript": "^6.0.3",
-    "typescript-eslint": "^8.69.0"
+    "typescript-eslint": "^8.69.0",
+    "unified": "^11.0.5",
+    "unist-util-visit": "^5.1.0"
   }
 }

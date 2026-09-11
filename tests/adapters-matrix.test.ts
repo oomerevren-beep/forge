@@ -111,8 +111,8 @@ describe("forge adapters — Phase 2 rule files (non-destructive)", () => {
     assert.ok(raw.startsWith("---\n"));
     assert.ok(raw.includes("description: Cursor test skill"));
     assert.ok(raw.includes("alwaysApply: false"));
-    assert.ok(raw.includes('<!-- FORGE:START id="cur" version="1.0.0" -->'));
-    assert.ok(raw.includes('<!-- FORGE:END id="cur" -->'));
+    assert.ok(raw.includes('<!-- FORGE:MANAGED:START id="cur" version="1.0.0" -->'));
+    assert.ok(raw.includes('<!-- FORGE:MANAGED:END id="cur" -->'));
     assert.ok(await cursorAdapter.isInstalled("cur"));
     await cursorAdapter.uninstall("cur", "skill");
     assert.ok(!(await cursorAdapter.isInstalled("cur")));
@@ -125,14 +125,14 @@ describe("forge adapters — Phase 2 rule files (non-destructive)", () => {
     await claudeAdapter.install("cc", src, "skill", { version: "1.0.0", description: "Claude test skill" });
     const raw = readFileSync(join(dir, "CLAUDE.md"), "utf-8");
     assert.ok(raw.includes("# Team conventions") && raw.includes("tabs, not spaces"));
-    assert.ok(raw.includes('<!-- FORGE:START id="cc" version="1.0.0" -->'));
+    assert.ok(raw.includes('<!-- FORGE:MANAGED:START id="cc" version="1.0.0" -->'));
     // reinstall bumps only the block
     await claudeAdapter.install("cc", src, "skill", { version: "2.0.0", description: "Claude test skill" });
     const raw2 = readFileSync(join(dir, "CLAUDE.md"), "utf-8");
     assert.ok(raw2.includes("tabs, not spaces") && raw2.includes('version="2.0.0"'));
     await claudeAdapter.uninstall("cc", "skill");
     const raw3 = readFileSync(join(dir, "CLAUDE.md"), "utf-8");
-    assert.ok(raw3.includes("tabs, not spaces") && !raw3.includes("FORGE:START"));
+    assert.ok(raw3.includes("tabs, not spaces") && !raw3.includes("FORGE:MANAGED"));
   });
 
   it("windsurf merges .windsurfrules non-destructively", async () => {
@@ -144,7 +144,7 @@ describe("forge adapters — Phase 2 rule files (non-destructive)", () => {
     assert.ok(raw.includes("short answers") && raw.includes('id="ws"'));
     await windsurfAdapter.uninstall("ws", "agent");
     const raw2 = readFileSync(join(dir, ".windsurfrules"), "utf-8");
-    assert.ok(raw2.includes("short answers") && !raw2.includes("FORGE:START"));
+    assert.ok(raw2.includes("short answers") && !raw2.includes("FORGE:MANAGED"));
   });
 
   it("opencode/codex/dsh share AGENTS.md blocks without clobbering each other", async () => {

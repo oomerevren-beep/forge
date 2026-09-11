@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-03T19:12:58.146Z",
+  "generatedAt": "2026-09-04T13:51:25.598Z",
   "count": 21,
   "packages": {
     "agent/changelog-writer": {
@@ -16,7 +16,11 @@
         "release"
       ],
       "updatedAt": "2026-09-03T11:17:11.953Z",
-      "verified": true
+      "verified": true,
+      "tier": "verified",
+      "harnesses": [
+        "*"
+      ]
     },
     "agent/debugger": {
       "name": "agent/debugger",
@@ -32,7 +36,11 @@
         "triage"
       ],
       "updatedAt": "2026-09-03T11:17:11.954Z",
-      "verified": true
+      "verified": true,
+      "tier": "verified",
+      "harnesses": [
+        "*"
+      ]
     },
     "agent/pr-reviewer": {
       "name": "agent/pr-reviewer",
@@ -48,7 +56,11 @@
         "pr"
       ],
       "updatedAt": "2026-09-03T11:17:11.952Z",
-      "verified": true
+      "verified": true,
+      "tier": "verified",
+      "harnesses": [
+        "*"
+      ]
     },
     "agent/researcher": {
       "name": "agent/researcher",
@@ -64,7 +76,11 @@
         "web"
       ],
       "updatedAt": "2026-09-03T11:17:11.958Z",
-      "verified": true
+      "verified": true,
+      "tier": "verified",
+      "harnesses": [
+        "*"
+      ]
     },
     "agent/security-auditor": {
       "name": "agent/security-auditor",
@@ -80,7 +96,11 @@
         "audit"
       ],
       "updatedAt": "2026-09-03T11:17:11.955Z",
-      "verified": true
+      "verified": true,
+      "tier": "verified",
+      "harnesses": [
+        "*"
+      ]
     },
     "cmd/plan": {
       "name": "cmd/plan",
@@ -95,7 +115,11 @@
         "plan"
       ],
       "updatedAt": "2026-09-02T09:44:15.234Z",
-      "verified": true
+      "verified": true,
+      "tier": "verified",
+      "harnesses": [
+        "*"
+      ]
     },
     "cmd/review": {
       "name": "cmd/review",
@@ -110,7 +134,11 @@
         "review"
       ],
       "updatedAt": "2026-09-02T09:44:15.235Z",
-      "verified": true
+      "verified": true,
+      "tier": "verified",
+      "harnesses": [
+        "*"
+      ]
     },
     "mcp/filesystem": {
       "name": "mcp/filesystem",
@@ -125,7 +153,11 @@
         "filesystem"
       ],
       "updatedAt": "2026-08-31T20:25:55.419Z",
-      "verified": true
+      "verified": true,
+      "tier": "verified",
+      "harnesses": [
+        "*"
+      ]
     },
     "mcp/github": {
       "name": "mcp/github",
@@ -140,7 +172,11 @@
         "github"
       ],
       "updatedAt": "2025-04-08T10:08:59.978Z",
-      "verified": true
+      "verified": true,
+      "tier": "verified",
+      "harnesses": [
+        "*"
+      ]
     },
     "mcp/memory": {
       "name": "mcp/memory",
@@ -155,7 +191,11 @@
         "memory"
       ],
       "updatedAt": "2026-08-31T20:23:48.078Z",
-      "verified": true
+      "verified": true,
+      "tier": "verified",
+      "harnesses": [
+        "*"
+      ]
     },
     "mcp/postgres": {
       "name": "mcp/postgres",
@@ -171,7 +211,11 @@
         "sql"
       ],
       "updatedAt": "2024-12-04T16:14:51.820Z",
-      "verified": true
+      "verified": true,
+      "tier": "verified",
+      "harnesses": [
+        "*"
+      ]
     },
     "mcp/sequential-thinking": {
       "name": "mcp/sequential-thinking",
@@ -186,7 +230,11 @@
         "reasoning"
       ],
       "updatedAt": "2026-08-31T20:23:44.857Z",
-      "verified": true
+      "verified": true,
+      "tier": "verified",
+      "harnesses": [
+        "*"
+      ]
     },
     "obra/superpowers": {
       "name": "obra/superpowers",
@@ -202,7 +250,13 @@
         "brainstorming"
       ],
       "updatedAt": "2026-08-29T12:00:00Z",
-      "verified": true
+      "verified": true,
+      "tier": "verified",
+      "harnesses": [
+        "claude-code",
+        "opencode",
+        "codex"
+      ]
     },
     "pdf/compress": {
       "name": "pdf/compress",
@@ -218,7 +272,11 @@
         "optimize"
       ],
       "updatedAt": "2026-09-03T11:17:11.948Z",
-      "verified": true
+      "verified": true,
+      "tier": "verified",
+      "harnesses": [
+        "*"
+      ]
     },
     "pdf/convert": {
       "name": "pdf/convert",
@@ -234,7 +292,11 @@
         "export"
       ],
       "updatedAt": "2026-09-03T11:17:11.951Z",
-      "verified": true
+      "verified": true,
+      "tier": "verified",
+      "harnesses": [
+        "*"
+      ]
     },
     "pdf/extract": {
       "name": "pdf/extract",
@@ -250,7 +312,11 @@
         "parse"
       ],
       "updatedAt": "2026-09-03T11:17:11.949Z",
-      "verified": true
+      "verified": true,
+      "tier": "verified",
+      "harnesses": [
+        "*"
+      ]
     },
     "pdf/forms": {
       "name": "pdf/forms",
@@ -266,7 +332,11 @@
         "acroform"
       ],
       "updatedAt": "2026-09-03T11:17:11.949Z",
-      "verified": true
+      "verified": true,
+      "tier": "verified",
+      "harnesses": [
+        "*"
+      ]
     },
     "pdf/merge": {
       "name": "pdf/merge",
@@ -282,7 +352,11 @@
         "document"
       ],
       "updatedAt": "2026-09-03T11:17:11.945Z",
-      "verified": true
+      "verified": true,
+      "tier": "verified",
+      "harnesses": [
+        "*"
+      ]
     },
     "pdf/ocr": {
       "name": "pdf/ocr",
@@ -298,7 +372,11 @@
         "scan"
       ],
       "updatedAt": "2026-09-03T11:17:11.947Z",
-      "verified": true
+      "verified": true,
+      "tier": "verified",
+      "harnesses": [
+        "*"
+      ]
     },
     "pdf/split": {
       "name": "pdf/split",
@@ -314,7 +392,11 @@
         "pages"
       ],
       "updatedAt": "2026-09-03T11:17:11.946Z",
-      "verified": true
+      "verified": true,
+      "tier": "verified",
+      "harnesses": [
+        "*"
+      ]
     },
     "pdf/tables": {
       "name": "pdf/tables",
@@ -330,7 +412,11 @@
         "csv"
       ],
       "updatedAt": "2026-09-03T11:17:11.952Z",
-      "verified": true
+      "verified": true,
+      "tier": "verified",
+      "harnesses": [
+        "*"
+      ]
     }
   }
 }

@@ -36,15 +36,15 @@ function paths(): ScopePaths {
   };
 }
 
-function ruleFile(scope: string, pkgSlug: string): string {
+export function ruleFile(scope: string, pkgSlug: string): string {
   return join(scope, "rules", `${pkgSlug}.mdc`);
 }
 
-function ruleContent(pkgSlug: string, srcDir: string, meta?: PackageMeta): string {
+export function ruleContent(pkgSlug: string, srcDir: string, meta?: PackageMeta): string {
   const description = meta?.description ?? `${pkgSlug} (installed via Forge)`;
   const version = meta?.version ?? "0.0.0";
   const body = instructionBody(srcDir, `${pkgSlug}@${version} — ${description}`);
-  return `---\ndescription: ${description}\nglobs:\nalwaysApply: false\n---\n<!-- FORGE:START id="${pkgSlug}" version="${version}" -->\n${body}<!-- FORGE:END id="${pkgSlug}" -->\n`;
+  return `---\ndescription: ${description}\nglobs:\nalwaysApply: false\n---\n<!-- FORGE:MANAGED:START id="${pkgSlug}" version="${version}" -->\n${body}<!-- FORGE:MANAGED:END id="${pkgSlug}" -->\n`;
 }
 
 export const cursorAdapter: Adapter = {
