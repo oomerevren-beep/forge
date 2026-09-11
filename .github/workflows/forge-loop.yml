@@ -1,0 +1,75 @@
+# forge-loop — autonomous research + health loop (every 6h, free tier).
+#
+# What it does: runs the full gate (lint, typecheck, build, test,
+# registry:build --check), a dependency audit and a registry drift check.
+# All green  -> uploads a loop report artifact, files nothing (no spam).
+# Any red    -> opens a GitHub issue with the failing logs for triage.
+#
+# What it does NOT do: push commits, merge PRs, publish to npm, or call any
+# LLM API. Escalation to auto-fix stays a human decision on purpose
+# (fail-closed autonomy: observe + report first, act only when asked).
+name: forge-loop
+
+on:
+  schedule:
+    - cron: "0 */6 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  research:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "npm"
+
+      - run: npm ci
+
+      - name: Gate — lint
+        id: lint
+        run: npm run lint 2>&1 | tee loop-lint.log
+
+      - name: Gate — typecheck
+        id: typecheck
+        run: npm run typecheck 2>&1 | tee loop-typecheck.log
+
+      - name: Gate — build
+        id: build
+        run: npm run build 2>&1 | tee loop-build.log
+
+      - name: Gate — test
+        id: test
+        run: npm test 2>&1 | tee loop-test.log
+
+      - name: Gate — registry in sync
+        id: registry
+        run: npm run registry:build -- --check 2>&1 | tee loop-registry.log
+
+      - name: Research — dependency audit (informational, never fails)
+        run: npm audit --omit=dev 2>&1 | tee loop-audit.log || true
+
+      - name: Research — registry snapshot
+        run: node -e "const s=require('./registry/stats.json');console.log(JSON.stringify({total:s.totalPackages,verified:s.verifiedCount,byType:s.byType}))" | tee loop-snapshot.log
+
+      - name: Loop report artifact (always)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: forge-loop-report
+          path: loop-*.log
+          retention-days: 30
+
+      - name: File issue on red gate
+        if: failure()
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          BODY="Autonomous loop found a RED gate on $(date -u +%Y-%m-%dT%H:%MZ). Logs: forge-loop-report artifact in this run."
+          gh issue create --title "forge-loop: red gate $(date -u +%Y-%m-%d)" --body "$BODY" --label "automation"

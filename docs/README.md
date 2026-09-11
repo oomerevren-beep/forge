@@ -25,6 +25,13 @@ Welcome to the Forge docs. This portal covers everything from your first `forge 
 - **CI/CD:** `forge install --frozen` → `forge audit`
 - **Package author:** `forge create` → `forge validate` → `forge pack` → `forge publish`
 
+### Automation
+
+- [forge-loop](../.github/workflows/forge-loop.yml) — autonomous health loop, every 6h:
+  lint + typecheck + build + test + registry check + npm audit. Green runs upload
+  a report artifact and file nothing; red gates open an issue with the logs.
+  Observe-and-report by design — no auto-push, auto-merge or npm publish.
+
 ### Reference
 
 - [Roadmap](ROADMAP.md) — v0.1 → v1.0
