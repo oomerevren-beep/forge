@@ -71,7 +71,7 @@
     "remark": "^15.0.1",
     "remark-parse": "^11.0.0",
     "tsx": "^4.23.13",
-    "typescript": "^6.0.3",
+    "typescript": "^7.0.2",
     "typescript-eslint": "^8.69.0",
     "unified": "^11.0.5",
     "unist-util-visit": "^5.1.0"
