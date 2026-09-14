@@ -64,7 +64,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
-    "@types/node": "^26.4.1",
+    "@types/node": "^26.5.1",
     "esbuild": "^0.28.2",
     "eslint": "^10.9.1",
     "playwright": "^1.62.1",
